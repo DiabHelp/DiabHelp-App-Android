@@ -69,8 +69,8 @@ public class RegisterActivity extends Activity implements IApiCallTask {
     public void onRegisterClick(View v)
     {
         ConnexionState connect = new ConnexionState(this);
-        String login = ((EditText)findViewById(R.id.pseudo_input)).getText().toString();
-        String pwd = ((EditText)findViewById(R.id.password_input)).getText().toString();
+        String login = ((EditText)findViewById(R.id.login_input)).getText().toString();
+        String pwd = ((EditText)findViewById(R.id.pwd_input)).getText().toString();
         bdd = new DAO(this);
         ArrayList<Integer> fieldNames = new ArrayList<>();
 
@@ -88,7 +88,7 @@ public class RegisterActivity extends Activity implements IApiCallTask {
             bdd.close();
             if (connect.get_status())
             {
-                new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "sendID").execute("2", "register", "login", login, "password", pwd);
+                new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "sendID").execute("3", "register", "email", "login", login, "password", pwd);
             }
             else {
                 MyToast.getInstance().displayCustomWarningMessage("Vous n'etes pas connécté à internet, Réessayez plus tard.", R.layout.toast_layout, R.id.toast_layout_root, Toast.LENGTH_LONG, this);
