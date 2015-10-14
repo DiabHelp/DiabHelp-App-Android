@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import fr.diabhelp.diabhelp.Chore.ChoreActivity;
+import fr.diabhelp.diabhelp.Core.ChoreActivity;
 
 /**
  * Created by naqued on 28/09/15.
