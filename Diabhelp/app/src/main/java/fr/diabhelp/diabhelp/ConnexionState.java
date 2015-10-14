@@ -1,4 +1,4 @@
-package com.example.diabhelp.diabhelp;
+package fr.diabhelp.diabhelp;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -13,7 +13,7 @@ public class ConnexionState {
     Context _context;
     Boolean _connected = false;
 
-    ConnexionState(Context co)
+    public ConnexionState(Context co)
     {
         _context = co;
         _cm = (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
