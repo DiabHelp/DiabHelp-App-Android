@@ -41,7 +41,7 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
                 public void onClick(View v) {
                     AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
                     alertDialog.setTitle("Confirmation");
-                    alertDialog.setMessage("Please confirm the module download");
+                    alertDialog.setMessage("Êtes-vous sûr de vouloir être redirigé vers le playstore ?");
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
