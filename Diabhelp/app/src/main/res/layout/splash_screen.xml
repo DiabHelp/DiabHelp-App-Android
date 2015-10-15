@@ -10,8 +10,4 @@
         android:src="@drawable/diab_logo_max"
         android:layout_gravity="center"/>
 
-    <TextView android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Wait in Peace"/>
-
 </LinearLayout>

@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import fr.diabhelp.diabhelp.R;
 
 
-public class ChoreActivity extends AppCompatActivity {
+public class CoreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
