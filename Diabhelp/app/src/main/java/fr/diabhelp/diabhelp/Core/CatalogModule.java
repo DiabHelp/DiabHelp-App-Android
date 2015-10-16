@@ -8,12 +8,12 @@ import android.graphics.drawable.Drawable;
  */
 public class CatalogModule {
     private String      _name;
-//    private String      _size;
     private String      _version;
     private String      _rating;
     private String      _desc;
     private String      _URL;
     private Drawable    _logo;
+    //    private String      _size;
 
     public String getDesc() { return _desc; }
 

@@ -92,7 +92,7 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
         holder.version.setText(_modulesList.get(pos).getVersion());
         holder.rating.setRating(Integer.valueOf(_modulesList.get(pos).getRating()));
         holder.desc.setText(_modulesList.get(pos).getDesc());
-        holder.logo.setImageDrawable(_modulesList.get(pos).getLogo());
+        holder.logo.setImageResource(R.drawable.diab_logo);
         holder.url = _modulesList.get(pos).getURL();
         //holder.size.setText("Taille : " + _modulesList.get(pos).getSize());
     }
