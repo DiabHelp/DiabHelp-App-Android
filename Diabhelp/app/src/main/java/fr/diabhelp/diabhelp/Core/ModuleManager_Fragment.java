@@ -106,7 +106,7 @@ public class ModuleManager_Fragment extends Fragment {
         int nbDApp = count_dApp(packs);
         for(int i=0;i<packs.size();i++) {
             PackageInfo p = packs.get(i);
-            if ((p.packageName.contains("google") && !p.packageName.contains("diabhelp.diabhelp"))) {
+            if ((p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))) {
                 String appname = p.applicationInfo.loadLabel(getActivity().getPackageManager()).toString();
                 String pname = p.packageName;
                 String versionName = p.versionName;
