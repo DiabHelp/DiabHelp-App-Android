@@ -13,19 +13,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import fr.diabhelp.diabhelp.ApiCallTask;
+import fr.diabhelp.diabhelp.IApiCallTask;
+import fr.diabhelp.diabhelp.JsonUtils;
 import fr.diabhelp.diabhelp.R;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Catalogue_Fragment extends Fragment {
-    private RecyclerView                recyclerView;
-    private RecyclerView.Adapter        recAdapter;
-    private RecyclerView.LayoutManager  recLayoutManager;
+public class Catalogue_Fragment extends Fragment implements IApiCallTask {
+    private RecyclerView                _recyclerView;
+    private RecyclerView.Adapter        _recAdapter;
+    private RecyclerView.LayoutManager  _recLayoutManager;
+    private ArrayList<CatalogModule>    _modulesList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getModulesList").execute("0", "modules");
     }
 
     @Override
@@ -48,21 +56,51 @@ public class Catalogue_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.catalogue_fragment, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
-        recyclerView.setLayoutManager(recLayoutManager);
-        recAdapter = new CatalogRecyclerAdapter(getModulesList());
-        recyclerView.setAdapter(recAdapter);
+        _recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
+        _recyclerView.setHasFixedSize(true);
+        _recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+        _recyclerView.setLayoutManager(_recLayoutManager);
+        _recAdapter = new CatalogRecyclerAdapter(_modulesList);
+        _recyclerView.setAdapter(_recAdapter);
         return v;
     }
 
-    private ArrayList<CatalogModule> getModulesList() {
-        ArrayList modulesList = new ArrayList<>();
-        modulesList.add(new CatalogModule("Le glucocompteur est un module qui permet de connaitre facilement les apports glucidiques d'un repas", getActivity().getResources().getDrawable(R.drawable.diab_logo), "Glucocompteur", "3", "2mb", "v1.0"));
-        modulesList.add(new CatalogModule("Le glucocompteur est un module qui permet de connaitre facilement les apports glucidiques d'un repas", getActivity().getResources().getDrawable(R.drawable.diab_logo), "Glucocompteur", "4", "2mb", "v1.0"));
-        modulesList.add(new CatalogModule("Le glucocompteur est un module qui permet de connaitre facilement les apports glucidiques d'un repas", getActivity().getResources().getDrawable(R.drawable.diab_logo), "Glucocompteur", "5", "2mb", "v1.0"));
-        return modulesList;
+    private void getModulesList(String data) {
+        JSONArray array = JsonUtils.get_array(data);
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject obj;
+            CatalogModule module = new CatalogModule();
+            if ((obj = JsonUtils.getObjfromArray(array, i)) != null)
+            {
+                String name;
+                if ((name = JsonUtils.getStringfromKey(obj, "name")) != null)
+                    module.setName(name);
+                String desc;
+                if ((desc= JsonUtils.getStringfromKey(obj, "describ")) != null)
+                    module.setDesc(desc);
+                String rating;
+                if ((rating = JsonUtils.getStringfromKey(obj, "note")) != null)
+                    module.setRating(rating);
+                String url;
+                if ((url = JsonUtils.getStringfromKey(obj, "url")) != null)
+                    module.setURL(url);
+                String version;
+                if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
+                    if (version.equals("null"))
+                        module.setVersion("v0.1");
+                    else
+                        module.setVersion(version);
+                }
+                _modulesList.add(module);
+            }
+        }
+    }
+
+    @Override
+    public void onBackgroundTaskCompleted(String s, int type, String action) throws JSONException {
+        if (action.compareTo("getModulesList") == 0) {
+            getModulesList(s);
+        }
+        _recAdapter.notifyDataSetChanged();
     }
 }
-
