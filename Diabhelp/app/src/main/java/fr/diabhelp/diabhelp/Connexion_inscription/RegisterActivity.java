@@ -92,8 +92,8 @@ public class RegisterActivity extends Activity implements IApiCallTask {
                 new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "sendID").execute("3", "register", "email", "login", login, "password", pwd);
             }
             else {
-                //MyToast.getinstance().displayCustomWarningMessage("Vous n'etes pas connécté à internet, Réessayez plus tard.", R.layout.toast_layout, R.id.toast_layout_root, Toast.LENGTH_LONG, this);
-                Toast.makeText(getApplicationContext(), "Vous n'etes pas connécté à internet, Réessayez plus tard.", Toast.LENGTH_SHORT).show();
+                //MyToast.getinstance().displayCustomWarningMessage("Vous n'etes pas connï¿½ctï¿½ ï¿½ internet, Rï¿½essayez plus tard.", R.layout.toast_layout, R.id.toast_layout_root, Toast.LENGTH_LONG, this);
+                Toast.makeText(getApplicationContext(), "Vous n'etes pas connecte a internet, Reessayez plus tard.", Toast.LENGTH_SHORT).show();
             }
         }
         else
@@ -119,7 +119,7 @@ public class RegisterActivity extends Activity implements IApiCallTask {
         else {
             new AlertDialog.Builder(this)
                     .setTitle("Enregistrement")
-                    .setMessage("Vous avez bien été enregistré ".concat("\n" + "Vous pouvez dès maintenant vous connécter sur votre application ou sur notre site internet www.diabhelp.fr"))
+                    .setMessage("Vous avez bien ete enregistre ".concat("\n" + "Vous pouvez des maintenant vous connecter sur votre application ou sur notre site internet www.diabhelp.fr"))
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {

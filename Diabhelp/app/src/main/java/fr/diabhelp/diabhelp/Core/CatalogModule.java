@@ -13,7 +13,10 @@ public class CatalogModule {
     private String      _desc;
     private String      _URL;
     private Drawable    _logo;
-    //    private String      _size;
+    private String      _size;
+
+    public CatalogModule(String _desc, Drawable _logo, String _name, String _rating, String _size, String _version) {}
+    public CatalogModule() {}
 
     public String getDesc() { return _desc; }
 
@@ -53,10 +56,10 @@ public class CatalogModule {
 
     public void setURL(String _URL) { this._URL = _URL; }
 
-    /*
+
     public String getSize() { return _size; }
 
     public void setSize(String _size) { this._size = _size; }
-    */
+
 
 }
