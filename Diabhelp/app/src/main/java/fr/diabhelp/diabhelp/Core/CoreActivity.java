@@ -23,6 +23,7 @@ public class CoreActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Accueil"));
         tabLayout.addTab(tabLayout.newTab().setText("Catalogue"));
+        tabLayout.addTab(tabLayout.newTab().setText("Modules"));
         tabLayout.addTab(tabLayout.newTab().setText("Paramètre"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
