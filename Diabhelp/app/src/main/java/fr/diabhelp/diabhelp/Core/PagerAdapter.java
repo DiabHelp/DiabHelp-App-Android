@@ -26,8 +26,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 Catalogue_Fragment tab2 = new Catalogue_Fragment();
                 return tab2;
             case 2:
-                Parametre_Fragment tab3 = new Parametre_Fragment();
+                ModuleManager_Fragment tab3 = new ModuleManager_Fragment();
                 return tab3;
+            case 3:
+                Parametre_Fragment tab4 = new Parametre_Fragment();
+                return tab4;
             default:
                 return null;
         }
