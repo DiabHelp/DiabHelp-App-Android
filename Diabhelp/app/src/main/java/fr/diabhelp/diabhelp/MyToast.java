@@ -19,7 +19,7 @@ public class MyToast {
 
     private MyToast(){}
 
-    public static MyToast getinstance()
+    public static MyToast getInstance()
     {
         if (instance == null)
         {

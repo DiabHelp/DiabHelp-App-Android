@@ -27,7 +27,7 @@ public class ConnexionState {
         _connected = (_net != null) ? _net.isConnected() : false;
     }
 
-    public Boolean get_status() {return (_connected);}
+    public Boolean getStatus() {return (_connected);}
 
 
 }

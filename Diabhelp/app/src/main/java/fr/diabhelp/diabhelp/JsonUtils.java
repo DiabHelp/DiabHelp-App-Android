@@ -10,6 +10,7 @@ import org.json.JSONTokener;
  */
 public class JsonUtils {
     static public JSONObject get_obj(String serializable){
+        System.out.println("retour du serveur = " + serializable);
         try {
             return (JSONObject) new JSONTokener(serializable).nextValue();
 

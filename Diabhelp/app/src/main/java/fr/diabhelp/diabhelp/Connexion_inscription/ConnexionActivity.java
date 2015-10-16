@@ -16,11 +16,13 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
+
 import fr.diabhelp.diabhelp.ApiCallTask;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.BDD.User;
-import fr.diabhelp.diabhelp.Core.CoreActivity;
 import fr.diabhelp.diabhelp.ConnexionState;
+import fr.diabhelp.diabhelp.Core.CoreActivity;
 import fr.diabhelp.diabhelp.IApiCallTask;
 import fr.diabhelp.diabhelp.JsonUtils;
 import fr.diabhelp.diabhelp.MyToast;
@@ -50,6 +52,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         //recupere les préférences dans le fichier donné en param
         _settings = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
         if (_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
+            System.out.println("connexion automatique");
             connectAutomaticaly();
         }
 }
@@ -85,11 +88,22 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-/*        if (id == R.id.action_settings) {
-            return true;
-        }*/
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    boolean isCorrectFields(ArrayList<Integer> fieldsNames)
+    {
+        for (int i = 0; i < fieldsNames.size();i++)
+        {
+            if ((((EditText)findViewById(fieldsNames.get(i))).getText().toString().isEmpty())) {
+                return false;
+            }
+        }
+        return (true);
     }
 
     public void connectByInput(View view)
@@ -100,15 +114,24 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         _login_input = ((EditText) findViewById(R.id.login_input)).getText().toString();
         _pwd_input = ((EditText) findViewById(R.id.pwd_input)).getText().toString();
 
-        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        if (connected_to_network = connexion.get_status()) {
-            System.out.println("test avec connexion");
+        ArrayList<Integer> fieldNames = new ArrayList<>();
+        fieldNames.add(R.id.login_input);
+        fieldNames.add(R.id.pwd_input);
+        Boolean correctFields = isCorrectFields(fieldNames);
 
-            tryConnectWithNetwork();
+        if (!correctFields) {
+            MyToast.getInstance().displayWarningMessage("Veuillez remplir tous les champs", Toast.LENGTH_LONG, this);
         }
         else {
-            System.out.println("test sans connexion");
-            tryConnectWithoutNetwork();
+            findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
+            if (connected_to_network = connexion.getStatus()) {
+                System.out.println("test avec connexion");
+
+                tryConnectWithNetwork();
+            } else {
+                System.out.println("test sans connexion");
+                tryConnectWithoutNetwork();
+            }
         }
     }
     public void connectAutomaticaly()
@@ -116,7 +139,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         Boolean connected_to_network = false;
         ConnexionState connexion = new ConnexionState(getApplicationContext());
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        if (connected_to_network = connexion.get_status()) {
+        if (connected_to_network = connexion.getStatus()) {
             tryConnectWithNetwork();
         }
         else {
@@ -132,7 +155,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         if (_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             if ((user = bdd.SelectUser()) == null){
-                MyToast.getinstance().displayWarningMessage("Une erreur est survenue, veuillez vous connectez manuellement", Toast.LENGTH_LONG, this);
+                MyToast.getInstance().displayWarningMessage("Une erreur est survenue, veuillez vous connectez manuellement", Toast.LENGTH_LONG, this);
                 //on desactive la connexion automatique pour lui permettre de se connecter manuellement
                 disableAutomaticConnexion();
                 bdd.close();
@@ -146,13 +169,13 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         else {
             if ((user = bdd.SelectUser()) == null){
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                MyToast.getinstance().displayWarningMessage("La connexion hors ligne necessite une première connexion en ligne pour pouvoir être active", Toast.LENGTH_LONG, this);
+                MyToast.getInstance().displayWarningMessage("La connexion hors ligne necessite une première connexion en ligne pour pouvoir être active", Toast.LENGTH_LONG, this);
                 bdd.close();
             }
             else{
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 if (!_login_input.equals(user.getUser()) || !_pwd_input.equals(user.getPwd())) {
-                    MyToast.getinstance().displayWarningMessage("Mauvais nom de compte/mot de passe", Toast.LENGTH_LONG, this);
+                    MyToast.getInstance().displayWarningMessage("Mauvais nom de compte/mot de passe", Toast.LENGTH_LONG, this);
                     bdd.close();
                 }
                 else {
@@ -179,15 +202,16 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         User user = null;
         //si connexion automatique
         if (_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
-            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
             if ((user = bdd.SelectUser()) == null){
-                MyToast.getinstance().displayWarningMessage("Une erreur est survenue, veuillez vous connectez manuellement", Toast.LENGTH_LONG, this);
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                MyToast.getInstance().displayWarningMessage("Une erreur est survenue, veuillez vous connectez manuellement", Toast.LENGTH_LONG, this);
                 //on desactive la connexion automatique pour lui permettre de se connecter manuellement
                 disableAutomaticConnexion();
                 bdd.close();
             }
             //on essaye de se connecter avec les Ids stockés dans la base sqlLITE
             else {
+                System.out.println("Ids de l'user = " + user.getUser() + " " + user.getPwd());
                 bdd.close();
                 new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getSession").execute("2", "connect", "login", user.getUser(), "password", user.getPwd());
             }
@@ -211,13 +235,12 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         if (datas.equals("io exception") || datas.equals("DB_ERROR"))
         {
             findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-            MyToast.getinstance().displayWarningMessage("Impossible de se connecter au serveur, veuillez verifier sur le site l'état du serveur", Toast.LENGTH_LONG, this);
-            finish();
+            MyToast.getInstance().displayWarningMessage("Impossible de se connecter au serveur, veuillez verifier sur le site l'état du serveur", Toast.LENGTH_LONG, this);
         }
-        else if (datas.equals("WRONG_IDS")){
+        else if ("WRONG_IDS".equals(datas)){
             System.out.println("WRONGS IDS connexion");
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                MyToast.getinstance().displayWarningMessage("Mauvais login/mot de passe", Toast.LENGTH_LONG, this);
+                MyToast.getInstance().displayWarningMessage("Mauvais login/mot de passe", Toast.LENGTH_LONG, this);
             }
         //si il n'y a pas d'erreurs
         else {
@@ -260,5 +283,11 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         coreInt.putExtra(SESSION, _session);
         startActivity(coreInt);
         finish();
+    }
+
+    public void signUp(View view)
+    {
+        Intent signUpInt = new Intent(ConnexionActivity.this, RegisterActivity.class);
+        startActivity(signUpInt);
     }
 }

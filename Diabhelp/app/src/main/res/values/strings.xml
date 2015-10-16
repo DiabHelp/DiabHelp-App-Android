@@ -7,6 +7,6 @@
     <string name="pwd_input">mot de passe</string>
     <string name="email_input">adresse e-mail</string>
 
-    <string name="register">S\'enregister</string>
-    <string name="title_register" >S\'enregistrer sur Diabhelp</string>
+    <string name="title_register">S\'enregister</string>
+    <string name="register" >S\'enregistrer sur Diabhelp</string>
 </resources>
