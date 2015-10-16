@@ -11,11 +11,19 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light" >
+        android:theme="@style/AppTheme" >
 
         <activity
             android:name=".Core.CoreActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity android:name=".Connexion_inscription.RegisterActivity"
+            android:label="@string/title_register" >
+        </activity>
+
+        <activity android:name=".Connexion_inscription.ConnexionActivity"
+            android:label="@string/title_activity_connexion" >
         </activity>
 
         <activity android:name=".SplashScreen"
@@ -26,12 +34,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Connexion_inscription.ConnexionActivity"
-            android:label="@string/title_activity_connexion" >
-        </activity>
-        <activity android:name=".Connexion_inscription.RegisterActivity"
-            android:label="@string/title_register" >
-        </activity>
+
     </application>
 
 </manifest>
