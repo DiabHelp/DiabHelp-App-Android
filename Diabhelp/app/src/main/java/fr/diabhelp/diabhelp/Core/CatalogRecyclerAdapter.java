@@ -2,6 +2,9 @@ package fr.diabhelp.diabhelp.Core;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -37,6 +40,8 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
             name = (TextView) itemView.findViewById(R.id.name);
             version = (TextView) itemView.findViewById(R.id.version);
             rating = (RatingBar) itemView.findViewById(R.id.rating);
+            LayerDrawable stars = (LayerDrawable) rating.getProgressDrawable();
+            stars.getDrawable(2).setColorFilter(Color.rgb(255, 215, 0), PorterDuff.Mode.SRC_ATOP);
             desc = (TextView) itemView.findViewById(R.id.desc);
             logo = (ImageView) itemView.findViewById(R.id.logo);
             //size = (TextView) itemView.findViewById(R.id.size);

@@ -3,6 +3,7 @@ package fr.diabhelp.diabhelp.Core;
 /**
  * Created by naqued on 28/09/15.
  */
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Catalogue_Fragment extends Fragment implements IApiCallTask {
     private RecyclerView                _recyclerView;
@@ -65,9 +67,22 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
         return v;
     }
 
+    private void checkAvailability() {
+        List<PackageInfo> packs = getActivity().getPackageManager().getInstalledPackages(0);
+        for(int i = 0 ; i < packs.size() ; i++) {
+            PackageInfo p = packs.get(i);
+            if ((p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))) {
+                for (int j = 0 ; j < _modulesList.size() ; j++) {
+                    if (_modulesList.get(j).getName().equals(p.applicationInfo.loadLabel(getActivity().getPackageManager()).toString()))
+                        _modulesList.remove(j);
+                }
+            }
+        }
+    }
+
     private void getModulesList(String data) {
         JSONArray array = JsonUtils.get_array(data);
-        for (int i = 0; i < array.length(); i++) {
+        for (int i = 0 ; i < array.length() ; i++) {
             JSONObject obj;
             CatalogModule module = new CatalogModule();
             if ((obj = JsonUtils.getObjfromArray(array, i)) != null)
@@ -94,6 +109,7 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
                 _modulesList.add(module);
             }
         }
+        checkAvailability();
     }
 
     @Override
