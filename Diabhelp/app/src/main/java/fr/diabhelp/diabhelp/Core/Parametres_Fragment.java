@@ -73,7 +73,7 @@ public class Parametres_Fragment extends Fragment {
         int ctr = 0;
         for(int i=0;i<packs.size();i++) {
             PackageInfo p = packs.get(i);
-            if (p.packageName.contains("google") && !p.packageName.contains("diabhelp.diabhelp"))
+            if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))
                 ctr++;
         }
         return ctr;
