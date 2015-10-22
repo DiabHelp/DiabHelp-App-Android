@@ -1,10 +1,16 @@
 package fr.diabhelp.diabhelp.Core;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,79 +26,126 @@ import fr.diabhelp.diabhelp.R;
  * Started on 14 Oct 2015 at 15:27
  */
 public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRecyclerAdapter.ParametresModuleHolder> implements ItemTouchHelperAdapter{
-    private ArrayList<ParametresModule>    _modulesList;
+    private ArrayList<ParametresModule> _modulesList;
+    private ParametresModuleHolder contextMenuHolder;
 
-
-    public void onItemDismiss(RecyclerView.ViewHolder viewHolder) {
-        String pname = _modulesList.get(viewHolder.getAdapterPosition()).getAppName();
-        Log.d("ModuleManager", "onItemDismiss called");
-        Uri packageUri = Uri.parse("package:" + pname);
-        Log.d("ModuleManager", "Uninstalling package : " + pname);
-        Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageUri);
-        viewHolder.itemView.getContext().startActivity(uninstallIntent);
-        /* On vérifie si le package a bien été désinstallé sans reparser la liste des modules */
-        /*BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getDataString().equals(pname))
-                    Log.d("ModuleManager", "Module désisntallé");
-                    notifyItemRemoved(position);
-            }
-        };
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-        view.getContext().registerReceiver(broadcastReceiver, filter);*/
-        //TODO : update liste des modules ici si on a bien uninstall
-        //_modulesList.remove(viewHolder.getAdapterPosition());
-        notifyItemRemoved(viewHolder.getAdapterPosition());
-
-
+    private int getModulePosition(String appname) {
+        Log.d("ModuleManager", "getModulePosition: Looking for app : " + appname);
+        int listsize = _modulesList.size();
+        for (int i = 0; i < listsize; i++) {
+            Log.d("ModuleManager", "_modulesList.get(i) : " + _modulesList.get(i).getAppName());
+            if (_modulesList.get(i).getAppName().equals(appname))
+                return i;
+        }
+        return -1;
     }
 
-    public static class ParametresModuleHolder extends RecyclerView.ViewHolder {
-        TextView    name;
-        TextView    size;
-        TextView    version;
-        TextView    desc;
+    public void onItemDismiss(RecyclerView.ViewHolder viewHolder) {
+        ((ParametresModuleHolder) viewHolder).uninstallApp();
+    }
+
+    public void setContextMenuHolder(ParametresModuleHolder contextMenuHolder) {
+        this.contextMenuHolder = contextMenuHolder;
+    }
+
+    public ParametresModuleHolder getContextMenuHolder() {
+        return contextMenuHolder;
+    }
+
+    public static class ParametresModuleHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+        TextView name;
+        TextView size;
+        TextView version;
+        TextView updateNotif;
         String pname;
-        ImageView   logo;
+        ImageView logo;
 
         public ParametresModuleHolder(final View _itemView) {
             super(_itemView);
             name = (TextView) itemView.findViewById(R.id.name);
             size = (TextView) itemView.findViewById(R.id.size);
             version = (TextView) itemView.findViewById(R.id.version);
-            desc = (TextView) itemView.findViewById(R.id.desc);
             logo = (ImageView) itemView.findViewById(R.id.logo);
+            updateNotif = (TextView) itemView.findViewById(R.id.updateNotif);
+            itemView.setOnCreateContextMenuListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("ModuleManager", "Updating package (onclick) : " + pname);
-                    v.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pname)));
+                    Log.d("ModuleManager", "Updating package : " + pname);
+                    openStore();
                 }
             });
         }
+
+        public void openStore() {
+            itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pname)));
+        }
+
+        public void uninstallApp() {
+            Uri packageUri = Uri.parse("package:" + pname);
+            Log.d("ModuleManager", "Uninstalling package : " + pname + ", holder position : " + getAdapterPosition());
+            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageUri);
+            itemView.getContext().startActivity(uninstallIntent);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.add(Menu.NONE, R.id.action_store, Menu.NONE, "Visiter la page");
+            menu.add(Menu.NONE, R.id.action_uninstall, Menu.NONE, "Désinstaller");
+        }
     }
 
-    public ParametresRecyclerAdapter(ArrayList<ParametresModule> modulesList) {
+    public ParametresRecyclerAdapter(ArrayList<ParametresModule> modulesList, FragmentActivity activity) {
         _modulesList = modulesList;
+          /* On vérifie si le package a bien été désinstallé sans reparser la liste des modules */
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String appname = intent.getDataString();
+                appname = appname.substring(appname.indexOf(':') + 1);
+                if (appname.contains("ocdevel")) //TODO : Change for diabhelp
+                {
+                    Log.d("ModuleManager", "Package removed : " + appname);
+                    int position = getModulePosition(appname);
+                    Log.d("ModuleManager", "removing holder at position : " + position);
+                    if (position >= 0) {
+                        _modulesList.remove(position);
+                        notifyItemRemoved(position);
+                    }
+                }
+
+            }
+
+        };
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        filter.addDataScheme("package");
+        activity.registerReceiver(broadcastReceiver, filter);
     }
 
     @Override
     public ParametresModuleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.modulemanager_cardview_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.parametres_cardview_row, parent, false);
         ParametresModuleHolder moduleManagerModuleHolder = new ParametresModuleHolder(view);
         return moduleManagerModuleHolder;
     }
 
     @Override
-    public void onBindViewHolder(ParametresModuleHolder holder, int pos) {
+    public void onBindViewHolder(final ParametresModuleHolder holder, int pos) {
         holder.name.setText(_modulesList.get(pos).getName());
         holder.size.setText("Taille : " + _modulesList.get(pos).getSize());
         holder.version.setText(_modulesList.get(pos).getVersion());
-        holder.desc.setText(_modulesList.get(pos).getDesc());
         holder.logo.setImageDrawable(_modulesList.get(pos).getLogo());
         holder.pname = _modulesList.get(pos).getAppName();
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setContextMenuHolder(holder);
+                return false;
+            }
+        });
+        holder.updateNotif.setVisibility(View.INVISIBLE);
+
     }
 
     @Override

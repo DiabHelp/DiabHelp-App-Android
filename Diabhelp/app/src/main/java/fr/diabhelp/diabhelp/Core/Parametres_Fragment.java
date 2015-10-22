@@ -4,7 +4,6 @@ package fr.diabhelp.diabhelp.Core;
  * Created by naqued on 28/09/15.
  */
 
-import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperCallback;
 import fr.diabhelp.diabhelp.R;
@@ -53,50 +51,57 @@ public class Parametres_Fragment extends Fragment {
     }
 
     @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        ParametresRecyclerAdapter.ParametresModuleHolder holder;
+        try {
+            holder = ((ParametresRecyclerAdapter) recyclerView.getAdapter()).getContextMenuHolder();
+        } catch (Exception e) {
+            Log.d("ModuleManager", e.getLocalizedMessage(), e);
+            return super.onContextItemSelected(item);
+        }
+        switch (item.getItemId()) {
+            case R.id.action_uninstall:
+                Log.d("ModuleManager", "Context Menu : Uninstall app : " + holder.pname);
+                holder.uninstallApp();
+                break;
+            case R.id.action_store:
+                Log.d("ModuleManager", "Context Menu : Store : " + holder.pname);
+                holder.openStore();
+                break;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.modulemanager_fragment, container, false);
+        View v = inflater.inflate(R.layout.parametres_fragment, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         recyclerView.setLayoutManager(recLayoutManager);
-        recAdapter = new ParametresRecyclerAdapter(getModulesList());
+        recAdapter = new ParametresRecyclerAdapter(getModulesList(), getActivity());
         recyclerView.setAdapter(recAdapter);
+        registerForContextMenu(recyclerView);
         ItemTouchHelperCallback callback = new ItemTouchHelperCallback(recAdapter);
         ItemTouchHelper helper = new ItemTouchHelper(callback);
         helper.attachToRecyclerView(recyclerView);
         return v;
     }
 
-    /* GROS GROS DEBUG
-    */
-    private int count_dApp(List<PackageInfo> packs) {
-        int ctr = 0;
-        for(int i=0;i<packs.size();i++) {
-            PackageInfo p = packs.get(i);
-            if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))
-                ctr++;
-        }
-        return ctr;
-    }
-
     private ArrayList<ParametresModule> getModulesList() {
+        ArrayList<CoreActivity.PInfo> pInfoList= ((CoreActivity)getActivity()).getAppList();
         ArrayList modulesList = new ArrayList<>();
-        List<PackageInfo> packs = getActivity().getPackageManager().getInstalledPackages(0);
-        int nbDApp = count_dApp(packs);
-        for(int i=0;i<packs.size();i++) {
-            PackageInfo p = packs.get(i);
-            if ((p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))) {
-                String appname = p.applicationInfo.loadLabel(getActivity().getPackageManager()).toString();
-                String pname = p.packageName;
-                String versionName = p.versionName;
-                int versionCode = p.versionCode;
-                long size = new File(p.applicationInfo.publicSourceDir).length();
-                String sizeStr = String.format("%.2f", (size / 1000000.0));
-                modulesList.add(new ParametresModule("", p.applicationInfo.loadIcon(getActivity().getPackageManager()), appname, pname, sizeStr + " Mo" , "Version " + versionName));
-                Log.d("ModuleManager", "Found app : " + appname + ", " + pname + ", " + versionName + ", " + versionCode);
+        if (pInfoList != null)
+        {
+            int moduleListSize = pInfoList.size() - 2; //Offset parce que l'array actuel contient l'aide + la redirection vers le site
+            for (int i = 0; i < moduleListSize; i++)
+            {
+                CoreActivity.PInfo module = pInfoList.get(i);
+                long size = new File(module.publicSourceDir).length();
+                String sizeStr = String.format("%.2f", (size / 1000000.0)) + " Mo";
+                modulesList.add(new ParametresModule(module.icon, module.appname, module.pname, sizeStr, "Version " + module.versionName));
             }
         }
-        //*/
         return modulesList;
     }
 }

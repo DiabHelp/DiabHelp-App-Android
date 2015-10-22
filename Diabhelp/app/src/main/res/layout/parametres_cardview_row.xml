@@ -46,11 +46,15 @@
                     android:layout_below="@+id/name"/>
 
             <TextView
-                    android:id="@+id/desc"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_toRightOf="@+id/logo"
-                android:layout_below="@+id/size" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/updateNotif"
+                android:text="Mise à jour disponible"
+                android:textColor="@android:color/holo_green_light"
+                android:layout_below="@+id/size"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
 
