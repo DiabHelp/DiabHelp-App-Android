@@ -5,11 +5,11 @@ package fr.diabhelp.diabhelp.Core;
  */
 
 import android.content.pm.PackageInfo;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,11 +21,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperCallback;
 import fr.diabhelp.diabhelp.R;
 
-public class ModuleManager_Fragment extends Fragment {
+public class Parametres_Fragment extends Fragment {
     private RecyclerView                recyclerView;
-    private RecyclerView.Adapter        recAdapter;
+    private ParametresRecyclerAdapter recAdapter;
     private RecyclerView.LayoutManager  recLayoutManager;
 
     @Override
@@ -58,8 +59,11 @@ public class ModuleManager_Fragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         recyclerView.setLayoutManager(recLayoutManager);
-        recAdapter = new ModuleManagerRecyclerAdapter(getModulesList());
+        recAdapter = new ParametresRecyclerAdapter(getModulesList());
         recyclerView.setAdapter(recAdapter);
+        ItemTouchHelperCallback callback = new ItemTouchHelperCallback(recAdapter);
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(recyclerView);
         return v;
     }
 
@@ -69,38 +73,13 @@ public class ModuleManager_Fragment extends Fragment {
         int ctr = 0;
         for(int i=0;i<packs.size();i++) {
             PackageInfo p = packs.get(i);
-            if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))
+            if (p.packageName.contains("google") && !p.packageName.contains("diabhelp.diabhelp"))
                 ctr++;
         }
         return ctr;
     }
 
-    private String formatSize(long size)
-    {
-        int sizeOrder = 0;
-        while (size >= 1000) {
-            size = size / 1000;
-            sizeOrder++;
-        }
-        String sizeStr = String.valueOf(size);
-        switch (sizeOrder) {
-            case 0:
-                sizeStr = sizeStr + " octets";
-            case 1:
-                sizeStr = sizeStr + " ko";
-                break;
-            case 2:
-                sizeStr = sizeStr + " Mo";
-                break;
-            case 3:
-            default:
-                sizeStr = sizeStr + "Go";
-                break;
-        }
-        return sizeStr;
-    }
-
-    private ArrayList<CatalogModule> getModulesList() {
+    private ArrayList<ParametresModule> getModulesList() {
         ArrayList modulesList = new ArrayList<>();
         List<PackageInfo> packs = getActivity().getPackageManager().getInstalledPackages(0);
         int nbDApp = count_dApp(packs);
@@ -112,8 +91,8 @@ public class ModuleManager_Fragment extends Fragment {
                 String versionName = p.versionName;
                 int versionCode = p.versionCode;
                 long size = new File(p.applicationInfo.publicSourceDir).length();
-                //TODO : Get description du package. (Api call ou depuis le google play ?)
-                modulesList.add(new CatalogModule("", p.applicationInfo.loadIcon(getActivity().getPackageManager()), appname, pname, formatSize(size), "Version " + versionName));
+                String sizeStr = String.format("%.2f", (size / 1000000.0));
+                modulesList.add(new ParametresModule("", p.applicationInfo.loadIcon(getActivity().getPackageManager()), appname, pname, sizeStr + " Mo" , "Version " + versionName));
                 Log.d("ModuleManager", "Found app : " + appname + ", " + pname + ", " + versionName + ", " + versionCode);
             }
         }
