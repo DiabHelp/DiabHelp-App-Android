@@ -16,13 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.util.ArrayList;
 
+import fr.diabhelp.diabhelp.ApiCallTask;
 import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperCallback;
+import fr.diabhelp.diabhelp.IApiCallTask;
 import fr.diabhelp.diabhelp.R;
 
-public class Parametres_Fragment extends Fragment {
+public class Parametres_Fragment extends Fragment implements IApiCallTask {
     private RecyclerView                recyclerView;
     private ParametresRecyclerAdapter recAdapter;
     private RecyclerView.LayoutManager  recLayoutManager;
@@ -30,6 +34,7 @@ public class Parametres_Fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "ParametresModuleList").execute("0", "modules");
         setHasOptionsMenu(true);
     }
 
@@ -104,5 +109,16 @@ public class Parametres_Fragment extends Fragment {
         }
         return modulesList;
     }
+
+    @Override
+    public void onBackgroundTaskCompleted(String s, int type, String action) throws JSONException {
+        if (action.equals("ParametresModuleList"))
+        {
+            recAdapter.setLatestVersion(s);
+        }
+    }
+
+
+
 }
 

@@ -16,9 +16,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperAdapter;
+import fr.diabhelp.diabhelp.JsonUtils;
 import fr.diabhelp.diabhelp.R;
 
 /**
@@ -41,6 +45,7 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
     }
 
     public void onItemDismiss(RecyclerView.ViewHolder viewHolder) {
+        notifyItemChanged(viewHolder.getAdapterPosition());
         ((ParametresModuleHolder) viewHolder).uninstallApp();
     }
 
@@ -51,6 +56,30 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
     public ParametresModuleHolder getContextMenuHolder() {
         return contextMenuHolder;
     }
+
+    public void setLatestVersion(String s) {
+        JSONArray array = JsonUtils.get_array(s);
+
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject obj;
+            if ((obj = JsonUtils.getObjfromArray(array, i)) != null) {
+                String name;
+                if ((name = JsonUtils.getStringfromKey(obj, "name")) != null) {
+                    for (int j = 0; j < _modulesList.size(); j++)
+                    {
+                        if (_modulesList.get(i).getName().equals(name) || j == 0) {
+                            String version;
+                            if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
+                                _modulesList.get(i).setLatestVersion(version);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 
     public static class ParametresModuleHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView name;
@@ -93,6 +122,7 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
             menu.add(Menu.NONE, R.id.action_store, Menu.NONE, "Visiter la page");
             menu.add(Menu.NONE, R.id.action_uninstall, Menu.NONE, "Désinstaller");
         }
+
     }
 
     public ParametresRecyclerAdapter(ArrayList<ParametresModule> modulesList, FragmentActivity activity) {
@@ -144,8 +174,26 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
                 return false;
             }
         });
-        holder.updateNotif.setVisibility(View.INVISIBLE);
+        if (isUpToDate(_modulesList.get(pos).getLatestVersion(), _modulesList.get(pos).getVersion()))
+            holder.updateNotif.setVisibility(View.INVISIBLE);
+    }
 
+    private boolean isUpToDate(String latest, String current)
+    {
+        if (latest == null)
+            return true;
+        String [] lastestArray = latest.split(".");
+        String [] currentArray = current.split(".");
+        for (int i = 0; i < lastestArray.length; i++)
+        {
+            if (i >= currentArray.length) {
+                return false;
+            }
+            if (Integer.parseInt(lastestArray[i]) > Integer.parseInt(currentArray[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

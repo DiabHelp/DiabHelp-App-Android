@@ -6,5 +6,4 @@ package fr.diabhelp.diabhelp.Core.ItemTouchHelper;
 public interface ItemTouchHelperViewHolder {
     void onItemSelected();
     void onItemClear();
-
 }
