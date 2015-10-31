@@ -9,4 +9,7 @@
 
     <string name="title_register">S\'enregister</string>
     <string name="register" >S\'enregistrer sur Diabhelp</string>
+    <string name="button_connexion">Se connecter</string>
+    <string name="button_register">S\'inscrire</string>
+    <string name="checkbox_autoConnect">Rester connecté</string>
 </resources>
