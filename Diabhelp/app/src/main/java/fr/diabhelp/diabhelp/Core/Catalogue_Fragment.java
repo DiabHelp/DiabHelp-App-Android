@@ -98,7 +98,7 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
                     module.setRating(rating);
                 String url;
                 if ((url = JsonUtils.getStringfromKey(obj, "url")) != null)
-                    module.setURL(url);
+                    module.setURLStore(url);
                 String version;
                 if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
                     if (version.equals("null"))
