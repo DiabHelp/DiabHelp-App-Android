@@ -35,6 +35,7 @@ public class CoreActivity extends AppCompatActivity {
         public String versionName = "";
         public int versionCode = 0;
         public Drawable icon;
+        public String publicSourceDir;
 
         private void DebugPrint() {
             Log.v(appname, appname + "\t" + pname + "\t" + versionName + "\t" + versionCode);
@@ -163,6 +164,7 @@ public class CoreActivity extends AppCompatActivity {
                 listApp.add(p.packageName);
                 newInfo.versionName = p.versionName;
                 newInfo.versionCode = p.versionCode;
+                newInfo.publicSourceDir = p.applicationInfo.publicSourceDir;
                 newInfo.icon = p.applicationInfo.loadIcon(getPackageManager()); // choper le drawable
                 if (newInfo.icon != null && newInfo.appname != null) {
                     img[ctr] = newInfo.icon;
