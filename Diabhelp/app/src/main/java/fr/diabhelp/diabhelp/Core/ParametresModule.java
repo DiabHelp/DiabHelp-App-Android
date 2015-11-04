@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
  * Started on 12 Oct 2015 at 14:46
  */
 public class ParametresModule {
+    private String _latestVersion;
     private String      _name;
     private String      _version;
     private String      _appname;
@@ -19,6 +20,7 @@ public class ParametresModule {
         this._appname = _appname;
         this._size = _size;
         this._version = _version;
+        this._latestVersion = null;
     }
 
     public Drawable getLogo() {
@@ -54,4 +56,11 @@ public class ParametresModule {
     public void setSize(String _size) { this._size = _size; }
 
 
+    public String getLatestVersion() {
+        return _latestVersion;
+    }
+
+    public void setLatestVersion(String _latestVersion) {
+        this._latestVersion = _latestVersion;
+    }
 }
