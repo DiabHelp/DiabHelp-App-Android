@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.ApiCallTask;
+import fr.diabhelp.diabhelp.ConnexionState;
 import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperCallback;
 import fr.diabhelp.diabhelp.IApiCallTask;
 import fr.diabhelp.diabhelp.R;
@@ -34,7 +35,10 @@ public class Parametres_Fragment extends Fragment implements IApiCallTask {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "ParametresModuleList").execute("0", "modules");
+        ConnexionState co = new ConnexionState(getActivity());
+        if (co.getStatus()) {
+            new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "ParametresModuleList").execute("0", "modules");
+        }
         setHasOptionsMenu(true);
     }
 

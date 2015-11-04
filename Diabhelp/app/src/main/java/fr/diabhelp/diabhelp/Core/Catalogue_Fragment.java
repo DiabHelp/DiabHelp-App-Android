@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.diabhelp.diabhelp.ApiCallTask;
+import fr.diabhelp.diabhelp.ConnexionState;
 import fr.diabhelp.diabhelp.IApiCallTask;
 import fr.diabhelp.diabhelp.JsonUtils;
 import fr.diabhelp.diabhelp.R;
@@ -35,7 +36,10 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getModulesList").execute("0", "modules");
+        ConnexionState co = new ConnexionState(getActivity());
+        if (co.getStatus()){
+            new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getModulesList").execute("0", "modules");
+        }
     }
 
     @Override
@@ -81,6 +85,10 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
     }
 
     private void getModulesList(String data) {
+        System.out.println("renvoi de la chaine json = " + data);
+        if (data.equals("io exception")){
+            return;
+        }
         JSONArray array = JsonUtils.get_array(data);
         for (int i = 0 ; i < array.length() ; i++) {
             JSONObject obj;
