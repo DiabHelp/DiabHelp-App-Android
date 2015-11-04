@@ -9,26 +9,16 @@ import android.graphics.drawable.Drawable;
 public class ParametresModule {
     private String      _name;
     private String      _version;
-    private String _appname;
-    private String      _desc;
-    private String      _URL;
+    private String      _appname;
     private Drawable    _logo;
     private String      _size;
 
-    public ParametresModule(String _desc, Drawable _logo, String _name, String _appname, String _size, String _version) {
-        this._desc = _desc;
+    public ParametresModule(Drawable _logo, String _name, String _appname, String _size, String _version) {
         this._logo = _logo;
         this._name = _name;
         this._appname = _appname;
         this._size = _size;
         this._version = _version;
-    }
-    public ParametresModule() {}
-
-    public String getDesc() { return _desc; }
-
-    public void setDesc(String _desc) {
-        this._desc = _desc;
     }
 
     public Drawable getLogo() {
@@ -58,11 +48,6 @@ public class ParametresModule {
     public String getVersion() { return _version; }
 
     public void setVersion(String _version) { this._version = _version; }
-
-    public String getURL() { return _URL; }
-
-    public void setURL(String _URL) { this._URL = _URL; }
-
 
     public String getSize() { return _size; }
 
