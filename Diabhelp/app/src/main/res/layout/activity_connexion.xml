@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="fr.diabhelp.diabhelp.ConnexionActivity"
     android:id="@+id/root_co">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/main_layout"
         android:background="@color/background_welcome"
         tools:context="fr.diabhelp.diabhelp.ConnexionActivity"
         android:id="@+id/accueil">
@@ -35,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/app_name"
-                android:textColor="@color/text_color"
+                android:textColor="@color/primary_text_default_material_dark"
                 android:textSize="25sp"
                 android:layout_marginTop="15dp" />
         </LinearLayout>
@@ -44,7 +43,8 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/nom_app">
+            android:layout_below="@id/nom_app"
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="match_parent"
@@ -56,14 +56,9 @@
                 android:id="@+id/login_label"/>
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                style="@style/editText_connexion"
                 android:hint="@string/login_input"
-                android:paddingLeft="10dp"
-                android:background="#ffffff"
-                android:singleLine="true"
-                android:id="@+id/login_input"
-                tools:ignore="RtlSymmetry" />
+                android:id="@+id/login_input" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -75,52 +70,42 @@
                 android:id="@+id/pwd_label"/>
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                style="@style/editText_connexion"
                 android:hint="@string/pwd_input"
-                android:paddingLeft="10dp"
-                android:background="#ffffff"
-                android:inputType="textPassword"
-                android:singleLine="true"
-                android:id="@+id/pwd_input"
-                tools:ignore="RtlSymmetry" />
+                android:id="@+id/pwd_input" />
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rester connecté"
+                android:text="@string/checkbox_autoConnect"
                 android:textColor="@color/abc_primary_text_disable_only_material_dark"
                 android:id="@+id/checkbox_connexion_auto"
+                android:textAllCaps="false"
                 android:layout_gravity="center_horizontal"
                 android:checked="false" />
 
             <Button
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:text="se connecter"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_size"
+                android:text="@string/button_connexion"
                 android:textAllCaps="true"
                 android:onClick="connectByInput"
                 android:id="@+id/connexionButton"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="ou"
-                android:textAllCaps="true"
-                android:textColor="#ffffff"
-                android:id="@+id/ou"/>
-
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/abc_secondary_text_material_dark"
+                android:background="#308c37"
+                android:clickable="false" />
             <Button
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:text="s'inscrire"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_size"
+                android:text="@string/button_register"
                 android:textAllCaps="true"
                 android:onClick="signUp"
                 android:id="@+id/SignUpButton"
-                android:layout_gravity="center_horizontal" />
+                android:textColor="@color/abc_secondary_text_material_dark"
+                android:background="#313e4f" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

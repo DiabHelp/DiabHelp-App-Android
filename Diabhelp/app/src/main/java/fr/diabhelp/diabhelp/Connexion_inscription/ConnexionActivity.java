@@ -108,7 +108,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
 
     public void connectByInput(View view)
     {
-        Boolean connected_to_network = false;
+        Boolean connectedToNetwork = false;
         ConnexionState connexion = new ConnexionState(getApplicationContext());
 
         _login_input = ((EditText) findViewById(R.id.login_input)).getText().toString();
@@ -124,22 +124,21 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         }
         else {
             findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-            if (connected_to_network = connexion.getStatus()) {
-                System.out.println("test avec connexion");
+            if (connectedToNetwork = connexion.getStatus()) {
 
                 tryConnectWithNetwork();
             } else {
-                System.out.println("test sans connexion");
                 tryConnectWithoutNetwork();
             }
         }
     }
+
     public void connectAutomaticaly()
     {
-        Boolean connected_to_network = false;
+        Boolean connectedToNetwork = false;
         ConnexionState connexion = new ConnexionState(getApplicationContext());
         findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        if (connected_to_network = connexion.getStatus()) {
+        if (connectedToNetwork = connexion.getStatus()) {
             tryConnectWithNetwork();
         }
         else {
@@ -232,45 +231,49 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
 
     private void getSession(String datas, int type) {
         //si il y a des erreurs
-        if (datas.equals("io exception") || datas.equals("DB_ERROR"))
-        {
-            findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-            MyToast.getInstance().displayWarningMessage("Impossible de se connecter au serveur, veuillez verifier sur le site l'état du serveur", Toast.LENGTH_LONG, this);
-        }
-        else if ("WRONG_IDS".equals(datas)){
-            System.out.println("WRONGS IDS connexion");
+        if (datas != null) {
+            if (datas.equals("io exception") || datas.equals("DB_ERROR")) {
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                MyToast.getInstance().displayWarningMessage("Impossible de se connecter au serveur, veuillez verifier sur le site l'état du serveur", Toast.LENGTH_LONG, this);
+            } else if ("WRONG_IDS".equals(datas)) {
+                System.out.println("WRONGS IDS connexion");
                 findViewById(R.id.loadingPanel).setVisibility(View.GONE);
                 MyToast.getInstance().displayWarningMessage("Mauvais login/mot de passe", Toast.LENGTH_LONG, this);
             }
-        //si il n'y a pas d'erreurs
-        else {
-            DAO bdd = new DAO(this);
-            bdd.open();
-            //si la chaine est valide et que la co auto est inactive
-            if ((_session = JsonUtils.getStringfromKey(JsonUtils.get_obj(datas), "token")) != null && !_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
-                User user = new User(0L, _login_input, _pwd_input);
-                if (!bdd.isUserAlreadyFilled("0")) {
-                    bdd.AddUser(user);
+            //si il n'y a pas d'erreurs
+            else {
+                DAO bdd = new DAO(this);
+                bdd.open();
+                //si la chaine est valide et que la co auto est inactive
+                if ((_session = JsonUtils.getStringfromKey(JsonUtils.get_obj(datas), "token")) != null && !_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
+                    User user = new User(0L, _login_input, _pwd_input);
+                    if (!bdd.isUserAlreadyFilled("0")) {
+                        bdd.AddUser(user);
+                        bdd.close();
+                    }
+                    if (((CheckBox) findViewById(R.id.checkbox_connexion_auto)).isChecked()) {
+                        SharedPreferences.Editor edit = _settings.edit();
+                        edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
+                        edit.commit();
+                    }
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                    launchCoreWithConnexion(user);
+                }
+                //si la chaine est valide et que la co auto est active
+                else if ((_session = JsonUtils.getStringfromKey(JsonUtils.get_obj(datas), "token")) != null && _settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
+                    User user = bdd.SelectUser();
                     bdd.close();
+                    findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+                    launchCoreWithConnexion(user);
                 }
-                if (((CheckBox) findViewById(R.id.checkbox_connexion_auto)).isChecked()) {
-                    SharedPreferences.Editor edit = _settings.edit();
-                    edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
-                    edit.commit();
-                }
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                launchCoreWithConnexion(user);
-            }
-            //si la chaine est valide et que la co auto est active
-            else if ((_session = JsonUtils.getStringfromKey(JsonUtils.get_obj(datas), "token")) != null && _settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
-                User user = bdd.SelectUser();
                 bdd.close();
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                launchCoreWithConnexion(user);
             }
-        bdd.close();
         }
         //une erreur inatendue c'est produite
+        else {
+            disableAutomaticConnexion();
+            MyToast.getInstance().displayWarningMessage("Une erreur innatendue s'est produite", Toast.LENGTH_LONG, this);
+        }
     }
 
     public void launchCoreWithConnexion(User user)
