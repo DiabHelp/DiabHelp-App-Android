@@ -2,7 +2,9 @@ package fr.diabhelp.diabhelp.Core.ItemTouchHelper;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Shader;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -61,14 +63,17 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             // Get RecyclerView item from the ViewHolder
             View itemView = viewHolder.itemView;
-
+            c.drawColor(Color.WHITE);
             Paint p = new Paint();
             p.setColor(Color.YELLOW);
-            /* Set your color for negative displacement */
-                // Draw Rect with varying left side, equal to the item's right side plus negative displacement dX
-                c.drawRect((float) itemView.getRight() + dX, (float) itemView.getTop(),
-                        (float) itemView.getRight(), (float) itemView.getBottom(), p);
+            p.setShader(new LinearGradient((float) itemView.getRight() + dX, (float) itemView.getRight(),
+                            (float) 0, (float)0,
+                            Color.TRANSPARENT, Color.YELLOW, Shader.TileMode.CLAMP));
+                    // Draw Rect with varying left side, equal to the item's right side plus negative displacement dX
+            c.drawRect((float) itemView.getRight() + dX, (float) itemView.getTop(),
+                            (float) itemView.getRight(), (float) itemView.getBottom(), p);
             p.setColor(Color.BLACK);
+            p.setShader(null);
             p.setTextSize(60);
             c.drawText("Supprimer", itemView.getRight() + 10 + (dX / 2), (itemView.getTop() + itemView.getBottom()) / 2, p);
         }
