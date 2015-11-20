@@ -73,11 +73,10 @@
 
 
             <TextView
-                android:id="@+id/isnew"
+                android:id="@+id/extra"
                 android:background="#7FFF00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NEW"
                 android:layout_above="@+id/rating"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />

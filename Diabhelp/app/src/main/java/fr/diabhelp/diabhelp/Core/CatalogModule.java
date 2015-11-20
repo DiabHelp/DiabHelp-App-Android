@@ -15,7 +15,7 @@ public class CatalogModule {
     private String      _URLWeb;
     private Drawable    _logo;
     private String      _size;
-    private Boolean     _new;
+    private String     _extra;
 
     public CatalogModule(String _desc, Drawable _logo, String _name, String _rating, String _size, String _version) {
         this._desc = _desc;
@@ -74,8 +74,8 @@ public class CatalogModule {
 
     public void setSize(String size) { _size = size; }
 
-    public Boolean getNew() { return _new; }
+    public String getExtra() { return _extra; }
 
-    public void setNew(Boolean bNew) { _new = bNew; }
+    public void setExtra(String extra) { _extra = extra; }
 
 }

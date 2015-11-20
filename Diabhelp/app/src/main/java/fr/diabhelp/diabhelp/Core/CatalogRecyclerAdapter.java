@@ -34,7 +34,7 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
         String      URLStore;
         //String      URLWeb;
         //TextView    size;
-        TextView    isNew;
+        TextView    extra;
 
         public CatalogModuleHolder(final View itemView) {
             super(itemView);
@@ -46,7 +46,7 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
             desc = (TextView) itemView.findViewById(R.id.desc);
             logo = (ImageView) itemView.findViewById(R.id.logo);
             //size = (TextView) itemView.findViewById(R.id.size);
-            isNew = (TextView) itemView.findViewById(R.id.isnew);
+            extra = (TextView) itemView.findViewById(R.id.extra);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,7 +119,10 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
         holder.URLStore = _modulesList.get(pos).getURLStore();
         //holder.URLWeb = _modulesList.get(pos).getURLWeb();
         //holder.size.setText("Taille : " + _modulesList.get(pos).getSize());
-        holder.isNew.setText("NEW");
+        if (_modulesList.get(pos).getExtra().equals(""))
+            holder.extra.setEnabled(false);
+        else
+            holder.extra.setText(_modulesList.get(pos).getExtra());
     }
 
     @Override

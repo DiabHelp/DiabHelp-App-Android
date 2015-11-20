@@ -78,7 +78,7 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
             if ((p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))) {
                 for (int j = 0 ; j < _modulesList.size() ; j++) {
                     if (_modulesList.get(j).getName().equals(p.applicationInfo.loadLabel(getActivity().getPackageManager()).toString()))
-                        _modulesList.remove(j);
+                        _modulesList.get(j).setExtra("INSTALLED");
                 }
             }
         }
@@ -114,6 +114,10 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
                     else
                         module.setVersion(version);
                 }
+                String extra;
+                if ((extra = JsonUtils.getStringfromKey(obj, "extra")) != null)
+                    module.setExtra(extra);
+                module.setExtra("NEW");
                 _modulesList.add(module);
             }
         }
