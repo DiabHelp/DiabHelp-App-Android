@@ -46,10 +46,11 @@ public class AlimentRecyclerAdapter extends RecyclerView.Adapter<AlimentRecycler
     @Override
     public void onBindViewHolder(AlimentHolder holder, int position) {
         System.out.println("POUET");
+
         holder.name.setText(_alimentsList.get(position).getName());
-        holder.weight.setText(String.valueOf(_alimentsList.get(position).getWeight()));
-        holder.glucids.setText(String.valueOf(_alimentsList.get(position).getGlucids()));
-        holder.totalGlucids.setText(String.valueOf(_alimentsList.get(position).getTotalGlucids()));
+        //holder.weight.setText(String.valueOf(_alimentsList.get(position).getWeight()));
+        holder.glucids.setText(String.valueOf("Glucides : " + _alimentsList.get(position).getGlucids()) + "g/100");
+        //holder.totalGlucids.setText(String.valueOf(_alimentsList.get(position).getTotalGlucids()));
         holder.alimentLogo.setImageResource(R.drawable.aliment);
     }
 

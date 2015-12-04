@@ -7,12 +7,12 @@ import android.graphics.drawable.Drawable;
  */
 public class Aliment {
     private String      _name;
-    private Integer     _weight;
-    private Integer     _glucids;
-    private Integer     _totalGlucids;
+    private Float     _weight;
+    private Float     _glucids;
+    private Float     _totalGlucids;
     private Drawable    _alimentLogo;
 
-    public Aliment(String name, Integer weight, Integer glucids, Integer totalGlucids) {
+    public Aliment(String name, Float weight, Float glucids, Float totalGlucids) {
         _name = name;
         _weight = weight;
         _glucids = glucids;
@@ -23,17 +23,17 @@ public class Aliment {
 
     public void setName(String name) { _name = name; }
 
-    public Integer getWeight() { return _weight; }
+    public Float getWeight() { return _weight; }
 
-    public void setWeight(Integer weight) { _weight = weight; }
+    public void setWeight(Float weight) { _weight = weight; }
 
-    public Integer getGlucids() { return _glucids; }
+    public Float getGlucids() { return _glucids; }
 
-    public void set_glucids(Integer glucids) { _glucids = glucids; }
+    public void set_glucids(Float glucids) { _glucids = glucids; }
 
-    public Integer getTotalGlucids() { return _totalGlucids; }
+    public Float getTotalGlucids() { return _totalGlucids; }
 
-    public void setTotalGlucids(Integer totalGlucids) { _totalGlucids = totalGlucids; }
+    public void setTotalGlucids(Float totalGlucids) { _totalGlucids = totalGlucids; }
 
     public Drawable getAlimentLogo() { return _alimentLogo; }
 

@@ -17,16 +17,27 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:background="?attr/colorPrimary"
-                android:elevation="6dp"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/search_label"
+            android:id="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/text_color" />
+
+        <com.glucocompteur.app.DBSearchBox
+                    style="@android:style/TextAppearance"
+                    android:layout_width="302dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/search_input"
+                    android:inputType="text"
+                    android:editable="false"
+                android:layout_below="@+id/textView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
