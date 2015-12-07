@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fr.diabhelp.diabhelp" >
-
+    package="fr.diabhelp.diabhelp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,28 +10,38 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".Core.CoreActivity"
-            android:label="@string/app_name"
-            >
-        </activity>
-
-        <activity android:name=".SplashScreen"
-            android:label="Diabhelp" >
+            android:label="@string/app_name" />
+        <activity
+            android:name=".SplashScreen"
+            android:label="Diabhelp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Connexion_inscription.ConnexionActivity"
+        <activity
+            android:name=".Connexion_inscription.ConnexionActivity"
             android:label="@string/title_activity_connexion"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name=".Connexion_inscription.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Connexion_inscription.RegisterActivity"
             android:label="@string/title_register"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Suivi_proches_patients.ListeProches"
+            android:label="@string/liaison_proche" />
+        <activity android:name=".Suivi_proches_patients.procheItemActivity"
+            android:parentActivityName=".Suivi_proches_patients.ListeProches"
             android:screenOrientation="portrait">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Suivi_proches_patients.ListeProches" />
         </activity>
     </application>
+
 </manifest>

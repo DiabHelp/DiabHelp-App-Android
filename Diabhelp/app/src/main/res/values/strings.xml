@@ -8,8 +8,15 @@
     <string name="email_input">adresse e-mail</string>
 
     <string name="title_register">S\'enregister</string>
-    <string name="register" >S\'enregistrer sur Diabhelp</string>
+    <string name="register">S\'enregistrer sur Diabhelp</string>
     <string name="button_connexion">Se connecter</string>
     <string name="button_register">S\'inscrire</string>
     <string name="checkbox_autoConnect">Rester connecté</string>
+    <string name="title_activity_liste_proches">ListeProches</string>
+    <string name="liste_proches">Liste des proches</string>
+    <string name="avatar_proche">Avatar du proche</string>
+    <string name="ajouter_un_proche">Ajouter un proche</string>
+    <string name="alerte_to_proche">Envoyer une alerte</string>
+    <string name="supprimer_proche">Supprimer le proche</string>
+    <string name="liaison_proche">Liaison proche/patient</string>
 </resources>
