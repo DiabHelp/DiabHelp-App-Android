@@ -18,6 +18,15 @@
             >
         </activity>
 
+        <receiver
+            android:name=".Core.Broadcast_Receiver.NetworkChangeReceiver"
+            android:label="NetworkChangeReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".SplashScreen"
             android:label="Diabhelp" >
             <intent-filter>

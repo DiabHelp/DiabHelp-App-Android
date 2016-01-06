@@ -77,8 +77,8 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
             PackageInfo p = packs.get(i);
             if ((p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))) {
                 for (int j = 0 ; j < _modulesList.size() ; j++) {
-                    if (_modulesList.get(j).getName().equals(p.applicationInfo.loadLabel(getActivity().getPackageManager()).toString()))
-                        _modulesList.remove(j);
+                    if (_modulesList.get(j).getName().equals(p.applicationInfo.loadLabel(getActivity().getPackageManager()).toString()));
+                        //_modulesList.remove(j);
                 }
             }
         }

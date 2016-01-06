@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class CoreActivity extends AppCompatActivity {
     private String[] web;
     private Drawable[] img;
     private DAO bdd;
+    private Boolean NetState;
 
     class PInfo{
         public String appname = "";
@@ -45,13 +47,25 @@ public class CoreActivity extends AppCompatActivity {
     public ArrayList<PInfo> getAppList() { return this.app; }
     public String[] getAppStringList() { return this.web; }
     public Drawable[] getAppDrawableList() { return this.img; }
+    public Boolean getNetState() {return this.NetState; }
+    public void setNetStateAndChange(Boolean netstate) { this.NetState = netstate;
+    // Change layout
+        if (this.NetState == true)
+            Toast.makeText(this, "Internet on", Toast.LENGTH_LONG).show();
+        else if (this.NetState == false)
+            Toast.makeText(this, "Internet off", Toast.LENGTH_LONG).show();
+    }
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
         listApp = new ArrayList<String>();
         app = getPackages();
 
