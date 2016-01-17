@@ -1,11 +1,17 @@
 package fr.diabhelp.diabhelp.Suivi_proches_patients;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -17,7 +23,12 @@ import android.transition.Transition;
 import android.transition.TransitionValues;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,10 +88,20 @@ public class ListeProches extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
     }
 
-    public void manageActionOnClick(List<Proche> listProches, Integer position, ImageView avatar)
-    {
+    public void manageActionOnClick(List<Proche> listProches, Integer position, ImageView avatar) {
         if (position == listProches.size() - 1) {
+            AlertDialog.Builder aD = new AlertDialog.Builder(this);
+            aD.setIcon(R.drawable.ic_plus_proche);
+            aD.setTitle(R.string.dialog_addproche_title);
+            aD.setMessage(R.string.dialog_addproche_message);
+            aD.setView(getLayoutInflater().inflate(R.layout.dialog_addproche, null));
+            aD.setPositiveButton(R.string.dialog_addproche_senddemande, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
+                }
+            });
+            aD.show();
         }
         else {
             launchProcheSimpleView(listProches.get(position), avatar);

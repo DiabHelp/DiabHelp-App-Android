@@ -19,4 +19,7 @@
     <string name="alerte_to_proche">Envoyer une alerte</string>
     <string name="supprimer_proche">Supprimer le proche</string>
     <string name="liaison_proche">Liaison proche/patient</string>
+    <string name="dialog_addproche_message">Entrez le numéro de mobile du proche à ajouter.</string>
+    <string name="dialog_addproche_title">Ajouter un proche</string>
+    <string name="dialog_addproche_senddemande">Envoyer une demande d\'ajout</string>
 </resources>
