@@ -391,6 +391,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         String _minute;
         int hours = new Time(System.currentTimeMillis()).getHours();
         int minutes = new Time(System.currentTimeMillis()).getMinutes();
+        //TODO NE PAS UTILISER DE FONCTIONS DEPRECIEES
         if (minutes < 10)
              _minute = "0" + String.valueOf(minutes);
         else

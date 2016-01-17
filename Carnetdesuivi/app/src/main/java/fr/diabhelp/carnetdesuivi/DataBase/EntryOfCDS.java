@@ -1,5 +1,6 @@
 package fr.diabhelp.carnetdesuivi.DataBase;
 
+import android.app.Application;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * Created by naqued on 21/11/15.
  */
-public class EntryOfCDS {
+public class EntryOfCDS extends Application {
     // Notez que l'identifiant est un long
 
     public enum TimeDay{
@@ -27,6 +28,7 @@ public class EntryOfCDS {
         }
     };
 
+    //TODO COMMENTER SON CODE POUR LE RENDRE COMPREHENSIBLE POUR UN AUTRE DEVELOPPEUR
     private String user;
     private String title;
     private String place;
