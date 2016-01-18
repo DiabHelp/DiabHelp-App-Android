@@ -24,7 +24,7 @@ public class procheItemActivity extends AppCompatActivity {
     public void getExtras()
     {
         Bundle extra = getIntent().getExtras();
-        proche = extra.getParcelable(ListeProches.PROCHE);
+        proche = extra.getParcelable(MainActivity.PROCHE);
     }
 
     public void initToolbar(String nickname)

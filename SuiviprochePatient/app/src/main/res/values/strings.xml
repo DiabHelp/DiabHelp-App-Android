@@ -6,4 +6,6 @@
     <string name="dialog_addproche_message">Entrez le numéro de mobile du proche à ajouter.</string>
     <string name="dialog_addproche_title">Ajouter un proche</string>
     <string name="dialog_addproche_senddemande">Envoyer une demande d\'ajout</string>
+    <string name="alerte_to_proche">Alerter %s</string>
+    <string name="supprimer_proche">Supprimer %s</string>
 </resources>
