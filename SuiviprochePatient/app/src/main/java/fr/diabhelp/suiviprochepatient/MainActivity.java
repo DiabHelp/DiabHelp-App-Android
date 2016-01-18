@@ -1,57 +1,35 @@
-package fr.diabhelp.diabhelp.Suivi_proches_patients;
+package fr.diabhelp.suiviprochepatient;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
-import android.transition.TransitionValues;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.diabhelp.diabhelp.R;
-
-public class ListeProches extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
     private RecyclerView listProchesView;
     private RecyclerView.LayoutManager recycleViewManager;
     private RecyclerView.Adapter listAdapter;
     private List<Proche> proches;
     private Toolbar procheToolbar;
     private Proche proche;
-
     public static final String PROCHE = "fr.diabhelp.diabhelp.Suivi_proches_patients.proche";
     public int currentApiVersion = Build.VERSION.SDK_INT;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_liste_proches);
+        setContentView(R.layout.activity_main);
         initToolbar();
         listProchesView = (RecyclerView) findViewById(R.id.proches_recycler_view);
         listProchesView.setHasFixedSize(true);
