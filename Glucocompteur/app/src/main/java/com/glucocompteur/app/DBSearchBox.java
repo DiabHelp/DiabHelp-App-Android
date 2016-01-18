@@ -51,50 +51,6 @@ public class DBSearchBox extends AutoCompleteTextView {
 
     }
 
-    public String[] sortItems(String [] items, String pattern)
-    {
-        int size = items.length;
-        String[] res = new String[size];
-        ArrayList <String> wordList = new ArrayList<>();
-        for (String item : items)
-        {
-            wordList.add(item);
-        }
-        int index = 0;
-        int i = 0;
-        for (Iterator<String> iterator = wordList.iterator(); iterator.hasNext();)
-        {
-            String word = iterator.next();
-            String[] words = word.replace(",", "").split(" ");
-            if (words[0].equals(pattern) || words[0].contains(pattern)) {
-                res[index] = word;
-                iterator.remove();
-                index++;
-            }
-            i++;
-        }
-        for (Iterator<String> iterator = wordList.iterator(); iterator.hasNext();)
-        {
-            String item = iterator.next();
-            res[index] = item;
-            index++;
-            iterator.remove();
-        }
-        Log.d("DBSort", "Sorting items :");
-        for (String item : items)
-        {
-            Log.d("DBSort", item);
-
-        }
-        Log.d("DBSort", "result :");
-        for (String item : res)
-        {
-            Log.d("DBSort", "res : " + item);
-
-        }
-        return res;
-
-    }
 
     public String[] getAlimentsFromPattern(CharSequence cs)
     {

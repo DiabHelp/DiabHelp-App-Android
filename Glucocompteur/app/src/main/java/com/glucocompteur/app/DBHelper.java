@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper
     private static String DB_NAME ="aliments.db";
     private SQLiteDatabase mDataBase;
     private final Context mContext;
-    public String tableName = "aliments";
+    public String tableName = "aliments_search";
     public String fieldObjectId = "_id";
     public String fieldObjectORIGGPCD = "ORIGGPCD";
     public String fieldObjectORIGGPFR = "ORIGGPFR";
@@ -144,13 +144,15 @@ public class DBHelper extends SQLiteOpenHelper
         String sql = "";
         text = text.replace("'", "''").replace("\"", "\"\"");
         sql += "SELECT alimentname, Glucides FROM " + tableName;
-        sql += " WHERE " + fieldObjectName + " LIKE '%" + text + "%'";
-        sql += " ORDER BY " + fieldObjectName + "";
+        sql += " WHERE " + fieldObjectName + " MATCH '*" + text + "*'";
+        sql += " ORDER BY " + fieldObjectName + "='" + text + "' DESC,";
+        sql += fieldObjectName + " LIKE '" + text + "%' DESC,";
+        sql += fieldObjectName + " LIKE '%" + text + "%' DESC";
         sql += " LIMIT 8";
+        Log.d("SQL", sql);
         Vector<MyObject> recordsList = new Vector<MyObject>();
         try {
-            Cursor cursor = this.mDataBase.rawQuery(sql, null);
-            if (cursor == null || cursor.getCount() <= 0)
+            Cursor cursor = this.mDataBase.rawQuery(sql, null);if (cursor == null || cursor.getCount() <= 0)
                 Log.d("cursor ", "cursor is null or negative"); //<====== MESSAGE D'ERREUR POUR L'USER POSSIBLE (pas d'aliment correspondant)
             else
             if (cursor.moveToFirst()){
