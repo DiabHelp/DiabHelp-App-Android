@@ -217,15 +217,19 @@ public class ConnexionActivity extends Activity implements IApiCallTask {
         }
         else {
             bdd.close();
-            new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getSession").execute("2", "connect", "login", _login_input, "password", _pwd_input);
+            System.out.println("je vais tenter la connexion");
+            new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getSession").execute("2", "login_check", "username", _login_input, "password", _pwd_input);
         }
     }
     
     @Override
     public void onBackgroundTaskCompleted(String s, int type, String action) throws JSONException {
-        if (action.equals("getSession")){
-            getSession(s, type);
-        }
+        System.out.println("retour requete  = " + s);
+        //TODO ENLEVER
+        return;
+//        if (action.equals("getSession")){
+//            getSession(s, type);
+//        }
         
     }
 
