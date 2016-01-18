@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">Diabhelp</string>
-    <string name="liaison_proche">Liaison proche/patient</string>
-    <string name="ajouter_un_proche">Ajouter un proche</string>
-    <string name="dialog_addproche_message">Entrez le numéro de mobile du proche à ajouter.</string>
-    <string name="dialog_addproche_title">Ajouter un proche</string>
-    <string name="dialog_addproche_senddemande">Envoyer une demande d\'ajout</string>
-</resources>
