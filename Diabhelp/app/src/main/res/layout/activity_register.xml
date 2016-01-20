@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.diabhelp.diabhelp.Connexion_inscription.RegisterActivity"
+    android:id="@+id/root_register">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/main_layout"
+        android:background="@color/background_welcome"
+        tools:context="fr.diabhelp.diabhelp.Connexion_inscription.RegisterActivity"
+        android:id="@+id/register">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/nom_app">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/diab_logo"
+                android:id="@+id/imageView"
+                android:layout_marginBottom="10dp"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/app_name"
+                android:textColor="@color/primary_text_default_material_dark"
+                android:textSize="25sp"
+                android:layout_marginTop="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/nom_app"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginTop="10dp"
+                android:text="@string/register"
+                android:id="@+id/title_register"
+                android:textColor="@color/abc_primary_text_disable_only_material_dark"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email_input"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_text_default_material_dark"
+                android:layout_marginTop="20dp"
+                android:id="@+id/email_label"/>
+
+            <EditText
+                style="@style/editText_connexion"
+                android:hint="@string/email_input"
+                android:id="@+id/email_input"
+                android:inputType="textEmailAddress" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_input"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_text_default_material_dark"
+                android:layout_marginTop="10dp"
+                android:id="@+id/login_label"/>
+
+            <EditText
+                style="@style/editText_connexion"
+                android:hint="@string/login_input"
+                android:id="@+id/login_input" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pwd_input"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_text_default_material_dark"
+                android:layout_marginTop="10dp"
+                android:id="@+id/pwd_label"/>
+
+            <EditText
+                style="@style/editText_connexion"
+                android:hint="@string/pwd_input"
+                android:id="@+id/pwd_input" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_size"
+                android:layout_marginTop="15dp"
+                android:text="@string/button_register"
+                android:textAllCaps="true"
+                android:onClick="onRegisterClick"
+                android:id="@+id/SignUpButton"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/abc_secondary_text_material_dark"
+                android:background="#308c37" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
