@@ -92,4 +92,8 @@ public class EntryOfCDSTest extends TestCase {
         assertNotNull(json);
     }
 
+    public void testDeux(){
+        System.out.println("testDeux");
+    }
+
 }

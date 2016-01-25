@@ -22,6 +22,12 @@ public class CarnetSuiviTest extends ActivityInstrumentationTestCase2<Carnetdesu
         assertNotNull(context);
     }
 
+    public void testDontWORK()
+    {
+        getA
+        assertEquals(3, 2 + 2);
+    }
+
     public void test(){
         Log.d("#test", "test");
     }
