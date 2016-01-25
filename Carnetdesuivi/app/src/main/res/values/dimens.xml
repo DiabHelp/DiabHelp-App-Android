@@ -10,4 +10,12 @@
     <dimen name="child_icone_marginLeft">10dp</dimen>
     <dimen name="entry_icone_marginBottom">10dp</dimen>
     <dimen name="layout_edittext">300dp</dimen>
+    <dimen name="Height_cell_Relative">80dp</dimen>
+    <dimen name="Width_cell_Relative">70dp</dimen>
+    <dimen name="marginLeft_Relative_Dayresult">3dp</dimen>
+    <dimen name="paddinRight_txtview_entry_activity">2dp</dimen>
+    <dimen name="width_img_entry_activity">20dp</dimen>
+    <dimen name="heigh_img_entry_activity">20dp</dimen>
+    <dimen name="width_linear_text">150dp</dimen>
+<dimen name="margin_leftImg_entry">40dp</dimen>
 </resources>

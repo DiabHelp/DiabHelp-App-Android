@@ -10,10 +10,8 @@ import java.util.Map;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,11 +19,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
@@ -36,6 +35,7 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
     private Map<String, List<String>> laptopCollections;
     private List<String> laptops;
     private DAO bdd;
+    private Carnetdesuivi _acti;
 
     public enum InputType{
         TITLE(0),
@@ -62,11 +62,12 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
     };
 
     public ExpandableListAdapters(Activity context, List<String> laptops,
-                                  Map<String, List<String>> laptopCollections) {
+                                  Map<String, List<String>> laptopCollections, Carnetdesuivi acti) {
         this.context = context;
 /*        Log.e("expandable", laptops.get(0));*/
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
+        this._acti = acti;
     }
 
     public Object getChild(int groupPosition, int childPosition) {
@@ -280,8 +281,8 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
                 gly.setBackground(context.getResources().getDrawable(R.drawable.glycemienogood));
             }
         }
-        glu.setText(String.valueOf(en.getGlucide().intValue()) + "\n  g");
-        hba1c.setText(String.valueOf(en.getHba1c().intValue()) + "\n  %");
+        glu.setText(String.valueOf(en.getGlucide().intValue()) + "\n g");
+        hba1c.setText(String.valueOf(en.getHba1c().intValue()) + "\n %");
         fast.setText(String.valueOf(en.getFast_insu())+ "\n  u");
         slow.setText(String.valueOf(en.getSlow_insu())+ "\n  u");
         notes.setText(en.getNotes());
@@ -352,6 +353,7 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
         String laptopName = (String) getGroup(groupPosition);
+        final int grppos = groupPosition;
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -359,6 +361,23 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
                     null);
         }
         TextView item = (TextView) convertView.findViewById(R.id.laptop);
+        ImageButton infoDay = (ImageButton) convertView.findViewById(R.id.infoday);
+        infoDay.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent((Carnetdesuivi)_acti, DayResultActivity.class);
+
+                String _title = (String) getGroup(grppos);
+                String datesplit = reconstructDate(_title);
+                String Hour = _title.split("-")[1].split(" ")[4];
+
+                intent.putExtra("date", datesplit);
+                intent.putExtra("hour", Hour);
+                _acti.startActivity(intent);
+                _acti.finish();
+            }
+        });
+        infoDay.setFocusable(false);
         item.setTypeface(null, Typeface.BOLD);
         item.setText(laptopName);
         return convertView;

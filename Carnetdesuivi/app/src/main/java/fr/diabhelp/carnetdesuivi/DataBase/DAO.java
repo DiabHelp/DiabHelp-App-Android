@@ -15,18 +15,18 @@ public class DAO extends DAOBase {
 
     public static final String tdate = "date";
 
-    public static final String glycemy = "glycemy";
-    public static final String Titre = "title";
-    public static final String Lieux = "place";
-    public static final String Date_hour = "date_hour";
-    public static final String glucide = "glucide";
-    public static final String activity = "activity";
-    public static final String activityType = "activity_type";
-    public static final String notes = "notes";
-    public static final String fast_insu = "fast_insu";
-    public static final String slow_insu = "slow_insu";
-    public static final String hba1c = "hba1c";
-    public static final String Hour = "hour";
+    public static final String glycemy = "glycemy"; // y
+    public static final String Titre = "title"; // y
+    public static final String Lieux = "place"; //y
+    public static final String Date_hour = "date_hour"; // y
+    public static final String glucide = "glucide"; // y
+    public static final String activity = "activity"; //
+    public static final String activityType = "activity_type"; //
+    public static final String notes = "notes"; //
+    public static final String fast_insu = "fast_insu"; // y
+    public static final String slow_insu = "slow_insu"; // y
+    public static final String hba1c = "hba1c"; // y
+    public static final String Hour = "hour"; // y
 
     public static final String breakfast = "breakfast";
     public static final String launch = "launch";
@@ -56,6 +56,7 @@ public class DAO extends DAOBase {
     public void AddDay(EntryOfCDS m) {
         ContentValues value = new ContentValues();
         value.put(Titre, m.getTitle());
+        Log.e("place saved", m.getPlace());
         value.put(Lieux, m.getPlace());
         value.put(Date_hour, m.getDate());
         value.put(glucide, m.getGlucide());
@@ -139,8 +140,8 @@ public class DAO extends DAOBase {
         return (-1);
     }
 
-    public void deleteDay(String _date) {
-        mDb.delete(TABLE_NAME, tdate + " = ?", new String[] {_date});
+    public void deleteDay(String _date, String _hour) {
+        mDb.delete(TABLE_NAME, tdate + " = ? and " + Hour + " = ?", new String[] {_date, _hour});
     }
 
     /**
@@ -150,9 +151,14 @@ public class DAO extends DAOBase {
     public void Update(EntryOfCDS m) {
         Log.e("bdd-action :", "update");
         ContentValues value = new ContentValues();
+
+
+
         value.put(Titre, m.getTitle());
         value.put(Lieux, m.getPlace());
+        Log.e("date_hour in update", m.getDate());
         value.put(Date_hour, m.getDate());
+        value.put(Hour, m.getHour());
         value.put(glucide, m.getGlucide());
         value.put(activity, m.getActivity());
         value.put(activityType, m.getActivityType());
@@ -176,7 +182,9 @@ public class DAO extends DAOBase {
         value.put(work, m.getAtwork());
         value.put(athome, m.getAthome());
 
-        mDb.update(TABLE_NAME, value, tdate  + " = ?", new String[] {String.valueOf(m.getDate())});
+        Log.e("date request Update", m.getDate());
+        Log.e("hour request Update", m.getHour());
+        mDb.update(TABLE_NAME, value, Date_hour + " = ?" + " and " + Hour + " = ?", new String[]{String.valueOf(m.getDate()), m.getHour() });
 
     }
 
@@ -263,10 +271,94 @@ public class DAO extends DAOBase {
         return mAll;
     }
 
+    public ArrayList<EntryOfCDS> SelectAllOneday(String mtDate)
+    {
+        EntryOfCDS m = null;
+        ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
+
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?"  , new String[] { mtDate});
+
+        String[] i = c.getColumnNames();
+
+        while (c.moveToNext()) {
+
+            if (c == null || c.getCount() <= 0)
+                return null;
+
+/*
+        String _title = c.getString(c.getColumnIndex(Titre));
+        String _place = c.getString(c.getColumnIndex(Lieux));
+        Double _glucide = c.getDouble(c.getColumnIndex(glucide));
+        String _activity = c.getString(c.getColumnIndex(activity));
+
+        String _activityType = c.getString(c.getColumnIndex(activityType));
+
+        String _notes = c.getString(c.getColumnIndex(notes));
+
+
+        Double _fast_insu = c.getDouble(c.getColumnIndex(fast_insu));
+        Double _slow_insu = c.getDouble(c.getColumnIndex(slow_insu));
+        Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
+*/
+            String _date = c.getString(c.getColumnIndex(Date_hour));
+            Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
+/*        Integer _launch = c.getInt(c.getColumnIndex(launch));
+        Integer _diner = c.getInt(c.getColumnIndex(diner));
+        Integer _encas = c.getInt(c.getColumnIndex(encas));
+        Integer _sleep = c.getInt(c.getColumnIndex(sleep));
+        Integer _wakeup = c.getInt(c.getColumnIndex(wakeup));
+        Integer _night = c.getInt(c.getColumnIndex(night));
+        Integer _workout = c.getInt(c.getColumnIndex(workout));
+        Integer _hypogly = c.getInt(c.getColumnIndex(hypogly));
+        Integer _hypergly = c.getInt(c.getColumnIndex(hypergly));
+        Integer _atwork = c.getInt(c.getColumnIndex(work));
+        Integer _athome = c.getInt(c.getColumnIndex(athome));
+        Integer _alcohol = c.getInt(c.getColumnIndex(alcohol));
+        Integer _period = c.getInt(c.getColumnIndex(period));
+        Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));*/
+
+            m = new EntryOfCDS(_date);
+            m.setDateApi(mtDate);
+/*        m.setActivity(_activity);
+        m.setActivityType(_activityType);
+        m.setDate(_date);
+        m.setFast_insu(_fast_insu);
+        m.setGlucide(_glucide);
+        m.setNotes(_notes);
+        m.setSlow_insu(_slow_insu);
+        m.setTitle(_title);
+        m.setPlace(_place);
+        m.setHba1c(_hba1c);*/
+            m.setglycemy(_glycemy);
+            Log.e("glycemie in DAO", String.valueOf(_glycemy));
+/*        m.setBreakfast(_breakfast);
+        m.setLaunch(_launch);
+        m.setDiner(_diner);
+        m.setEncas(_encas);
+        m.setSleep(_sleep);
+        m.setWakeup(_wakeup);
+        m.setNight(_night);
+        m.setWorkout(_workout);
+        m.setHypogly(_hypogly);
+        m.setHypergly(_hypergly);
+        m.setAtwork(_atwork);
+        m.setAthome(_athome);
+        m.setAlcohol(_alcohol);
+        m.setPeriod(_period);*/
+
+            mAll.add(m);
+        }
+        return mAll;
+    }
+
     public EntryOfCDS SelectDay(String mtDate, String _hour) {
         EntryOfCDS m = null;
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
+        if (_hour == null)
+            _hour = "00h00";
+        if (mtDate == null)
+            mtDate = "0-0-0";
         Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?" + " and " + Hour + " = ?" , new String[] { mtDate, _hour});
 
         String[] i = c.getColumnNames();
@@ -280,7 +372,7 @@ public class DAO extends DAOBase {
             String _place = c.getString(c.getColumnIndex(Lieux));
             Double _glucide = c.getDouble(c.getColumnIndex(glucide));
             String _activity = c.getString(c.getColumnIndex(activity));
-
+            String _hours = c.getString(c.getColumnIndex(Hour));
             String _activityType = c.getString(c.getColumnIndex(activityType));
 
             String _notes = c.getString(c.getColumnIndex(notes));
@@ -311,6 +403,7 @@ public class DAO extends DAOBase {
             m.setActivity(_activity);
             m.setActivityType(_activityType);
             m.setDate(_date);
+            m.setHour(_hours);
             m.setFast_insu(_fast_insu);
             m.setGlucide(_glucide);
             m.setNotes(_notes);

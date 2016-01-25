@@ -18,6 +18,7 @@
         android:layout_height="50dp"
         android:text="Ajouter"
         android:textAllCaps="true"
+        android:textStyle="bold"
         android:onClick="save_button"
         android:id="@+id/SignUpButton"
         android:textColor="@color/abc_secondary_text_material_dark"
@@ -68,6 +69,15 @@
             android:rowCount="19">
 
 
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/lineartitle"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
             <!-- Titre -->
             <TextView
                 android:layout_width="wrap_content"
@@ -77,11 +87,10 @@
                 android:id="@+id/titreview"
                 android:layout_gravity="left"
                 android:paddingBottom="15dp"
-                android:layout_column="0"
-                android:layout_row="0"
                 android:paddingRight="80dp"
-                />
-
+                style="bold"
+                android:textStyle="bold" />
+                </LinearLayout>
             <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
@@ -89,24 +98,36 @@
                 android:layout_row="0"
                 android:paddingBottom="15dp"
                 android:layout_gravity="right"
-                android:layout_column="1"
+                android:layout_column="2"
 
                 />
 
             <!-- Date -->
+                <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/lineardate"
+                android:layout_row="1"
+                android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Date"
+                android:textStyle="bold"
                 android:id="@+id/dateview"
                 android:paddingBottom="15dp"
                 android:layout_gravity="left"
-                android:layout_column="0"
-                android:layout_row="1"
                 android:paddingRight="80dp"
-                />
-
+                style="bold" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        />
+            </LinearLayout>
             <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
@@ -115,31 +136,60 @@
                 android:inputType="datetime"
                 android:paddingBottom="15dp"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
             <!-- Place -->
-            <TextView
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/linearplace"
+                    android:layout_row="2"
+                    android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
+
+
+                    <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Lieux"
                 android:id="@+id/placeview"
                 android:layout_gravity="left"
-                android:layout_column="0"
                 android:paddingBottom="15dp"
-                android:layout_row="2"
                 android:paddingRight="80dp"
-                />
+                        style="bold"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-            <EditText
+                <ImageView
+                    android:layout_width="@dimen/width_img_entry_activity"
+                    android:layout_height="@dimen/heigh_img_entry_activity"
+                    android:id="@+id/dateimg"
+                    android:src="@drawable/ic_place_black_48dp"
+                    android:layout_row="2"
+                    android:layout_column="1" />
+
+                <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
                 android:id="@+id/editplace"
                 android:layout_row="2"
                 android:layout_gravity="right"
                 android:paddingBottom="15dp"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/width_linear_text"
+                    android:id="@+id/linearglycemi"
+                    android:layout_row="3"
+                    android:layout_column="0"
+
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
             <!-- Glycemy -->
             <TextView
                 android:layout_width="wrap_content"
@@ -148,12 +198,12 @@
                 android:text="Glycemie (mg/dl)"
                 android:paddingBottom="15dp"
                 android:id="@+id/GlycemyView"
-                android:layout_gravity="left"
-                android:layout_column="0"
-                android:layout_row="3"
-                android:paddingRight="80dp"
-                />
+                android:layout_gravity="left|center"
+                android:gravity="left"
+                style="bold"
+                android:textStyle="bold" />
 
+                </LinearLayout>
             <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
@@ -162,23 +212,45 @@
                 android:inputType="numberDecimal"
                 android:paddingBottom="15dp"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
             <!-- Glucide -->
+                <ImageView
+                    android:layout_width="@dimen/width_img_entry_activity"
+                    android:layout_height="@dimen/heigh_img_entry_activity"
+                    android:src="@drawable/glycemiegood"
+                    android:layout_row="3"
+                    android:layout_column="1" />
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/width_linear_text"
+                    android:id="@+id/linearglucide"
+                    android:layout_row="4"
+                    android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Glucide (g)"
                 android:id="@+id/glucideview"
-                android:layout_gravity="left"
-                android:layout_column="0"
                 android:paddingBottom="15dp"
-                android:layout_row="4"
-                android:paddingRight="80dp"
-                />
+                android:paddingRight="@dimen/paddinRight_txtview_entry_activity"
+                style="bold"
+                android:textStyle="bold" />
+                </LinearLayout>
 
-            <EditText
+                <ImageView
+                    android:layout_width="@dimen/width_img_entry_activity"
+                    android:layout_height="@dimen/heigh_img_entry_activity"
+                    android:src="@drawable/glucide"
+                    android:layout_row="4"
+                    android:layout_column="1" />
+
+                <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
                 android:id="@+id/editglucide"
@@ -186,10 +258,21 @@
                 android:layout_row="4"
                 android:inputType="numberDecimal"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
             <!-- Activité -->
-            <TextView
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/width_linear_text"
+                    android:id="@+id/duree"
+                    android:layout_row="5"
+                    android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
+
+                <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -197,12 +280,19 @@
                 android:text="Durée d'activitée"
                 android:id="@+id/placeactivity"
                 android:layout_gravity="left"
-                android:layout_column="0"
-                android:layout_row="5"
-                android:paddingRight="80dp"
-                />
+                android:paddingRight="@dimen/paddinRight_txtview_entry_activity"
+                    style="bold"
+                    android:textStyle="bold" />
+                </LinearLayout>
 
-            <EditText
+                <ImageView
+                    android:layout_width="@dimen/width_img_entry_activity"
+                    android:layout_height="@dimen/heigh_img_entry_activity"
+                    android:src="@drawable/sport2"
+                    android:layout_row="5"
+                    android:layout_column="1" />
+
+                <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
                 android:paddingBottom="15dp"
@@ -210,10 +300,22 @@
                 android:focusable="false"
                 android:layout_row="5"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
-            <!-- Type d'activité -->
-            <TextView
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/width_linear_text"
+                    android:id="@+id/linearactivitetype"
+                    android:layout_row="6"
+                    android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
+
+                <!-- Type d'activité -->
+
+                <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -223,18 +325,36 @@
                 android:layout_gravity="left"
                 android:layout_column="0"
                 android:layout_row="6"
-                android:paddingRight="80dp"
-                />
+                android:paddingRight="@dimen/paddinRight_txtview_entry_activity"
+                    style="bold"
+                    android:textStyle="bold" />
+                </LinearLayout>
 
-            <EditText
+                <ImageView
+                    android:layout_width="@dimen/width_img_entry_activity"
+                    android:layout_height="@dimen/heigh_img_entry_activity"
+                    android:src="@drawable/sport2"
+                    android:layout_row="6"
+                    android:layout_column="1" />
+
+                <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
                 android:id="@+id/editactivitytype"
                 android:paddingBottom="15dp"
                 android:layout_row="6"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/width_linear_text"
+                    android:id="@+id/linearfastinsu"
+                    android:layout_row="7"
+                    android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
             <!-- Rapide -->
             <TextView
                 android:layout_width="wrap_content"
@@ -244,12 +364,20 @@
                 android:paddingBottom="15dp"
                 android:id="@+id/rapideview"
                 android:layout_gravity="left"
-                android:layout_column="0"
-                android:layout_row="7"
                 android:paddingRight="80dp"
-                />
+                style="bold"
+                android:elegantTextHeight="false"
+                android:textStyle="bold" />
+                </LinearLayout>
 
-            <EditText
+                <ImageView
+                    android:layout_width="@dimen/width_img_entry_activity"
+                    android:layout_height="@dimen/heigh_img_entry_activity"
+                    android:src="@drawable/fast"
+                    android:layout_row="7"
+                    android:layout_column="1" />
+
+                <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
                 android:id="@+id/editrapide"
@@ -257,8 +385,17 @@
                 android:paddingBottom="15dp"
                 android:layout_row="7"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/width_linear_text"
+                    android:id="@+id/linearslowinsu"
+                    android:layout_row="8"
+                    android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
             <!-- Lente -->
             <TextView
                 android:layout_width="wrap_content"
@@ -268,12 +405,20 @@
                 android:id="@+id/lenteview"
                 android:layout_gravity="left"
                 android:paddingBottom="15dp"
-                android:layout_column="0"
-                android:layout_row="8"
-                android:paddingRight="80dp"
-                />
+                android:paddingRight="@dimen/paddinRight_txtview_entry_activity"
+                style="bold"
+                android:textStyle="bold" />
 
-            <EditText
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/width_img_entry_activity"
+                    android:layout_height="@dimen/heigh_img_entry_activity"
+                    android:src="@drawable/slow"
+                    android:layout_row="8"
+                    android:layout_column="1" />
+
+                <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
                 android:id="@+id/editlente"
@@ -281,8 +426,17 @@
                 android:layout_row="8"
                 android:paddingBottom="15dp"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/width_linear_text"
+                    android:id="@+id/linearhba1c"
+                    android:layout_row="9"
+                    android:layout_column="0"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="0dp"
+                    android:paddingBottom="0dp">
             <!-- hba1c -->
             <TextView
                 android:layout_width="wrap_content"
@@ -292,12 +446,19 @@
                 android:id="@+id/hba1cview"
                 android:layout_gravity="left"
                 android:paddingBottom="15dp"
-                android:layout_column="0"
-                android:layout_row="9"
-                android:paddingRight="80dp"
-                />
+                android:paddingRight="@dimen/paddinRight_txtview_entry_activity"
+                style="bold"
+                android:textStyle="bold" />
+                </LinearLayout>
 
-            <EditText
+                <ImageView
+                    android:layout_width="@dimen/width_img_entry_activity"
+                    android:layout_height="@dimen/heigh_img_entry_activity"
+                    android:src="@drawable/hba1c"
+                    android:layout_row="9"
+                    android:layout_column="1" />
+
+                <EditText
                 android:layout_width="@dimen/layout_edittext"
                 android:layout_height="wrap_content"
                 android:id="@+id/edithba1c"
@@ -305,7 +466,7 @@
                 android:inputType="numberDecimal"
                 android:paddingBottom="15dp"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
             <!-- Notes -->
             <TextView
@@ -313,13 +474,15 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Notes"
-                android:paddingBottom="15dp"
+                android:paddingBottom="0dp"
                 android:id="@+id/Notesview"
                 android:layout_gravity="left"
                 android:layout_column="0"
                 android:layout_row="10"
-                android:paddingRight="80dp"
-                />
+                android:paddingRight="0dp"
+                android:layout_marginLeft="20dp"
+                style="bold"
+                android:textStyle="bold" />
 
             <EditText
                 android:layout_width="@dimen/layout_edittext"
@@ -328,7 +491,7 @@
                 android:layout_row="10"
                 android:paddingBottom="15dp"
                 android:layout_gravity="right"
-                android:layout_column="1" />
+                android:layout_column="2" />
 
         </GridLayout>
         </LinearLayout>
@@ -395,7 +558,7 @@
                             android:id="@+id/imglaunch"
                             android:layout_width="@dimen/img_entry_size_width"
                             android:layout_height="@dimen/img_entry_size_height"
-                            android:src="@drawable/diner"
+                            android:src="@drawable/launch"
                             >
                         </ImageView>
 
