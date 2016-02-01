@@ -18,6 +18,7 @@ public class FavoritesMenusFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.menu_main, container, false);
+        menuManager = new MenuManager(getActivity().getApplicationInfo().dataDir + "/menus_favoris.json");
         v.findViewById(R.id.load_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
