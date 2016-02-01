@@ -9,24 +9,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="clear"
-        android:id="@+id/clear_button"
-        android:layout_below="@+id/load_button"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/save_button"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="load"
         android:id="@+id/load_button"
-        android:layout_below="@+id/save_button"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -34,8 +18,8 @@
         android:layout_height="wrap_content"
         android:text="Reset"
         android:id="@+id/reset_button"
-        android:layout_below="@+id/clear_button"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/load_button" />
 
     <Button
         android:layout_width="wrap_content"

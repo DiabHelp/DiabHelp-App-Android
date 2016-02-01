@@ -43,23 +43,6 @@ public class MenuManager {
         return  savedMenu;
     }
 
-    public boolean addAliment(Aliment newAliment)
-    {
-        for (Aliment aliment : savedMenu)
-        {
-            if (aliment.getName().equals(newAliment.getName()))
-                return false;
-        }
-        savedMenu.add(newAliment);
-        return true;
-
-    }
-
-    public boolean removeAliment(Aliment toRemove)
-    {
-        return savedMenu.remove(toRemove);
-    }
-
     public void loadMenu() throws IOException {
         savedMenu = new ArrayList<>();
         JsonReader reader = new JsonReader(new FileReader(savedFile));
@@ -105,54 +88,6 @@ public class MenuManager {
         reader.endObject();
         Log.d("MenuFavori", "Aliment attributes : name=" + name + ", weight=" + weight + ", glucids=" + glucids + ", totalGlucids=" + totalGlucids);
         return new Aliment(name, weight, glucids, totalGlucids);
-    }
-
-
-    // TODO : une fois que l'autre fragment sauvegardera correctement le menu, on get les infos du currentMenu
-    public void saveMenu() {
-        Log.d("MenuFavori", "Saving menus_favoris.json");
-
-        JSONArray menu = new JSONArray();
-        try {
-            JSONObject aliment = new JSONObject();
-            aliment.put("name","Patate");
-            aliment.put("weight","10");
-            aliment.put("glucides","50");
-            aliment.put("totalGlucides","500");
-            menu.put(aliment);
-            aliment = new JSONObject();
-            aliment.put("name","Test");
-            aliment.put("weight","1");
-            aliment.put("glucides","5");
-            aliment.put("totalGlucides","5");
-            menu.put(aliment);
-            aliment = new JSONObject();
-            aliment.put("name","Name2");
-            aliment.put("weight","2");
-            aliment.put("glucides","35");
-            aliment.put("totalGlucides","70");
-            menu.put(aliment);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (!savedFile.exists())
-                savedFile.createNewFile();
-            Writer writer = new BufferedWriter(new FileWriter(savedFile));
-            writer.write(menu.toString());
-            writer.close();
-        } catch (IOException e) {
-            Log.d("MenuFavori", "Could not create file writer");
-
-            e.printStackTrace();
-        }
-
-    }
-
-    public void clearCurrentMenu() {
-        Log.d("MenuFavori", "Clearing current menu");
-
-        savedMenu = new ArrayList<>();
     }
 
     public void clearMenu() {
