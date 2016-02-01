@@ -25,12 +25,10 @@ import java.util.List;
 public class MenuManager {
 
     private ArrayList<Aliment> savedMenu;
-    private ArrayList<Aliment> currentMenu;
 
     private File savedFile;
     MenuManager(String filename)
     {
-        currentMenu = new ArrayList<>();
         savedFile = new File(filename);
         try {
             loadMenu();
@@ -40,21 +38,26 @@ public class MenuManager {
         }
     }
 
+    public ArrayList<Aliment> getSavedMenu()
+    {
+        return  savedMenu;
+    }
+
     public boolean addAliment(Aliment newAliment)
     {
-        for (Aliment aliment : currentMenu)
+        for (Aliment aliment : savedMenu)
         {
             if (aliment.getName().equals(newAliment.getName()))
                 return false;
         }
-        currentMenu.add(newAliment);
+        savedMenu.add(newAliment);
         return true;
 
     }
 
     public boolean removeAliment(Aliment toRemove)
     {
-        return currentMenu.remove(toRemove);
+        return savedMenu.remove(toRemove);
     }
 
     public void loadMenu() throws IOException {
