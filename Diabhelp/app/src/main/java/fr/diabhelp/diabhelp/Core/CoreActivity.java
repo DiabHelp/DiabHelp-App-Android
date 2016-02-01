@@ -46,6 +46,11 @@ public class CoreActivity extends AppCompatActivity {
     public String[] getAppStringList() { return this.web; }
     public Drawable[] getAppDrawableList() { return this.img; }
 
+    public void updateModuleList()
+    {
+        app = getPackages();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +107,7 @@ public class CoreActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     private ArrayList<PInfo> getPackages() {
         ArrayList<PInfo> apps = getInstalledApps(false); /* false = no system packages */
         final int max = apps.size();

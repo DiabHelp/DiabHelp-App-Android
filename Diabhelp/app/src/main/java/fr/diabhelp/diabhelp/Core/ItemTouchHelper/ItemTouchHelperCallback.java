@@ -16,7 +16,7 @@ import fr.diabhelp.diabhelp.Core.ParametresRecyclerAdapter;
 public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     private final ItemTouchHelperAdapter adapter;
-
+    private Canvas lastDrawn;
     public ItemTouchHelperCallback (ItemTouchHelperAdapter adapter)
     {
         this.adapter = adapter;
@@ -39,7 +39,6 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
             int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
             return makeMovementFlags(0, swipeFlags);
         }
-        Log.d("ModuleManager", "move flag not parametresholder");
         return 0;
     }
 
@@ -51,7 +50,6 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         Log.d("ModuleManager", "OnSwipe called");
-        viewHolder.itemView.setX(0);
         adapter.onItemDismiss(viewHolder);
     }
     @Override
@@ -59,13 +57,10 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
                             RecyclerView.ViewHolder viewHolder, float dX, float dY,
                             int actionState, boolean isCurrentlyActive) {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            // Get RecyclerView item from the ViewHolder
+            lastDrawn = c;
             View itemView = viewHolder.itemView;
-
             Paint p = new Paint();
             p.setColor(Color.YELLOW);
-            /* Set your color for negative displacement */
-                // Draw Rect with varying left side, equal to the item's right side plus negative displacement dX
                 c.drawRect((float) itemView.getRight() + dX, (float) itemView.getTop(),
                         (float) itemView.getRight(), (float) itemView.getBottom(), p);
             p.setColor(Color.BLACK);

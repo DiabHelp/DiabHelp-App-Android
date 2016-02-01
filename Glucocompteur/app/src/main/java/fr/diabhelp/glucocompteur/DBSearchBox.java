@@ -1,16 +1,12 @@
-package com.glucocompteur.app;
+package fr.diabhelp.glucocompteur;
 
-import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Vector;
 
 /**
