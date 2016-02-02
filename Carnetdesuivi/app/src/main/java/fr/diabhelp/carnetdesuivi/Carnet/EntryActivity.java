@@ -268,7 +268,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _breakfast = intent.getExtras().getInt("breakfast");
 
 
-/*        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run();*/ // TODO soucis sur le fill_place
+        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run(); // TODO soucis sur le fill_place
 
         time = (EditText) findViewById(R.id.editactivity);
         time.setOnClickListener(new View.OnClickListener() {
@@ -524,11 +524,13 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         bdd.open();
         if (bdd.SelectDay(_date, _hour) == null) {
             Entry.setHour(Hours);
+            Log.e("save", "select day != null");
             Log.e("entryhour : ", Entry.getHour());
             bdd.AddDay(Entry);
         }
         else {
             Entry.setHour(_hour);
+            Log.e("save", "select day == null");
             Log.e("entryhour : ", Entry.getHour());
             bdd.Update(Entry);
         }
@@ -698,12 +700,13 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgptidej);
 
         if (isActiveicon.get(IconeType.BREAKFAST.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
             isActiveicon.set(IconeType.BREAKFAST.getValue(), 1);
+            img.setImageResource(R.drawable.ptidejgreen);
         }
         else {
             img.setBackgroundColor(Color.parseColor("#ffffff"));
             isActiveicon.set(IconeType.BREAKFAST.getValue(), 0);
+            img.setImageResource(R.drawable.ptidej);
         }
     }
 

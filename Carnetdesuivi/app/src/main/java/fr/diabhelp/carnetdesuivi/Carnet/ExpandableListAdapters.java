@@ -302,14 +302,14 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         Log.e("datefinale expendable", datefinal);
         return datefinal;
     }
-    protected String getMonthstr(String month)
+    protected String getMonthstr(String month) //TODO Pas bon du tout peux causer ds soucis avec des select de db..
     {
         switch (month)
         {
             case "Janvier" :
                 return ("janv.");
             case "Fevrier" :
-                return ("fév");
+                return ("févr.");
             case "Mars" :
                 return ("mars");
             case "Avril" :

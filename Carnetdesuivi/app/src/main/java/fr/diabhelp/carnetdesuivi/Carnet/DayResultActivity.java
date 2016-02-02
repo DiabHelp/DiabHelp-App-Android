@@ -305,18 +305,21 @@ public class DayResultActivity extends Activity {
         if (inf.getNotes() == null || inf.getNotes() == "" || inf.getNotes().length() == 0) {
             _linearCell.get(Linear.NOTES.getValue()).setVisibility(View.GONE);
 
-        } else {
+        }
+        else {
             _linearCell.get(Linear.NOTES.getValue()).setVisibility(View.VISIBLE);
             _txtCell.get(TXTedit.NOTES.getValue()).setText(inf.getNotes());
         }
+
         if (inf.getPlace() == null || inf.getPlace() == "" || inf.getPlace() == "N/A") {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.GONE);
             ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
             img.setVisibility(View.GONE);
             Log.e("imgplace", "pas visible");
-        } else {
+        }
+        else {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.VISIBLE);
-            Log.e("imgplace", "visible " + inf.getPlace());
+            Log.e("imgplace", "visible $" + inf.getPlace()+"%");
             _txtCell.get(TXTedit.PLACETEXT.getValue()).setText(inf.getPlace());
             ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
             img.setVisibility(View.VISIBLE);
@@ -377,7 +380,7 @@ public class DayResultActivity extends Activity {
         switch (month) {
             case "janv.":
                 return ("Janvier");
-            case "fév.":
+            case "févr.":
                 return ("Fevrier");
             case "mar.":
                 return ("Mars");

@@ -1,6 +1,8 @@
 package fr.diabhelp.carnetdesuivi;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,8 +41,8 @@ import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 public class Carnetdesuivi extends AppCompatActivity {
     public GridView grid;
     public GridView gridba;
-    private ListView mainListView ;
-    private ArrayAdapter<String> listAdapter ;
+    private ListView mainListView;
+    private ArrayAdapter<String> listAdapter;
     static DAO bdd;
     final int sdk = android.os.Build.VERSION.SDK_INT;
 
@@ -48,7 +51,8 @@ public class Carnetdesuivi extends AppCompatActivity {
     List<String> childList;
     Map<String, List<String>> laptopCollection;
     ExpandableListView expListView;
-    public enum InputType{
+
+    public enum InputType {
         GLUCIDE(0),
         FAST_INSU(1),
         SLOW_INSU(2),
@@ -64,8 +68,9 @@ public class Carnetdesuivi extends AppCompatActivity {
         public int getValue() {
             return value;
         }
-    };
+    }
 
+    ;
 
 
     @Override
@@ -81,11 +86,10 @@ public class Carnetdesuivi extends AppCompatActivity {
         createCollection();
 
 
-        if (groupList == null)
-        {
+        if (groupList == null) {
             noEntry.setEnabled(true);
             noEntry.setVisibility(View.VISIBLE);
-            return ;
+            return;
         }
 
         expListView = (ExpandableListView) findViewById(R.id.expandableListView);
@@ -128,8 +132,7 @@ public class Carnetdesuivi extends AppCompatActivity {
                 return;
             }
         });*/
-        if (groupList != null && groupList.size() > 0)
-        {
+        if (groupList != null && groupList.size() > 0) {
             noEntry.setEnabled(false);
             noEntry.setVisibility(View.INVISIBLE);
             expListView.expandGroup(0);
@@ -237,8 +240,7 @@ public class Carnetdesuivi extends AppCompatActivity {
 
     }
 
-    protected String reconstructDate(String date)
-    {
+    protected String reconstructDate(String date) {
         String datefinal;
         String datepart = date.split("-")[1];
         Log.e("reconstructor date", (datepart.split(" ")[1] + "-" + datepart.split(" ")[2]));
@@ -249,8 +251,7 @@ public class Carnetdesuivi extends AppCompatActivity {
         return datefinal;
     }
 
-    private void fillAverageGly()
-    {
+    private void fillAverageGly() {
 /*        int today[] = getDate();*/
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
         int idx = 0;
@@ -286,9 +287,7 @@ public class Carnetdesuivi extends AppCompatActivity {
                 } else {
                     glyl.setBackground(this.getResources().getDrawable(R.drawable.round_cornerglyclean));
                 }
-            }
-            else
-            {
+            } else {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     gly.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.round_cornerglynoclean));
                 } else {
@@ -296,8 +295,7 @@ public class Carnetdesuivi extends AppCompatActivity {
                 }
             }
             gly.setText(String.valueOf(total) + "\nmg/dl");
-        }
-        else {
+        } else {
             gly.setText("-" + "\nmg/dl");
             if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                 gly.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.round_cornerglycleannothing));
@@ -328,11 +326,89 @@ public class Carnetdesuivi extends AppCompatActivity {
         }
     }
 
+    // This fonction is needed to help user to make a good follow sheet
+    // user will modify his entry if he want 2 entry in the same minute
+    private boolean checkTooFast()
+    {
+        String _minute;
+        int hours = new Time(System.currentTimeMillis()).getHours();
+        int minutes = new Time(System.currentTimeMillis()).getMinutes();
+        if (minutes < 10)
+            _minute = "0" + String.valueOf(minutes);
+        else
+            _minute = String.valueOf(minutes);
+        String Hours = String.valueOf(hours) + ":" + _minute;
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
+        bdd.open();
+
+        final EntryOfCDS ent = bdd.SelectDay(formattedDate, Hours);
+        bdd.close();
+        if (ent != null)
+        {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("Attention");
+            alertDialog.setMessage("Par soucis de clarté, vous ne pouvez ajouter une nouvelle entrée.. Vous pouvez modifier votre dernière entrée si vous le souhaitez..\nVoulez vous modifier votre dernière entrée ?");
+            alertDialog.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent Entryintent = new Intent(Carnetdesuivi.this, EntryActivity.class);
+
+                    Entryintent.putExtra("title", ent.getTitle());
+                    Entryintent.putExtra("place", ent.getPlace());
+                    Entryintent.putExtra("glucide", ent.getGlucide());
+                    Entryintent.putExtra("activity", ent.getActivity());
+                    Entryintent.putExtra("activityType", ent.getActivityType());
+                    Entryintent.putExtra("notes", ent.getNotes());
+                    Entryintent.putExtra("date", ent.getDate());
+                    Entryintent.putExtra("fast_insu", ent.getFast_insu());
+                    Entryintent.putExtra("slow_insu", ent.getSlow_insu());
+                    Entryintent.putExtra("hba1c", ent.getHba1c());
+                    Entryintent.putExtra("hour", ent.getHour());
+                    Log.e("gethour updateEntry", ent.getHour());
+                    Entryintent.putExtra("date", ent.getDate());
+
+                    Entryintent.putExtra("glycemy", ent.getglycemy());
+
+                    Entryintent.putExtra("launch", ent.getLaunch());
+                    Entryintent.putExtra("diner", ent.getDiner());
+                    Entryintent.putExtra("encas", ent.getEncas());
+                    Entryintent.putExtra("sleep", ent.getSleep());
+                    Entryintent.putExtra("wakeup", ent.getWakeup());
+                    Entryintent.putExtra("night", ent.getNight());
+                    Entryintent.putExtra("workout", ent.getWorkout());
+                    Entryintent.putExtra("hypogly", ent.getHypogly());
+                    Entryintent.putExtra("hypergly", ent.getHypergly());
+                    Entryintent.putExtra("atwork", ent.getAtwork());
+                    Entryintent.putExtra("athome", ent.getAthome());
+                    Entryintent.putExtra("alcohol", ent.getAlcohol());
+                    Entryintent.putExtra("period", ent.getPeriod());
+                    Entryintent.putExtra("breakfast", ent.getBreakfast());
+                    Carnetdesuivi.this.startActivity(Entryintent);
+                    Carnetdesuivi.this.finish();
+                }
+            });
+            alertDialog.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return ;
+                }
+            });
+            alertDialog.show();
+            Log.e("checktoofast", "select : != null");
+        }
+        else {
+            Intent Entryintent = new Intent(Carnetdesuivi.this, EntryActivity.class);
+            Carnetdesuivi.this.startActivity(Entryintent);
+            Carnetdesuivi.this.finish();
+            Log.e("checktoofast", "select : == null");
+        }
+        return true;
+    }
 
     public void launch_entry(View v) {
-        Intent Entryintent = new Intent(Carnetdesuivi.this, EntryActivity.class);
-        Carnetdesuivi.this.startActivity(Entryintent);
-        this.finish();
+        checkTooFast();
     }
 
     private void loadChild(String[] laptopModels) {
@@ -464,14 +540,14 @@ public class Carnetdesuivi extends AppCompatActivity {
         return null;
     }
 
-    protected String getMonthstr(String month)
+    protected String getMonthstr(String month) //TODO Super moche attention, peux causer des problemes..
     {
         Log.e("month written in DB" , month);
         switch (month)
         {
             case "janv." :
                 return ("Janvier");
-            case "fév." :
+            case "févr." :
                 return ("Fevrier");
             case "mar." :
                 return ("Mars");
