@@ -47,6 +47,13 @@ public class CoreActivity extends AppCompatActivity {
     public ArrayList<PInfo> getAppList() { return this.app; }
     public String[] getAppStringList() { return this.web; }
     public Drawable[] getAppDrawableList() { return this.img; }
+
+    public void updateModuleList()
+    {
+        app = getPackages();
+    }
+
+
     public Boolean getNetState() {return this.NetState; }
     public void setNetStateAndChange(Boolean netstate) { this.NetState = netstate;
     // Change layout
@@ -55,10 +62,6 @@ public class CoreActivity extends AppCompatActivity {
         else if (this.NetState == false)
             Toast.makeText(this, "Internet off", Toast.LENGTH_LONG).show();
     }
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

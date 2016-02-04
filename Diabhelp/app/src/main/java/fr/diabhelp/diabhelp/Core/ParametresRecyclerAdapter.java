@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,6 +31,7 @@ import fr.diabhelp.diabhelp.R;
  * Started on 14 Oct 2015 at 15:27
  */
 public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRecyclerAdapter.ParametresModuleHolder> implements ItemTouchHelperAdapter{
+    private final CoreActivity _activity;
     private ArrayList<ParametresModule> _modulesList;
     private ParametresModuleHolder contextMenuHolder;
 
@@ -45,7 +47,7 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
     }
 
     public void onItemDismiss(RecyclerView.ViewHolder viewHolder) {
-        notifyItemChanged(viewHolder.getAdapterPosition());
+        //notifyItemChanged(viewHolder.getAdapterPosition());
         ((ParametresModuleHolder) viewHolder).uninstallApp();
     }
 
@@ -59,7 +61,7 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
 
     public void setLatestVersion(String s) {
         JSONArray array = JsonUtils.get_array(s);
-
+        Log.d("ModuleManager", "SetLatestVersion : ModuleList size = " + _modulesList.size());
         for (int i = 0; i < array.length(); i++) {
             JSONObject obj;
             if ((obj = JsonUtils.getObjfromArray(array, i)) != null) {
@@ -67,10 +69,10 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
                 if ((name = JsonUtils.getStringfromKey(obj, "name")) != null) {
                     for (int j = 0; j < _modulesList.size(); j++)
                     {
-                        if (_modulesList.get(i).getName().equals(name) || j == 0) {
+                        if (_modulesList.get(j).getName().equals(name) || j == 0) {
                             String version;
                             if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
-                                _modulesList.get(i).setLatestVersion(version);
+                                _modulesList.get(j).setLatestVersion(version);
                             }
                         }
                     }
@@ -79,6 +81,20 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
         }
     }
 
+    public void onModuleListUpdated(String appname) {
+
+        Log.d("ModuleManager", "Package removed : " + appname);
+        int position = getModulePosition(appname);
+        Log.d("ModuleManager", "removing holder at position : " + position);
+        if (position >= 0) {
+            notifyItemRemoved(position);
+            _modulesList.remove(position);
+        }
+        // Update app list in core
+        _activity.updateModuleList();
+        Log.d("ModuleManager", "Uninstall BR : ModuleList size = " + _modulesList.size());
+        notifyDataSetChanged();
+    }
 
 
     public static class ParametresModuleHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
@@ -126,14 +142,17 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
     }
 
     public ParametresRecyclerAdapter(ArrayList<ParametresModule> modulesList, FragmentActivity activity) {
+        _activity = (CoreActivity) activity;
         _modulesList = modulesList;
           /* On vérifie si le package a bien été désinstallé sans reparser la liste des modules */
+        UninstallBroadcastReceiver broadcastReceiver = new UninstallBroadcastReceiver(new Handler(), this);
+        /*
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String appname = intent.getDataString();
                 appname = appname.substring(appname.indexOf(':') + 1);
-                if (appname.contains("ocdevel")) //TODO : Change for diabhelp
+                if (appname.contains("diabhelp")) //TODO : Change for diabhelp
                 {
                     Log.d("ModuleManager", "Package removed : " + appname);
                     int position = getModulePosition(appname);
@@ -147,6 +166,7 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
             }
 
         };
+        */
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
         filter.addDataScheme("package");
