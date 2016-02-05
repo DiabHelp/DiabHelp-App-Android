@@ -15,11 +15,17 @@
             android:name=".Carnetdesuivi"
             android:label="@string/app_name" >
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Carnet.EntryActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan"
+            >
+        </activity>
+        <activity
+            android:name=".Carnet.AccueilStatistics"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustPan"
             >

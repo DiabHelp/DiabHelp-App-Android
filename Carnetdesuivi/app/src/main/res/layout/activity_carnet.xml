@@ -121,6 +121,7 @@
                 android:layout_below="@id/relativeavg"
                 android:textStyle="bold"
                 />
+
         </RelativeLayout>
 
         <ExpandableListView

@@ -10,6 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
@@ -29,6 +32,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.diabhelp.carnetdesuivi.Carnet.AccueilStatistics;
 import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;
@@ -78,6 +82,7 @@ public class Carnetdesuivi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carnet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Carnet de Suivi");
         setSupportActionBar(toolbar);
         bdd = new DAO(this);
         TextView noEntry = (TextView) findViewById(R.id.Noentry);
@@ -238,6 +243,13 @@ public class Carnetdesuivi extends AppCompatActivity {
 
 /*        hsv.getMaxScrollAmount();*/
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     protected String reconstructDate(String date) {
@@ -409,6 +421,23 @@ public class Carnetdesuivi extends AppCompatActivity {
 
     public void launch_entry(View v) {
         checkTooFast();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.statistics:
+                launch_statistics();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void launch_statistics() {
+        Intent Statsintent = new Intent(Carnetdesuivi.this, AccueilStatistics.class);
+        Carnetdesuivi.this.startActivity(Statsintent);
     }
 
     private void loadChild(String[] laptopModels) {
