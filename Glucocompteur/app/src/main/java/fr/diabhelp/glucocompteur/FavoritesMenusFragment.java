@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +23,38 @@ public class FavoritesMenusFragment extends Fragment {
     private RecyclerView.LayoutManager  _recLayoutManager;
     private ArrayList<Menu>             _menuList = new ArrayList<>();
 
-    /*
     MenuManager menuManager;
+
+    /*
+    private  void debug()
+    {
+        JSONMenuWriter writerDebug = new JSONMenuWriter(getActivity().getApplicationInfo().dataDir + "/menus_favoris.json");
+        ArrayList<ArrayList<Aliment>> menuListDebug = new ArrayList<>();
+        ArrayList<Aliment> menu1 = new ArrayList<>();
+        menu1.add(new Aliment("Pomme", 1.0f ,10.0f,50.0f));
+        menu1.add(new Aliment("Aliment2", 1.0f ,10.0f,510.0f));
+        menu1.add(new Aliment("Aliment3", 15.0f ,105.0f,550.0f));
+        menu1.add(new Aliment("PommeAliment4", 1.0f ,100.0f,580.0f));
+        menuListDebug.add(menu1);
+        ArrayList<Aliment> menu2 = new ArrayList<>();
+        menu2.add(new Aliment("Pommm2333", 1.0f ,10.0f,50.0f));
+        menu2.add(new Aliment("Alimenzzzzzt2", 1.0f ,10.0f,510.0f));
+        menuListDebug.add(menu2);
+        ArrayList<Aliment> menu3 = new ArrayList<>();
+        menu3.add(new Aliment("Test", 1.0f ,10.0f,50.0f));
+        menu3.add(new Aliment("Test2", 1.0f ,10.0f,510.0f));
+        menu3.add(new Aliment("Test3", 15.0f ,105.0f,550.0f));
+        menu3.add(new Aliment("Test4", 1.0f ,100.0f,580.0f));
+        menu3.add(new Aliment("Test5", 1.0f ,100.0f,580.0f));
+        menuListDebug.add(menu3);
+        writerDebug.saveMenu(menuListDebug);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.menu_main, container, false);
+        debug();
         menuManager = new MenuManager(getActivity().getApplicationInfo().dataDir + "/menus_favoris.json");
         v.findViewById(R.id.load_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,39 +82,38 @@ public class FavoritesMenusFragment extends Fragment {
         return v;
     }
     */
-
     @Override
     public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
-    @Override
+   @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_favorites, container, false);
+       View v = inflater.inflate(R.layout.fragment_favorites, container, false);
 
-        _recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
-        _recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
-        _recyclerView.setLayoutManager(_recLayoutManager);
-        List<ExpandableListAdapter.Item> data = new ArrayList<>();
+       _recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
+       _recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
+       _recyclerView.setLayoutManager(_recLayoutManager);
+       List<ExpandableListAdapter.Item> data = new ArrayList<>();
 
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Matin"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Lait"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Cereales"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Pomme"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Midi"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Pates"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Poulet"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Fromage"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Yaourt"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Matin"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Lait"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Cereales"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Pomme"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Midi"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Pates"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Poulet"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Fromage"));
+       data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Yaourt"));
 
-        ExpandableListAdapter.Item places = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Places");
-        places.invisibleChildren = new ArrayList<>();
-        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Kerala"));
-        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Tamil Nadu"));
-        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Karnataka"));
-        places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Maharashtra"));
+       ExpandableListAdapter.Item places = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Places");
+       places.invisibleChildren = new ArrayList<>();
+       places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Kerala"));
+       places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Tamil Nadu"));
+       places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Karnataka"));
+       places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Maharashtra"));
 
-        data.add(places);
+       data.add(places);
 
-        _recyclerView.setAdapter(new ExpandableListAdapter(data));
-        return v;
-    }
+       _recyclerView.setAdapter(new ExpandableListAdapter(data));
+       return v;
+   }
 }

@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class MenuManager {
 
-    private ArrayList<Aliment> savedMenu;
+    private ArrayList<ArrayList<Aliment>> savedMenuList;
 
     private File savedFile;
     MenuManager(String filename)
@@ -38,19 +38,26 @@ public class MenuManager {
         }
     }
 
-    public ArrayList<Aliment> getSavedMenu()
+    public ArrayList<ArrayList<Aliment>> getSavedMenu()
     {
-        return  savedMenu;
+        return  savedMenuList;
     }
 
     public void loadMenu() throws IOException {
-        savedMenu = new ArrayList<>();
+        savedMenuList = new ArrayList<>();
+        ArrayList savedMenu;
         JsonReader reader = new JsonReader(new FileReader(savedFile));
         try {
-            reader.beginArray();
-            while (reader.hasNext())
-                savedMenu.add(readAliment(reader));
-            reader.endArray();
+            reader.beginArray(); // Begin Menu Array
+            while (reader.hasNext()) {
+                savedMenu = new ArrayList();
+                reader.beginArray(); //Begin Aliment Array
+                while (reader.hasNext())
+                    savedMenu.add(readAliment(reader));
+                reader.endArray(); // End Aliment Array
+                savedMenuList.add(savedMenu);
+            }
+            reader.endArray(); //End Menu Array
         }
         finally {
             reader.close();
@@ -99,9 +106,13 @@ public class MenuManager {
     public void debug() {
         Log.d("MenuFavori", "Debug");
 
-        for (Aliment aliment : savedMenu)
-        {
-            Log.d("MenuFavori", aliment.toString());
+        for (ArrayList<Aliment> savedMenu : savedMenuList) {
+            Log.d("MenuFavori", "------- Begin Menu -------");
+            for (Aliment aliment : savedMenu) {
+                Log.d("MenuFavori", aliment.toString());
+            }
+            Log.d("MenuFavori", "------- End Menu -------");
+
         }
     }
 }

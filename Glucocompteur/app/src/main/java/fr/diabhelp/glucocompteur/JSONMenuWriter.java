@@ -25,19 +25,24 @@ public class JSONMenuWriter {
         savedFile = new File(filename);
     }
 
-    public void saveMenu(ArrayList<Aliment> menu) {
+    public void saveMenu(ArrayList<ArrayList<Aliment>> menuList) {
         Log.d("MenuFavori", "Saving menus_favoris.json");
 
-        JSONArray JSONMenu = new JSONArray();
+        JSONArray JSONMenuList = new JSONArray();
+        JSONArray JSONMenu = null;
         JSONObject JSONAliment = null;
         try {
-            for (Aliment aliment : menu) {
-                JSONAliment = new JSONObject();
-                JSONAliment.put("name", aliment.getName());
-                JSONAliment.put("weight", aliment.getWeight());
-                JSONAliment.put("glucides", aliment.getGlucids());
-                JSONAliment.put("totalGlucides", aliment.getTotalGlucids());
-                JSONMenu.put(JSONAliment);
+            for (ArrayList<Aliment> menu : menuList) {
+                JSONMenu = new JSONArray();
+                for (Aliment aliment : menu) {
+                    JSONAliment = new JSONObject();
+                    JSONAliment.put("name", aliment.getName());
+                    JSONAliment.put("weight", aliment.getWeight());
+                    JSONAliment.put("glucides", aliment.getGlucids());
+                    JSONAliment.put("totalGlucides", aliment.getTotalGlucids());
+                    JSONMenu.put(JSONAliment);
+                }
+                JSONMenuList.put(JSONMenu);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -46,7 +51,7 @@ public class JSONMenuWriter {
             if (!savedFile.exists())
                 savedFile.createNewFile();
             Writer writer = new BufferedWriter(new FileWriter(savedFile));
-            writer.write(JSONMenu.toString());
+            writer.write(JSONMenuList.toString());
             writer.close();
         } catch (IOException e) {
             Log.d("MenuFavori", "Could not create file writer");
