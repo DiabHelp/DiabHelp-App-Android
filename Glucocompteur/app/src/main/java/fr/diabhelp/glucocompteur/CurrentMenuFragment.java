@@ -64,7 +64,6 @@ public class CurrentMenuFragment extends Fragment {
                 }
 
                 Aliment toAdd = new Aliment(selected.getObjectName(), 0f, glucides, 0f);
-                _alimentsList.clear(); // La recyclerview bug avec plus d'un aliment pour le moment
                 _alimentsList.add(toAdd);
                 _recAdapter.notifyDataSetChanged();
                 searchBox.setText("");
