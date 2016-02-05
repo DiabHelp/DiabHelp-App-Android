@@ -4,6 +4,7 @@ package fr.diabhelp.diabhelp.Core;
  * Created by naqued on 28/09/15.
  */
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,10 +22,10 @@ import org.json.JSONException;
 import java.io.File;
 import java.util.ArrayList;
 
-import fr.diabhelp.diabhelp.ApiCallTask;
+import fr.diabhelp.diabhelp.API.ApiCallTask;
 import fr.diabhelp.diabhelp.ConnexionState;
 import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperCallback;
-import fr.diabhelp.diabhelp.IApiCallTask;
+import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.R;
 
 public class Parametres_Fragment extends Fragment implements IApiCallTask {
@@ -122,7 +123,9 @@ public class Parametres_Fragment extends Fragment implements IApiCallTask {
         }
     }
 
+    @Override
+    public void onBackgroundTaskCompleted(Object bodyResponse, String action, ProgressDialog progress) {
 
-
+    }
 }
 

@@ -1,7 +1,7 @@
 package fr.diabhelp.diabhelp.Connexion_inscription;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,10 +15,10 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import fr.diabhelp.diabhelp.ApiCallTask;
+import fr.diabhelp.diabhelp.API.ApiCallTask;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.ConnexionState;
-import fr.diabhelp.diabhelp.IApiCallTask;
+import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.MyToast;
 import fr.diabhelp.diabhelp.R;
 
@@ -123,6 +123,12 @@ public class RegisterActivity extends Activity implements IApiCallTask {
             sendId(s, type, action);
         }
     }
+
+    @Override
+    public void onBackgroundTaskCompleted(Object bodyResponse, String action, ProgressDialog progress) {
+
+    }
+
 
     private void sendId(String s, int type, String action) {
         findViewById(R.id.loadingPanel).setVisibility(View.GONE);

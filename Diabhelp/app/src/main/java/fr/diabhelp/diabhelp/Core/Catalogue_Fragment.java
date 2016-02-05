@@ -3,6 +3,7 @@ package fr.diabhelp.diabhelp.Core;
 /**
  * Created by naqued on 28/09/15.
  */
+import android.app.ProgressDialog;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import fr.diabhelp.diabhelp.ApiCallTask;
+import fr.diabhelp.diabhelp.API.ApiCallTask;
 import fr.diabhelp.diabhelp.ConnexionState;
-import fr.diabhelp.diabhelp.IApiCallTask;
+import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.JsonUtils;
 import fr.diabhelp.diabhelp.R;
 import org.json.JSONArray;
@@ -127,4 +128,10 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
         }
         _recAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onBackgroundTaskCompleted(Object bodyResponse, String action, ProgressDialog progress) {
+
+    }
+
 }
