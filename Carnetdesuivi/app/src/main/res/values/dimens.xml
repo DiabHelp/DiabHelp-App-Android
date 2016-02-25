@@ -10,4 +10,7 @@
     <dimen name="child_icone_marginLeft">10dp</dimen>
     <dimen name="entry_icone_marginBottom">10dp</dimen>
     <dimen name="layout_edittext">300dp</dimen>
+    <dimen name="Height_cell_Relative">80dp</dimen>
+    <dimen name="Width_cell_Relative">70dp</dimen>
+    <dimen name="marginLeft_Relative_Dayresult">3dp</dimen>
 </resources>

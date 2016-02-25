@@ -1,6 +1,5 @@
 package fr.diabhelp.carnetdesuivi.DataBase;
 
-import android.app.Application;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 /**
  * Created by naqued on 21/11/15.
  */
-public class EntryOfCDS extends Application {
+public class EntryOfCDS {
     // Notez que l'identifiant est un long
 
     public enum TimeDay{
@@ -28,7 +27,6 @@ public class EntryOfCDS extends Application {
         }
     };
 
-    //TODO COMMENTER SON CODE POUR LE RENDRE COMPREHENSIBLE POUR UN AUTRE DEVELOPPEUR
     private String user;
     private String title;
     private String place;
@@ -44,7 +42,6 @@ public class EntryOfCDS extends Application {
     private Double glycemy;
 
     private String dateApi;
-    private ArrayList<Integer> status_entry;
 
 
 
@@ -77,7 +74,21 @@ public class EntryOfCDS extends Application {
         this.hba1c = null;
         this.hour = null;
         this.glycemy = null;
-        this.status_entry = null;
+
+        this.launch = null;
+        this.diner = null;
+        this.encas = null;
+        this.sleep = null;
+        this.wakeup = null;
+        this.night = null;
+        this.workout = null;
+        this.hypogly = null;
+        this.hypergly = null;
+        this.atwork = null;
+        this.athome = null;
+        this.alcohol = null;
+        this.period = null;
+        this.breakfast = null;
     }
 
 
@@ -104,7 +115,7 @@ public class EntryOfCDS extends Application {
     public Double getHba1c() { return this.hba1c; }
     public String getHour () { return this.hour; }
     public Double getglycemy() { return this.glycemy; }
-    public ArrayList<Integer> getStatus_entry() { return this.status_entry; }
+
 
     public Integer getBreakfast() {
         return breakfast;
@@ -219,7 +230,7 @@ public class EntryOfCDS extends Application {
         this.period = period;
     }
 
-    public void setStatus_entry(ArrayList<Integer> _stats) { this.status_entry = _stats; }
+
     public void setTitle(String _title) { this.title = _title;}
     public void setPlace(String _place) { this.place = _place;}
     public void setGlucide(Double _glucide ) { this.glucide = _glucide; }

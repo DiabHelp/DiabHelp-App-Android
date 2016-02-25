@@ -18,6 +18,7 @@
         android:layout_height="50dp"
         android:text="Ajouter"
         android:textAllCaps="true"
+        android:textStyle="bold"
         android:onClick="save_button"
         android:id="@+id/SignUpButton"
         android:textColor="@color/abc_secondary_text_material_dark"
@@ -77,8 +78,6 @@
                 android:id="@+id/titreview"
                 android:layout_gravity="left"
                 android:paddingBottom="15dp"
-                android:layout_column="0"
-                android:layout_row="0"
                 android:paddingRight="80dp"
                 />
 

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
     android:background="#078b87"
     android:layout_marginBottom="10dp"
+    android:id="@+id/groupItemLinear"
+    android:layout_gravity="center"
+    android:gravity="center"
     >
 
 
@@ -16,8 +19,19 @@
         android:paddingLeft="25dp"
         android:textSize="15dp"
         android:textStyle="bold"
+        android:gravity="center"
         android:textColor="@color/white"
-        />
-    <!--TODO Creer une cardview ici au lieux d'un textview -->
+        android:layout_alignParentLeft="true"
+         />
 
-</LinearLayout>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/infoday"
+        android:layout_gravity="right|top"
+        android:focusable="true"
+        android:background="#078b87"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_info_white_24dp"
+        />
+</RelativeLayout>

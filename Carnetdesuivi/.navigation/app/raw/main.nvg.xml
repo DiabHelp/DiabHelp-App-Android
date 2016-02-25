@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "fr.diabhelp.carnetdesuivi.Carnet.EntryActivity"/>
+      <point      
+        x = "2500"      
+        y = "260"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "fr.diabhelp.carnetdesuivi.Carnetdesuivi"/>
+      <point      
+        x = "1492"      
+        y = "48"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity"/>
+      <point      
+        x = "216"      
+        y = "328"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "fr.diabhelp.carnetdesuivi.Carnetdesuivi"/>
+      <point      
+        x = "1516"      
+        y = "1728"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

@@ -1,8 +1,6 @@
 package fr.diabhelp.carnetdesuivi.Carnet;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,14 +11,10 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.Image;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -37,6 +31,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
@@ -160,6 +155,39 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     EntryActivity _this;
     List<Integer> isActiveicon;
 
+    private String _title;
+    private String _place;
+    private Double _glucide;
+    private String _activity;
+    private String _activityType;
+    private String _notes;
+    private String _date;
+    private Double _fast_insu;
+    private Double _slow_insu;
+    private Double _hba1c;
+    private String _hour;
+    private Double _glycemy;
+
+    private String _dateApi;
+
+
+
+    private Integer _launch;
+    private Integer _diner;
+    private Integer _encas;
+    private Integer _sleep;
+    private Integer _wakeup;
+    private Integer _night;
+    private Integer _workout;
+    private Integer _hypogly;
+    private Integer _hypergly;
+    private Integer _atwork;
+    private Integer _athome;
+    private Integer _alcohol;
+    private Integer _period;
+    private Integer _breakfast;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,11 +202,75 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy"); // todo changer le format de la date
         formattedDate = df.format(c.getTime());
         fill_date();
 
-        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run();
+        Intent intent = getIntent();
+
+        if (intent.hasExtra("title"))
+            _title = intent.getExtras().getString("title");
+
+        if (intent.hasExtra("place"))
+            _place = intent.getExtras().getString("place");
+        if (intent.hasExtra("glucide"))
+            _glucide = intent.getExtras().getDouble("glucide");
+        if (intent.hasExtra("activity"))
+            _activity = intent.getExtras().getString("activity");
+        if (intent.hasExtra("activityType"))
+            _activityType = intent.getExtras().getString("activityType");
+        if (intent.hasExtra("notes"))
+            _notes = intent.getExtras().getString("notes");
+        if (intent.hasExtra("fast_insu"))
+            _fast_insu = intent.getExtras().getDouble("fast_insu");
+        if (intent.hasExtra("slow_insu"))
+            _slow_insu = intent.getExtras().getDouble("slow_insu");
+        if (intent.hasExtra("hba1c"))
+            _hba1c = intent.getExtras().getDouble("hba1c");
+        if (intent.hasExtra("glycemy"))
+            _glycemy = intent.getExtras().getDouble("glycemy");
+
+        if (intent.hasExtra("hour")) {
+            _hour = intent.getExtras().getString("hour");
+            Log.e("hour when update", _hour);
+        }
+        if (intent.hasExtra("date")) {
+            _date = intent.getExtras().getString("date");
+            Log.e("date when update", _date);
+        }
+        else
+            Log.e("date when update", "no extra");
+        if (intent.hasExtra("launch"))
+            _launch = intent.getExtras().getInt("launch");
+        if (intent.hasExtra("diner"))
+            _diner = intent.getExtras().getInt("diner");
+        if (intent.hasExtra("encas"))
+            _encas = intent.getExtras().getInt("encas");
+        if (intent.hasExtra("sleep"))
+            _sleep = intent.getExtras().getInt("sleep");
+        if (intent.hasExtra("wakeup"))
+            _wakeup = intent.getExtras().getInt("wakeup");
+        if (intent.hasExtra("night"))
+            _night = intent.getExtras().getInt("night");
+        if (intent.hasExtra("workout"))
+            _workout = intent.getExtras().getInt("workout");
+        if (intent.hasExtra("hypogly"))
+            _hypogly = intent.getExtras().getInt("hypogly");
+        if (intent.hasExtra("hypergly"))
+            _hypergly = intent.getExtras().getInt("hypergly");
+        if (intent.hasExtra("atwork"))
+            _atwork = intent.getExtras().getInt("atwork");
+        if (intent.hasExtra("athome"))
+            _athome = intent.getExtras().getInt("athome");
+        if (intent.hasExtra("alcohol"))
+            _alcohol = intent.getExtras().getInt("alcohol");
+        if (intent.hasExtra("period"))
+            _period = intent.getExtras().getInt("period");
+        if (intent.hasExtra("breakfast"))
+            _breakfast = intent.getExtras().getInt("breakfast");
+
+
+/*        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run();*/ // TODO soucis sur le fill_place
 
         time = (EditText) findViewById(R.id.editactivity);
         time.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +290,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
             }
         });
+        if (intent.hasExtra("date"))
+            fill_fields();
     }
+
+
 /*        CustomGrid adapter = new CustomGrid(EntryActivity.this, web, imageId);
         grid= (GridView)findViewById(R.id.grid);
         grid.setAdapter(adapter);
@@ -391,7 +487,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         String _minute;
         int hours = new Time(System.currentTimeMillis()).getHours();
         int minutes = new Time(System.currentTimeMillis()).getMinutes();
-        //TODO NE PAS UTILISER DE FONCTIONS DEPRECIEES
         if (minutes < 10)
              _minute = "0" + String.valueOf(minutes);
         else
@@ -401,6 +496,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
 
         Entry.setNotes(_inputlist.get(InputType.NOTES.getValue()).getText().toString());
+        Entry.setPlace(_inputlist.get(InputType.PLACE.getValue()).getText().toString());
         Entry.setTitle(_inputlist.get(InputType.TITLE.getValue()).getText().toString());
         Entry.setGlucide(_inputlist.get(InputType.GLUCIDE.getValue()).getText().toString());
         Entry.setActivity(_inputlist.get(InputType.ACTIVITY.getValue()).getText().toString());
@@ -409,7 +505,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Entry.setFast_insu(_inputlist.get(InputType.FAST_INSU.getValue()).getText().toString());
         Entry.setSlow_insu(_inputlist.get(InputType.SLOW_INSU.getValue()).getText().toString());
         Entry.setHba1c(_inputlist.get(InputType.HBA1C.getValue()).getText().toString());
-        Entry.setHour(Hours);
+
         Entry.setglycemy(_inputlist.get(InputType.GLYCEMY.getValue()).getText().toString());
 
         Entry.setBreakfast(isActiveicon.get(IconeType.BREAKFAST.getValue()));
@@ -428,9 +524,105 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Entry.setPeriod(isActiveicon.get(IconeType.PERIOD.getValue()));
 
         bdd.open();
-        bdd.AddDay(Entry);
+
+        if (_date == null || bdd.SelectDay(_date, _hour) == null) {
+            Entry.setHour(Hours);
+            Log.e("entryhour : ", Entry.getHour());
+            bdd.AddDay(Entry);
+        }
+        else {
+            Entry.setHour(_hour);
+            Log.e("entryhour : ", Entry.getHour());
+            bdd.Update(Entry);
+        }
         bdd.close();
         Toast.makeText(this, "Enregistrement efféctué", Toast.LENGTH_LONG).show();
+    }
+
+    public void fill_fields()
+    {
+        _inputlist.get(InputType.DATE.getValue()).setText(_date);
+        if (_title != null)
+            _inputlist.get(InputType.TITLE.getValue()).setText(_title);
+        if (_place != null)
+            _inputlist.get(InputType.PLACE.getValue()).setText(_place);
+        if (_glycemy != null)
+            _inputlist.get(InputType.GLYCEMY.getValue()).setText(String.valueOf(_glycemy));
+        if (_glucide != null)
+            _inputlist.get(InputType.GLUCIDE.getValue()).setText(String.valueOf(_glucide));
+        if (_activity != null)
+            _inputlist.get(InputType.ACTIVITY.getValue()).setText(_activity);
+        if (_activityType != null)
+            _inputlist.get(InputType.ACTIVITYTYPE.getValue()).setText(_activityType);
+        if (_fast_insu != null)
+            _inputlist.get(InputType.FAST_INSU.getValue()).setText(String.valueOf(_fast_insu));
+        if (_slow_insu != null)
+            _inputlist.get(InputType.SLOW_INSU.getValue()).setText(String.valueOf(_slow_insu));
+        if (_hba1c != null)
+            _inputlist.get(InputType.HBA1C.getValue()).setText(String.valueOf(_hba1c));
+        if (_notes != null)
+            _inputlist.get(InputType.NOTES.getValue()).setText(_notes);
+        if (_place != null)
+            _inputlist.get(InputType.PLACE.getValue()).setText(_place);
+
+
+        if (_launch != null && _launch == 1) {
+            isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
+            add_launch(null);
+        }
+        if (_diner != null && _diner == 1) {
+            isActiveicon.set(IconeType.DINER.getValue(), 1);
+            add_diner(null);
+        }
+        if (_encas != null && _encas == 1) {
+            isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
+            add_encas(null);
+        }
+        if (_sleep != null && _sleep == 1) {
+            isActiveicon.set(IconeType.SLEEP.getValue(), 1);
+            add_sleep(null);
+        }
+        if (_wakeup != null && _wakeup == 1) {
+            isActiveicon.set(IconeType.WAKEUP.getValue(), 1);
+            add_wakeup(null);
+        }
+        if (_night != null && _night == 1) {
+            isActiveicon.set(IconeType.NIGHT.getValue(), 1);
+            add_night(null);
+        }
+        if (_workout != null && _workout == 1) {
+            isActiveicon.set(IconeType.WORKOUT.getValue(), 1);
+            add_workout(null);
+        }
+        if (_hypogly != null && _hypogly == 1) {
+            isActiveicon.set(IconeType.HYPO.getValue(), 1);
+            add_hypo(null);
+        }
+        if (_hypergly != null && _hypergly == 1) {
+            isActiveicon.set(IconeType.HYPER.getValue(), 1);
+            add_hyper(null);
+        }
+        if (_atwork != null && _atwork == 1) {
+            isActiveicon.set(IconeType.WORK.getValue(), 1);
+            add_work(null);
+        }
+        if (_athome != null && _athome == 1) {
+            isActiveicon.set(IconeType.HOME.getValue(), 1);
+            add_home(null);
+        }
+        if (_alcohol != null && _alcohol == 1) {
+            isActiveicon.set(IconeType.ALCOHOL.getValue(), 1);
+            add_alcohol(null);
+        }
+        if (_period != null && _period == 1) {
+            isActiveicon.set(IconeType.PERIOD.getValue(), 1);
+            add_period(null);
+        }
+        if (_breakfast != null && _breakfast == 1) {
+            isActiveicon.set(IconeType.BREAKFAST.getValue(), 1);
+            add_breakfeast(null);
+        }
+
     }
 
     public void init_fields() {
@@ -491,7 +683,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
                             _inputlist.get(InputType.ACTIVITYTYPE.getValue()).getText().toString().length() == 0
                             ))
                         saveIt();
-                    Intent Entryintent = new Intent(EntryActivity.this, CarnetActivity.class);
+                    Intent Entryintent = new Intent(EntryActivity.this, Carnetdesuivi.class);
                     EntryActivity.this.startActivity(Entryintent);
                     _this.finish();
                 }
@@ -504,7 +696,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         }
         else {
             saveIt();
-            Intent Entryintent = new Intent(EntryActivity.this, CarnetActivity.class);
+            Intent Entryintent = new Intent(EntryActivity.this, Carnetdesuivi.class);
             EntryActivity.this.startActivity(Entryintent);
             _this.finish();
         }
@@ -512,7 +704,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     @Override
     public void onBackPressed() {
-        Intent Entryintent = new Intent(EntryActivity.this, CarnetActivity.class);
+        Intent Entryintent = new Intent(EntryActivity.this, Carnetdesuivi.class);
         EntryActivity.this.startActivity(Entryintent);
         this.finish();
     }
