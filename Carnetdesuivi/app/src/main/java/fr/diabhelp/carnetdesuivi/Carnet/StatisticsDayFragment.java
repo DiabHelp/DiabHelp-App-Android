@@ -46,7 +46,6 @@ public class StatisticsDayFragment extends Fragment {
     private boolean hasLabels = false;
     private boolean isCubic = false;
     private boolean hasLabelForSelected = false;
-    private boolean pointsHaveDifferentColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,9 +113,6 @@ public class StatisticsDayFragment extends Fragment {
             line.setHasLabelsOnlyForSelected(hasLabelForSelected);
             line.setHasLines(hasLines);
             line.setHasPoints(hasPoints);
-            if (pointsHaveDifferentColor){
-                line.setPointColor(ChartUtils.COLORS[(i + 1) % ChartUtils.COLORS.length]);
-            }
             lines.add(line);
         }
 

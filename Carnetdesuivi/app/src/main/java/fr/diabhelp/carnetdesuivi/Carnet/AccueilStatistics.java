@@ -26,6 +26,7 @@ public class AccueilStatistics extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Journée"));
         tabLayout.addTab(tabLayout.newTab().setText("Mois"));
         tabLayout.addTab(tabLayout.newTab().setText("Tout"));
+        tabLayout.addTab(tabLayout.newTab().setText("Perso"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
