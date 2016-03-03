@@ -17,10 +17,6 @@ public class DAO extends DAOBase {
     public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + USER + " TEXT, " + PWD + " TEXT);";
     public static final String TABLE_DROP =  "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
-    /**
-     * @param m le métier à ajouter à la base
-     */
-
     public DAO(Context context)
     {
         this.mHandler = new Bdd_manager(context, NOM, null, VERSION);
@@ -53,7 +49,7 @@ public class DAO extends DAOBase {
     }
 
 
-    public User SelectUser() {
+    public User selectUser() {
         User m = null;
         Cursor c = mDb.rawQuery("SELECT " + USER + ", " + PWD + " from " + TABLE_NAME , null);
 

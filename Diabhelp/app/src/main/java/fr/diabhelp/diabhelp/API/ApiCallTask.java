@@ -1,7 +1,6 @@
-package fr.diabhelp.diabhelp;
+package fr.diabhelp.diabhelp.API;
 
 
-import android.app.Activity;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -31,9 +30,10 @@ public class ApiCallTask extends AsyncTask<String, Integer, String> {
     public static final int DELETE = 2;
     public static final int ARRAY = 0;
     public static final int OBJECT = 1;
-    private final String URL_API = "http://naquedounet.fr/api/";
+//    private final String URL_API = "http://naquedounet.fr/api/";
+    private final String URL_API = "http://10.0.3.2/DiabHelp-WebSite/web/app_dev.php/";
 
-    IApiCallTask _obj = null;
+    private IApiCallTask _obj = null;
     private int request;
     private int type;
     private String _action = null;
@@ -80,7 +80,6 @@ public class ApiCallTask extends AsyncTask<String, Integer, String> {
             response = reader.readLine();
             while ((s = reader.readLine()) != null)
                 response += s;
-            System.out.println("page accueil retour telechargement readerlaca : " + response);
             return (response);
         }
         catch (URISyntaxException e) {
@@ -97,7 +96,7 @@ public class ApiCallTask extends AsyncTask<String, Integer, String> {
     protected HttpResponse doPost(int nb, HttpClient httpclient, String... params) throws UnsupportedEncodingException, IOException, URISyntaxException
     {
         System.out.println("url + " + URL_API + params[1] + ".php");
-        URI serv = new URI(URL_API + params[1] + ".php");
+        URI serv = new URI(URL_API + params[1]);
         HttpPost httppost = new HttpPost(serv);
 
         int max = 2 + nb * 2;

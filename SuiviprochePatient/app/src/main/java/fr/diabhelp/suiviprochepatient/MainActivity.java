@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         procheToolbar = (Toolbar) findViewById(R.id.liste_proches_toolbar);
         setSupportActionBar(procheToolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+//        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     public void manageActionOnClick(List<Proche> listProches, Integer position, ImageView avatar) {

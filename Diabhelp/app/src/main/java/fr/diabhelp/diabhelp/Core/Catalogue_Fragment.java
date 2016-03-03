@@ -3,6 +3,7 @@ package fr.diabhelp.diabhelp.Core;
 /**
  * Created by naqued on 28/09/15.
  */
+import android.app.ProgressDialog;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import fr.diabhelp.diabhelp.ApiCallTask;
+import fr.diabhelp.diabhelp.API.ApiCallTask;
 import fr.diabhelp.diabhelp.ConnexionState;
-import fr.diabhelp.diabhelp.IApiCallTask;
+import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.JsonUtils;
 import fr.diabhelp.diabhelp.R;
 import org.json.JSONArray;
@@ -86,38 +87,43 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
 
     private void getModulesList(String data) {
         System.out.println("renvoi de la chaine json = " + data);
+        JSONArray array = null;
         if (data.equals("io exception")){
             return;
         }
-        JSONArray array = JsonUtils.get_array(data);
-        for (int i = 0 ; i < array.length() ; i++) {
-            JSONObject obj;
-            CatalogModule module = new CatalogModule();
-            if ((obj = JsonUtils.getObjfromArray(array, i)) != null)
-            {
-                String name;
-                if ((name = JsonUtils.getStringfromKey(obj, "name")) != null)
-                    module.setName(name);
-                String desc;
-                if ((desc= JsonUtils.getStringfromKey(obj, "describ")) != null)
-                    module.setDesc(desc);
-                String rating;
-                if ((rating = JsonUtils.getStringfromKey(obj, "note")) != null)
-                    module.setRating(rating);
-                String url;
-                if ((url = JsonUtils.getStringfromKey(obj, "url")) != null)
-                    module.setURLStore(url);
-                String version;
-                if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
-                    if (version.equals("null"))
-                        module.setVersion("v0.1");
-                    else
-                        module.setVersion(version);
+        try {
+            array = JsonUtils.get_array(data);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject obj;
+                CatalogModule module = new CatalogModule();
+                if ((obj = JsonUtils.getObjfromArray(array, i)) != null) {
+                    String name;
+                    if ((name = JsonUtils.getStringfromKey(obj, "name")) != null)
+                        module.setName(name);
+                    String desc;
+                    if ((desc = JsonUtils.getStringfromKey(obj, "describ")) != null)
+                        module.setDesc(desc);
+                    String rating;
+                    if ((rating = JsonUtils.getStringfromKey(obj, "note")) != null)
+                        module.setRating(rating);
+                    String url;
+                    if ((url = JsonUtils.getStringfromKey(obj, "url")) != null)
+                        module.setURLStore(url);
+                    String version;
+                    if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
+                        if (version.equals("null"))
+                            module.setVersion("v0.1");
+                        else
+                            module.setVersion(version);
+                    }
+                    _modulesList.add(module);
                 }
-                _modulesList.add(module);
             }
+            checkAvailability();
         }
-        checkAvailability();
+        catch (Exception e){
+            //TODO modifier  appel a l'API
+        }
     }
 
     @Override
@@ -127,4 +133,10 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
         }
         _recAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onBackgroundTaskCompleted(Object bodyResponse, String action, ProgressDialog progress) {
+
+    }
+
 }
