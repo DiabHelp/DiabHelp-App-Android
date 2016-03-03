@@ -21,8 +21,7 @@ public class MyToast {
 
     public static MyToast getInstance()
     {
-        if (instance == null)
-        {
+        if (instance == null) {
             instance = new MyToast();
         }
         return instance;

@@ -1,4 +1,4 @@
-package fr.diabhelp.diabhelp.API;
+package fr.diabhelp.diabhelp.API.ResponseObjects;
 
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 

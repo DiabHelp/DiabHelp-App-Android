@@ -5,8 +5,6 @@ import android.os.AsyncTask;
 
 import org.json.JSONException;
 
-import fr.diabhelp.diabhelp.API.ResponseConnexion;
-
 /**
  * Created by Sumbers on 10/10/2015.
  */

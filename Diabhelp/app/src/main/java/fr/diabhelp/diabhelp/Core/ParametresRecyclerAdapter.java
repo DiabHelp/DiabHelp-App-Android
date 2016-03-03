@@ -58,24 +58,30 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
     }
 
     public void setLatestVersion(String s) {
-        JSONArray array = JsonUtils.get_array(s);
+        JSONArray array = null;
+        try {
+            array = JsonUtils.get_array(s);
 
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject obj;
-            if ((obj = JsonUtils.getObjfromArray(array, i)) != null) {
-                String name;
-                if ((name = JsonUtils.getStringfromKey(obj, "name")) != null) {
-                    for (int j = 0; j < _modulesList.size(); j++)
-                    {
-                        if (_modulesList.get(i).getName().equals(name) || j == 0) {
-                            String version;
-                            if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
-                                _modulesList.get(i).setLatestVersion(version);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject obj;
+                if ((obj = JsonUtils.getObjfromArray(array, i)) != null) {
+                    String name;
+                    if ((name = JsonUtils.getStringfromKey(obj, "name")) != null) {
+                        for (int j = 0; j < _modulesList.size(); j++) {
+                            if (_modulesList.get(i).getName().equals(name) || j == 0) {
+                                String version;
+                                if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
+                                    _modulesList.get(i).setLatestVersion(version);
+                                }
                             }
                         }
                     }
                 }
             }
+        }
+        catch (Exception e)
+        {
+
         }
     }
 

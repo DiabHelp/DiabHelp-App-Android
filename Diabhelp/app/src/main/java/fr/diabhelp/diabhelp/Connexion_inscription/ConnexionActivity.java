@@ -20,9 +20,8 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import fr.diabhelp.diabhelp.API.ApiCallTask;
-import fr.diabhelp.diabhelp.API.ConnexionAPICallTask;
-import fr.diabhelp.diabhelp.API.ResponseConnexion;
+import fr.diabhelp.diabhelp.API.Asynctasks.ConnexionAPICallTask;
+import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseConnexion;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.BDD.User;
 import fr.diabhelp.diabhelp.ConnexionState;
@@ -228,20 +227,16 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
 
     @Override
     public void onBackgroundTaskCompleted(ResponseConnexion response, String action, ProgressDialog progress){
-        System.out.println("passé par la méthode implémentée");
         _progress = progress;
         ConnexionActivity.Error error = response.getError();
         Integer errorCode = error.getErrorCode();
         if (errorCode != 0) {
-            System.out.println("a trouvé un erreur");
             manageError(response.getError());
         }
         else if (action.equals("initSession")) {
-            System.out.println("va init session");
             _session = response.getCookie();
             initSession();
         }
-        System.out.println("merde");
     }
 
     /**
@@ -282,7 +277,6 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     /**
      * Effectue les actions de mise à jour de la base utilisateur et d'activation de la connexion automatique quand cela est necessaire puis
      * lance l'initialisation du {@link CoreActivity}
-     * @param token correspond au token de session renvoyé par {@link ConnexionAPICallTask#onPostExecute(ResponseConnexion)}} pour effectuer des actions en ligne.
      */
     private void initSession()
     { System.out.println("init");

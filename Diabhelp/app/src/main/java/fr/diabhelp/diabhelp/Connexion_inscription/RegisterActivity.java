@@ -1,35 +1,42 @@
 package fr.diabhelp.diabhelp.Connexion_inscription;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.util.ArrayList;
-
-import fr.diabhelp.diabhelp.API.ApiCallTask;
-import fr.diabhelp.diabhelp.BDD.DAO;
-import fr.diabhelp.diabhelp.ConnexionState;
+import fr.diabhelp.diabhelp.API.Asynctasks.RegisterAPICallTask;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
+import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseRegister;
+import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.MyToast;
 import fr.diabhelp.diabhelp.R;
 
-public class RegisterActivity extends Activity implements IApiCallTask {
+public class RegisterActivity extends FragmentActivity implements MainRegisterFragment.MainFragmentListener, RegisterConnexionInfosFragment.FragmentFirstStepListener, RegisterPersonalInfosFragment.FragmentSecondStepListener, IApiCallTask<ResponseRegister> {
+
+    ProgressDialog _progress;
 
     DAO bdd;
+    private String _login,_mail, _pwd, _firstName, _lastName, _role;
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.fragment_container, new MainRegisterFragment());
+        ft.commit();
+
         inflateLoadingBar();
     }
 
@@ -62,82 +69,130 @@ public class RegisterActivity extends Activity implements IApiCallTask {
         return super.onOptionsItemSelected(item);
     }
 
-    
-    boolean isCorrectFields(ArrayList<Integer> fieldsNames)
-    {
-        for (int i = 0; i < fieldsNames.size();i++)
-        {
-            if ((((EditText)findViewById(fieldsNames.get(i))).getText().toString().isEmpty())) {
-                return false;
-            }
-        }
-        return (true);
+    @Override
+    public void onRegisteNatifClick() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new RegisterPageViewerFragment());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
-    Boolean isEmailValid(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    @Override
+    public void saveDatasFirstStep(String mail, String login, String pwd) {
+        _mail = mail;
+        _login = login;
+        _pwd = pwd;
+        launchSecondStep();
     }
 
-    public void onRegisterClick(View view) {
-        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        ConnexionState connect = new ConnexionState(this);
-        String email = ((EditText)findViewById(R.id.email_input)).getText().toString();
-        String login = ((EditText)findViewById(R.id.login_input)).getText().toString();
-        String pwd = ((EditText)findViewById(R.id.pwd_input)).getText().toString();
-        bdd = new DAO(this);
+    private void launchSecondStep() {
+        NonSwipeableViewPager mViewPager = (NonSwipeableViewPager) findViewById(R.id.view_pager);
+        mViewPager.setCurrentItem(1, true);
+    }
 
-        ArrayList<Integer> fieldNames = new ArrayList<>();
-        fieldNames.add(R.id.email_input);
-        fieldNames.add(R.id.login_input);
-        fieldNames.add(R.id.pwd_input);
+    @Override
+    public void saveDatasSecondStep(String firstname, String lastName, String role) {
+        _firstName = firstname;
+        _lastName = lastName;
+        _role = role;
+        executeBackgroundRegisterRequest();
+    }
 
-        Boolean correctFields = isCorrectFields(fieldNames);
-        Boolean goodEmailFormat = isEmailValid(email);
+    private void executeBackgroundRegisterRequest() {
+        new RegisterAPICallTask(this).execute(_login, _mail, _pwd, _role, _firstName, _lastName);
+    }
 
-        if (correctFields && goodEmailFormat)
-        {
-            if (connect.getStatus()) {
-                new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "sendID").execute("3", "register", "email", email, "login", login, "password", pwd);
-            }
-            else {
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                MyToast.getInstance().displayWarningMessage("Vous n'êtes pas connecté à internet, veuillez réessayer plus tard", Toast.LENGTH_LONG, this);
+
+
+    @Override
+    public void onBackPressed() {
+        NonSwipeableViewPager mViewPager = (NonSwipeableViewPager) findViewById(R.id.view_pager);
+        if (mViewPager != null) {
+            if (mViewPager.getCurrentItem() == 0) {
+                super.onBackPressed();
+            } else {
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
             }
         }
         else {
-            if (!correctFields) {
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                MyToast.getInstance().displayWarningMessage("Veuillez remplir tous les champs", Toast.LENGTH_LONG, this);
-            }
-            else if (!goodEmailFormat){
-                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                MyToast.getInstance().displayWarningMessage("format de l'adresse email incorrecte", Toast.LENGTH_LONG, this);
-            }
+            super.onBackPressed();
         }
     }
 
     @Override
     public void onBackgroundTaskCompleted(String s, int type, String action) throws JSONException {
-        if (action.compareTo("sendID") == 0)
-        {
-            sendId(s, type, action);
-        }
+
     }
 
     @Override
-    public void onBackgroundTaskCompleted(Object bodyResponse, String action, ProgressDialog progress) {
+    public void onBackgroundTaskCompleted(ResponseRegister response, String action, ProgressDialog progress) {
+        _progress = progress;
+        RegisterActivity.Error error = response.getError();
+        Integer errorCode = error.getErrorCode();
+        if (errorCode != 0) {
+            manageError(response.getError());
+        }
+        else if (action.equals("createAccount")) {
+            informSuccess();
+        }
+    }
+
+    private void informSuccess() {
+        MyToast.getInstance().displayWarningMessage(getString(R.string.register_success), Toast.LENGTH_LONG, this);
+        Log.i(getLocalClassName(), "le compte a été créé");
+        returnConnexionActivity();
+    }
+
+    private void returnConnexionActivity() {
+        finish();
+    }
+
+    private void manageError(Error error) {
+        _progress.dismiss();
+        switch (error)
+        {
+            case LOGIN_ALREADY_USED:{
+                MyToast.getInstance().displayWarningMessage(getString(R.string.error_login_already_exist), Toast.LENGTH_LONG, this);
+                Log.e(getLocalClassName(), "le login est déja utilisé");
+                break;
+            }
+            case EMAIL_ALREADY_USED:{
+                MyToast.getInstance().displayWarningMessage(getString(R.string.error_email_already_exist), Toast.LENGTH_LONG, this);
+                Log.e(getLocalClassName(), "l'email est déja utilisé");
+                break;
+            }
+            case SERVER_ERROR:{
+                MyToast.getInstance().displayWarningMessage("Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard", Toast.LENGTH_LONG, this);
+                Log.e(getLocalClassName(), "Problème survenu lors de la connexion au serveur");
+                break;
+            }
+            case DB_ERROR:{
+                Log.e(getLocalClassName(), "Une erreur est survenue lors de l'ajout de données sur la db du serveur");
+            }
+        }
+        getSupportFragmentManager().popBackStackImmediate();
+        FragmentTransaction ft =getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, new MainRegisterFragment());
+        ft.commit();
 
     }
 
+    public enum  Error
+    {
+        NONE(0),
+        LOGIN_ALREADY_USED(1),
+        EMAIL_ALREADY_USED(2),
+        DB_ERROR(3),
+        SERVER_ERROR(4);
 
-    private void sendId(String s, int type, String action) {
-        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-        if ("ALREADY_USE".equals(s)) {
-            MyToast.getInstance().displayWarningMessage("email/login déja utilisé", Toast.LENGTH_LONG, this);
+        private Integer errorCode;
+
+        Error(Integer i) {
+            this.errorCode = i;
         }
-        else if ("TRUE".equals(s)){
-            MyToast.getInstance().displayWarningMessage("Le compte a été créé.\n Vous pouvez dés maintenant vous connecter sur votre application ou sur notre site internet www.diabhelp.fr", Toast.LENGTH_LONG, this);
-            finish();
+
+        public Integer getErrorCode() {
+            return this.errorCode;
         }
     }
 }

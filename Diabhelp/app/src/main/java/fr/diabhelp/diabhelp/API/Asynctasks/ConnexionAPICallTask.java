@@ -1,4 +1,4 @@
-package fr.diabhelp.diabhelp.API;
+package fr.diabhelp.diabhelp.API.Asynctasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,6 +9,9 @@ import android.util.Log;
 import java.io.IOException;
 import java.net.ProtocolException;
 
+import fr.diabhelp.diabhelp.API.ApiServices;
+import fr.diabhelp.diabhelp.API.IApiCallTask;
+import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseConnexion;
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
@@ -29,7 +32,6 @@ import retrofit2.Retrofit;
 public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseConnexion> {
 
     private final String URL_API = "http://10.0.3.2/DiabHelp-WebSite/web/";
-//    private final String URL_API = "http://umannity.com:1337/";
 
     private IApiCallTask _listener = null;
     private Context _context = null;
@@ -83,6 +85,7 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
             responseConnexion.setError(ConnexionActivity.Error.BAD_CREDENTIALS);
             e.printStackTrace();
         } catch (IOException e) {
+            responseConnexion.setError(ConnexionActivity.Error.SERVER_ERROR);
             e.printStackTrace();
         }
         return (responseConnexion);

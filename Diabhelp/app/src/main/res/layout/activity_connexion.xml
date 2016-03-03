@@ -51,7 +51,7 @@
                 android:background="@color/background_welcome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/login_input"
+                android:text="@string/connexion_login_input"
                 android:textAllCaps="true"
                 android:textColor="#ffffff"
                 android:layout_marginTop="40dp"
@@ -59,14 +59,14 @@
 
             <EditText
                 style="@style/editText_connexion"
-                android:hint="@string/login_input"
+                android:hint="@string/connexion_login_input"
                 android:id="@+id/login_input" />
 
             <TextView
                 android:background="@color/background_welcome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pwd_input"
+                android:text="@string/connexion_pwd_input"
                 android:textAllCaps="true"
                 android:textColor="#ffffff"
                 android:layout_marginTop="10dp"
@@ -74,7 +74,7 @@
 
             <EditText
                 style="@style/editText_connexion"
-                android:hint="@string/pwd_input"
+                android:hint="@string/connexion_pwd_input"
                 android:password="true"
                 android:id="@+id/pwd_input" />
 
@@ -91,7 +91,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_size"
-                android:text="@string/button_connexion"
+                android:text="@string/connexion_button"
                 android:textAllCaps="true"
                 android:onClick="connectByInput"
                 android:id="@+id/connexionButton"
@@ -103,10 +103,10 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_size"
-                android:text="@string/button_register"
+                android:text="@string/register_button"
                 android:textAllCaps="true"
                 android:onClick="signUp"
-                android:id="@+id/SignUpButton"
+                android:id="@+id/signup_button"
                 android:textColor="@color/abc_secondary_text_material_dark"
                 android:background="#313e4f" />
         </LinearLayout>
