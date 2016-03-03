@@ -1,6 +1,5 @@
 package fr.diabhelp.diabhelp.API.ResponseObjects;
 
-import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.Connexion_inscription.RegisterActivity;
 
 /**

@@ -3,22 +3,16 @@ package fr.diabhelp.diabhelp.API.Asynctasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import java.io.IOException;
-import java.net.ProtocolException;
 
 import fr.diabhelp.diabhelp.API.ApiServices;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
-import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseConnexion;
 import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseRegister;
-import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.Connexion_inscription.RegisterActivity;
 import fr.diabhelp.diabhelp.R;
-import okhttp3.Headers;
 import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;

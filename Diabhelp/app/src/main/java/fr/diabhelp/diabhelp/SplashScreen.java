@@ -8,7 +8,6 @@ import android.os.Handler;
 
 
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
-import fr.diabhelp.diabhelp.Core.CoreActivity;
 
 /**
  * Created by naqued on 28/09/15.

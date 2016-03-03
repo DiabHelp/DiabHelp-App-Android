@@ -6,9 +6,6 @@ package fr.diabhelp.diabhelp.Core.Broadcast_Receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
-
-import fr.diabhelp.diabhelp.Core.CoreActivity;
 
 public class NetworkChangeReceiver extends BroadcastReceiver {
 
