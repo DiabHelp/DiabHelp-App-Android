@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class MenuManager {
 
-    private ArrayList<ArrayList<Aliment>> savedMenuList;
+    private ArrayList<Menu> savedMenuList;
 
     private File savedFile;
     MenuManager(String filename)
@@ -38,22 +38,26 @@ public class MenuManager {
         }
     }
 
-    public ArrayList<ArrayList<Aliment>> getSavedMenu()
+    public ArrayList<Menu> getSavedMenu()
     {
         return  savedMenuList;
     }
 
     public void loadMenu() throws IOException {
         savedMenuList = new ArrayList<>();
-        ArrayList savedMenu;
+        Menu savedMenu;
         JsonReader reader = new JsonReader(new FileReader(savedFile));
         try {
             reader.beginArray(); // Begin Menu Array
             while (reader.hasNext()) {
-                savedMenu = new ArrayList();
+                savedMenu = new Menu();
+                reader.beginArray(); // Begin menuInfo array
+                savedMenu.setMenuName(reader.nextString());
+                savedMenu.setMenuGlucids(reader.nextInt());
+                reader.endArray(); // End menuInfo array
                 reader.beginArray(); //Begin Aliment Array
                 while (reader.hasNext())
-                    savedMenu.add(readAliment(reader));
+                    savedMenu.addAliment(readAliment(reader));
                 reader.endArray(); // End Aliment Array
                 savedMenuList.add(savedMenu);
             }
@@ -106,9 +110,13 @@ public class MenuManager {
     public void debug() {
         Log.d("MenuFavori", "Debug");
 
-        for (ArrayList<Aliment> savedMenu : savedMenuList) {
+        for (Menu savedMenu : savedMenuList) {
             Log.d("MenuFavori", "------- Begin Menu -------");
-            for (Aliment aliment : savedMenu) {
+            Log.d("MenuFavori", "    ------- Begin Info ---");
+            Log.d("MenuFavori", "Name : " + savedMenu.getMenuName());
+            Log.d("MenuFavori", "Glucides : " + savedMenu.getMenuGlucids());
+            Log.d("MenuFavori", "    ------- End Info ---");
+            for (Aliment aliment : savedMenu.getAlimentsList()) {
                 Log.d("MenuFavori", aliment.toString());
             }
             Log.d("MenuFavori", "------- End Menu -------");

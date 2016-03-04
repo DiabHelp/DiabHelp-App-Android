@@ -25,16 +25,20 @@ public class JSONMenuWriter {
         savedFile = new File(filename);
     }
 
-    public void saveMenu(ArrayList<ArrayList<Aliment>> menuList) {
+    public void saveMenu(ArrayList<Menu> menuList) {
         Log.d("MenuFavori", "Saving menus_favoris.json");
 
         JSONArray JSONMenuList = new JSONArray();
         JSONArray JSONMenu = null;
         JSONObject JSONAliment = null;
         try {
-            for (ArrayList<Aliment> menu : menuList) {
+            for (Menu menu : menuList) {
                 JSONMenu = new JSONArray();
-                for (Aliment aliment : menu) {
+                JSONObject menuInfo = new JSONObject();
+                menuInfo.put("menuName", menu.getMenuName());
+                menuInfo.put("menuGlucids", menu.getMenuGlucids());
+                JSONMenuList.put(menuInfo);
+                for (Aliment aliment : menu.getAlimentsList()) {
                     JSONAliment = new JSONObject();
                     JSONAliment.put("name", aliment.getName());
                     JSONAliment.put("weight", aliment.getWeight());
