@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/textName"
+            android:text="NOM"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"/>
+
+    <fr.diabhelp.glucocompteur.DBSearchBox
+            style="@android:style/TextAppearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_input"
+            android:inputType="text"
+            android:editable="false"/>
+
+    <TextView
+            android:id="@+id/textQuantite"
+            android:text="QUANTITÉ (grammes)"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"/>
+
+    <EditText
+            android:inputType="number"
+            android:id="@+id/quantite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <Button
+            android:id="@+id/ok"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="AJOUTER"
+            android:textColor="#FFF"
+            android:background="@color/background_color"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="2dp"/>
+
+</LinearLayout>

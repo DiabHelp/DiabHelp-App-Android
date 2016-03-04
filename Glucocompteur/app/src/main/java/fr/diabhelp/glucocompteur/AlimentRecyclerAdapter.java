@@ -28,7 +28,7 @@ public class AlimentRecyclerAdapter extends RecyclerView.Adapter<AlimentRecycler
             weight = (TextView) itemView.findViewById(R.id.weight);
             glucids = (TextView) itemView.findViewById(R.id.glucids);
             totalGlucids = (TextView) itemView.findViewById(R.id.totalGlucids);
-            alimentLogo = (ImageView) itemView.findViewById(R.id.alimentLogo);
+            //alimentLogo = (ImageView) itemView.findViewById(R.id.alimentLogo);
         }
     }
 
@@ -36,22 +36,18 @@ public class AlimentRecyclerAdapter extends RecyclerView.Adapter<AlimentRecycler
 
     @Override
     public AlimentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        System.out.println("PROUT");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.aliment_cardview, parent, false);
-        System.out.println("PROUT");
         AlimentHolder alimentHolder = new AlimentHolder(view);
         return alimentHolder;
     }
 
     @Override
     public void onBindViewHolder(AlimentHolder holder, int position) {
-        System.out.println("POUET");
-
         holder.name.setText(_alimentsList.get(position).getName());
-        //holder.weight.setText(String.valueOf(_alimentsList.get(position).getWeight()));
+        holder.weight.setText(String.valueOf("Quantité : " + _alimentsList.get(position).getWeight()) + "g");
         holder.glucids.setText(String.valueOf("Glucides : " + _alimentsList.get(position).getGlucids()) + "g/100");
-        //holder.totalGlucids.setText(String.valueOf(_alimentsList.get(position).getTotalGlucids()));
-        holder.alimentLogo.setImageResource(R.drawable.aliment);
+        holder.totalGlucids.setText("Total : " + String.valueOf(_alimentsList.get(position).getTotalGlucids()) + "g");
+        //holder.alimentLogo.setImageResource(R.drawable.aliment);
     }
 
     @Override

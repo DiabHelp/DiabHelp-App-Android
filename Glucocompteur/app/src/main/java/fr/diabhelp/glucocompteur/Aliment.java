@@ -51,7 +51,7 @@ public class Aliment {
         sb.append(System.getProperty("line.separator"));
         sb.append("glucides : " + _glucids);
         sb.append(System.getProperty("line.separator"));
-        sb.append("total glucides : " + _totalGlucids);
+        sb.append("add_favorites glucides : " + _totalGlucids);
         sb.append(System.getProperty("line.separator"));
         return (sb.toString());
     }

@@ -20,8 +20,20 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private List<Item> data;
 
-    public ExpandableListAdapter(List<Item> data) {
+    public ExpandableListAdapter(ArrayList<Item> data) {
         this.data = data;
+    }
+
+    private static class ListHeaderViewHolder extends RecyclerView.ViewHolder {
+        public TextView     header_title;
+        public ImageView    btn_expand_toggle;
+        public Item         refferalItem;
+
+        public ListHeaderViewHolder(View itemView) {
+            super(itemView);
+            header_title = (TextView) itemView.findViewById(R.id.header_title);
+            btn_expand_toggle = (ImageView) itemView.findViewById(R.id.btn_expand_toggle);
+        }
     }
 
     @Override
@@ -102,23 +114,6 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return data.get(position).type;
     }
 
-    @Override
-    public int getItemCount() {
-        return data.size();
-    }
-
-    private static class ListHeaderViewHolder extends RecyclerView.ViewHolder {
-        public TextView header_title;
-        public ImageView btn_expand_toggle;
-        public Item refferalItem;
-
-        public ListHeaderViewHolder(View itemView) {
-            super(itemView);
-            header_title = (TextView) itemView.findViewById(R.id.header_title);
-            btn_expand_toggle = (ImageView) itemView.findViewById(R.id.btn_expand_toggle);
-        }
-    }
-
     public static class Item {
         public int type;
         public String text;
@@ -132,4 +127,10 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             this.text = text;
         }
     }
+
+    @Override
+    public int getItemCount() {
+        return data.size();
+    }
+
 }
