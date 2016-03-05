@@ -202,7 +202,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy"); // todo changer le format de la date
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         formattedDate = df.format(c.getTime());
         fill_date();
 
@@ -238,8 +238,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _date = intent.getExtras().getString("date");
             Log.e("date when update", _date);
         }
-        else
-            Log.e("date when update", "no extra");
         if (intent.hasExtra("launch"))
             _launch = intent.getExtras().getInt("launch");
         if (intent.hasExtra("diner"))
@@ -270,7 +268,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _breakfast = intent.getExtras().getInt("breakfast");
 
 
-/*        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run();*/ // TODO soucis sur le fill_place
+        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run(); // TODO soucis sur le fill_place
 
         time = (EditText) findViewById(R.id.editactivity);
         time.setOnClickListener(new View.OnClickListener() {
@@ -524,14 +522,15 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Entry.setPeriod(isActiveicon.get(IconeType.PERIOD.getValue()));
 
         bdd.open();
-
-        if (_date == null || bdd.SelectDay(_date, _hour) == null) {
+        if (bdd.SelectDay(_date, _hour) == null) {
             Entry.setHour(Hours);
+            Log.e("save", "select day != null");
             Log.e("entryhour : ", Entry.getHour());
             bdd.AddDay(Entry);
         }
         else {
             Entry.setHour(_hour);
+            Log.e("save", "select day == null");
             Log.e("entryhour : ", Entry.getHour());
             bdd.Update(Entry);
         }
@@ -567,59 +566,45 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
 
         if (_launch != null && _launch == 1) {
-            isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
             add_launch(null);
         }
         if (_diner != null && _diner == 1) {
-            isActiveicon.set(IconeType.DINER.getValue(), 1);
             add_diner(null);
         }
         if (_encas != null && _encas == 1) {
-            isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
             add_encas(null);
         }
         if (_sleep != null && _sleep == 1) {
-            isActiveicon.set(IconeType.SLEEP.getValue(), 1);
             add_sleep(null);
         }
         if (_wakeup != null && _wakeup == 1) {
-            isActiveicon.set(IconeType.WAKEUP.getValue(), 1);
             add_wakeup(null);
         }
         if (_night != null && _night == 1) {
-            isActiveicon.set(IconeType.NIGHT.getValue(), 1);
             add_night(null);
         }
         if (_workout != null && _workout == 1) {
-            isActiveicon.set(IconeType.WORKOUT.getValue(), 1);
             add_workout(null);
         }
         if (_hypogly != null && _hypogly == 1) {
-            isActiveicon.set(IconeType.HYPO.getValue(), 1);
             add_hypo(null);
         }
         if (_hypergly != null && _hypergly == 1) {
-            isActiveicon.set(IconeType.HYPER.getValue(), 1);
             add_hyper(null);
         }
         if (_atwork != null && _atwork == 1) {
-            isActiveicon.set(IconeType.WORK.getValue(), 1);
             add_work(null);
         }
         if (_athome != null && _athome == 1) {
-            isActiveicon.set(IconeType.HOME.getValue(), 1);
             add_home(null);
         }
         if (_alcohol != null && _alcohol == 1) {
-            isActiveicon.set(IconeType.ALCOHOL.getValue(), 1);
             add_alcohol(null);
         }
         if (_period != null && _period == 1) {
-            isActiveicon.set(IconeType.PERIOD.getValue(), 1);
             add_period(null);
         }
         if (_breakfast != null && _breakfast == 1) {
-            isActiveicon.set(IconeType.BREAKFAST.getValue(), 1);
             add_breakfeast(null);
         }
 
@@ -715,24 +700,27 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgptidej);
 
         if (isActiveicon.get(IconeType.BREAKFAST.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
             isActiveicon.set(IconeType.BREAKFAST.getValue(), 1);
+            img.setImageResource(R.drawable.ptidejgreen);
         }
         else {
             img.setBackgroundColor(Color.parseColor("#ffffff"));
             isActiveicon.set(IconeType.BREAKFAST.getValue(), 0);
+            img.setImageResource(R.drawable.ptidej);
         }
     }
+
     public void add_launch(View v)
     {
         ImageView img = (ImageView) findViewById(R.id.imglaunch);
 
         if (isActiveicon.get(IconeType.LAUNCH.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.launchgreen);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            Log.e("debug launch", "desactivé");
+            img.setImageResource(R.drawable.launch);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
         }
     }
@@ -742,11 +730,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgdiner);
 
         if (isActiveicon.get(IconeType.DINER.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.dinergreen);
             isActiveicon.set(IconeType.DINER.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.diner);
             isActiveicon.set(IconeType.DINER.getValue(), 0);
         }
     }
@@ -756,11 +744,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgencas);
 
         if (isActiveicon.get(IconeType.ENCAS.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.cassecroutegreen);
             isActiveicon.set(IconeType.ENCAS.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.cassecroute);
             isActiveicon.set(IconeType.ENCAS.getValue(), 0);
         }
     }
@@ -770,11 +758,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgcoucher);
 
         if (isActiveicon.get(IconeType.SLEEP.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.couchergreen);
             isActiveicon.set(IconeType.SLEEP.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.coucher);
             isActiveicon.set(IconeType.SLEEP.getValue(), 0);
         }
     }
@@ -784,11 +772,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imglevee);
 
         if (isActiveicon.get(IconeType.WAKEUP.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.reveilgreen);
             isActiveicon.set(IconeType.WAKEUP.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.reveil);
             isActiveicon.set(IconeType.WAKEUP.getValue(), 0);
         }
     }
@@ -798,11 +786,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgnuit);
 
         if (isActiveicon.get(IconeType.NIGHT.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.nightgreen);
             isActiveicon.set(IconeType.NIGHT.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.night);
             isActiveicon.set(IconeType.NIGHT.getValue(), 0);
         }
     }
@@ -812,11 +800,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgsport);
 
         if (isActiveicon.get(IconeType.WORKOUT.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.sportgreen);
             isActiveicon.set(IconeType.WORKOUT.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.sport);
             isActiveicon.set(IconeType.WORKOUT.getValue(), 0);
         }
     }
@@ -826,11 +814,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgwork);
 
         if (isActiveicon.get(IconeType.WORK.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.workgreen);
             isActiveicon.set(IconeType.WORK.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.work);
             isActiveicon.set(IconeType.WORK.getValue(), 0);
         }
     }
@@ -840,11 +828,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imghome);
 
         if (isActiveicon.get(IconeType.HOME.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.homegreen);
             isActiveicon.set(IconeType.HOME.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.home);
             isActiveicon.set(IconeType.HOME.getValue(), 0);
         }
     }
@@ -854,11 +842,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgalcool);
 
         if (isActiveicon.get(IconeType.ALCOHOL.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.alcoolgreen);
             isActiveicon.set(IconeType.ALCOHOL.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.alcool);
             isActiveicon.set(IconeType.ALCOHOL.getValue(), 0);
         }
     }
@@ -868,11 +856,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imgperiod);
 
         if (isActiveicon.get(IconeType.PERIOD.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.periodgreen);
             isActiveicon.set(IconeType.PERIOD.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.period);
             isActiveicon.set(IconeType.PERIOD.getValue(), 0);
         }
     }
@@ -882,11 +870,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imghypo);
 
         if (isActiveicon.get(IconeType.HYPO.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.hypogreen);
             isActiveicon.set(IconeType.HYPO.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.hypo);
             isActiveicon.set(IconeType.HYPO.getValue(), 0);
         }
     }
@@ -896,11 +884,11 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imghyper);
 
         if (isActiveicon.get(IconeType.HYPER.getValue()) == 0) {
-            img.setBackgroundColor(Color.parseColor("#ff00ff00"));
+            img.setImageResource(R.drawable.hypergreen);
             isActiveicon.set(IconeType.HYPER.getValue(), 1);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
+            img.setImageResource(R.drawable.hyper);
             isActiveicon.set(IconeType.HYPER.getValue(), 0);
         }
     }

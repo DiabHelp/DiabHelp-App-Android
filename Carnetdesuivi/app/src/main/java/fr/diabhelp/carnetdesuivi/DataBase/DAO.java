@@ -140,9 +140,8 @@ public class DAO extends DAOBase {
         return (-1);
     }
 
-
-    public void deleteDay(String _date) {
-        mDb.delete(TABLE_NAME, tdate + " = ?", new String[] {_date});
+    public void deleteDay(String _date, String _hour) {
+        mDb.delete(TABLE_NAME, tdate + " = ? and " + Hour + " = ?", new String[] {_date, _hour});
     }
 
     /**
@@ -185,193 +184,13 @@ public class DAO extends DAOBase {
 
         Log.e("date request Update", m.getDate());
         Log.e("hour request Update", m.getHour());
-        mDb.update(TABLE_NAME, value, Date_hour + " = ?" + " and " + Hour + " = ?", new String[]{String.valueOf(m.getDate())});
+        mDb.update(TABLE_NAME, value, Date_hour + " = ?" + " and " + Hour + " = ?", new String[]{String.valueOf(m.getDate()), m.getHour() });
 
-    }
-
-
-    public ArrayList<EntryOfCDS> selectBetweenDay(String mtDate, String endMtdate) {
-        ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
-
-        String final_begdate = new String();
-        String final_enddate = new String();
-        String tmpdate[] = new String[3];
-
-        tmpdate = mtDate.split("-");
-        final_begdate = "20" + tmpdate[2].concat("-").concat(tmpdate[0]).concat("-").concat(tmpdate[1]);
-
-        tmpdate = endMtdate.split("-");
-        final_enddate = "20" + tmpdate[2].concat("-").concat(tmpdate[0]).concat("-").concat(tmpdate[1]);
-
-
-        Log.e("begin date", final_begdate);
-        Log.e("end date", final_enddate);
-
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where rdate BETWEEN ? AND  ?" , new String[] { final_begdate, final_enddate} );
-
-        while (c.moveToNext()) {
-
-            String rdate = c.getString(c.getColumnIndex("rdate"));
-
-            Log.e("date sqllite :", rdate.toString());
-
-            String _title = c.getString(c.getColumnIndex(Titre));
-            String _place = c.getString(c.getColumnIndex(Lieux));
-            Double _glucide = c.getDouble(c.getColumnIndex(glucide));
-            String _activity = c.getString(c.getColumnIndex(activity));
-
-            String _activityType = c.getString(c.getColumnIndex(activityType));
-
-            String _notes = c.getString(c.getColumnIndex(notes));
-
-            String _date = c.getString(c.getColumnIndex(Date_hour));
-
-            Double _fast_insu = c.getDouble(c.getColumnIndex(fast_insu));
-            Double _slow_insu = c.getDouble(c.getColumnIndex(slow_insu));
-            Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
-            Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
-            String _hour = c.getString(c.getColumnIndex(Hour));
-
-            Integer _launch = c.getInt(c.getColumnIndex(launch));
-            Integer _diner = c.getInt(c.getColumnIndex(diner));
-            Integer _encas = c.getInt(c.getColumnIndex(encas));
-            Integer _sleep = c.getInt(c.getColumnIndex(sleep));
-            Integer _wakeup = c.getInt(c.getColumnIndex(wakeup));
-            Integer _night = c.getInt(c.getColumnIndex(night));
-            Integer _workout = c.getInt(c.getColumnIndex(workout));
-            Integer _hypogly = c.getInt(c.getColumnIndex(hypogly));
-            Integer _hypergly = c.getInt(c.getColumnIndex(hypergly));
-            Integer _atwork = c.getInt(c.getColumnIndex(work));
-            Integer _athome = c.getInt(c.getColumnIndex(athome));
-            Integer _alcohol = c.getInt(c.getColumnIndex(alcohol));
-            Integer _period = c.getInt(c.getColumnIndex(period));
-            Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
-
-            EntryOfCDS m = new EntryOfCDS(_date);
-            m.setDate(_date);
-            m.setActivity(_activity);
-            m.setActivityType(_activityType);
-/*            m.setDate(_date); annciennement setDateAPI */
-            m.setFast_insu(_fast_insu);
-            m.setGlucide(_glucide);
-            m.setNotes(_notes);
-            m.setSlow_insu(_slow_insu);
-            m.setTitle(_title);
-            m.setPlace(_place);
-            m.setHba1c(_hba1c);
-            m.setHour(_hour);
-            m.setglycemy(_glycemy);
-
-            m.setBreakfast(_breakfast);
-            m.setLaunch(_launch);
-            m.setDiner(_diner);
-            m.setEncas(_encas);
-            m.setSleep(_sleep);
-            m.setWakeup(_wakeup);
-            m.setNight(_night);
-            m.setWorkout(_workout);
-            m.setHypogly(_hypogly);
-            m.setHypergly(_hypergly);
-            m.setAtwork(_atwork);
-            m.setAthome(_athome);
-            m.setAlcohol(_alcohol);
-            m.setPeriod(_period);
-
-
-            mAll.add(m);
-            // Faire quelque chose
-
-        }
-        c.close();
-        Log.e("status ok with size of :", String.valueOf(mAll.size()));
-        return mAll;
     }
 
     /**
      * @param //id l'identifiant du métier à récupérer
      */
-/*    public ArrayList<EntryOfCDS> Selectfilter(String mtdatebeg, String mtdateend,
-                                              Integer flaunch, Integer fdiner, Integer fencas, Integer fsleep, Integer fwakeup, Integer fnight, Integer fworkout, Integer fhypogly, Integer fhypergly, Integer fatwork, Integer fathome, Integer falcohol, Integer fperiod, Integer fbreakfast)
-    {
-        ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME , null);
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ? and" + launch + " = ? and" + diner + " = ? and" + encas + " = ? and" + sleep + " = ? and" + wakeup + " = ? and"  , new String[] { mtDate});
-        while (c.moveToNext()) {
-
-            if (c == null || c.getCount() <= 0)
-                return null;
-
-            String _title = c.getString(c.getColumnIndex(Titre));
-            String _place = c.getString(c.getColumnIndex(Lieux));
-            Double _glucide = c.getDouble(c.getColumnIndex(glucide));
-            String _activity = c.getString(c.getColumnIndex(activity));
-
-            String _activityType = c.getString(c.getColumnIndex(activityType));
-
-            String _notes = c.getString(c.getColumnIndex(notes));
-
-            String _date = c.getString(c.getColumnIndex(Date_hour));
-
-            Double _fast_insu = c.getDouble(c.getColumnIndex(fast_insu));
-            Double _slow_insu = c.getDouble(c.getColumnIndex(slow_insu));
-            Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
-            Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
-            String _hour = c.getString(c.getColumnIndex(Hour));
-
-            Integer _launch = c.getInt(c.getColumnIndex(launch));
-            Integer _diner = c.getInt(c.getColumnIndex(diner));
-            Integer _encas = c.getInt(c.getColumnIndex(encas));
-            Integer _sleep = c.getInt(c.getColumnIndex(sleep));
-            Integer _wakeup = c.getInt(c.getColumnIndex(wakeup));
-            Integer _night = c.getInt(c.getColumnIndex(night));
-            Integer _workout = c.getInt(c.getColumnIndex(workout));
-            Integer _hypogly = c.getInt(c.getColumnIndex(hypogly));
-            Integer _hypergly = c.getInt(c.getColumnIndex(hypergly));
-            Integer _atwork = c.getInt(c.getColumnIndex(work));
-            Integer _athome = c.getInt(c.getColumnIndex(athome));
-            Integer _alcohol = c.getInt(c.getColumnIndex(alcohol));
-            Integer _period = c.getInt(c.getColumnIndex(period));
-            Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
-
-            EntryOfCDS m = new EntryOfCDS(_date);
-            m.setDate(_date);
-            m.setActivity(_activity);
-            m.setActivityType(_activityType);
-*//*            m.setDate(_date); annciennement setDateAPI *//*
-            m.setFast_insu(_fast_insu);
-            m.setGlucide(_glucide);
-            m.setNotes(_notes);
-            m.setSlow_insu(_slow_insu);
-            m.setTitle(_title);
-            m.setPlace(_place);
-            m.setHba1c(_hba1c);
-            m.setHour(_hour);
-            m.setglycemy(_glycemy);
-
-            m.setBreakfast(_breakfast);
-            m.setLaunch(_launch);
-            m.setDiner(_diner);
-            m.setEncas(_encas);
-            m.setSleep(_sleep);
-            m.setWakeup(_wakeup);
-            m.setNight(_night);
-            m.setWorkout(_workout);
-            m.setHypogly(_hypogly);
-            m.setHypergly(_hypergly);
-            m.setAtwork(_atwork);
-            m.setAthome(_athome);
-            m.setAlcohol(_alcohol);
-            m.setPeriod(_period);
-
-
-            mAll.add(m);
-
-        }
-
-        return mAll;
-    }*/
-
-
     public ArrayList<EntryOfCDS> SelectAll()
     {
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
@@ -536,7 +355,10 @@ public class DAO extends DAOBase {
         EntryOfCDS m = null;
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
-//        Log.e("SelectDay", mtDate);
+        if (_hour == null)
+            _hour = "00h00";
+        if (mtDate == null)
+            mtDate = "0-0-0";
         Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?" + " and " + Hour + " = ?" , new String[] { mtDate, _hour});
 
         String[] i = c.getColumnNames();
@@ -662,5 +484,103 @@ public class DAO extends DAOBase {
         }
         c.close();
         return m;
+    }
+
+    public ArrayList<EntryOfCDS> selectBetweenDays(String mtDate, String endMtdate) {
+        ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
+
+        String final_begdate = new String();
+        String final_enddate = new String();
+        String tmpdate[] = new String[3];
+
+        tmpdate = mtDate.split("-");
+        final_begdate = "20" + tmpdate[2].concat("-").concat(tmpdate[0]).concat("-").concat(tmpdate[1]);
+
+        tmpdate = endMtdate.split("-");
+        final_enddate = "20" + tmpdate[2].concat("-").concat(tmpdate[0]).concat("-").concat(tmpdate[1]);
+
+        // 2016-02-25
+
+        Log.e("begin date", final_begdate);
+        Log.e("end date", final_enddate);
+
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where rdate BETWEEN ? AND  ?" , new String[] { final_begdate, final_enddate} );
+
+        while (c.moveToNext()) {
+
+            String rdate = c.getString(c.getColumnIndex("rdate"));
+
+            Log.e("date sqllite :", rdate.toString());
+
+            String _title = c.getString(c.getColumnIndex(Titre));
+            String _place = c.getString(c.getColumnIndex(Lieux));
+            Double _glucide = c.getDouble(c.getColumnIndex(glucide));
+            String _activity = c.getString(c.getColumnIndex(activity));
+
+            String _activityType = c.getString(c.getColumnIndex(activityType));
+
+            String _notes = c.getString(c.getColumnIndex(notes));
+
+            String _date = c.getString(c.getColumnIndex(Date_hour));
+
+            Double _fast_insu = c.getDouble(c.getColumnIndex(fast_insu));
+            Double _slow_insu = c.getDouble(c.getColumnIndex(slow_insu));
+            Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
+            Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
+            String _hour = c.getString(c.getColumnIndex(Hour));
+
+            Integer _launch = c.getInt(c.getColumnIndex(launch));
+            Integer _diner = c.getInt(c.getColumnIndex(diner));
+            Integer _encas = c.getInt(c.getColumnIndex(encas));
+            Integer _sleep = c.getInt(c.getColumnIndex(sleep));
+            Integer _wakeup = c.getInt(c.getColumnIndex(wakeup));
+            Integer _night = c.getInt(c.getColumnIndex(night));
+            Integer _workout = c.getInt(c.getColumnIndex(workout));
+            Integer _hypogly = c.getInt(c.getColumnIndex(hypogly));
+            Integer _hypergly = c.getInt(c.getColumnIndex(hypergly));
+            Integer _atwork = c.getInt(c.getColumnIndex(work));
+            Integer _athome = c.getInt(c.getColumnIndex(athome));
+            Integer _alcohol = c.getInt(c.getColumnIndex(alcohol));
+            Integer _period = c.getInt(c.getColumnIndex(period));
+            Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
+
+            EntryOfCDS m = new EntryOfCDS(_date);
+            m.setDate(_date);
+            m.setActivity(_activity);
+            m.setActivityType(_activityType);
+/*            m.setDate(_date); annciennement setDateAPI */
+            m.setFast_insu(_fast_insu);
+            m.setGlucide(_glucide);
+            m.setNotes(_notes);
+            m.setSlow_insu(_slow_insu);
+            m.setTitle(_title);
+            m.setPlace(_place);
+            m.setHba1c(_hba1c);
+            m.setHour(_hour);
+            m.setglycemy(_glycemy);
+
+            m.setBreakfast(_breakfast);
+            m.setLaunch(_launch);
+            m.setDiner(_diner);
+            m.setEncas(_encas);
+            m.setSleep(_sleep);
+            m.setWakeup(_wakeup);
+            m.setNight(_night);
+            m.setWorkout(_workout);
+            m.setHypogly(_hypogly);
+            m.setHypergly(_hypergly);
+            m.setAtwork(_atwork);
+            m.setAthome(_athome);
+            m.setAlcohol(_alcohol);
+            m.setPeriod(_period);
+
+
+            mAll.add(m);
+            // Faire quelque chose
+
+        }
+        c.close();
+        Log.e("status ok size:", String.valueOf(mAll.size()));
+        return mAll;
     }
 }

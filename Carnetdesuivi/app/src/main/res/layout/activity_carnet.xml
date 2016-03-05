@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -55,9 +55,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:id="@+id/linearLayout">
+        >
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -121,6 +121,7 @@
                 android:layout_below="@id/relativeavg"
                 android:textStyle="bold"
                 />
+
         </RelativeLayout>
 
         <ExpandableListView
@@ -134,41 +135,34 @@
             android:divider="#FFFF"
             android:dividerHeight="0.5dp"
             />
-    </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/linearLayout">
-
-        <ImageButton
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:text="Exporter"
-            android:id="@+id/button"
-            android:src="@drawable/export"
-            android:onClick="export_pdf"
-            android:layout_alignTop="@+id/expandableListView2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:background="#18C1BB"
-            android:onClick="launch_entry"
-            android:clickable="true"
-            android:src="@drawable/ic_add_black_24dp"
-            android:id="@+id/expandableListView2"
+            android:layout_above="@+id/relativeavg"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/button"
-            android:layout_toEndOf="@+id/button"
-            android:layout_marginLeft="25dp" />
-    </RelativeLayout>
+            android:layout_below="@+id/linearLayout"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/button" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <!--    </LinearLayout>-->
 </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:background="#18C1BB"
+        android:layout_margin="16dp"
+        android:onClick="launch_entry"
+        android:clickable="true"
+        android:src="@drawable/ic_add_black_24dp" />
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

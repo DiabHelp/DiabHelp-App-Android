@@ -23,6 +23,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
@@ -304,15 +305,24 @@ public class DayResultActivity extends Activity {
         if (inf.getNotes() == null || inf.getNotes() == "" || inf.getNotes().length() == 0) {
             _linearCell.get(Linear.NOTES.getValue()).setVisibility(View.GONE);
 
-        } else {
+        }
+        else {
             _linearCell.get(Linear.NOTES.getValue()).setVisibility(View.VISIBLE);
             _txtCell.get(TXTedit.NOTES.getValue()).setText(inf.getNotes());
         }
-        if (inf.getPlace() == null || inf.getPlace() == "") {
+
+        if (inf.getPlace() == null || inf.getPlace() == "" || inf.getPlace() == "N/A") {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.GONE);
-        } else {
+            ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
+            img.setVisibility(View.GONE);
+            Log.e("imgplace", "pas visible");
+        }
+        else {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.VISIBLE);
+            Log.e("imgplace", "visible $" + inf.getPlace()+"%");
             _txtCell.get(TXTedit.PLACETEXT.getValue()).setText(inf.getPlace());
+            ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
+            img.setVisibility(View.VISIBLE);
         }
         _bdd.close();
     }
@@ -368,9 +378,9 @@ public class DayResultActivity extends Activity {
 
     protected String getMonthstr(String month) {
         switch (month) {
-            case "Jan":
+            case "janv.":
                 return ("Janvier");
-            case "Feb":
+            case "févr.":
                 return ("Fevrier");
             case "mar.":
                 return ("Mars");
@@ -394,6 +404,13 @@ public class DayResultActivity extends Activity {
                 return ("Decembre");
         }
         return null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent Dayintent = new Intent(DayResultActivity.this, Carnetdesuivi.class);
+        DayResultActivity.this.startActivity(Dayintent);
+        this.finish();
     }
 
     public void updateEntry(View v) {
@@ -432,18 +449,24 @@ public class DayResultActivity extends Activity {
 
 
         DayResultActivity.this.startActivity(intent);
-
+        DayResultActivity.this.finish();
     }
 
     public void DeleteEntry(View v)
     {
-        _bdd.open();
+
         new AlertDialog.Builder(this)
                 .setTitle("Suppresion")
                 .setMessage("Vous êtes sur le point de supprimer cette entrée. Etes vous sur de vouloir continuer ?")
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        _bdd.deleteDay(inf.getDate());
+                        _bdd.open();
+                        _bdd.deleteDay(inf.getDate(), inf.getHour());
+                        _bdd.close();
+                        Intent intent = new Intent(DayResultActivity.this, Carnetdesuivi.class);
+
+                        DayResultActivity.this.startActivity(intent);
+                        DayResultActivity.this.finish();
                     }
                 })
                 .setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -454,6 +477,5 @@ public class DayResultActivity extends Activity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
 
-        _bdd.close();
     }
 }

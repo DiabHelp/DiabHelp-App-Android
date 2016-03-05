@@ -302,7 +302,7 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         Log.e("datefinale expendable", datefinal);
         return datefinal;
     }
-    protected String getMonthstr(String month)
+    protected String getMonthstr(String month) //TODO Pas bon du tout peux causer ds soucis avec des select de db..
     {
         switch (month)
         {
@@ -374,6 +374,7 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
                 intent.putExtra("date", datesplit);
                 intent.putExtra("hour", Hour);
                 _acti.startActivity(intent);
+                _acti.finish();
             }
         });
         infoDay.setFocusable(false);

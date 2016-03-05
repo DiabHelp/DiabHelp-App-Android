@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by naqued on 21/11/15.
  */
-public class EntryOfCDS {
+public class                              EntryOfCDS {
     // Notez que l'identifiant est un long
 
     public enum TimeDay{
