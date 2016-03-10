@@ -20,7 +20,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                StatisticsDayFragment tab1 = new StatisticsDayFragment();
+                StatisticsWeekFragment tab1 = new StatisticsWeekFragment();
                 return tab1;
             case 1:
                 StatisticsMonthFragment tab2 = new StatisticsMonthFragment();

@@ -57,18 +57,18 @@
             android:layout_row="2"
             android:layout_marginBottom="@dimen/entry_icone_marginBottom"
             android:layout_gravity="center"
-            android:id="@+id/launch"
+            android:id="@+id/lunch"
             >
             <ImageView
-                android:id="@+id/imglaunch"
+                android:id="@+id/imglunch"
                 android:layout_width="@dimen/img_entry_size_width"
                 android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/launch"
+                android:src="@drawable/lunch"
                 >
             </ImageView>
 
             <TextView
-                android:id="@+id/txtlaunch"
+                android:id="@+id/txtlunch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/txt_entry_marginTop"
@@ -464,23 +464,6 @@
             </TextView>
         </LinearLayout>
 
-        <!--                    sport2-->
-
-        <TextView
-            android:id="@+id/txtsportdesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/txt_entry_marginTop"
-            android:textSize="@dimen/text_entry_size"
-            android:visibility="gone"
-            android:text="Détail :"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_column="1"
-            android:layout_row="5"
-            >
-        </TextView>
-
     </GridLayout>
 
     <LinearLayout
@@ -505,7 +488,7 @@
         <EditText
             android:layout_width="@dimen/layout_edittext"
             android:layout_height="wrap_content"
-            android:id="@+id/starttime"
+            android:id="@+id/startDate"
             android:focusable="false"
             android:layout_row="5"
             android:layout_gravity="center"
@@ -527,7 +510,7 @@
         <EditText
             android:layout_width="@dimen/layout_edittext"
             android:layout_height="wrap_content"
-            android:id="@+id/endtime"
+            android:id="@+id/endDate"
             android:focusable="false"
             android:layout_row="5"
             android:layout_gravity="center"
@@ -540,19 +523,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        >
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Envoyer"
-            android:onClick=""
             android:textAllCaps="true"
-            android:id="@+id/UpdateEntryButton"
             android:textColor="@color/abc_secondary_text_material_dark"
             android:background="#078b87"
             android:layout_row="0"
             android:layout_column="0"
+            android:id="@+id/layout_send_data"
             />
 
     </LinearLayout>

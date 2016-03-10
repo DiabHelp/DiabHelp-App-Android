@@ -134,7 +134,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     } ;
     int[] imageId = {
             R.drawable.ptidej,
-            R.drawable.launch,
+            R.drawable.lunch,
             R.drawable.diner,
             R.drawable.cassecroute,
             R.drawable.coucher,
@@ -238,8 +238,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _date = intent.getExtras().getString("date");
             Log.e("date when update", _date);
         }
-        if (intent.hasExtra("launch"))
-            _launch = intent.getExtras().getInt("launch");
+        if (intent.hasExtra("lunch"))
+            _launch = intent.getExtras().getInt("lunch");
         if (intent.hasExtra("diner"))
             _diner = intent.getExtras().getInt("diner");
         if (intent.hasExtra("encas"))
@@ -715,12 +715,12 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imglaunch);
 
         if (isActiveicon.get(IconeType.LAUNCH.getValue()) == 0) {
-            img.setImageResource(R.drawable.launchgreen);
+            img.setImageResource(R.drawable.lunchgreen);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
         }
         else {
-            Log.e("debug launch", "desactivé");
-            img.setImageResource(R.drawable.launch);
+            Log.e("debug lunch", "desactivé");
+            img.setImageResource(R.drawable.lunch);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
         }
     }

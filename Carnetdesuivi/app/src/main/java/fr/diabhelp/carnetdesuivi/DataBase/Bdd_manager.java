@@ -24,7 +24,7 @@ public class Bdd_manager extends SQLiteOpenHelper {
     public static final String Hour = "hour";
 
     public static final String breakfast = "breakfast";
-    public static final String launch = "launch";
+    public static final String launch = "lunch";
     public static final String diner = "diner";
     public static final String encas = "encas";
     public static final String sleep = "sleep";
