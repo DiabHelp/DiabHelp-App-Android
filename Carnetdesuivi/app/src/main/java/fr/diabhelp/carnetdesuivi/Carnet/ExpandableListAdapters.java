@@ -168,6 +168,7 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         String date = laptops.get(groupPosition);
         System.out.println(date);
         String finaldate = reconstructDate(date);
+        Log.e("expendable finaldate", finaldate+ " date :" + date);
         EntryOfCDS en = bdd.SelectDay(finaldate, date.split("-")[1].split(" ")[4]);
 
         if (en == null)
@@ -295,11 +296,11 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
     {
         String datefinal;
         String datepart = date.split("-")[1];
-        Log.e("reconstructor date", (datepart.split(" ")[1] + "-" + datepart.split(" ")[2]));
 
-        datefinal = datepart.split(" ")[1] + "-" + getMonthstr(datepart.split(" ")[2]) + "-" + datepart.split(" ")[3];
 
-        Log.e("datefinale expendable", datefinal);
+        datefinal = getMonthstr(datepart.split(" ")[2]) + "-" + datepart.split(" ")[1] + "-" + datepart.split(" ")[3];
+
+        Log.e("Expendable reconstruct", datefinal);
         return datefinal;
     }
     protected String getMonthstr(String month) //TODO Pas bon du tout peux causer ds soucis avec des select de db..
@@ -307,29 +308,29 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         switch (month)
         {
             case "Janvier" :
-                return ("janv.");
+                return ("01");
             case "Fevrier" :
-                return ("févr.");
+                return ("02");
             case "Mars" :
-                return ("mars");
+                return ("03");
             case "Avril" :
-                return ("avr.");
+                return ("04");
             case "Mai" :
-                return ("mai");
+                return ("05");
             case "Juin" :
-                return ("juin");
+                return ("06");
             case "Juillet" :
-                return ("juil.");
+                return ("07");
             case "Aout" :
-                return ("aout");
+                return ("08");
             case "Septembre" :
-                return ("sep.");
+                return ("09");
             case "Octobre" :
-                return ("oct.");
+                return ("10");
             case "Novembre" :
-                return ("nov.");
+                return ("11");
             case "Decembre" :
-                return ("déc.");
+                return ("12");
         }
         return null;
     }

@@ -42,9 +42,9 @@ public class DAO extends DAOBase {
     public static final String athome = "athome";
     public static final String alcohol = "alcohol";
     public static final String period = "period";
-
+    public static final String sqldate = "rdate";
     public static final String TABLE_NAME = "Diabhelp_CDS";
-    public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + tdate + " TEXT, " + Titre + " TEXT, " + Lieux + " TEXT, " + Date_hour + " TEXT, " + glucide + " DOUBLE, " + activity + " TEXT, " + activityType + " TEXT, " + notes + " TEXT, " + fast_insu + " DOUBLE, " + slow_insu + " DOUBLE, " + "rdate datetime default (datetime(current_timestamp)));";
+    public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + tdate + " TEXT, " + Titre + " TEXT, " + Lieux + " TEXT, " + Date_hour + " TEXT, " + glucide + " DOUBLE, " + activity + " TEXT, " + activityType + " TEXT, " + notes + " TEXT, " + fast_insu + " DOUBLE, " + slow_insu + " DOUBLE, " + sqldate + "datetime default (datetime(current_timestamp)));";
     public static final String TABLE_DROP =  "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
 
@@ -55,6 +55,7 @@ public class DAO extends DAOBase {
 
     public void AddDay(EntryOfCDS m) {
         ContentValues value = new ContentValues();
+        Log.e("add Day date", m.getDate());
         value.put(Titre, m.getTitle());
         Log.e("place saved", m.getPlace());
         value.put(Lieux, m.getPlace());
@@ -83,6 +84,7 @@ public class DAO extends DAOBase {
         value.put(work, m.getAtwork());
         value.put(athome, m.getAthome());
 
+/*
         String tmpdate[] = new String[3];
 
         String final_date = new String();
@@ -90,17 +92,20 @@ public class DAO extends DAOBase {
         tmpdate = m.getDate().split("-");
 
         String month = new String();
+*/
+/*
         if (getMonthint(tmpdate[1]) < 10)
             month  = "0".concat(String.valueOf(getMonthint(tmpdate[1])));
         else
             month = String.valueOf(tmpdate[1]);
 
         final_date = tmpdate[2].concat("-").concat(month).concat("-").concat(tmpdate[0]);
+*/
 
         // attention ici : 2015-MARS-13
 
-        value.put("rdate", final_date);
-        Log.e("final date", final_date);
+/*        value.put("rdate", final_date);
+        Log.e("final date", final_date);*/
         Log.e("bdd-action :", "insert");
         Log.e("bdd-value", String.valueOf(m.getBreakfast()));
 
@@ -233,8 +238,12 @@ public class DAO extends DAOBase {
             Integer _period = c.getInt(c.getColumnIndex(period));
             Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
 
+            String _datesql = c.getString(c.getColumnIndex(sqldate));
+            Log.e("SQL DATE", _datesql);
+
             EntryOfCDS m = new EntryOfCDS(_date);
             m.setDate(_date);
+            m.setDatesql(_datesql);
             m.setActivity(_activity);
             m.setActivityType(_activityType);
 /*            m.setDate(_date); annciennement setDateAPI */

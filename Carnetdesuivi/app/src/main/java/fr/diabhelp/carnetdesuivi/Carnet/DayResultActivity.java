@@ -149,6 +149,7 @@ public class DayResultActivity extends Activity {
     protected void initView() {
 
         _bdd.open();
+        Log.e("date dayresult initview", _date);
         inf = _bdd.SelectDay(_date, _hour);
         Log.e("Title in init", inf.getTitle());
 
@@ -369,42 +370,13 @@ public class DayResultActivity extends Activity {
 
     protected String getCleanDate(String date) {
         String finaldate;
-        finaldate = date.split("-")[0] + " ";
+/*        finaldate = date.split("-")[0] + " ";
         finaldate += getMonthstr(date.split("-")[1]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
         finaldate += date.split("-")[2];
-        Log.e("date finaldate", finaldate);
-        return finaldate;
+        Log.e("date finaldate", finaldate);*/
+        return date;
     }
 
-    protected String getMonthstr(String month) {
-        switch (month) {
-            case "janv.":
-                return ("Janvier");
-            case "févr.":
-                return ("Fevrier");
-            case "mar.":
-                return ("Mars");
-            case "avr.":
-                return ("Avril");
-            case "mai":
-                return ("Mai");
-            case "juin.":
-                return ("Juin");
-            case "juil.":
-                return ("Juillet");
-            case "aou.":
-                return ("Aout");
-            case "sep.":
-                return ("Septembre");
-            case "oct.":
-                return ("Octobre");
-            case "nov.":
-                return ("Novembre");
-            case "déc.":
-                return ("Decembre");
-        }
-        return null;
-    }
 
     @Override
     public void onBackPressed() {

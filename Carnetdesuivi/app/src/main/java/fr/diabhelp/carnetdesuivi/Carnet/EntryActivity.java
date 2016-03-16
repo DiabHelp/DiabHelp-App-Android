@@ -202,8 +202,10 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String myFormat ="MM-dd-yyyy";
+        SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         formattedDate = df.format(c.getTime());
+        Log.e("date on create entry", formattedDate);
         fill_date();
 
         Intent intent = getIntent();

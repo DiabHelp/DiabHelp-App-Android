@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 public abstract class DAOBase {
 
     // Version++ pour mettre a jour
-    protected final static int VERSION = 14;
+    protected final static int VERSION = 17;
     // Le nom du fichier qui représente ma base
     protected final static String NOM = "dh_db.db";
 
@@ -19,7 +19,7 @@ public abstract class DAOBase {
     public DAOBase(Context pContext) {
         this.mHandler = new Bdd_manager(pContext, NOM, null, VERSION);
     }
-    public DAOBase() // pas sur de ça
+    public DAOBase()
     {
         this.mHandler = new Bdd_manager(null, NOM, null, VERSION);
     }

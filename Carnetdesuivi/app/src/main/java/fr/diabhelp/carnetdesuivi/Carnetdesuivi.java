@@ -264,14 +264,14 @@ public class Carnetdesuivi extends AppCompatActivity {
     }
 
     protected String reconstructDate(String date) {
-        String datefinal;
+/*        String datefinal;
         String datepart = date.split("-")[1];
         Log.e("reconstructor date", (datepart.split(" ")[1] + "-" + datepart.split(" ")[2]));
 
-        datefinal = datepart.split(" ")[1] + "-" + getMonthstrlitl(datepart.split(" ")[2]) + "-" + datepart.split(" ")[3];
+        datefinal = datepart.split(" ")[1] + "-" + getMonthstrlitl(datepart.split(" ")[2]) + "-" + datepart.split(" ")[3];*/
 
-        Log.e("datefinale expendable", datefinal);
-        return datefinal;
+        Log.e("datefinale expendable", date); //datefinal
+        return date; // datefinal
     }
 
     private void fillAverageGly() {
@@ -287,7 +287,10 @@ public class Carnetdesuivi extends AppCompatActivity {
 
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+
+        String myFormat ="MM-dd-yyyy";
+        SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
+
         String formattedDate = df.format(c.getTime());
 
         bdd.open();
@@ -302,7 +305,10 @@ public class Carnetdesuivi extends AppCompatActivity {
                 }
                 idx++;
             }
-            total = total / size;
+            if (size != 0)
+                total = total / size;
+            else
+                total = 0;
             Log.e("Average glycemie", String.valueOf(total));
             if (total >= 80 && total <= 120) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -363,11 +369,15 @@ public class Carnetdesuivi extends AppCompatActivity {
         String Hours = String.valueOf(hours) + ":" + _minute;
 
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+ /*       SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());*/
+
+        String myFormat ="MM-dd-yyyy";
+        SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         String formattedDate = df.format(c.getTime());
 
+        Log.e("Checktoofast date", formattedDate);
         bdd.open();
-
         final EntryOfCDS ent = bdd.SelectDay(formattedDate, Hours);
         bdd.close();
         if (ent != null)
@@ -544,8 +554,8 @@ public class Carnetdesuivi extends AppCompatActivity {
     protected String getCleanDate(String date)
     {
         String finaldate;
-        finaldate = date.split("-")[0] + " ";
-        finaldate += getMonthstr(date.split("-")[1]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
+        finaldate = date.split("-")[1] + " ";
+        finaldate += getMonthstr(date.split("-")[0]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
         finaldate += date.split("-")[2];
         Log.e("date finaldate", finaldate);
         return finaldate;
@@ -588,29 +598,29 @@ public class Carnetdesuivi extends AppCompatActivity {
         Log.e("month written in DB" , month);
         switch (month)
         {
-            case "janv." :
+            case "01" :
                 return ("Janvier");
-            case "févr." :
+            case "02" :
                 return ("Fevrier");
-            case "mar." :
+            case "03" :
                 return ("Mars");
-            case "avr." :
+            case "04" :
                 return ("Avril");
-            case "mai" :
+            case "05" :
                 return ("Mai");
-            case "juin." :
+            case "06" :
                 return ("Juin");
-            case "juil." :
+            case "07" :
                 return ("Juillet");
-            case "aou." :
+            case "08" :
                 return ("Aout");
-            case "sep." :
+            case "09" :
                 return ("Septembre");
-            case "oct." :
+            case "10" :
                 return ("Octobre");
-            case "nov." :
+            case "11" :
                 return ("Novembre");
-            case "déc." :
+            case "12" :
                 return ("Decembre");
         }
         return null;
@@ -689,7 +699,7 @@ public class Carnetdesuivi extends AppCompatActivity {
 
 
     private void updateLabel() {
-        String myFormat = "MM-dd-yy"; //In which you need put here
+        String myFormat = "MM-dd-yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         inputdate[whichInput].setText(sdf.format(myCalendar.getTime()));
