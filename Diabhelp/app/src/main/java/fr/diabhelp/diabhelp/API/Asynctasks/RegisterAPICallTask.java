@@ -64,8 +64,10 @@ public class RegisterAPICallTask extends AsyncTask<String, Integer, ResponseRegi
         try {
             retrofit2.Response reponse = call.execute();
             if (reponse.isSuccess()) {
+                System.out.println(reponse.raw());
                 responseRegister = (ResponseRegister) reponse.body();
                 System.out.println("response body" + responseRegister);
+
             }
             else {
                 Log.e("RegisterApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
@@ -76,6 +78,7 @@ public class RegisterAPICallTask extends AsyncTask<String, Integer, ResponseRegi
         }
         catch (IOException e) {
             responseRegister = new ResponseRegister();
+            Log.e("RegisterApiCallTask", "catch IOEXCEPTION");
             responseRegister.setError(RegisterActivity.Error.SERVER_ERROR);
             e.printStackTrace();
         }

@@ -20,6 +20,6 @@ public interface ApiServices {
         Call<ResponseBody> getBasicAuthSession(@Field("username") String usr, @Field("password") String pwd);
 
         @FormUrlEncoded
-        @POST("app_dev.php/register")
+        @POST("app_dev.php/api/users/add")
         Call<ResponseRegister> register(@Field("username") String usr,@Field("email") String mail, @Field("password") String pwd, @Field("role") String role, @Field("firstname") String first, @Field("lastname") String last);
 }

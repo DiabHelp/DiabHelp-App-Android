@@ -131,7 +131,7 @@ public class RegisterActivity extends FragmentActivity implements MainRegisterFr
         if (errorCode != 0) {
             manageError(response.getError());
         }
-        else if (action.equals("createAccount")) {
+        else if (/*response.getStatus().equals("success") && */action.equals("createAccount")) {
             informSuccess();
         }
     }
@@ -143,6 +143,7 @@ public class RegisterActivity extends FragmentActivity implements MainRegisterFr
     }
 
     private void returnConnexionActivity() {
+        _progress.dismiss();
         finish();
     }
 
