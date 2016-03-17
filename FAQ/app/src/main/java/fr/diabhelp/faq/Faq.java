@@ -17,9 +17,9 @@ public class Faq extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private String myDataset[] = {"Savoir Réagir face à un malaise", "Type de Diabète, Cause, Traitements",
-            "Diabète égale interdiction ?\nSavoir gérer son repas", "Les equipements lié au diabètes//",
+            "Diabète égale interdiction ?\nSavoir gérer son repas",
             "Trucs et Astuces pour ne pas se faire surprendre", "Cigarette/Alcool/Autres.. Que se passe t'il ?",
-            "Etude et vie professionelle//", "Aide financiere lié au Diabète",
+            "Aide financiere lié au Diabète",
             "Sexualité / Grossesse / Contraception", "Apprivoiser la maladie"};
 
 //TODO ; Equipement lié au Diabete ; Etude et vie professionelle ;
@@ -57,12 +57,12 @@ public class Faq extends AppCompatActivity {
 
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_faq, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -22,7 +22,9 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_info"
+            >
 
 
             <TextView
@@ -96,6 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_info_height"
                 android:text="@string/Button_text"
+                android:textColor="@color/white"
                 android:id="@+id/button"
                 android:background="@color/buttoncolor"
                 android:onClick="launch_more"

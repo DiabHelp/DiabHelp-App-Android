@@ -21,7 +21,9 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_info"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,6 +60,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_info_height"
+                android:textColor="@color/white"
                 android:background="@color/colorPrimary"
                 android:text="@string/Button_text"
                 android:id="@+id/button"

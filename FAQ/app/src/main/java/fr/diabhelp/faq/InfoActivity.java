@@ -41,7 +41,9 @@ public class InfoActivity extends AppCompatActivity {
         else if (Title.compareTo("Apprivoiser la maladie") == 0)
             setContentView(R.layout.activity_apprivoiser);
         else if (Title.compareTo("Trucs et Astuces pour ne pas se faire surprendre") == 0)
-            setContentView(R.layout.activity_apprivoiser);
+            setContentView(R.layout.activity_choseanepasfaire);
+        else if (Title.compareTo("Etude et vie professionelle") == 0)
+            setContentView(R.layout.activity_study_pro);
         else
             Log.e("error", "no title found : " + Title);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

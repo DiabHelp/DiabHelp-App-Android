@@ -16,7 +16,9 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView3" >
+        android:id="@+id/scrollView3"
+        android:padding="@dimen/padding_info"
+        >
 
         <LinearLayout
             android:orientation="vertical"

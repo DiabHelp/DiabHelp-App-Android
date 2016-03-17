@@ -21,13 +21,16 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_info"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/title_diabete_gestationelle"
                 android:id="@+id/title"
+                android:gravity="center"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/marginbottomtitle"
                 android:textStyle="bold"
@@ -84,11 +87,11 @@
                 android:id="@+id/content5"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/content_marginbot"
-                android:gravity="center"
                 />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_info_height"
+                android:textColor="@color/white"
                 android:text="@string/Button_text"
                 android:background="@color/buttoncolor"
                 android:id="@+id/button"
