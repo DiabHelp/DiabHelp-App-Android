@@ -1,4 +1,4 @@
-package fr.diabhelp.carnetdesuivi.Carnet;
+package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
 
 /**
  * Created by vigour_a on 02/02/2016.
@@ -10,9 +10,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
+import fr.diabhelp.carnetdesuivi.Carnet.PagerAdapter;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.R;
 

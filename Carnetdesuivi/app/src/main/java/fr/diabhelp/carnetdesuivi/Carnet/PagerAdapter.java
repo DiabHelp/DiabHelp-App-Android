@@ -7,6 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsAllFragment;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsMonthFragment;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsPersoFragment;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsWeekFragment;
+
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 

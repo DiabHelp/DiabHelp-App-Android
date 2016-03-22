@@ -1,23 +1,23 @@
-package fr.diabhelp.carnetdesuivi.Carnet;
+package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
@@ -26,7 +26,15 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 /**
  * Created by vigour_a on 02/02/2016.
  */
-public class GraphPersoActivity extends AppCompatActivity {
+
+public class StatisticsAllFragment extends Fragment {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }
 
     private ColumnChartView chart;
     private ColumnChartData data;
@@ -38,38 +46,28 @@ public class GraphPersoActivity extends AppCompatActivity {
     private ArrayList<EntryOfCDS> mall = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistics_perso_graph);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Statistiques personnalisées");
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Statisticsintent = new Intent(GraphPersoActivity.this, StatisticsActivity.class);
-                startActivity(Statisticsintent);
-            }
-        });
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        View rootView = inflater.inflate(R.layout.statistics_all_fragment, container, false);
 
-        chart = (ColumnChartView) findViewById(R.id.chart);
+        chart = (ColumnChartView) rootView.findViewById(R.id.chart);
         chart.setOnValueTouchListener(new ValueTouchListener());
 
         getData();
+
+        return rootView;
     }
 
     private void getData() {
 
-        DAO bdd = new DAO(this);
+        DAO bdd = new DAO(getContext());
         bdd.open();
-//        mall = bdd.selectBetweenDays("2016-02-01", "2016-02-25");
         mall = bdd.SelectAll();
         bdd.close();
 
-        // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
+        List<AxisValue> axisValues = new ArrayList<>();
 
         values = new ArrayList<SubcolumnValue>();
 
@@ -80,6 +78,7 @@ public class GraphPersoActivity extends AppCompatActivity {
                 values.add(new SubcolumnValue(f, Color.parseColor("#FF4444")));
             else
                 values.add(new SubcolumnValue(f, Color.parseColor("#99CC00")));
+            axisValues.add(new AxisValue(j).setLabel(""));
         }
 
         Column column = new Column(values);
@@ -90,12 +89,13 @@ public class GraphPersoActivity extends AppCompatActivity {
         data = new ColumnChartData(columns);
 
         if (hasAxes) {
-            Axis axisX = new Axis();
+            Axis axisX = new Axis(axisValues);
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
                 axisX.setName("Jours");
                 axisY.setName("Glycémie");
             }
+            axisX.setMaxLabelChars(3);
             data.setAxisXBottom(axisX);
             data.setAxisYLeft(axisY);
         } else {
@@ -112,7 +112,9 @@ public class GraphPersoActivity extends AppCompatActivity {
 
         @Override
         public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
-            Toast.makeText(GraphPersoActivity.this, "Glycémie moyenne de la journée: " + value.getValue(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getActivity(), "Glycémie: " + value.getValue(), Toast.LENGTH_SHORT).show();
+            final EntryOfCDS entry = mall.get(subcolumnIndex);
+            GoToEntry go = new GoToEntry(entry, getContext(), getActivity());
         }
 
         @Override

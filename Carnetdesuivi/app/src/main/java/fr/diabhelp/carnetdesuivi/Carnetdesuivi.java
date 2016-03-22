@@ -32,7 +32,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.diabhelp.carnetdesuivi.Carnet.StatisticsActivity;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;

@@ -1,4 +1,4 @@
-package fr.diabhelp.carnetdesuivi.Carnet;
+package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -6,12 +6,15 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,8 +26,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
+import fr.diabhelp.carnetdesuivi.DataBase.DAO;
+import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
+import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Column;
+import lecho.lib.hellocharts.model.ColumnChartData;
+import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
  * Created by vigour_a on 02/02/2016.
@@ -72,7 +83,18 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
 
     private LinearLayout _alcohol, _lunch, _diner, _encas, _sleep, _wakeup, _night, _workout, _hypogly, _hypergly, _atwork, _athome, _period, _breakfast;
 
+    private LinearLayout main_layout, graph_layout;
+
     private Button _send_data;
+
+    private ColumnChartView chart;
+    private ColumnChartData data;
+    private boolean hasAxes = true;
+    private boolean hasAxesNames = true;
+    private boolean hasLabels = false;
+    private boolean hasLabelForSelected = false;
+
+    private ArrayList<EntryOfCDS> mall = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,6 +159,12 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
 
         _send_data = (Button) rootView.findViewById(R.id.layout_send_data);
         _send_data.setOnClickListener(this);
+
+        chart = (ColumnChartView) rootView.findViewById(R.id.chart);
+        chart.setOnValueTouchListener(new ValueTouchListener());
+
+        main_layout = (LinearLayout) getActivity().findViewById(R.id.layout_statistics_perso);
+        graph_layout = (LinearLayout) getActivity().findViewById(R.id.layout_graph_perso);
 
         return rootView;
     }
@@ -245,6 +273,54 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
         isActiveicon.add(IconeType.PERIOD.getValue(), 0);
     }
 
+    private void getData() {
+        DAO bdd = new DAO(getContext());
+        bdd.open();
+        mall = bdd.SelectAll();
+        bdd.close();
+
+        List<Column> columns = new ArrayList<Column>();
+        List<SubcolumnValue> values;
+        List<AxisValue> axisValues = new ArrayList<>();
+
+        values = new ArrayList<SubcolumnValue>();
+
+        for (int j = 0; j < mall.size(); ++j) {
+            double val = mall.get(j).getglycemy();
+            float f = (float) val;
+            if (val >= 8)
+                values.add(new SubcolumnValue(f, Color.parseColor("#FF4444")));
+            else
+                values.add(new SubcolumnValue(f, Color.parseColor("#99CC00")));
+            axisValues.add(new AxisValue(j).setLabel(mall.get(j).getDate().toString()));
+        }
+
+        Column column = new Column(values);
+        column.setHasLabels(hasLabels);
+        column.setHasLabelsOnlyForSelected(hasLabelForSelected);
+        columns.add(column);
+
+        data = new ColumnChartData(columns);
+
+        if (hasAxes) {
+            Axis axisX = new Axis(axisValues);
+            Axis axisY = new Axis().setHasLines(true);
+            if (hasAxesNames) {
+                axisX.setName("Jours");
+                axisY.setName("Glycémie");
+            }
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+        } else {
+            data.setAxisXBottom(null);
+            data.setAxisYLeft(null);
+        }
+
+        chart.setColumnChartData(data);
+
+        bdd.close();
+    }
+
     private void launch_graph() {
         if (_startDate.getText().length() == 0) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
@@ -265,9 +341,31 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
             });
             alertDialog.show();
         } else {
-            Intent GraphPersointent = new Intent(getActivity(), GraphPersoActivity.class);
-            startActivity(GraphPersointent);
+            getData();
+
+            main_layout = (LinearLayout) getActivity().findViewById(R.id.layout_statistics_perso);
+            graph_layout = (LinearLayout) getActivity().findViewById(R.id.layout_graph_perso);
+
+            graph_layout.setVisibility(LinearLayout.VISIBLE);
+            main_layout.setVisibility(LinearLayout.GONE);
+
+//            Animation slide_down = AnimationUtils.loadAnimation(getContext(),
+//                    R.anim.slide_down);
+//
+//            Animation slide_up = AnimationUtils.loadAnimation(getContext(),
+//                    R.anim.slide_up);
+//
+//            main_layout.startAnimation(slide_down);
+//            graph_layout.startAnimation(slide_up);
         }
+    }
+
+    private void edit_graph() {
+        main_layout = (LinearLayout) getActivity().findViewById(R.id.layout_statistics_perso);
+        graph_layout = (LinearLayout) getActivity().findViewById(R.id.layout_graph_perso);
+
+        graph_layout.setVisibility(LinearLayout.GONE);
+        main_layout.setVisibility(LinearLayout.VISIBLE);
     }
 
     public class DatePickerFragment extends DialogFragment
@@ -297,4 +395,22 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    private class ValueTouchListener implements ColumnChartOnValueSelectListener {
+
+        @Override
+        public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
+//            Toast.makeText(getActivity(), "Glycémie: " + value.getValue(), Toast.LENGTH_SHORT).show();
+            final EntryOfCDS entry = mall.get(subcolumnIndex);
+            GoToEntry go = new GoToEntry(entry, getContext(), getActivity());
+        }
+
+        @Override
+        public void onValueDeselected() {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
+
 }
+

@@ -1,33 +1,33 @@
-package fr.diabhelp.carnetdesuivi.Carnet;
+package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
 
 /**
  * Created by vigour_a on 02/02/2016.
  */
 
-import android.graphics.Color;
+import android.app.Dialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.SubcolumnValue;
 import lecho.lib.hellocharts.model.ValueShape;
-import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
 
@@ -38,7 +38,6 @@ public class StatisticsWeekFragment extends Fragment {
     private LineChartView chart;
     private LineChartData data;
     private int numberOfLines = 1;
-    private int numberOfPoints = 5;
 
     private boolean hasAxes = true;
     private boolean hasAxesNames = true;
@@ -72,23 +71,9 @@ public class StatisticsWeekFragment extends Fragment {
         // Disable viewpirt recalculations, see toggleCubic() method for more info.
         chart.setViewportCalculationEnabled(false);
 
-        resetViewport();
-
         return rootView;
     }
 
-    private void resetViewport() {
-        // Reset viewport height range to (0,10)
-        final Viewport v = new Viewport(chart.getMaximumViewport());
-        v.bottom = 0;
-        // TODO
-        // Faire getter hauteur max
-        v.top = 140;
-        v.left = 0;
-        v.right = numberOfPoints - 1;
-        chart.setMaximumViewport(v);
-        chart.setCurrentViewport(v);
-    }
 
     private void getData() {
 //        Calendar c = Calendar.getInstance();
@@ -107,9 +92,9 @@ public class StatisticsWeekFragment extends Fragment {
         mall = bdd.SelectAll();
         bdd.close();
 
-        numberOfPoints = mall.size();
-
         List<Line> lines = new ArrayList<Line>();
+        List<AxisValue> axisValues = new ArrayList<>();
+
         for (int i = 0; i < numberOfLines; ++i) {
 
             List<PointValue> values = new ArrayList<PointValue>();
@@ -118,6 +103,7 @@ public class StatisticsWeekFragment extends Fragment {
                 double val = mall.get(j).getglycemy();
                 float f = (float) val;
                 values.add(new PointValue(j, f));
+                axisValues.add(new AxisValue(j).setLabel(mall.get(j).getDate().toString()));
             }
 
             Line line = new Line(values);
@@ -135,10 +121,10 @@ public class StatisticsWeekFragment extends Fragment {
         data = new LineChartData(lines);
 
         if (hasAxes) {
-            Axis axisX = new Axis();
+            Axis axisX = new Axis(axisValues);
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
-                axisX.setName("Entrées");
+                axisX.setName("Jours");
                 axisY.setName("Glycémie");
             }
             data.setAxisXBottom(axisX);
@@ -150,7 +136,6 @@ public class StatisticsWeekFragment extends Fragment {
 
         data.setBaseValue(Float.NEGATIVE_INFINITY);
         chart.setLineChartData(data);
-
     }
 
     /**
@@ -162,7 +147,8 @@ public class StatisticsWeekFragment extends Fragment {
 
         @Override
         public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
-            Toast.makeText(getActivity(), "Glycémie: " + value.getY(), Toast.LENGTH_SHORT).show();
+            final EntryOfCDS entry = mall.get(pointIndex);
+            GoToEntry go = new GoToEntry(entry, getContext(), getActivity());
         }
 
         @Override

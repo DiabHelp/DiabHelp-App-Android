@@ -1,4 +1,4 @@
-package fr.diabhelp.carnetdesuivi.Carnet;
+package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
@@ -305,6 +306,8 @@ public class StatisticsMonthFragment extends Fragment {
         @Override
         public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
             Toast.makeText(getActivity(), "Glycémie moyenne de la journée: " + value.getValue(), Toast.LENGTH_SHORT).show();
+//            final EntryOfCDS entry = mall.get(pointIndex);
+//            GoToEntry go = new GoToEntry(entry, getContext(), getActivity());
         }
 
         @Override
