@@ -783,7 +783,10 @@ public class Carnetdesuivi extends AppCompatActivity {
                     Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
                 else {
                     bdd.open();
-                    ArrayList<EntryOfCDS> CDS = bdd.selectBetweenDays(beg.getText().toString(), end.getText().toString()); //todo a changer
+                    ArrayList<EntryOfCDS> CDS = bdd.selectBetweenDays(beg.getText().toString(), end.getText().toString());
+
+                    Log.e("export_pdf_debug", CDS.get(0).getTitle());
+
                     if (mail.getText().toString().isEmpty()) {
                         myemail = null;
                     }
