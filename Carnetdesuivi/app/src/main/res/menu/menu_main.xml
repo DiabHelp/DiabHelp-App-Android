@@ -10,6 +10,18 @@
         android:orderInCategory="300"
         android:title="Statistiques"
         android:icon="@drawable/ic_timeline_white_24dp"
+<<<<<<< HEAD
         app:showAsAction="ifRoom"></item>
 
+=======
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/export"
+        android:orderInCategory="299"
+        android:title="Export_pdf"
+        android:icon="@drawable/ic_receipt_white_24dp"
+        app:showAsAction="ifRoom"
+        />
+>>>>>>> modules/Carnet_de_suivi-db_stat
 </menu>

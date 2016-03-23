@@ -43,7 +43,7 @@ public class EntryOfCDS {
 
     private String dateApi;
 
-
+    private String datesql;
 
     public Integer launch;
     public Integer diner;
@@ -116,6 +116,13 @@ public class EntryOfCDS {
     public String getHour () { return this.hour; }
     public Double getglycemy() { return this.glycemy; }
 
+    public String getDatesql() {
+        return datesql;
+    }
+
+    public void setDatesql(String datesql) {
+        this.datesql = datesql;
+    }
 
     public Integer getBreakfast() {
         return breakfast;

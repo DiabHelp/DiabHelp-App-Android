@@ -1,6 +1,7 @@
 package fr.diabhelp.carnetdesuivi;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,12 +16,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -30,9 +34,10 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
+import fr.diabhelp.carnetdesuivi.Carnet.AccueilStatistics;
 import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;
@@ -49,6 +54,12 @@ public class Carnetdesuivi extends AppCompatActivity {
     private ArrayAdapter<String> listAdapter;
     static DAO bdd;
     final int sdk = android.os.Build.VERSION.SDK_INT;
+
+    //export
+    private Calendar myCalendar;
+    private EditText[] inputdate;
+    private int whichInput;
+    private String myemail;
 
     //Expandable
     List<String> groupList;
@@ -232,7 +243,11 @@ public class Carnetdesuivi extends AppCompatActivity {
 
                 return false;
             }
+
+            ;
+
         });
+
         hsv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,14 +268,14 @@ public class Carnetdesuivi extends AppCompatActivity {
     }
 
     protected String reconstructDate(String date) {
-        String datefinal;
+/*        String datefinal;
         String datepart = date.split("-")[1];
         Log.e("reconstructor date", (datepart.split(" ")[1] + "-" + datepart.split(" ")[2]));
 
-        datefinal = datepart.split(" ")[1] + "-" + getMonthstrlitl(datepart.split(" ")[2]) + "-" + datepart.split(" ")[3];
+        datefinal = datepart.split(" ")[1] + "-" + getMonthstrlitl(datepart.split(" ")[2]) + "-" + datepart.split(" ")[3];*/
 
-        Log.e("datefinale expendable", datefinal);
-        return datefinal;
+        Log.e("datefinale expendable", date); //datefinal
+        return date; // datefinal
     }
 
     private void fillAverageGly() {
@@ -276,7 +291,9 @@ public class Carnetdesuivi extends AppCompatActivity {
 
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String myFormat ="MM-dd-yyyy";
+        SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
+
         String formattedDate = df.format(c.getTime());
 
         bdd.open();
@@ -291,7 +308,10 @@ public class Carnetdesuivi extends AppCompatActivity {
                 }
                 idx++;
             }
-            total = total / size;
+            if (size != 0)
+                total = total / size;
+            else
+                total = 0;
             Log.e("Average glycemie", String.valueOf(total));
             if (total >= 80 && total <= 120) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -352,11 +372,15 @@ public class Carnetdesuivi extends AppCompatActivity {
         String Hours = String.valueOf(hours) + ":" + _minute;
 
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+ /*       SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());*/
+
+        String myFormat ="MM-dd-yyyy";
+        SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         String formattedDate = df.format(c.getTime());
 
+        Log.e("Checktoofast date", formattedDate);
         bdd.open();
-
         final EntryOfCDS ent = bdd.SelectDay(formattedDate, Hours);
         bdd.close();
         if (ent != null)
@@ -430,13 +454,16 @@ public class Carnetdesuivi extends AppCompatActivity {
             case R.id.statistics:
                 launch_statistics();
                 return true;
+            case R.id.export:
+                export_pdf();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     public void launch_statistics() {
-        Intent Statsintent = new Intent(Carnetdesuivi.this, StatisticsActivity.class);
+        Intent Statsintent = new Intent(Carnetdesuivi.this, AccueilStatistics.class);
         Carnetdesuivi.this.startActivity(Statsintent);
     }
 
@@ -530,8 +557,8 @@ public class Carnetdesuivi extends AppCompatActivity {
     protected String getCleanDate(String date)
     {
         String finaldate;
-        finaldate = date.split("-")[0] + " ";
-        finaldate += getMonthstr(date.split("-")[1]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
+        finaldate = date.split("-")[1] + " ";
+        finaldate += getMonthstr(date.split("-")[0]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
         finaldate += date.split("-")[2];
         Log.e("date finaldate", finaldate);
         return finaldate;
@@ -574,29 +601,29 @@ public class Carnetdesuivi extends AppCompatActivity {
         Log.e("month written in DB" , month);
         switch (month)
         {
-            case "janv." :
+            case "01" :
                 return ("Janvier");
-            case "févr." :
+            case "02" :
                 return ("Fevrier");
-            case "mars" :
+            case "03" :
                 return ("Mars");
-            case "avr." :
+            case "04" :
                 return ("Avril");
-            case "mai" :
+            case "05" :
                 return ("Mai");
-            case "juin." :
+            case "06" :
                 return ("Juin");
-            case "juil." :
+            case "07" :
                 return ("Juillet");
-            case "aou." :
+            case "08" :
                 return ("Aout");
-            case "sep." :
+            case "09" :
                 return ("Septembre");
-            case "oct." :
+            case "10" :
                 return ("Octobre");
-            case "nov." :
+            case "11" :
                 return ("Novembre");
-            case "déc." :
+            case "12" :
                 return ("Decembre");
         }
         return null;
@@ -673,4 +700,118 @@ public class Carnetdesuivi extends AppCompatActivity {
         }
     }
 
+
+    private void updateLabel() {
+        String myFormat = "MM-dd-yyyy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        inputdate[whichInput].setText(sdf.format(myCalendar.getTime()));
+    }
+
+    public void export_pdf()
+    {
+        LayoutInflater factory = LayoutInflater.from(this);
+/*        if (_session == null)
+        {
+            Toast.makeText(this, "Vous ne pouvez pas accéder à cette fonctionnalité car vous n'êtes pas connécté. Veuillez vous connécter", Toast.LENGTH_LONG).show();
+            return ;
+        }*/
+        final View alertDialogView = factory.inflate(R.layout.alert_export, null);
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setView(alertDialogView);
+        adb.setTitle("Exporter votre carnet de suivi");
+        adb.setIcon(R.drawable.diab_logo);
+
+        //On affecte un bouton "OK" à notre AlertDialog et on lui affecte un évènement
+        inputdate = new EditText[2];
+        myCalendar = Calendar.getInstance();
+
+        EditText begin = (EditText)alertDialogView.findViewById(R.id.date_begin);
+        EditText endin = (EditText)alertDialogView.findViewById(R.id.date_end);
+
+        begin.setFocusable(false);
+        endin.setFocusable(false);
+
+        final DatePickerDialog.OnDateSetListener datepicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+        };
+
+
+        begin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                whichInput = 0;
+                new DatePickerDialog(Carnetdesuivi.this, datepicker, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        endin.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                whichInput = 1;
+                new DatePickerDialog(Carnetdesuivi.this, datepicker, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+        inputdate[0] = begin;
+        inputdate[1] = endin;
+
+        adb.setPositiveButton("Envoyer par mail", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                DAO bdd = new DAO(getApplicationContext());
+                //Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+                EditText beg = (EditText)alertDialogView.findViewById(R.id.date_begin);
+                EditText end = (EditText)alertDialogView.findViewById(R.id.date_end);
+                EditText mail = (EditText)alertDialogView.findViewById(R.id.mail_addr);
+
+                if (beg.getText().toString().isEmpty())
+                    Toast.makeText(Carnetdesuivi.this, "La date de début n'a pas été remplis", Toast.LENGTH_SHORT).show();
+                else if (end.getText().toString().isEmpty())
+                    Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
+                else {
+                    bdd.open();
+                    ArrayList<EntryOfCDS> CDS = bdd.selectBetweenDays(beg.getText().toString(), end.getText().toString());
+
+                    Log.e("export_pdf_debug", CDS.get(0).getTitle());
+
+                    if (mail.getText().toString().isEmpty()) {
+                        myemail = null;
+                    }
+                    else
+                        myemail = mail.getText().toString();
+                    bdd.close();
+//                    new ApiCallTask(Carnetdesuivi.this, ApiCallTask.POST, ApiCallTask.ARRAY, "carnetJSON").execute("1", "generateCDSPDF", "carnetJSON", getSerialisationDayOfCDN(CDS)); //todo appel a l'api
+
+                }
+
+                //On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
+
+            } });
+
+        adb.setNegativeButton("Annuler",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+
+                    }
+                });
+        adb.show();
+    }
+>>>>>>> modules/Carnet_de_suivi-db_stat
 }

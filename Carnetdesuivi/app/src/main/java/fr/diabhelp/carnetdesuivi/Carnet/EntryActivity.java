@@ -202,8 +202,10 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
 
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String myFormat ="MM-dd-yyyy";
+        SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         formattedDate = df.format(c.getTime());
+        Log.e("date on create entry", formattedDate);
         fill_date();
 
         Intent intent = getIntent();
@@ -238,8 +240,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _date = intent.getExtras().getString("date");
             Log.e("date when update", _date);
         }
-        if (intent.hasExtra("lunch"))
-            _launch = intent.getExtras().getInt("lunch");
+        if (intent.hasExtra("launch"))
+            _launch = intent.getExtras().getInt("launch");
         if (intent.hasExtra("diner"))
             _diner = intent.getExtras().getInt("diner");
         if (intent.hasExtra("encas"))
@@ -715,12 +717,12 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         ImageView img = (ImageView) findViewById(R.id.imglaunch);
 
         if (isActiveicon.get(IconeType.LAUNCH.getValue()) == 0) {
-            img.setImageResource(R.drawable.lunchgreen);
+            img.setImageResource(R.drawable.launchgreen);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
         }
         else {
-            Log.e("debug lunch", "desactivé");
-            img.setImageResource(R.drawable.lunch);
+            Log.e("debug launch", "desactivé");
+            img.setImageResource(R.drawable.launch);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
         }
     }

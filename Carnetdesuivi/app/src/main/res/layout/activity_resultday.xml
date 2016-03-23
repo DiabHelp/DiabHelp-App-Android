@@ -379,7 +379,11 @@
                 android:id="@+id/imglaunch"
                 android:layout_width="@dimen/img_entry_size_width"
                 android:layout_height="@dimen/img_entry_size_height"
+<<<<<<< HEAD
                 android:src="@drawable/lunch"
+=======
+                android:src="@drawable/launch"
+>>>>>>> modules/Carnet_de_suivi-db_stat
                 >
             </ImageView>
 

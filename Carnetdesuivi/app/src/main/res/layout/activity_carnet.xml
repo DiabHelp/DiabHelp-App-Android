@@ -135,6 +135,25 @@
             android:divider="#FFFF"
             android:dividerHeight="0.5dp"
             />
+<<<<<<< HEAD
+=======
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/relativeavg"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/linearLayout"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/button" />
+        </RelativeLayout>
+
+>>>>>>> modules/Carnet_de_suivi-db_stat
     </LinearLayout>
 
     <!--    </LinearLayout>-->

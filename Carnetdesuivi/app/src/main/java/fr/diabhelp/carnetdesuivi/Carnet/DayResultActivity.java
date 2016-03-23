@@ -149,6 +149,7 @@ public class DayResultActivity extends Activity {
     protected void initView() {
 
         _bdd.open();
+        Log.e("date dayresult initview", _date);
         inf = _bdd.SelectDay(_date, _hour);
         Log.e("Title in init", inf.getTitle());
 
@@ -369,6 +370,7 @@ public class DayResultActivity extends Activity {
 
     protected String getCleanDate(String date) {
         String finaldate;
+<<<<<<< HEAD
         finaldate = date.split("-")[0] + " ";
         finaldate += getMonthstr(date.split("-")[1]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
         finaldate += date.split("-")[2];
@@ -405,6 +407,15 @@ public class DayResultActivity extends Activity {
         }
         return null;
     }
+=======
+/*        finaldate = date.split("-")[0] + " ";
+        finaldate += getMonthstr(date.split("-")[1]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
+        finaldate += date.split("-")[2];
+        Log.e("date finaldate", finaldate);*/
+        return date;
+    }
+
+>>>>>>> modules/Carnet_de_suivi-db_stat
 
     @Override
     public void onBackPressed() {
