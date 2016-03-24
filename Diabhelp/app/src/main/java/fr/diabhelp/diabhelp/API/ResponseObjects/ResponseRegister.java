@@ -3,6 +3,10 @@ package fr.diabhelp.diabhelp.API.ResponseObjects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,56 +17,29 @@ import fr.diabhelp.diabhelp.Connexion_inscription.RegisterActivity;
  */
 public class ResponseRegister {
 
-    private RegisterActivity.Error _error;
+    private RegisterActivity.Error _error = null;
 
-    @SerializedName("status")
-    @Expose
-    private String status;
-
-    @SerializedName("errors")
-    @Expose
-    private List<String> errors = new ArrayList<String>();
-
-    /**
-     *
-     * @return
-     * The status
-     */
-    public String getStatus() {
-        return status;
+    public ResponseRegister() {
     }
 
-    /**
-     *
-     * @param status
-     * The status
-     */
-    public void setStatus(String status) {
-        this.status = status;
+    public ResponseRegister(JSONObject datas) {
+        try {
+            JSONArray arr = datas.getJSONArray("errors");
+            for (int i = 0; i < arr.length(); i++){
+                if (arr.getString(i).equalsIgnoreCase("Username already use")){
+                    setError(RegisterActivity.Error.LOGIN_ALREADY_USED);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
-
-    /**
-     *
-     * @return
-     * The errors
-     */
-    public List<String> getErrors() {
-        return errors;
-    }
-
-    /**
-     *
-     * @param errors
-     * The errors
-     */
-    public void setErrors(List<String> errors) {
-        this.errors = errors;
-        System.out.println("coucou je set une erreur");
-    }
-
 
     public RegisterActivity.Error getError() {
-        return this._error;
+        if (this._error != null)
+            return this._error;
+        return (RegisterActivity.Error.NONE);
+
     }
 
     public void setError(RegisterActivity.Error _error) {

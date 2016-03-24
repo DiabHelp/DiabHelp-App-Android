@@ -128,10 +128,10 @@ public class RegisterActivity extends FragmentActivity implements MainRegisterFr
         _progress = progress;
         RegisterActivity.Error error = response.getError();
         Integer errorCode = error.getErrorCode();
-        if (errorCode != 0) {
+        if (errorCode != null && errorCode != 0) {
             manageError(response.getError());
         }
-        else if (/*response.getStatus().equals("success") && */action.equals("createAccount")) {
+        else if (action.equals("createAccount")) {
             informSuccess();
         }
     }
@@ -192,7 +192,7 @@ public class RegisterActivity extends FragmentActivity implements MainRegisterFr
         }
 
         public Integer getErrorCode() {
-            return this.errorCode;
+                return this.errorCode;
         }
     }
 }

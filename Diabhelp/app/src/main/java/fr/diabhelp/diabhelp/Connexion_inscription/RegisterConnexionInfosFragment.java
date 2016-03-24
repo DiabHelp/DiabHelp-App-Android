@@ -38,7 +38,6 @@ public class RegisterConnexionInfosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        System.out.println("Affichage de la premiere étape de l'enregistrement");
         View view = inflater.inflate(R.layout.fragment_register_connexion_infos, container, false);
         mailView = (TextView) view.findViewById(R.id.email_input);
         loginView = (TextView) view.findViewById(R.id.login_input);

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import fr.diabhelp.diabhelp.API.ApiServices;
@@ -13,8 +16,10 @@ import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseRegister;
 import fr.diabhelp.diabhelp.Connexion_inscription.RegisterActivity;
 import fr.diabhelp.diabhelp.R;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.GsonConverterFactory;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
@@ -55,30 +60,33 @@ public class RegisterAPICallTask extends AsyncTask<String, Integer, ResponseRegi
 
     @Override
     protected ResponseRegister doInBackground(String... params) {
-        Call<ResponseRegister> call = null;
+        Call<ResponseBody> call = null;
         ResponseRegister responseRegister = null;
 
         ApiServices service = createService();
         call = service.register(params[PARAM_USERNAME], params[PARAM_MAIL], params[PARAM_PASSWORD], params[PARAM_ROLE], params[PARAM_FIRSTNAME], params[PARAM_LASTNAME]);
 
         try {
-            retrofit2.Response reponse = call.execute();
+            Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess()) {
-                System.out.println(reponse.raw());
-                responseRegister = (ResponseRegister) reponse.body();
-                System.out.println("response body" + responseRegister);
-
+                Log.i("RegisterApiCallTask", "resultat de la requète : + [ " + reponse.raw() + "]");
+                try {
+                    responseRegister = new ResponseRegister(new JSONObject(reponse.body().string()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             else {
                 Log.e("RegisterApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
                 responseRegister = new ResponseRegister();
                 responseRegister.setError(RegisterActivity.Error.SERVER_ERROR);
             }
-
         }
         catch (IOException e) {
-            responseRegister = new ResponseRegister();
-            Log.e("RegisterApiCallTask", "catch IOEXCEPTION");
+            if (responseRegister == null) {
+                responseRegister = new ResponseRegister();
+            }
+            Log.e("RegisterApiCallTask", "IOEXCEPTION");
             responseRegister.setError(RegisterActivity.Error.SERVER_ERROR);
             e.printStackTrace();
         }

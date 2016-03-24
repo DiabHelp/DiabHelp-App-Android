@@ -21,5 +21,5 @@ public interface ApiServices {
 
         @FormUrlEncoded
         @POST("app_dev.php/api/users/add")
-        Call<ResponseRegister> register(@Field("username") String usr,@Field("email") String mail, @Field("password") String pwd, @Field("role") String role, @Field("firstname") String first, @Field("lastname") String last);
+        Call<ResponseBody> register(@Field("username") String usr,@Field("email") String mail, @Field("password") String pwd, @Field("role") String role, @Field("firstname") String first, @Field("lastname") String last);
 }

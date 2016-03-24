@@ -27,7 +27,6 @@ public class RegisterPageViewerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("création a nouveau du fragment");
         _fragments = new ArrayList<Fragment>();
         _fragments.add(new RegisterConnexionInfosFragment());
         _fragments.add(new RegisterPersonalInfosFragment());
