@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            card_view:cardCornerRadius="2dp"
+            card_view:contentPadding="10dp">
+
+        <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+            android:backgroundTint="@android:color/holo_green_dark">
+
+            <TextView
+                android:id="@+id/list_medecin_name"
+                android:paddingLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="undefined"
+                android:layout_centerVertical="true"
+                android:layout_alignBottom="@+id/remove_medecin_btn"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remove"
+                android:id="@+id/remove_medecin_btn"
+                android:layout_toRightOf="@+id/list_medecin_name"
+                android:layout_toEndOf="@+id/list_medecin_name"
+                android:src="@drawable/ic_medecin_list_delete"
+                android:background="#00000000"
+                android:layout_gravity="center" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

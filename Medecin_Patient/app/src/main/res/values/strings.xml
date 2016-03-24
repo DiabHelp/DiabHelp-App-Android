@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Medecin_Patient</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="gps_setting_desc">Autoriser les médecins à acceder à la position GPS</string>
+    <string name="data_setting_desc">Autoriser les médecins à acceder aux données médicales</string>
+    <string name="medecin_list_lbl">Mes médecins</string>
+    <string name="medecin_request_lbl">Invitations en attente</string>
+</resources>
