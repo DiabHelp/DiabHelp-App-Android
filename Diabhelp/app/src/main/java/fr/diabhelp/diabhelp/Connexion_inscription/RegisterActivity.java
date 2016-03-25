@@ -16,9 +16,9 @@ import org.json.JSONException;
 
 import fr.diabhelp.diabhelp.API.Asynctasks.RegisterAPICallTask;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
-import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseRegister;
+import fr.diabhelp.diabhelp.API.ResponseModels.ResponseRegister;
 import fr.diabhelp.diabhelp.BDD.DAO;
-import fr.diabhelp.diabhelp.MyToast;
+import fr.diabhelp.diabhelp.Utils.MyToast;
 import fr.diabhelp.diabhelp.R;
 
 public class RegisterActivity extends FragmentActivity implements MainRegisterFragment.MainFragmentListener, RegisterConnexionInfosFragment.FragmentFirstStepListener, RegisterPersonalInfosFragment.FragmentSecondStepListener, IApiCallTask<ResponseRegister> {
@@ -162,7 +162,7 @@ public class RegisterActivity extends FragmentActivity implements MainRegisterFr
                 break;
             }
             case SERVER_ERROR:{
-                MyToast.getInstance().displayWarningMessage("Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard", Toast.LENGTH_LONG, this);
+                MyToast.getInstance().displayWarningMessage(getString(R.string.error_server), Toast.LENGTH_LONG, this);
                 Log.e(getLocalClassName(), "Problème survenu lors de la connexion au serveur");
                 break;
             }

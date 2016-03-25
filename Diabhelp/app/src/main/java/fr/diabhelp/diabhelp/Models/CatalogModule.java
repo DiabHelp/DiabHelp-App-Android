@@ -1,32 +1,36 @@
-package fr.diabhelp.diabhelp.Core;
+package fr.diabhelp.diabhelp.Models;
 
 import android.graphics.drawable.Drawable;
+
+import java.util.List;
 
 /**
  * Created by Simon for Diabhelp
  * Started on 12 Oct 2015 at 14:46
  */
 public class CatalogModule {
-    private String      _name;
-    private String      _version;
-    private String      _rating;
-    private String      _desc;
-    private String      _URLStore;
-    private String      _URLWeb;
-    private Drawable    _logo;
-    private String      _size;
-    private Boolean     _new;
+    private String          _name;
+    private String          _version;
+    private String          _rating;
+    private String          _desc;
+    private String          _URLStore;
+    private String          _URLWeb;
+    private Drawable        _logo;
+    private String          _size;
+    private Boolean         _new;
+    private String          maker;
+    private List<String>    _commentaires;
 
-    public CatalogModule(String _desc, Drawable _logo, String _name, String _rating, String _size, String _version) {
-        this._desc = _desc;
-        this._logo = _logo;
-        this._name = _name;
-        this._rating = _rating;
-        this._size = _size;
-        this._version = _version;
-    }
-
+    //default constructor
     public CatalogModule() {}
+
+    public String getMaker() {return this.maker;}
+
+    public void setMaker(String maker) {this.maker = maker;}
+
+    public List<String> getCommentaires() {return this._commentaires;}
+
+    public void setCommentaires(List<String> _commentaires) {this._commentaires = _commentaires;}
 
     public String getDesc() { return _desc; }
 

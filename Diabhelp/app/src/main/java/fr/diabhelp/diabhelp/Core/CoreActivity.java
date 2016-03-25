@@ -69,21 +69,23 @@ public class CoreActivity extends AppCompatActivity {
         listApp = new ArrayList<String>();
         app = getPackages();
 
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Accueil"));
-        tabLayout.addTab(tabLayout.newTab().setText("Catalogue"));
-        tabLayout.addTab(tabLayout.newTab().setText("Paramètre"));
+        tabLayout.addTab(tabLayout.newTab().setText("Accueil"), 0);
+        tabLayout.addTab(tabLayout.newTab().setText("Catalogue"), 1);
+        tabLayout.addTab(tabLayout.newTab().setText("Paramètre"), 2);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
+        System.out.println("blabla");
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        System.out.println("blibli");
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                System.out.println("tab numero = [" + tab.getPosition() + "] selectionnée");
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -97,11 +99,12 @@ public class CoreActivity extends AppCompatActivity {
 
             }
         });
+        System.out.println("bloublou");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_chore, menu);
+        getMenuInflater().inflate(R.menu.menu_core, menu);
         return true;
     }
 
@@ -121,7 +124,6 @@ public class CoreActivity extends AppCompatActivity {
         final int max = apps.size();
         for (int i=0; i<max; i++) {
             apps.get(i).DebugPrint();
-
         }
         return apps;
     }

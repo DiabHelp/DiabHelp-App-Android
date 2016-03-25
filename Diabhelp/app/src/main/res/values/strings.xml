@@ -41,5 +41,12 @@
         <item>proche de diabétique</item>
     </string-array>
     <!--END -->
+    <string name="catalogue_loading">Récupération des modules du catalogue...</string>
+    <!--registerActiviy-->
+
+    <!--API-->
+    <string name="URL_API">http://10.0.3.2/DiabHelp-WebSite/web/</string>
+    <string name="error_server">Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard</string>
+
 </resources>
 

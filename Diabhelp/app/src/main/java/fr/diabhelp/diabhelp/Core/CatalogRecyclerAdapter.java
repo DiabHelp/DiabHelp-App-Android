@@ -14,16 +14,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import fr.diabhelp.diabhelp.Models.CatalogModule;
 import fr.diabhelp.diabhelp.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Simon for Diabhelp
  * Started on 14 Oct 2015 at 15:27
  */
 public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecyclerAdapter.CatalogModuleHolder> {
-    private ArrayList<CatalogModule>    _modulesList;
+    private List<CatalogModule>    _modulesList;
 
     public static class CatalogModuleHolder extends RecyclerView.ViewHolder {
         TextView    name;
@@ -98,7 +100,7 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
         }
     }
 
-    public CatalogRecyclerAdapter(ArrayList<CatalogModule> modulesList) {
+    public CatalogRecyclerAdapter(List<CatalogModule> modulesList) {
         _modulesList = modulesList;
     }
 

@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import fr.diabhelp.diabhelp.MyToast;
+import fr.diabhelp.diabhelp.Utils.MyToast;
 import fr.diabhelp.diabhelp.R;
 
 public class RegisterConnexionInfosFragment extends Fragment {

@@ -9,37 +9,44 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-import fr.diabhelp.diabhelp.API.ApiCallTask;
-import fr.diabhelp.diabhelp.ConnexionState;
-import fr.diabhelp.diabhelp.API.IApiCallTask;
-import fr.diabhelp.diabhelp.JsonUtils;
-import fr.diabhelp.diabhelp.R;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Catalogue_Fragment extends Fragment implements IApiCallTask {
+import fr.diabhelp.diabhelp.API.Asynctasks.CatalogueAPICallTask;
+import fr.diabhelp.diabhelp.API.IApiCallTask;
+import fr.diabhelp.diabhelp.API.ResponseModels.ResponseCatalogue;
+import fr.diabhelp.diabhelp.Utils.NetworkUtils;
+import fr.diabhelp.diabhelp.Models.CatalogModule;
+import fr.diabhelp.diabhelp.R;
+import fr.diabhelp.diabhelp.Utils.MyToast;
+
+public class CatalogueFragment extends Fragment implements IApiCallTask<ResponseCatalogue> {
     private RecyclerView                _recyclerView;
     private RecyclerView.Adapter        _recAdapter;
     private RecyclerView.LayoutManager  _recLayoutManager;
-    private ArrayList<CatalogModule>    _modulesList = new ArrayList<>();
+    private List<CatalogModule>         _modulesList = new ArrayList<>();
+    private ProgressDialog              _progress;
+
+
+    //default constructor
+    public CatalogueFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        ConnexionState co = new ConnexionState(getActivity());
-        if (co.getStatus()){
-            new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getModulesList").execute("0", "modules");
+        if (NetworkUtils.getConnectivityStatus(getActivity())){
+            new CatalogueAPICallTask(getActivity(), this).execute();
         }
     }
 
@@ -85,58 +92,54 @@ public class Catalogue_Fragment extends Fragment implements IApiCallTask {
         }
     }
 
-    private void getModulesList(String data) {
-        System.out.println("renvoi de la chaine json = " + data);
-        JSONArray array = null;
-        if (data.equals("io exception")){
-            return;
+    @Override
+    public void onBackgroundTaskCompleted(String s, int type, String action) throws JSONException {}
+
+    @Override
+    public void onBackgroundTaskCompleted(ResponseCatalogue response, String action, ProgressDialog progress) {
+        _progress = progress;
+        CatalogueFragment.Error error = response.getError();
+        Integer errorCode = error.getErrorCode();
+        if (errorCode != null && errorCode != 0) {
+            manageError(response.getError());
         }
-        try {
-            array = JsonUtils.get_array(data);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject obj;
-                CatalogModule module = new CatalogModule();
-                if ((obj = JsonUtils.getObjfromArray(array, i)) != null) {
-                    String name;
-                    if ((name = JsonUtils.getStringfromKey(obj, "name")) != null)
-                        module.setName(name);
-                    String desc;
-                    if ((desc = JsonUtils.getStringfromKey(obj, "describ")) != null)
-                        module.setDesc(desc);
-                    String rating;
-                    if ((rating = JsonUtils.getStringfromKey(obj, "note")) != null)
-                        module.setRating(rating);
-                    String url;
-                    if ((url = JsonUtils.getStringfromKey(obj, "url")) != null)
-                        module.setURLStore(url);
-                    String version;
-                    if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
-                        if (version.equals("null"))
-                            module.setVersion("v0.1");
-                        else
-                            module.setVersion(version);
-                    }
-                    _modulesList.add(module);
-                }
-            }
-            checkAvailability();
-        }
-        catch (Exception e){
-            //TODO modifier  appel a l'API
+        else if (action.equals("getModules")) {
+            displayModules(response.getModules());
         }
     }
 
-    @Override
-    public void onBackgroundTaskCompleted(String s, int type, String action) throws JSONException {
-        if (action.compareTo("getModulesList") == 0) {
-            getModulesList(s);
-        }
+    private void displayModules(List<CatalogModule> modules) {
+        _progress.dismiss();
+        _modulesList = modules;
+        checkAvailability();
         _recAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onBackgroundTaskCompleted(Object bodyResponse, String action, ProgressDialog progress) {
+    private void manageError(CatalogueFragment.Error error) {
+        _progress.dismiss();
+        switch (error) {
+            case SERVER_ERROR:{
+                MyToast.getInstance().displayWarningMessage(getString(R.string.error_server), Toast.LENGTH_LONG, getActivity());
+                Log.e(getClass().getSimpleName(), "Problème survenu lors de la connexion au serveur");
+                break;
+            }
+        }
+    }
 
+    public enum  Error
+    {
+        NONE(0),
+        SERVER_ERROR(1);
+
+        private Integer errorCode;
+
+        Error(Integer i) {
+            this.errorCode = i;
+        }
+
+        public Integer getErrorCode() {
+            return this.errorCode;
+        }
     }
 
 }

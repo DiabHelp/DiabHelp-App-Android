@@ -1,10 +1,10 @@
 package fr.diabhelp.diabhelp.API;
 
-import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseRegister;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -22,4 +22,7 @@ public interface ApiServices {
         @FormUrlEncoded
         @POST("app_dev.php/api/users/add")
         Call<ResponseBody> register(@Field("username") String usr,@Field("email") String mail, @Field("password") String pwd, @Field("role") String role, @Field("firstname") String first, @Field("lastname") String last);
+
+        @GET("app_dev.php/api/modules/all")
+        Call<ResponseBody> getModules();
 }

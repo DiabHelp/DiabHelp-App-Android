@@ -1,4 +1,4 @@
-package fr.diabhelp.diabhelp.Core.Broadcast_Receiver;
+package fr.diabhelp.diabhelp.Utils;
 
 /**
  * Created by naqued on 10/11/15.
@@ -8,14 +8,14 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class NetworkUtil {
+public class NetworkUtils {
 
     public static int TYPE_WIFI = 1;
     public static int TYPE_MOBILE = 2;
     public static int TYPE_NOT_CONNECTED = 0;
 
 
-    public static int getConnectivityStatus(Context context) {
+    public static int getConnectivityStatusType(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -30,16 +30,15 @@ public class NetworkUtil {
         return TYPE_NOT_CONNECTED;
     }
 
-    public static Boolean getConnectivityStatusString(Context context) {
-        int conn = NetworkUtil.getConnectivityStatus(context);
+    public static Boolean getConnectivityStatus(Context context) {
+        int conn = NetworkUtils.getConnectivityStatusType(context);
         Boolean status = null;
 
-
-        if (conn == NetworkUtil.TYPE_WIFI) {
+        if (conn == NetworkUtils.TYPE_WIFI) {
             status = true;
-        } else if (conn == NetworkUtil.TYPE_MOBILE) {
+        } else if (conn == NetworkUtils.TYPE_MOBILE) {
             status = true;
-        } else if (conn == NetworkUtil.TYPE_NOT_CONNECTED) {
+        } else if (conn == NetworkUtils.TYPE_NOT_CONNECTED) {
             status = false;
         }
         return status;

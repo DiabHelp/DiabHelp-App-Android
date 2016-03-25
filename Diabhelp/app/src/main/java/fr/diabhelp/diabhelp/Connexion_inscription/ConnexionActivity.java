@@ -21,15 +21,14 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.API.Asynctasks.ConnexionAPICallTask;
-import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseConnexion;
+import fr.diabhelp.diabhelp.API.IApiCallTask;
+import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.BDD.User;
-import fr.diabhelp.diabhelp.ConnexionState;
+import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Core.CoreActivity;
-import fr.diabhelp.diabhelp.API.IApiCallTask;
-import fr.diabhelp.diabhelp.JsonUtils;
-import fr.diabhelp.diabhelp.MyToast;
 import fr.diabhelp.diabhelp.R;
+import fr.diabhelp.diabhelp.Utils.MyToast;
 
 public class ConnexionActivity extends Activity implements IApiCallTask<ResponseConnexion> {
 
@@ -111,8 +110,6 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     }
 
     public void connectByInput(View view) {
-        ConnexionState connexion = new ConnexionState(getApplicationContext());
-
         _login_input = ((EditText) findViewById(R.id.login_input)).getText().toString();
         _pwd_input = ((EditText) findViewById(R.id.pwd_input)).getText().toString();
 
@@ -124,16 +121,15 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         if (!correctFields) {
             MyToast.getInstance().displayWarningMessage("Veuillez remplir tous les champs", Toast.LENGTH_LONG, this);
         } else {
-            if (connexion.getStatus()) {tryConnectWithNetwork();}
+            if (NetworkUtils.getConnectivityStatus(getApplicationContext())) {tryConnectWithNetwork();}
             else {tryConnectWithoutNetwork();}
         }
     }
 
     public void connectAutomaticaly()
     {
-        ConnexionState connexion = new ConnexionState(getApplicationContext());
         //findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
-        if (connexion.getStatus()) {
+        if (NetworkUtils.getConnectivityStatus(getApplicationContext())) {
             System.out.println("connexion en ligne");
             tryConnectWithNetwork();
         }
@@ -306,53 +302,6 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         System.out.println("fin");
         bdd.close();
         launchCoreWithConnexion(user);
-    }
-
-    private void getSession(String datas, int type) {
-        //si il y a des erreurs
-        if (datas != null) {
-            if (datas.equals("io exception") || datas.equals("DB_ERROR")) {
-                //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                MyToast.getInstance().displayWarningMessage("Impossible de se connecter au serveur, veuillez verifier sur le site l'état du serveur", Toast.LENGTH_LONG, this);
-            } else if ("WRONG_IDS".equals(datas)) {
-                System.out.println("WRONGS IDS connexion");
-                //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                MyToast.getInstance().displayWarningMessage("Mauvais login/mot de passe", Toast.LENGTH_LONG, this);
-            }
-            //si il n'y a pas d'erreurs
-            else {
-                DAO bdd = new DAO(this);
-                bdd.open();
-                //si la chaine est valide et que la co auto est inactive
-                if ((_session = JsonUtils.getStringfromKey(JsonUtils.get_obj(datas), "token")) != null && !_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
-                    User user = new User(0L, _login_input, _pwd_input);
-                    if (!bdd.isUserAlreadyFilled("0")) {
-                        bdd.AddUser(user);
-                        bdd.close();
-                    }
-                    if (((CheckBox) findViewById(R.id.checkbox_connexion_auto)).isChecked()) {
-                        SharedPreferences.Editor edit = _settings.edit();
-                        edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
-                        edit.commit();
-                    }
-                    //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                    launchCoreWithConnexion(user);
-                }
-                //si la chaine est valide et que la co auto est active
-                else if ((_session = JsonUtils.getStringfromKey(JsonUtils.get_obj(datas), "token")) != null && _settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
-                    User user = bdd.selectUser();
-                    bdd.close();
-                    //findViewById(R.id.loadingPanel).setVisibility(View.GONE);
-                    launchCoreWithConnexion(user);
-                }
-                bdd.close();
-            }
-        }
-        //une erreur inatendue c'est produite
-        else {
-            disableAutomaticConnexion();
-            MyToast.getInstance().displayWarningMessage("Une erreur innatendue s'est produite", Toast.LENGTH_LONG, this);
-        }
     }
 
     /**

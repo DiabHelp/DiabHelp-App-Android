@@ -17,20 +17,20 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
+        Fragment fragment = null;
+        System.out.println("pagerview position actuelle = " + position);
         switch (position) {
             case 0:
-                Accueil_Fragment tab1 = new Accueil_Fragment();
-                return tab1;
+                fragment = new AccueilFragment();
+                break;
             case 1:
-                Catalogue_Fragment tab2 = new Catalogue_Fragment();
-                return tab2;
+                fragment = new CatalogueFragment();
+                break;
             case 2:
-                Parametres_Fragment tab3 = new Parametres_Fragment();
-                return tab3;
-            default:
-                return null;
-        }
+                fragment = new ParametresFragment();
+                break;
+           }
+        return (fragment);
     }
 
     @Override

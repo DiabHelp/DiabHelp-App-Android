@@ -1,4 +1,4 @@
-package fr.diabhelp.diabhelp;
+package fr.diabhelp.diabhelp.Utils;
 
 import android.app.Activity;
 import android.view.Gravity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import fr.diabhelp.diabhelp.R;
 
 /**
  * Created by Sumbers on 09/10/2015.

@@ -1,14 +1,10 @@
-package fr.diabhelp.diabhelp.API.ResponseObjects;
+package fr.diabhelp.diabhelp.API.ResponseModels;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import fr.diabhelp.diabhelp.Connexion_inscription.RegisterActivity;
 
@@ -23,15 +19,20 @@ public class ResponseRegister {
     }
 
     public ResponseRegister(JSONObject datas) {
-        try {
-            JSONArray arr = datas.getJSONArray("errors");
-            for (int i = 0; i < arr.length(); i++){
-                if (arr.getString(i).equalsIgnoreCase("Username already use")){
-                    setError(RegisterActivity.Error.LOGIN_ALREADY_USED);
+        if (datas != null) {
+            try {
+                JSONArray arr = datas.getJSONArray("errors");
+                for (int i = 0; i < arr.length(); i++) {
+                    if (arr.getString(i).equalsIgnoreCase("Username already use")) {
+                        setError(RegisterActivity.Error.LOGIN_ALREADY_USED);
+                    }
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        }
+        else {
+            Log.e(getClass().getSimpleName(), "Chaine JSON vide");
         }
     }
 

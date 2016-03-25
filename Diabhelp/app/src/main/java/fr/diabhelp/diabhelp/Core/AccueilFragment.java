@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.R;
 
-public class Accueil_Fragment extends Fragment {
+public class AccueilFragment extends Fragment {
 
 
     public GridView grid;
@@ -34,7 +34,6 @@ public class Accueil_Fragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
     }
 
     @Override

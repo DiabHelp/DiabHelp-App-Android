@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperAdapter;
-import fr.diabhelp.diabhelp.JsonUtils;
+import fr.diabhelp.diabhelp.Utils.JsonUtils;
 import fr.diabhelp.diabhelp.R;
 
 /**
@@ -60,17 +60,17 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
     public void setLatestVersion(String s) {
         JSONArray array = null;
         try {
-            array = JsonUtils.get_array(s);
+            array = JsonUtils.getArray(s);
         Log.d("ModuleManager", "SetLatestVersion : ModuleList size = " + _modulesList.size());
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj;
-                if ((obj = JsonUtils.getObjfromArray(array, i)) != null) {
+                if ((obj = JsonUtils.getObjFromArray(array, i)) != null) {
                     String name;
-                    if ((name = JsonUtils.getStringfromKey(obj, "name")) != null) {
+                    if ((name = JsonUtils.getStringFromKey(obj, "name")) != null) {
                         for (int j = 0; j < _modulesList.size(); j++) {
                             if (_modulesList.get(i).getName().equals(name) || j == 0) {
                                 String version;
-                                if ((version = JsonUtils.getStringfromKey(obj, "version")) != null) {
+                                if ((version = JsonUtils.getStringFromKey(obj, "version")) != null) {
                                     _modulesList.get(i).setLatestVersion(version);
                                 }
                             }

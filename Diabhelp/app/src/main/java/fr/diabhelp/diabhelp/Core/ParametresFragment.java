@@ -23,12 +23,12 @@ import java.io.File;
 import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.API.ApiCallTask;
-import fr.diabhelp.diabhelp.ConnexionState;
+import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperCallback;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.R;
 
-public class Parametres_Fragment extends Fragment implements IApiCallTask {
+public class ParametresFragment extends Fragment implements IApiCallTask {
     private RecyclerView                recyclerView;
     private ParametresRecyclerAdapter recAdapter;
     private RecyclerView.LayoutManager  recLayoutManager;
@@ -36,8 +36,7 @@ public class Parametres_Fragment extends Fragment implements IApiCallTask {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ConnexionState co = new ConnexionState(getActivity());
-        if (co.getStatus()) {
+        if (NetworkUtils.getConnectivityStatus(getActivity())) {
             new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "ParametresModuleList").execute("0", "modules");
         }
         setHasOptionsMenu(true);

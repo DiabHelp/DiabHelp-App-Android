@@ -11,8 +11,9 @@ import java.net.ProtocolException;
 
 import fr.diabhelp.diabhelp.API.ApiServices;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
-import fr.diabhelp.diabhelp.API.ResponseObjects.ResponseConnexion;
+import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
+import fr.diabhelp.diabhelp.R;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -31,7 +32,7 @@ import retrofit2.Retrofit;
  */
 public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseConnexion> {
 
-    private final String URL_API = "http://10.0.3.2/DiabHelp-WebSite/web/";
+    private String URL_API;
 
     private IApiCallTask _listener = null;
     private Context _context = null;
@@ -43,6 +44,7 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
     public ConnexionAPICallTask(Context context){
         _listener = (IApiCallTask) context;
         _context = context;
+        URL_API = _context.getString(R.string.URL_API);
     }
 
     @Override
@@ -82,9 +84,11 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
 
         } catch (ProtocolException e)
         {
+            progress.dismiss();
             responseConnexion.setError(ConnexionActivity.Error.BAD_CREDENTIALS);
             e.printStackTrace();
         } catch (IOException e) {
+            progress.dismiss();
             responseConnexion.setError(ConnexionActivity.Error.SERVER_ERROR);
             e.printStackTrace();
         }
