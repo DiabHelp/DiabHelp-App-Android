@@ -722,7 +722,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         }
         else {
             Log.e("debug launch", "desactivé");
-            img.setImageResource(R.drawable.launch);
+            img.setImageResource(R.drawable.lunch);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
         }
     }

@@ -135,8 +135,6 @@
             android:divider="#FFFF"
             android:dividerHeight="0.5dp"
             />
-<<<<<<< HEAD
-=======
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -153,7 +151,6 @@
                 android:id="@+id/button" />
         </RelativeLayout>
 
->>>>>>> modules/Carnet_de_suivi-db_stat
     </LinearLayout>
 
     <!--    </LinearLayout>-->

@@ -157,7 +157,7 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
         _workout = (LinearLayout) rootView.findViewById(R.id.layout_sport);
         _workout.setOnClickListener(this);
 
-        _send_data = (Button) rootView.findViewById(R.id.layout_send_data);
+        _send_data = (Button) rootView.findViewById(R.id.UpdateEntryButton);
         _send_data.setOnClickListener(this);
 
         chart = (ColumnChartView) rootView.findViewById(R.id.chart);
@@ -182,7 +182,7 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
                 DialogFragment endPicker = new DatePickerFragment();
                 endPicker.show(getActivity().getFragmentManager(), "datePicker");
                 break;
-            case R.id.layout_send_data:
+            case R.id.UpdateEntryButton:
                 launch_graph();
                 break;
             case R.id.layout_breakfast:
@@ -358,14 +358,6 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
 //            main_layout.startAnimation(slide_down);
 //            graph_layout.startAnimation(slide_up);
         }
-    }
-
-    private void edit_graph() {
-        main_layout = (LinearLayout) getActivity().findViewById(R.id.layout_statistics_perso);
-        graph_layout = (LinearLayout) getActivity().findViewById(R.id.layout_graph_perso);
-
-        graph_layout.setVisibility(LinearLayout.GONE);
-        main_layout.setVisibility(LinearLayout.VISIBLE);
     }
 
     public class DatePickerFragment extends DialogFragment

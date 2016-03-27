@@ -37,10 +37,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import fr.diabhelp.carnetdesuivi.Carnet.AccueilStatistics;
 import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 
@@ -463,7 +463,7 @@ public class Carnetdesuivi extends AppCompatActivity {
     }
 
     public void launch_statistics() {
-        Intent Statsintent = new Intent(Carnetdesuivi.this, AccueilStatistics.class);
+        Intent Statsintent = new Intent(Carnetdesuivi.this, StatisticsActivity.class);
         Carnetdesuivi.this.startActivity(Statsintent);
     }
 
@@ -813,5 +813,4 @@ public class Carnetdesuivi extends AppCompatActivity {
                 });
         adb.show();
     }
->>>>>>> modules/Carnet_de_suivi-db_stat
 }

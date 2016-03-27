@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
@@ -76,20 +79,21 @@ public class StatisticsWeekFragment extends Fragment {
 
 
     private void getData() {
-//        Calendar c = Calendar.getInstance();
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-//
-//        String startDate = sdf.format(c.getTime());
-//
-//        c.add(Calendar.DATE, -7);
-//        String endDate = sdf.format(c.getTime());
-//
-//        Log.e("startDate", startDate);
-//        Log.e("endDate", endDate);
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+        String endDate = sdf.format(c.getTime());
+
+        c.add(Calendar.DATE, -7);
+        String startDate = sdf.format(c.getTime());
+
+        Log.e("startDate", startDate);
+        Log.e("endDate", endDate);
 
         DAO bdd = new DAO(getContext());
         bdd.open();
-        mall = bdd.SelectAll();
+        mall = bdd.selectBetweenDays(startDate, endDate);
+//        mall = bdd.SelectAll();
         bdd.close();
 
         List<Line> lines = new ArrayList<Line>();
