@@ -18,5 +18,10 @@
     <string name="period">Période</string>
     <string name="hypoglycemi">Sensation Hypo</string>
     <string name="hyperglycemi">Sensation Hyper</string>
-
+    
+    <!-- API-->
+    <string name="URL_API">http://10.0.3.2/DiabHelp-WebSite/web/</string>
+    <string name="mail_loading">Envoi des données..</string>
+    <string name="error_server">Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard</string>
+    <string name="sending_success">Mail envoyé !</string>
 </resources>

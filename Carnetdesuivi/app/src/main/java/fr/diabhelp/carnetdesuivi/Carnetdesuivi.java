@@ -2,10 +2,12 @@ package fr.diabhelp.carnetdesuivi;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -37,21 +39,26 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
+import fr.diabhelp.carnetdesuivi.API.Task.ExportAPICallTask;
 import fr.diabhelp.carnetdesuivi.Carnet.AccueilStatistics;
 import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.Utils.MyToast;
 
 /**
  * Created by naqued on 10/11/15.
  */
-public class Carnetdesuivi extends AppCompatActivity {
+public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<ResponseMail> {
+    private String token = "";
     public GridView grid;
     public GridView gridba;
     private ListView mainListView;
     private ArrayAdapter<String> listAdapter;
+    private ProgressDialog _progress;
     static DAO bdd;
     final int sdk = android.os.Build.VERSION.SDK_INT;
 
@@ -66,6 +73,8 @@ public class Carnetdesuivi extends AppCompatActivity {
     List<String> childList;
     Map<String, List<String>> laptopCollection;
     ExpandableListView expListView;
+
+
 
     public enum InputType {
         GLUCIDE(0),
@@ -452,7 +461,7 @@ public class Carnetdesuivi extends AppCompatActivity {
                 launch_statistics();
                 return true;
             case R.id.export:
-                export_pdf();
+                exportPdf();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -705,7 +714,7 @@ public class Carnetdesuivi extends AppCompatActivity {
         inputdate[whichInput].setText(sdf.format(myCalendar.getTime()));
     }
 
-    public void export_pdf()
+    public void exportPdf()
     {
         LayoutInflater factory = LayoutInflater.from(this);
 /*        if (_session == null)
@@ -783,15 +792,14 @@ public class Carnetdesuivi extends AppCompatActivity {
                     Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
                 else {
                     bdd.open();
-                    ArrayList<EntryOfCDS> CDS = bdd.selectBetweenDays(beg.getText().toString(), end.getText().toString()); //todo a changer
+                    ArrayList<EntryOfCDS> entryOfCDSes = bdd.selectBetweenDays(beg.getText().toString(), end.getText().toString()); //todo a changer
                     if (mail.getText().toString().isEmpty()) {
                         myemail = null;
                     }
                     else
                         myemail = mail.getText().toString();
                     bdd.close();
-//                    new ApiCallTask(Carnetdesuivi.this, ApiCallTask.POST, ApiCallTask.ARRAY, "carnetJSON").execute("1", "generateCDSPDF", "carnetJSON", getSerialisationDayOfCDN(CDS)); //todo appel a l'api
-
+                    new ExportAPICallTask(getBaseContext(), entryOfCDSes).execute(token);
                 }
 
                 //On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
@@ -806,5 +814,52 @@ public class Carnetdesuivi extends AppCompatActivity {
                     }
                 });
         adb.show();
+    }
+
+    @Override
+    public void onBackgroundTaskCompleted(ResponseMail reponse, String action, ProgressDialog progress) {
+        _progress = progress;
+        Carnetdesuivi.Error error = reponse.getError();
+        if (error!= Error.NONE){
+            manageError(error);
+        }
+        else if (action == "informOfsending") {
+            informSuccess();
+        }
+
+    }
+
+    private void informSuccess() {
+        _progress.dismiss();
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.main_layout), getString(R.string.sending_success),Snackbar.LENGTH_LONG);
+    }
+
+    private void manageError(Carnetdesuivi.Error error) {
+        _progress.dismiss();
+        switch (error)
+        {
+            case MAIL_NOT_SENT:{
+                MyToast.getInstance().displayWarningMessage(getString(R.string.error_server), Toast.LENGTH_LONG, this);
+                Log.e(getLocalClassName(), "Une erreur s'est produite durant l'envoi du mail");
+                break;
+            }
+            case SERVER_ERROR:{
+                MyToast.getInstance().displayWarningMessage(getString(R.string.error_server), Toast.LENGTH_LONG, this);
+                Log.e(getLocalClassName(), "Problème survenu lors de la connexion au serveur");
+                break;
+            }
+            case INVALID_TOKEN:{
+                MyToast.getInstance().displayWarningMessage(getString(R.string.error_server), Toast.LENGTH_LONG, this);
+                Log.e(getLocalClassName(), "Le token est invalide");
+                break;
+            }
+        }
+    }
+
+    public enum Error{
+        NONE,
+        SERVER_ERROR,
+        MAIL_NOT_SENT,
+        INVALID_TOKEN
     }
 }

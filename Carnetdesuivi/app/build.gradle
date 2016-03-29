@@ -36,4 +36,6 @@ dependencies {
     compile 'com.leocardz:aelv:1.1@aar'
     compile 'com.android.support:support-v4:23.0.0'
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
 }
