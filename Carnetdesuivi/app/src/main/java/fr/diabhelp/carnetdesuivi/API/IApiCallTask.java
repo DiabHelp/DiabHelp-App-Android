@@ -1,4 +1,4 @@
-package fr.diabhelp.carnetdesuivi;
+package fr.diabhelp.carnetdesuivi.API;
 
 import android.app.ProgressDialog;
 

@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
 import fr.diabhelp.carnetdesuivi.API.Task.ExportAPICallTask;
 import fr.diabhelp.carnetdesuivi.Carnet.AccueilStatistics;
