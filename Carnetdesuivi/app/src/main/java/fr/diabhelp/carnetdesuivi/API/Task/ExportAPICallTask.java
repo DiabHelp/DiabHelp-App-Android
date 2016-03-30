@@ -33,9 +33,9 @@ public class ExportAPICallTask extends AsyncTask<String, String, ResponseMail> {
     private IApiCallTask _listener;
     private ArrayList<EntryOfCDS> _entries;
 
-    public ExportAPICallTask(Context context, ArrayList<EntryOfCDS> entries) {
+    public ExportAPICallTask(Context context, IApiCallTask listener, ArrayList<EntryOfCDS> entries) {
         this._context = context;
-        this._listener = (IApiCallTask) context;
+        this._listener = listener;
         this._entries = entries;
     }
 

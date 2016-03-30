@@ -733,7 +733,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         myCalendar = Calendar.getInstance();
 
         EditText begin = (EditText)alertDialogView.findViewById(R.id.date_begin);
-        EditText endin = (EditText)alertDialogView.findViewById(R.id.date_end);
+        final EditText endin = (EditText)alertDialogView.findViewById(R.id.date_end);
 
         begin.setFocusable(false);
         endin.setFocusable(false);
@@ -799,7 +799,13 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                     else
                         myemail = mail.getText().toString();
                     bdd.close();
-                    new ExportAPICallTask(getBaseContext(), entryOfCDSes).execute(token);
+                    if (entryOfCDSes != null && !entryOfCDSes.isEmpty()) {
+                        System.out.println("context = [" + Carnetdesuivi.this + "] listener = [" + (IApiCallTask) Carnetdesuivi.this + "] entries = [" + entryOfCDSes + "]");
+                        new ExportAPICallTask(Carnetdesuivi.this, (IApiCallTask) Carnetdesuivi.this, entryOfCDSes).execute(token);
+                    }
+                    else {
+                        MyToast.getInstance().displayWarningMessage("Il n'y a pas d'entrées sur cette periode", Toast.LENGTH_LONG, Carnetdesuivi.this);
+                    }
                 }
 
                 //On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
