@@ -149,19 +149,13 @@ public class DayResultActivity extends Activity {
     protected void initView() {
 
         _bdd.open();
-        Log.e("date dayresult initview", _date);
         inf = _bdd.SelectDay(_date, _hour);
-        Log.e("Title in init", inf.getTitle());
 
         _txtCell.get(TXTedit.DAYTEXT.getValue()).setText(getCleanDate(_date) + " " + _hour);
         _txtCell.get(TXTedit.TITLE.getValue()).setText(inf.getTitle());
         if (inf.getGlucide() == null || inf.getglycemy() == 0.0) {
             _relativeCell.get(Relative.GLU.getValue()).setVisibility(View.GONE);
-
-            Log.e("ing.getGlucide", String.valueOf(inf.getGlucide()));
-
         } else {
-            RelativeLayout glyl = (RelativeLayout) findViewById(R.id.layoutgly);
             ImageView glyi = (ImageView) findViewById(R.id.glycemiimg);
 
             Double gluglu = inf.getglycemy();
@@ -180,7 +174,6 @@ public class DayResultActivity extends Activity {
                     glyi.setBackground(this.getResources().getDrawable(R.drawable.glycemienogood));
                 }
             }
-            Log.e("ing.getGlucide", "View.visible");
         }
         if (inf.getGlucide() == null || inf.getGlucide() == 0)
             _relativeCell.get(Relative.GLU.getValue()).setVisibility(View.GONE);
@@ -316,11 +309,9 @@ public class DayResultActivity extends Activity {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.GONE);
             ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
             img.setVisibility(View.GONE);
-            Log.e("imgplace", "pas visible");
         }
         else {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.VISIBLE);
-            Log.e("imgplace", "visible $" + inf.getPlace()+"%");
             _txtCell.get(TXTedit.PLACETEXT.getValue()).setText(inf.getPlace());
             ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
             img.setVisibility(View.VISIBLE);
@@ -399,7 +390,6 @@ public class DayResultActivity extends Activity {
         intent.putExtra("slow_insu", inf.getSlow_insu());
         intent.putExtra("hba1c", inf.getHba1c());
         intent.putExtra("hour", inf.getHour());
-        Log.e("gethour updateEntry", inf.getHour());
         intent.putExtra("date", inf.getDate());
 
         intent.putExtra("glycemy", inf.getglycemy());

@@ -41,30 +41,10 @@ import fr.diabhelp.carnetdesuivi.R;
  */
 public class EntryActivity extends AppCompatActivity implements LocationListener {
 
-    private String title;
-    private String place;
-    private Double glucide;
-    private String activity;
-    private String activityType;
-    private String notes;
-    private String date;
-    private Double fast_insu;
-    private Double slow_insu;
-    private Double hba1c;
     private String formattedDate;
-    EditText time;
+    private EditText time;
 
-    protected GridView grid;
     protected LocationManager locationManager;
-    protected LocationListener locationListener;
-    protected Location location;
-
-    private TimePicker timePicker1;
-
-    private int hour;
-    private int minute;
-
-    static final int TIME_DIALOG_ID = 999;
 
     public enum InputType{
         TITLE(0),
@@ -117,40 +97,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         }
     };
 
-    String[] web = {
-            "Petit Déjeuner",
-            "Déjeuner",
-            "Diner",
-            "Encas",
-            "Coucher",
-            "Levée",
-            "Nuit",
-            "Alcohol",
-            "Sport",
-            "Travail",
-            "Maison",
-            "Période"
-
-    } ;
-    int[] imageId = {
-            R.drawable.ptidej,
-            R.drawable.launch,
-            R.drawable.diner,
-            R.drawable.cassecroute,
-            R.drawable.coucher,
-            R.drawable.reveil,
-            R.drawable.night,
-            R.drawable.alcool,
-            R.drawable.sport,
-            R.drawable.work,
-            R.drawable.home,
-            R.drawable.period
-    };
-
     List<EditText> _inputlist;
-    ListView lv;
-    Context context;
-    ArrayList entry;
     DAO bdd;
     EntryActivity _this;
     List<Integer> isActiveicon;
@@ -167,8 +114,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     private Double _hba1c;
     private String _hour;
     private Double _glycemy;
-
-    private String _dateApi;
 
 
 
@@ -205,9 +150,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         String myFormat ="MM-dd-yyyy";
         SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         formattedDate = df.format(c.getTime());
-        Log.e("date on create entry", formattedDate);
-        fill_date();
 
+        fill_date();
         Intent intent = getIntent();
 
         if (intent.hasExtra("title"))
@@ -234,11 +178,9 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
         if (intent.hasExtra("hour")) {
             _hour = intent.getExtras().getString("hour");
-            Log.e("hour when update", _hour);
         }
         if (intent.hasExtra("date")) {
             _date = intent.getExtras().getString("date");
-            Log.e("date when update", _date);
         }
         if (intent.hasExtra("launch"))
             _launch = intent.getExtras().getInt("launch");
@@ -277,7 +219,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(EntryActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -294,73 +235,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             fill_fields();
     }
 
-
-/*        CustomGrid adapter = new CustomGrid(EntryActivity.this, web, imageId);
-        grid= (GridView)findViewById(R.id.grid);
-        grid.setAdapter(adapter);
-        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(EntryActivity.this, "You Clicked at " + web[+position], Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-    }*/
-
-
-
-/*    public Location getLocation() {
-*//*        try {*//*
-*//*            locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);*//*
-
-            // getting GPS status
-            boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-            // getting network status
-            boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-            if (!isGPSEnabled && !isNetworkEnabled) {
-                System.out.println("nothing.....");
-            } else {
-                // First get location from Network Provider
-                if (isNetworkEnabled) {
-                    locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER,  0,  0, this);
-                    Log.d("Network", "Network");
-                    System.out.println("nework on.........");
-                    if (locationManager != null) {
-                        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        Log.e("debug", "Pass internet");
-                        if (location != null) {
-                            Log.e("debug", "location pas null");
-                        }
-                    }
-                }
-                //get the location by gps
-                if (isGPSEnabled) {
-                    System.out.println("gps on.........");
-                    if (location == null) {
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0, this);
-                        Log.d("GPS Enabled", "GPS Enabled");
-                        if (locationManager != null) {
-                            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            Log.e("debug", "Pass gps");
-                            if (location != null) {
-                                Log.e("debug", "location pas null");
-                            }
-                        }
-                    }
-                }
-            }
-
-*//*        } catch (Exception e) {
-            e.printStackTrace();
-        }*//*
-        return location;
-    }*/
-
     private void fillPlace(Location location)
     {
         TextView txtplace = (TextView) findViewById(R.id.editplace);
@@ -373,8 +247,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         }
         else {
             try {
-/*                Log.e("location lat", String.valueOf(location.getLatitude()));
-                Log.e("location lng", String.valueOf(location.getLongitude()));*/
                 addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                 if (addresses.size() > 0) {
                     String cityName = addresses.get(0).getAddressLine(0);
@@ -405,13 +277,9 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
                 addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                 if (addresses.size() > 0) {
                     String cityName = addresses.get(0).getAddressLine(0);
-/*                    String stateName = addresses.get(0).getAddressLine(1);
-                    //Toast.makeText(getApplicationContext(),stateName , 1).show();
-                    String countryName = addresses.get(0).getAddressLine(2);*/
                     txtplace.setText(cityName);
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -425,21 +293,12 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     @Override
     public void onProviderEnabled(String provider) {
         Log.d("Latitude", "enable");
-        /*Location tmp = getLocation();
-        fillPlace(tmp);*/
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         Log.d("Latitude", "status");
     }
-
-/*    private final LocationListener mLocationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(final Location location) {
-            //your code here
-        }
-    };*/
 
     protected void fill_date()
     {
@@ -448,34 +307,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     }
 
-    protected void save_data() {
-        if (_inputlist.get(InputType.TITLE.getValue()).getText().toString().length() == 0)
-        {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setTitle("Aucune titre renseigné");
-            alertDialog.setMessage("Vous n'avez renseigné aucun Titre. êtes vous sur de vouloir continuer ?");
-            alertDialog.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    _inputlist.get(InputType.TITLE.getValue()).setText("Sans nom");
-                    saveIt();
-                    Log.e("save_date", "oui");
-                }
-            });
-            alertDialog.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Log.e("save_date", "non");
-                }
-            });
-            alertDialog.show();
-            Log.e("save_date", "apres le show");
-        } //TODO avertir qu'il n'y a pas de titre
-        else {
-            Log.e("save_date", "else");
-            saveIt();
-        }
-        //get Date
-
-    }
     protected void saveIt() {
 
         // save
@@ -540,7 +371,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Toast.makeText(this, "Enregistrement efféctué", Toast.LENGTH_LONG).show();
     }
 
-    public void fill_fields()
+    private void fill_fields()
     {
         _inputlist.get(InputType.DATE.getValue()).setText(_date);
         if (_title != null)
@@ -612,7 +443,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     }
 
-    public void init_fields() {
+    private void init_fields() {
         _inputlist = new ArrayList<EditText>();
 
         _inputlist.add(InputType.TITLE.getValue(), (EditText) findViewById(R.id.edittitre));
@@ -631,7 +462,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         _inputlist.add(InputType.GLYCEMY.getValue(), (EditText) findViewById(R.id.editglycemy));
     }
 
-    public void init_icon() {
+    private void init_icon() {
         isActiveicon = new ArrayList<Integer>();
 
         isActiveicon.add(IconeType.BREAKFAST.getValue(), 0);
@@ -706,7 +537,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             img.setImageResource(R.drawable.ptidejgreen);
         }
         else {
-            img.setBackgroundColor(Color.parseColor("#ffffff"));
             isActiveicon.set(IconeType.BREAKFAST.getValue(), 0);
             img.setImageResource(R.drawable.ptidej);
         }
@@ -721,7 +551,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
         }
         else {
-            Log.e("debug launch", "desactivé");
             img.setImageResource(R.drawable.launch);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
         }

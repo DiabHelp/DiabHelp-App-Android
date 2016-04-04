@@ -3,7 +3,6 @@ package fr.diabhelp.carnetdesuivi.Carnet;
 /**
  * Created by naqued on 26/11/15.
  */
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,34 +36,9 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
     private DAO bdd;
     private Carnetdesuivi _acti;
 
-    public enum InputType{
-        TITLE(0),
-        PLACE(1),
-        GLUCIDE(2),
-        ACTIVITY(3),
-        ACTIVITYTYPE(4),
-        NOTES(5),
-        DATE(6),
-        FAST_INSU(7),
-        SLOW_INSU(8),
-        HBA1C(9),
-        GLYCEMY(10);
-
-        private final int value;
-
-        private InputType(int v) {
-            this.value = v;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    };
-
     public ExpandableListAdapters(Activity context, List<String> laptops,
                                   Map<String, List<String>> laptopCollections, Carnetdesuivi acti) {
         this.context = context;
-/*        Log.e("expandable", laptops.get(0));*/
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
         this._acti = acti;
@@ -79,45 +53,15 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
     }
 
 
-/*    protected ArrayList<TextView> fill_input()
-    {
-        ArrayList<TextView> infView = new ArrayList<TextView>();
-
-
-        infView.add(InputType.TITLE.getValue(), (TextView) context.findViewById(R.id.edittitre));
-        infView.add(InputType.PLACE.getValue(), (TextView) context.findViewById(R.id.editplace));
-        infView.add(InputType.GLUCIDE.getValue(), (TextView) context.findViewById(R.id.editglucide));
-
-        infView.add(InputType.ACTIVITY.getValue(), (TextView) context.findViewById(R.id.editactivity));
-        infView.add(InputType.ACTIVITYTYPE.getValue(), (TextView) findViewById(R.id.editactivitytype));
-        infView.add(InputType.NOTES.getValue(), (EditText) findViewById(R.id.editnotes));
-
-        infView.add(InputType.DATE.getValue(), (EditText) findViewById(R.id.editDate));
-        infView.add(InputType.FAST_INSU.getValue(), (EditText) findViewById(R.id.editrapide));
-        infView.add(InputType.SLOW_INSU.getValue(), (EditText) findViewById(R.id.editlente));
-
-        infView.add(InputType.HBA1C.getValue(), (EditText) findViewById(R.id.edithba1c));
-        infView.add(InputType.GLYCEMY.getValue(), (EditText) findViewById(R.id.editglycemy));
-
-        return infView;
-    }*/
-
     public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final String laptop = (String) getChild(groupPosition, childPosition);
+
         LayoutInflater inflater = context.getLayoutInflater();
         bdd = new DAO(context);
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.child_item, null);
         }
-        ArrayList<TextView> infView;
-
-       // infView = fill_input();
-
-    Log.e("position child", String.valueOf(childPosition));
-        Log.e("position group", String.valueOf(groupPosition));
-/*        final String childText = (String) getChild(groupPosition, childPosition);*/
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context
@@ -168,7 +112,6 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         String date = laptops.get(groupPosition);
         System.out.println(date);
         String finaldate = reconstructDate(date);
-        Log.e("expendable finaldate", finaldate+ " date :" + date);
         EntryOfCDS en = bdd.SelectDay(finaldate, date.split("-")[1].split(" ")[4]);
 
         if (en == null)
@@ -297,10 +240,8 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         String datefinal;
         String datepart = date.split("-")[1];
 
-
         datefinal = getMonthstr(datepart.split(" ")[2]) + "-" + datepart.split(" ")[1] + "-" + datepart.split(" ")[3];
 
-        Log.e("Expendable reconstruct", datefinal);
         return datefinal;
     }
     protected String getMonthstr(String month) //TODO Pas bon du tout peux causer ds soucis avec des select de db..

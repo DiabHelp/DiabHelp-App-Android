@@ -69,6 +69,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     private EditText[] inputdate;
     private int whichInput;
     private String myemail;
+
     //Expandable
     List<String> groupList;
     List<String> childList;
@@ -123,78 +124,21 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                 this, groupList, laptopCollection, this);
         expListView.setAdapter(expListAdapter);
 
- /*       expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,int groupPosition, int childPosition, long id) {
-
-      *//* You must make use of the View v, find the view by id and extract the text as below*//*
-                Intent dayvieintent = new Intent(Carnetdesuivi.this, DayResultActivity.class);
-*//*                dayvieintent.putExtra("date", )*//*
-
-
-                TextView tv= (TextView) v.findViewById(R.id.laptop);
-
-                Log.e("Onclick child",tv.getText().toString());
-                Carnetdesuivi.this.startActivity(dayvieintent);
-                return true;  // i missed this
-            }
-        });*/
-/*        expListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
-                    int childPosition = ExpandableListView.getPackedPositionChild(id);
-                    Log.e("group pressing", String.valueOf(groupPosition) + " " + String.valueOf(childPosition));
-
-                    // You now have everything that you would as if this was an OnChildClickListener()
-                    // Add your logic here.
-
-                    // Return true as we are handling the event.
-                    return;
-                }
-
-                return;
-            }
-        });*/
         if (groupList != null && groupList.size() > 0) {
             noEntry.setEnabled(false);
             noEntry.setVisibility(View.INVISIBLE);
             expListView.expandGroup(0);
             if (groupList.size() > 1)
                 expListView.expandGroup(1);
-/*            if (groupList.size() > 2)
-                expListView.expandGroup(2);*/
         }
 
-        //setGroupIndicatorToRight();
-/*        expListView.expandGroup(1); // expend le numéro 1*/
 
-/*        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-
-                ImageButton
-                return false;
-            }
-        });*/
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             public boolean onChildClick(ExpandableListView parent, View v,
                                         final int groupPosition, int childPosition, long id) {
                 final String selected = (String) expListAdapter.getChild(
                         groupPosition, childPosition);
-/*                Intent intent = new Intent(Carnetdesuivi.this, DayResultActivity.class);
-
-
-                String _title = (String) expListAdapter.getGroup(groupPosition);
-                String datesplit = reconstructDate(_title);
-                String Hour = _title.split("-")[1].split(" ")[4];
-
-                intent.putExtra("date", datesplit);
-                intent.putExtra("hour", Hour);
-                Carnetdesuivi.this.startActivity(intent);*/
 
                 View child = expListAdapter.getChildView(groupPosition, childPosition, false, v, parent);
                 HorizontalScrollView hz = (HorizontalScrollView) child.findViewById(R.id.horizontalScrollView2);
@@ -223,47 +167,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         });
         fillAverageGly();
 
-
-/*        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                if (parent.isGroupExpanded(groupPosition)) {
-                    parent.collapseGroup(groupPosition);
-                } else
-                    parent.expandGroup(groupPosition, true);
-                return false;
-            }
-        });*/
-
-/*        View.OnTouchListener skipTouchListener = new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //do nothing
-                return false;
-            }
-        };*/
-/*        HorizontalScrollView hsv = (HorizontalScrollView) findViewById(R.id.horizontalScrollView2);
-        getLayoutInflater(R.layout.child_item);
-        LayoutInflater lt = getLayoutInflater();
-        lt.inflate()*/
-/*        hsv.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                return false;
-            }
-        });
-        hsv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                return ;
-            }
-        });*/
-
-/*        hsv.getMaxScrollAmount();*/
-
     }
 
     @Override
@@ -274,18 +177,12 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     }
 
     protected String reconstructDate(String date) {
-/*        String datefinal;
-        String datepart = date.split("-")[1];
-        Log.e("reconstructor date", (datepart.split(" ")[1] + "-" + datepart.split(" ")[2]));
-
-        datefinal = datepart.split(" ")[1] + "-" + getMonthstrlitl(datepart.split(" ")[2]) + "-" + datepart.split(" ")[3];*/
-
+            //// TODO: 31/03/16 Afficher la date en lettre
         Log.e("datefinale expendable", date); //datefinal
         return date; // datefinal
     }
 
     private void fillAverageGly() {
-/*        int today[] = getDate();*/
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
         int idx = 0;
         int total = 0;
@@ -350,15 +247,13 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         Collections.reverse(groupList);
     }
 
+    // Preparing collection
     private void createCollection() {
-        // preparing laptops collection(child)
-
         laptopCollection = new LinkedHashMap<String, List<String>>();
         if (groupList != null) {
             bdd.open();
             for (String date : groupList) {
                 loadChild(fillValueDay(date.split(" ")[0], date.split(" ")[1]));
-
                 laptopCollection.put(date, childList);
             }
             bdd.close();
@@ -367,6 +262,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
 
     // This fonction is needed to help user to make a good follow sheet
     // user will modify his entry if he want 2 entry in the same minute
+
     private boolean checkTooFast()
     {
         String _minute;
@@ -379,14 +275,11 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         String Hours = String.valueOf(hours) + ":" + _minute;
 
         Calendar c = Calendar.getInstance();
- /*       SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-        String formattedDate = df.format(c.getTime());*/
 
         String myFormat ="MM-dd-yyyy";
         SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         String formattedDate = df.format(c.getTime());
 
-        Log.e("Checktoofast date", formattedDate);
         bdd.open();
         final EntryOfCDS ent = bdd.SelectDay(formattedDate, Hours);
         bdd.close();
@@ -410,7 +303,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                     Entryintent.putExtra("slow_insu", ent.getSlow_insu());
                     Entryintent.putExtra("hba1c", ent.getHba1c());
                     Entryintent.putExtra("hour", ent.getHour());
-                    Log.e("gethour updateEntry", ent.getHour());
                     Entryintent.putExtra("date", ent.getDate());
 
                     Entryintent.putExtra("glycemy", ent.getglycemy());
@@ -439,13 +331,11 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                 }
             });
             alertDialog.show();
-            Log.e("checktoofast", "select : != null");
         }
         else {
             Intent Entryintent = new Intent(Carnetdesuivi.this, EntryActivity.class);
             Carnetdesuivi.this.startActivity(Entryintent);
             Carnetdesuivi.this.finish();
-            Log.e("checktoofast", "select : == null");
         }
         return true;
     }
@@ -480,15 +370,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
             childList.add(model);
     }
 
-    private void setGroupIndicatorToRight() {
-        /* Get the screen width */
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-
-        expListView.setIndicatorBounds(width - getDipsFromPixel(35), width
-                - getDipsFromPixel(5));
-    }
 
     // Convert pixel to dip
     public int getDipsFromPixel(float pixels) {
@@ -499,40 +380,19 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     }
 
 
-    protected ArrayList<TextView> fill_inputchild()
-    {
-        ArrayList<TextView> infView = new ArrayList<TextView>(12);
-        View convertView;
-
-            LayoutInflater infalInflater = (LayoutInflater) this
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.child_item, null);
-
-
-        infView.add(InputType.GLUCIDE.getValue(), (TextView) convertView.findViewById(R.id.glutextview));
-
-        infView.add(InputType.FAST_INSU.getValue(), (TextView) convertView.findViewById(R.id.fasttextView));
-        infView.add(InputType.SLOW_INSU.getValue(), (TextView) convertView.findViewById(R.id.slowtextView));
-
-        infView.add(InputType.HBA1C.getValue(), (TextView) convertView.findViewById(R.id.hba1ctextView));
-        infView.add(InputType.GLYCEMY.getValue(), (TextView) convertView.findViewById(R.id.glytextview));
-
-        return infView;
-    }
-
     protected String[] fillValueDay(String dateVal, String hour) {
         String value[] = new String[1]; //TODO a faire mieux
         return value;
     }
 
     protected ArrayList<String> fillDate() {
-        ArrayList<String> date = new ArrayList<String>(); //TODO a faire mieux
+        ArrayList<String> date = new ArrayList<String>();
         ArrayList<EntryOfCDS> mall = null;
 
         int today[] = getDate();
         int idx = 0;
 
-        int iYear = 2015; //TODO attention a rendre dynamique
+        int iYear = 2016; //TODO attention a rendre dynamique
         int iMonth = Calendar.FEBRUARY;
         int iDay = 1;
 
@@ -548,16 +408,14 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         while (idx < mall.size())
         {
             String Title = mall.get(idx).getTitle();
-/*            String finaltitle = Title.substring(0, 1).toUpperCase() + Title.substring(1);*/ // TODO faire un uppercase sur le titre
+            // TODO faire un uppercase sur le titre
             Log.e("original date", mall.get(idx).getDate());
             if (Title.length() > 20)
                 Title = Title.substring(0, 20) + "..";
             String DisplayDate = Title + " - " + getCleanDate(mall.get(idx).getDate()) + " " + mall.get(idx).getHour() ;
-            Log.e("display date", DisplayDate);
             date.add(DisplayDate);
             idx++;
         }
-
         return date;
     }
 
@@ -571,39 +429,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         return finaldate;
     }
 
-    protected String getMonthstrlitl(String month)
-    {
-        switch (month)
-        {
-            case "Janvier" :
-                return ("janv.");
-            case "Fevrier" :
-                return ("fév");
-            case "Mars" :
-                return ("mars");
-            case "Avril" :
-                return ("avr.");
-            case "Mai" :
-                return ("mai");
-            case "Juin" :
-                return ("juin");
-            case "Juillet" :
-                return ("juil.");
-            case "Aout" :
-                return ("aout");
-            case "Septembre" :
-                return ("sep.");
-            case "Octobre" :
-                return ("oct.");
-            case "Novembre" :
-                return ("nov.");
-            case "Decembre" :
-                return ("déc.");
-        }
-        return null;
-    }
-
-    protected String getMonthstr(String month) //TODO Super moche attention, peux causer des problemes..
+    protected String getMonthstr(String month)
     {
         Log.e("month written in DB" , month);
         switch (month)
@@ -645,14 +471,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         return daymonth;
     }
 
-    protected String getDateString(int day, int month) {
-        String finalDate = new String();
-        finalDate = getDay(day) + " ";
-        finalDate += String.valueOf(day) + " ";
-        finalDate += getMonth(month) + " 2015";
-        return finalDate;
-    }
-
     private String getMonth(int month)
     {
         switch (month)
@@ -684,6 +502,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         }
         return null;
     }
+
     private String getDay(int day) {
         if (day > 7)
             day = day % 7;
@@ -743,7 +562,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -756,7 +574,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 whichInput = 0;
                 new DatePickerDialog(Carnetdesuivi.this, datepicker, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
@@ -768,7 +585,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 whichInput = 1;
                 new DatePickerDialog(Carnetdesuivi.this, datepicker, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
