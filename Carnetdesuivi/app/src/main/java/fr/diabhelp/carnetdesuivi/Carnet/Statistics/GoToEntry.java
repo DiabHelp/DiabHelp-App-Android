@@ -29,8 +29,14 @@ public class GoToEntry {
         TextView txt = (TextView)dialog.findViewById(R.id.textbox);
         Button button = (Button)dialog.findViewById(R.id.goToEntry);
 
+        String day = entry.getDate().toString().substring(3, 5);
+        String month = entry.getDate().toString().substring(0, 2);
+        String year = entry.getDate().toString().substring(6, 10);
+        String formated_date = day + "-" + month + "-" + year;
+
         txt.setText("Titre : " + entry.getTitle() +
-                    "\nHeure : " + entry.getDate());
+                    "\nDate : " + formated_date +
+                    "\nGlycémie : " + entry.getglycemy());
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

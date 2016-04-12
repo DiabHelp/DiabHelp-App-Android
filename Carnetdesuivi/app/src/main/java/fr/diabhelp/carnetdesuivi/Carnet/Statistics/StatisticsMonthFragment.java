@@ -6,19 +6,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
-import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
 
 /**
@@ -27,6 +29,15 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 
 public class StatisticsMonthFragment extends Fragment {
 
+    private ColumnChartView chart;
+    private ColumnChartData data;
+    private boolean hasAxes = true;
+    private boolean hasAxesNames = true;
+    private boolean hasLabels = false;
+    private boolean hasLabelForSelected = false;
+
+    private ArrayList<EntryOfCDS> mall = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,66 +45,70 @@ public class StatisticsMonthFragment extends Fragment {
 
     }
 
-    private static final int DEFAULT_DATA = 0;
-    private static final int SUBCOLUMNS_DATA = 1;
-    private static final int STACKED_DATA = 2;
-    private static final int NEGATIVE_SUBCOLUMNS_DATA = 3;
-    private static final int NEGATIVE_STACKED_DATA = 4;
-
-    private ColumnChartView chart;
-    private ColumnChartData data;
-    private boolean hasAxes = true;
-    private boolean hasAxesNames = true;
-    private boolean hasLabels = false;
-    private boolean hasLabelForSelected = false;
-    private int dataType = DEFAULT_DATA;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.statistics_month_fragment, container, false);
 
         chart = (ColumnChartView) rootView.findViewById(R.id.chart);
         chart.setOnValueTouchListener(new ValueTouchListener());
 
-        generateData();
+        getData();
+
+        chart.setViewportCalculationEnabled(false);
 
         return rootView;
     }
 
-    private void generateDefaultData() {
-        int numSubcolumns = 1;
-        int numColumns = 31;
-        // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
+    private void getData() {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+
+        String endDate = sdf.format(c.getTime());
+
+        c.add(Calendar.DATE, -30);
+        String startDate = sdf.format(c.getTime());
+
+        DAO bdd = new DAO(getContext());
+        bdd.open();
+        mall = bdd.selectBetweenDays(startDate, endDate);
+        bdd.close();
+
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
-        for (int i = 0; i < numColumns; ++i) {
+//        List<AxisValue> axisValues = new ArrayList<>();
 
-            values = new ArrayList<SubcolumnValue>();
-            for (int j = 0; j < numSubcolumns; ++j) {
-                float val = (float) Math.random() * 10f;
-                if (val >= 8)
-                    values.add(new SubcolumnValue(val, Color.parseColor("#FF4444")));
-                else
-                    values.add(new SubcolumnValue(val, Color.parseColor("#99CC00")));
-            }
+        values = new ArrayList<SubcolumnValue>();
 
-            Column column = new Column(values);
-            column.setHasLabels(hasLabels);
-            column.setHasLabelsOnlyForSelected(hasLabelForSelected);
-            columns.add(column);
+        for (int j = 0; j < mall.size(); ++j) {
+            double val = mall.get(j).getglycemy();
+            float f = (float) val;
+            if (val >= 8)
+                values.add(new SubcolumnValue(f, Color.parseColor("#FF4444")));
+            else
+                values.add(new SubcolumnValue(f, Color.parseColor("#99CC00")));
+//            String day = mall.get(j).getDate().toString().substring(3, 5);
+//            String month = mall.get(j).getDate().toString().substring(0, 2);
+//            String formated_date = day + "-" + month;
+//            axisValues.add(new AxisValue(j).setLabel(formated_date));
         }
+
+        Column column = new Column(values);
+        column.setHasLabels(hasLabels);
+        column.setHasLabelsOnlyForSelected(hasLabelForSelected);
+        columns.add(column);
 
         data = new ColumnChartData(columns);
 
         if (hasAxes) {
+//            Axis axisX = new Axis(axisValues);
             Axis axisX = new Axis();
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
                 axisX.setName("Jours");
                 axisY.setName("Glycémie");
             }
-            data.setAxisXBottom(axisX);
+//            data.setAxisXBottom(axisX);
+            data.setAxisXBottom(null);
             data.setAxisYLeft(axisY);
         } else {
             data.setAxisXBottom(null);
@@ -101,213 +116,14 @@ public class StatisticsMonthFragment extends Fragment {
         }
 
         chart.setColumnChartData(data);
-
-    }
-
-    /**
-     * Generates columns with subcolumns, columns have larger separation than subcolumns.
-     */
-    private void generateSubcolumnsData() {
-        int numSubcolumns = 4;
-        int numColumns = 4;
-        // Column can have many subcolumns, here I use 4 subcolumn in each of 8 columns.
-        List<Column> columns = new ArrayList<Column>();
-        List<SubcolumnValue> values;
-        for (int i = 0; i < numColumns; ++i) {
-
-            values = new ArrayList<SubcolumnValue>();
-            for (int j = 0; j < numSubcolumns; ++j) {
-                values.add(new SubcolumnValue((float) Math.random() * 10f, ChartUtils.pickColor()));
-            }
-
-            Column column = new Column(values);
-            column.setHasLabels(hasLabels);
-            column.setHasLabelsOnlyForSelected(hasLabelForSelected);
-            columns.add(column);
-        }
-
-        data = new ColumnChartData(columns);
-
-        if (hasAxes) {
-            Axis axisX = new Axis();
-            Axis axisY = new Axis().setHasLines(true);
-            if (hasAxesNames) {
-                axisX.setName("Jours");
-                axisY.setName("Glycémie");
-            }
-            data.setAxisXBottom(axisX);
-            data.setAxisYLeft(axisY);
-        } else {
-            data.setAxisXBottom(null);
-            data.setAxisYLeft(null);
-        }
-
-        chart.setColumnChartData(data);
-
-    }
-
-    /**
-     * Generates columns with stacked subcolumns.
-     */
-    private void generateStackedData() {
-        int numSubcolumns = 4;
-        int numColumns = 8;
-        // Column can have many stacked subcolumns, here I use 4 stacke subcolumn in each of 4 columns.
-        List<Column> columns = new ArrayList<Column>();
-        List<SubcolumnValue> values;
-        for (int i = 0; i < numColumns; ++i) {
-
-            values = new ArrayList<SubcolumnValue>();
-            for (int j = 0; j < numSubcolumns; ++j) {
-                values.add(new SubcolumnValue((float) Math.random() * 10f, ChartUtils.pickColor()));
-            }
-
-            Column column = new Column(values);
-            column.setHasLabels(hasLabels);
-            column.setHasLabelsOnlyForSelected(hasLabelForSelected);
-            columns.add(column);
-        }
-
-        data = new ColumnChartData(columns);
-
-        // Set stacked flag.
-        data.setStacked(true);
-
-        if (hasAxes) {
-            Axis axisX = new Axis();
-            Axis axisY = new Axis().setHasLines(true);
-            if (hasAxesNames) {
-                axisX.setName("Jours");
-                axisY.setName("Glycémie");
-            }
-            data.setAxisXBottom(axisX);
-            data.setAxisYLeft(axisY);
-        } else {
-            data.setAxisXBottom(null);
-            data.setAxisYLeft(null);
-        }
-
-        chart.setColumnChartData(data);
-    }
-
-    private void generateNegativeSubcolumnsData() {
-
-        int numSubcolumns = 4;
-        int numColumns = 4;
-        List<Column> columns = new ArrayList<Column>();
-        List<SubcolumnValue> values;
-        for (int i = 0; i < numColumns; ++i) {
-
-            values = new ArrayList<SubcolumnValue>();
-            for (int j = 0; j < numSubcolumns; ++j) {
-                int sign = getSign();
-                values.add(new SubcolumnValue((float) Math.random() * 50f * sign + 5 * sign, ChartUtils.pickColor
-                        ()));
-            }
-
-            Column column = new Column(values);
-            column.setHasLabels(hasLabels);
-            column.setHasLabelsOnlyForSelected(hasLabelForSelected);
-            columns.add(column);
-        }
-
-        data = new ColumnChartData(columns);
-
-        if (hasAxes) {
-            Axis axisX = new Axis();
-            Axis axisY = new Axis().setHasLines(true);
-            if (hasAxesNames) {
-                axisX.setName("Jours");
-                axisY.setName("Glycémie");
-            }
-            data.setAxisXBottom(axisX);
-            data.setAxisYLeft(axisY);
-        } else {
-            data.setAxisXBottom(null);
-            data.setAxisYLeft(null);
-        }
-
-        chart.setColumnChartData(data);
-    }
-
-    private void generateNegativeStackedData() {
-
-        int numSubcolumns = 10;
-        int numColumns = 31;
-        // Column can have many stacked subcolumns, here I use 4 stacke subcolumn in each of 4 columns.
-        List<Column> columns = new ArrayList<Column>();
-        List<SubcolumnValue> values;
-        for (int i = 0; i < numColumns; ++i) {
-
-            values = new ArrayList<SubcolumnValue>();
-            for (int j = 0; j < numSubcolumns; ++j) {
-                int sign = getSign();
-                values.add(new SubcolumnValue((float) Math.random() * 20f * sign + 5 * sign, ChartUtils.pickColor()));
-            }
-
-            Column column = new Column(values);
-            column.setHasLabels(hasLabels);
-            column.setHasLabelsOnlyForSelected(hasLabelForSelected);
-            columns.add(column);
-        }
-
-        data = new ColumnChartData(columns);
-
-        // Set stacked flag.
-        data.setStacked(true);
-
-        if (hasAxes) {
-            Axis axisX = new Axis();
-            Axis axisY = new Axis().setHasLines(true);
-            if (hasAxesNames) {
-                axisX.setName("Jours");
-                axisY.setName("Glycémie");
-            }
-            data.setAxisXBottom(axisX);
-            data.setAxisYLeft(axisY);
-        } else {
-            data.setAxisXBottom(null);
-            data.setAxisYLeft(null);
-        }
-
-        chart.setColumnChartData(data);
-    }
-
-    private int getSign() {
-        int[] sign = new int[]{-1, 1};
-        return sign[Math.round((float) Math.random())];
-    }
-
-    private void generateData() {
-        switch (dataType) {
-            case DEFAULT_DATA:
-                generateDefaultData();
-                break;
-            case SUBCOLUMNS_DATA:
-                generateSubcolumnsData();
-                break;
-            case STACKED_DATA:
-                generateStackedData();
-                break;
-            case NEGATIVE_SUBCOLUMNS_DATA:
-                generateNegativeSubcolumnsData();
-                break;
-            case NEGATIVE_STACKED_DATA:
-                generateNegativeStackedData();
-                break;
-            default:
-                generateDefaultData();
-                break;
-        }
     }
 
     private class ValueTouchListener implements ColumnChartOnValueSelectListener {
 
         @Override
         public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
-            Toast.makeText(getActivity(), "Glycémie moyenne de la journée: " + value.getValue(), Toast.LENGTH_SHORT).show();
-//            final EntryOfCDS entry = mall.get(pointIndex);
-//            GoToEntry go = new GoToEntry(entry, getContext(), getActivity());
+            final EntryOfCDS entry = mall.get(subcolumnIndex);
+            GoToEntry go = new GoToEntry(entry, getContext(), getActivity());
         }
 
         @Override

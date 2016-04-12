@@ -47,7 +47,7 @@ public class Bdd_manager extends SQLiteOpenHelper {
     public static final String DATE_FIN = "end_date";
 
     // Table Statistiques
-    public static final String TABLE_CREATE_STAT = "CREATE TABLE " + TABLE_NAME_STAT + " (" + breakfast + " INTEGER, " + launch + " INTEGER, " + diner + " INTEGER, " + encas + " INTEGER, " + sleep + " INTEGER, " + wakeup + " INTEGER, " + night + " INTEGER, " + workout + " INTEGER, " + hypogly + " INTEGER, " + hypergly + " INTEGER, " + work + " INTEGER, " + athome + " INTEGER, " + alcohol + " INTEGER, " + period + " INTEGER, " + DATE_DEBUT + "TEXT, " + DATE_FIN + "TEXT, " + "rdate datetime default (datetime(current_timestamp)));";
+    public static final String TABLE_CREATE_STAT = "CREATE TABLE " + TABLE_NAME_STAT + " (" + breakfast + " INTEGER, " + launch + " INTEGER, " + diner + " INTEGER, " + encas + " INTEGER, " + sleep + " INTEGER, " + wakeup + " INTEGER, " + night + " INTEGER, " + workout + " INTEGER, " + hypogly + " INTEGER, " + hypergly + " INTEGER, " + work + " INTEGER, " + athome + " INTEGER, " + alcohol + " INTEGER, " + period + " INTEGER, " + DATE_DEBUT + " TEXT, " + DATE_FIN + " TEXT, " + "rdate datetime default (datetime(current_timestamp)));";
 
 
     public static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";

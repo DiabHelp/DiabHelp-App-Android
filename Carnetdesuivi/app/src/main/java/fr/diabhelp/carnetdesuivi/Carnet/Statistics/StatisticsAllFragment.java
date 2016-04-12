@@ -29,13 +29,6 @@ import lecho.lib.hellocharts.view.ColumnChartView;
 
 public class StatisticsAllFragment extends Fragment {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
-    }
-
     private ColumnChartView chart;
     private ColumnChartData data;
     private boolean hasAxes = true;
@@ -44,6 +37,13 @@ public class StatisticsAllFragment extends Fragment {
     private boolean hasLabelForSelected = false;
 
     private ArrayList<EntryOfCDS> mall = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,7 +59,6 @@ public class StatisticsAllFragment extends Fragment {
     }
 
     private void getData() {
-
         DAO bdd = new DAO(getContext());
         bdd.open();
         mall = bdd.SelectAll();
@@ -78,7 +77,7 @@ public class StatisticsAllFragment extends Fragment {
                 values.add(new SubcolumnValue(f, Color.parseColor("#FF4444")));
             else
                 values.add(new SubcolumnValue(f, Color.parseColor("#99CC00")));
-            axisValues.add(new AxisValue(j).setLabel(""));
+//            axisValues.add(new AxisValue(j).setLabel(""));
         }
 
         Column column = new Column(values);
@@ -95,17 +94,14 @@ public class StatisticsAllFragment extends Fragment {
                 axisX.setName("Jours");
                 axisY.setName("Glycémie");
             }
-            axisX.setMaxLabelChars(3);
-            data.setAxisXBottom(axisX);
+//            data.setAxisXBottom(axisX);
+            data.setAxisXBottom(null);
             data.setAxisYLeft(axisY);
         } else {
             data.setAxisXBottom(null);
             data.setAxisYLeft(null);
         }
-
         chart.setColumnChartData(data);
-
-        bdd.close();
     }
 
     private class ValueTouchListener implements ColumnChartOnValueSelectListener {

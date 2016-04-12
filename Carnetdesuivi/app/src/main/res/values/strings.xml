@@ -18,5 +18,7 @@
     <string name="period">Période</string>
     <string name="hypoglycemi">Sensation Hypo</string>
     <string name="hyperglycemi">Sensation Hyper</string>
+    <string name="hyposhort">Hypo</string>
+    <string name="hypershort">Hyper</string>
 
 </resources>

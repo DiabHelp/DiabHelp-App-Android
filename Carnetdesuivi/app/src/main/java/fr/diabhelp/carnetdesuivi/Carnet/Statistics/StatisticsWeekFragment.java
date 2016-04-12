@@ -4,24 +4,18 @@ package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
  * Created by vigour_a on 02/02/2016.
  */
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
@@ -40,7 +34,6 @@ public class StatisticsWeekFragment extends Fragment {
 
     private LineChartView chart;
     private LineChartData data;
-    private int numberOfLines = 1;
 
     private boolean hasAxes = true;
     private boolean hasAxesNames = true;
@@ -63,7 +56,6 @@ public class StatisticsWeekFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.statistics_week_fragment, container, false);
 
         chart = (LineChartView) rootView.findViewById(R.id.chart);
@@ -71,7 +63,6 @@ public class StatisticsWeekFragment extends Fragment {
 
         getData();
 
-        // Disable viewpirt recalculations, see toggleCubic() method for more info.
         chart.setViewportCalculationEnabled(false);
 
         return rootView;
@@ -87,40 +78,38 @@ public class StatisticsWeekFragment extends Fragment {
         c.add(Calendar.DATE, -7);
         String startDate = sdf.format(c.getTime());
 
-        Log.e("startDate", startDate);
-        Log.e("endDate", endDate);
-
         DAO bdd = new DAO(getContext());
         bdd.open();
         mall = bdd.selectBetweenDays(startDate, endDate);
-//        mall = bdd.SelectAll();
         bdd.close();
+
+        Log.e("MALL", mall.toString());
 
         List<Line> lines = new ArrayList<Line>();
         List<AxisValue> axisValues = new ArrayList<>();
 
-        for (int i = 0; i < numberOfLines; ++i) {
+        List<PointValue> values = new ArrayList<PointValue>();
 
-            List<PointValue> values = new ArrayList<PointValue>();
-
-            for (int j = 0; j < mall.size(); ++j) {
-                double val = mall.get(j).getglycemy();
-                float f = (float) val;
-                values.add(new PointValue(j, f));
-                axisValues.add(new AxisValue(j).setLabel(mall.get(j).getDate().toString()));
-            }
-
-            Line line = new Line(values);
-            line.setColor(ChartUtils.COLORS[i]);
-            line.setShape(shape);
-            line.setCubic(isCubic);
-            line.setFilled(isFilled);
-            line.setHasLabels(hasLabels);
-            line.setHasLabelsOnlyForSelected(hasLabelForSelected);
-            line.setHasLines(hasLines);
-            line.setHasPoints(hasPoints);
-            lines.add(line);
+        for (int j = 0; j < mall.size(); ++j) {
+            double val = mall.get(j).getglycemy();
+            float f = (float) val;
+            values.add(new PointValue(j, f));
+            String day = mall.get(j).getDate().toString().substring(3, 5);
+            String month = mall.get(j).getDate().toString().substring(0, 2);
+            String formated_date = day + "-" + month;
+            axisValues.add(new AxisValue(j).setLabel(formated_date));
         }
+
+        Line line = new Line(values);
+        line.setColor(ChartUtils.COLORS[0]);
+        line.setShape(shape);
+        line.setCubic(isCubic);
+        line.setFilled(isFilled);
+        line.setHasLabels(hasLabels);
+        line.setHasLabelsOnlyForSelected(hasLabelForSelected);
+        line.setHasLines(hasLines);
+        line.setHasPoints(hasPoints);
+        lines.add(line);
 
         data = new LineChartData(lines);
 
@@ -141,11 +130,6 @@ public class StatisticsWeekFragment extends Fragment {
         data.setBaseValue(Float.NEGATIVE_INFINITY);
         chart.setLineChartData(data);
     }
-
-    /**
-     * Adds lines to data, after that data should be set again with
-     * {@link LineChartView#setLineChartData(LineChartData)}. Last 4th line has non-monotonically x values.
-     */
 
     private class ValueTouchListener implements LineChartOnValueSelectListener {
 
