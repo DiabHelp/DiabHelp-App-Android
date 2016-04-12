@@ -18,11 +18,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp">
+
                 <TextView
                     android:id="@+id/start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
                     android:textSize="20sp"
                     android:text="Début"
                     android:textStyle="italic"
@@ -32,16 +38,22 @@
                     android:layout_width="@dimen/layout_edittext_small"
                     android:layout_height="wrap_content"
                     android:id="@+id/startDate"
-                    android:layout_margin="5dp"
                     android:focusable="false"
-                    android:layout_gravity="center"
                     />
+
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp">
 
                 <TextView
                     android:id="@+id/end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
                     android:textSize="20sp"
                     android:text="Fin"
                     android:textStyle="italic"
@@ -51,11 +63,10 @@
                     android:layout_width="@dimen/layout_edittext_small"
                     android:layout_height="wrap_content"
                     android:id="@+id/endDate"
-                    android:layout_margin="5dp"
                     android:focusable="false"
-                    android:layout_gravity="center"
                     />
 
+        </LinearLayout>
 
         <!--icone status-->
         <!--Petit dej-->

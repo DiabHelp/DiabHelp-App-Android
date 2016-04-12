@@ -38,6 +38,6 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/menu_graph_perso"/>
+    <include layout="@layout/statistics_menu_graph_perso"/>
 
 </FrameLayout>
