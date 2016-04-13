@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Manuel d\'utilisation</string>
+    <string name="action_settings">Settings</string>
+    <string name="second">Was started by an intent</string>
+    <string name="btn_text">Start second Activity</string>
+
+    <string name="article_accueil">Ceci est la page d’accueil de l’application DiabHelp. Sur cet écran vous pouvez cliquer sur les modules qui sont installés sur votre smartphone.
+[screen page d’accueil et flèches explicatives)
+    </string>
+    <string name="article_accueil2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </string>
+    <string name="catalogue_premiers_pas">Le catalogue de modules recense les  modules disponibles au téléchargement, ainsi que ceux déjà installés dans votre application DiabHelp. En effet, DiabHelp est une application modulaire. Afin de ne pas vous encombrer de fonctionnalités que vous ne désirez pas forcément, vous pouvez choisir quels modules vous installez.  De plus, la communauté étant un des piliers de ce projet, nous avons mis en place un site web comportant une section pour proposer votre propre module. Vous pourrez aussi contribuer au développement des modules en nous soumettant vos idées sur les modules déjà proposés. Pour soumettre une idée, c’est par ici : www.diabhelp.fr/proposer</string>
+    <string name="catalogue_installation"><![CDATA[[process & screenshots de l\'installation des modules]]]></string>
+    <string name="catalogue_mise_a_jour"><![CDATA[[process & screenshots de la MAJ des modules]]]></string>
+    <string name="connexion">Pour se connecter à l’application DiabHelp, vous avez besoin d’un compte DiabHelp. Vous pouvez le créer depuis l’application ou directement sur le site web. [Etapes de l’inscription / Connexion]</string>
+    <string name="inviter_proche">Vous pouvez inviter un proche à créer un compte DiabHelp. Grâce à ce compte, le proche pourra vous aider dans votre suivi de la maladie. \\n Il aura aussi la possibilité de vous assister en cas d\'alerte ou de danger détécté par l\'application.</string>
+    <string name="carnet_de_suivi">Ce module est un tableau de suivi personnel qui vous permet de dresser un historique des glycémies et des doses d’insuline injectées matin, midi, soir et nuit. Grâce à ces données, votre médecin pourra effectuer un suivi plus efficace de votre maladie. Ce module permet aussi de dresser des statistiques détaillées sur des périodes données. Pour commencer,  … [descriptif détaillé]  Enfin, ce module enverra des alertes en cas de surdosages d’insuline, d’oubli d’injection ou encore tout autre comportement potentiellement dangereux.  Vous pouvez exporter votre carnet de suivi au format PDF</string>
+    <string name="glucocompteur">Ce module vous permet de calculer les apports glycémiques de votre repas. Ainsi l’application peut calculer la dose d’insuline à injecter en cas de besoin. Les données utilisées pour la liste des aliments proviennent de la table CIQUAL. Dans ce module, il vous est aussi possible d’ajouter des repas en favoris pour plus de rapidité lors d’autres repas de même composition.</string>
+    <string name="suivi_par_proche">Ce module permet au patient de se faire soutenir par un proche. En effet, lorsque la maladie est une chose nouvelle, les patients peuvent avoir recours à une tierce personne. De ce fait, cette application permet au proche de superviser vos prises d’insuline ou encore le fait que le carnet de suivi soit dûment rempli. Enfin, ce module permet aussi d’envoyer des alertes aux proches en cas de problème.</string>
+    <string name="relation_medecin_patient">Ce module vous permet de communiquer avec votre médecin traitant équipé de notre solution, ou tout autre médecin de garde en cas d’indisponibilité. Il a pour but de faciliter la transmission des informations et vous permettre de poser les questions auxquelles la communauté n’a pas su répondre, ou encore des questions sur votre condition même du patient.  L’utilisateur pourra ajouter son médecin traitant et ainsi il sera en mesure de le contacter rapidement en cas de problème, d’où le fait d’un besoin de réseau sur son mobile. Les utilisateurs et/ou médecins pourront programmer des médecins de garde/secours, s’ils ne sont pas disponibles (par exemple), les données pourront leur être partagées temporairement.</string>
+    <string name="alertes_glycemiques">Ce module fonctionne en complément du carnet de suivi. Selon les informations renseignées par l’utilisateur, le module envoie des notifications push à l’utilisateur lorsqu’il estime que le taux de glycémie dépasse les seuils.</string>
+    <string name="foire_aux_questions">La Foire Aux Questions est un module contenant des informations utiles, des réponses à des questions usuelles des personnes diabétiques. \\n Nous vous invitons à télécharger ce module léger qui pourrait s\'avérer utile si la gestion de votre diabète est une chose nouvelle pour vous ou encore pour satisfaire votre curiosité.</string>
+
+
+    <!--<string-array name="rubrics">
+        <item>"Rubrique 1"</item>
+        <item>"Rubrique 2"</item>
+        <item>"Rubrique 3"</item>
+        <item>"Rubrique 4"</item>
+        <item>"Rubrique 5"</item>
+        <item>"Rubrique 6"</item>
+        <item>"Rubrique 7"</item>
+    </string-array>
+
+
+
+
+    Ce que je veux :
+        CategX
+            RubricY
+                ElemZ
+    print dans la categ 1 : categ 1 rubrique 2 elem 1
+    print dans la categ 2 : categ 2 rubrique 2 elem 1
+
+    -->
+
+</resources>
