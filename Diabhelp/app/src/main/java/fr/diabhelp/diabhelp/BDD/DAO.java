@@ -22,7 +22,7 @@ public class DAO extends DAOBase {
         this.mHandler = new Bdd_manager(context, NOM, null, VERSION);
     }
 
-    public void AddUser(User m) {
+    public void addUser(User m) {
         ContentValues value = new ContentValues();
         value.put(DAO.ID, m.getId());
         value.put(DAO.USER, m.getUser());

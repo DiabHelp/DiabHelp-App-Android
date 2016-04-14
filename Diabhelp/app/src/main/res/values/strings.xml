@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Diabhelp</string>
+    <string name="project_number">426701180871</string>
     <string name="action_settings">Options</string>
     <!--ConnexionActivity-->
     <string name="title_activity_connexion">Connexion</string>

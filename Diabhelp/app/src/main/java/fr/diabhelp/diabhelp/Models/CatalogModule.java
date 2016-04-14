@@ -19,6 +19,7 @@ public class CatalogModule {
     private String          _size;
     private Boolean         _new;
     private String          maker;
+    private String          type;
     private List<String>    _commentaires;
 
     //default constructor
@@ -82,4 +83,11 @@ public class CatalogModule {
 
     public void setNew(Boolean bNew) { _new = bNew; }
 
+    public String getType() {
+        return this.type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
