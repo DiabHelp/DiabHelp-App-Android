@@ -24,7 +24,7 @@
                 android:paddingLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="undefined"
+                android:text="@string/undefined"
                 android:layout_centerVertical="true"
                 android:layout_alignBottom="@+id/remove_medecin_btn"
                 android:layout_alignParentLeft="true"
@@ -35,13 +35,15 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Remove"
+                android:text="@string/medecin_list_remove_btn"
                 android:id="@+id/remove_medecin_btn"
                 android:layout_toRightOf="@+id/list_medecin_name"
                 android:layout_toEndOf="@+id/list_medecin_name"
                 android:src="@drawable/ic_medecin_list_delete"
                 android:background="#00000000"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:contentDescription="@string/medecin_list_remove_btn"
+                android:clickable="true" />
 
         </RelativeLayout>
 

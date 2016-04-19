@@ -36,5 +36,7 @@ dependencies {
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar' // Fix LinearLayoutManager scroll wrap_content
     compile files("libs/prettytime-4.0.1.Final.jar")
     compile files("libs/prettytime-4.0.1.Final-javadoc.jar")
+    compile 'com.google.code.gson:gson:2.6.2'
+
 
 }

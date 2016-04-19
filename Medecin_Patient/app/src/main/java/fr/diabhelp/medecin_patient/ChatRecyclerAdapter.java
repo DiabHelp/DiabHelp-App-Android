@@ -137,8 +137,8 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<ChatRecyclerAdapte
 
     public boolean addMessage(String msg)
     {
-        double lol =  Math.random();
-        return addMessage("Me", msg + " " + lol, Calendar.getInstance().getTimeInMillis(), true) && (lol % 2 == 0) && addMessage("Other", "Answer to " + msg, Calendar.getInstance().getTimeInMillis(), false);
+        double debug =  Math.random();
+        return addMessage("Me", msg + " " + debug, Calendar.getInstance().getTimeInMillis(), true) && (debug % 2 == 0) && addMessage("Other", "Answer to " + msg, Calendar.getInstance().getTimeInMillis(), false);
     }
 
     public boolean addMessage(String msg, String sender, long timestamp, boolean isMe)

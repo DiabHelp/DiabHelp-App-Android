@@ -41,29 +41,25 @@ public class MedecinsFragment extends Fragment {
         // Création de la liste des requêtes
         requestRecyclerView = (RecyclerView) v.findViewById(R.id.medecins_requetes_recycler_view);
         requestRecLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
-        //requestRecLayoutManager = new LinearLayoutManager(requestRecyclerView, LinearLayoutManager.VERTICAL, false); //test custom LinearLayoutManager
-        //requestRecLayoutManager.setOverScrollMode(ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS);
         requestRecyclerView.setLayoutManager(requestRecLayoutManager);
-        //requestRecyclerView.setHasFixedSize(true);
-        requestRecyclerAdapter = new MedecinRequestRecyclerAdapter(APIToken);
+        requestRecyclerAdapter = new MedecinRequestRecyclerAdapter(APIToken, this, requestRecyclerView);
         requestRecyclerView.setAdapter(requestRecyclerAdapter);
         setRecyclerViewHeight(requestRecyclerView);
-        //requestRecyclerView.setLayoutParams(params);
+
         //Création de la liste des médecins
         listRecyclerView = (RecyclerView) v.findViewById(R.id.medecins_list_recycler_view);
         listRecLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
-        //listRecLayoutManager = new LinearLayoutManager(listRecyclerView, LinearLayoutManager.VERTICAL, false); //test custom LinearLayoutManager
-        //listRecLayoutManager.setOverScrollMode(ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS);
+        MedecinListItemAnimator listItemAnimator = new MedecinListItemAnimator();
         listRecyclerView.setLayoutManager(listRecLayoutManager);
-        //listRecyclerView.setHasFixedSize(true);
-        listRecyclerAdapter = new MedecinListRecyclerAdapter(APIToken);
+        listRecyclerView.setItemAnimator(listItemAnimator);
+        listRecyclerAdapter = new MedecinListRecyclerAdapter(APIToken, this, listRecyclerView);
         listRecyclerView.setAdapter(listRecyclerAdapter);
         setRecyclerViewHeight(listRecyclerView);
 
         return v;
     }
 
-    private void setRecyclerViewHeight(RecyclerView view)
+    public void setRecyclerViewHeight(RecyclerView view)
     {
         int itemCount = view.getAdapter().getItemCount();
         int viewHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70 * itemCount, getResources().getDisplayMetrics());
@@ -73,4 +69,11 @@ public class MedecinsFragment extends Fragment {
         Log.d("MedecinView", "viewHeight = " + viewHeight);
 
     }
+
+    public boolean sendRequestResponse(String response, int id)
+    {
+        Log.d("MedecinRequest API", "Sending response : " + response + " for request id : " + id);
+        return true;
+    }
+
 }

@@ -6,4 +6,12 @@
     <string name="data_setting_desc">Autoriser les médecins à acceder aux données médicales</string>
     <string name="medecin_list_lbl">Mes médecins</string>
     <string name="medecin_request_lbl">Invitations en attente</string>
+    <string name="medecin_request_refuse_btn_lbl">Refuser</string>
+    <string name="medecin_request_accept_btn_lbl">Accepter</string>
+    <string name="undefined">undefined</string>
+    <string name="medecin_list_remove_btn">Remove</string>
+    <string name="medecin_request_accepted_lbl">Requête acceptée</string>
+    <string name="medecin_request_refused_lbl">Requête refusée</string>
+    <string name="medecin_requestlist_waiting_lbl">Traitement en cours...</string>
+    <string name="medecin_list_removed_lbl">Médecin supprimé</string>
 </resources>

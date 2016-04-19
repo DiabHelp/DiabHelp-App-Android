@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="medecin_request_accepted_background">#b446ff28</color>
+    <color name="medecin_request_refused_background">#b4ff1714</color>
+    <color name="medecin_requestlist_waiting_background">#b4ffd81b</color>
+</resources>
