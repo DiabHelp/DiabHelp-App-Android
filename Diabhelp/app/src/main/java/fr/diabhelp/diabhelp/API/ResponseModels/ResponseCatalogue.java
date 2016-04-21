@@ -18,42 +18,41 @@ import fr.diabhelp.diabhelp.Utils.JsonUtils;
  */
 public class ResponseCatalogue {
 
-    CatalogueFragment.Error error;
+    CatalogueFragment.Error error = CatalogueFragment.Error.NONE;
 
     List<CatalogModule> modules;
 
     public ResponseCatalogue(){}
 
 
-    public ResponseCatalogue(JSONObject obj) {
+    public ResponseCatalogue(JSONArray arr) {
         try {
             //TODO recuperer les erreurs et les bons noms de variables json
             modules = new ArrayList<CatalogModule>();
-            JSONArray arr = obj.getJSONArray("modules");
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject jsonModule = JsonUtils.getObjFromArray(arr, i);
                 CatalogModule module = new CatalogModule();
-                module.setVersion(JsonUtils.getStringFromKey(jsonModule, ""));
-                module.setName(JsonUtils.getStringFromKey(jsonModule, ""));
-                module.setDesc(JsonUtils.getStringFromKey(jsonModule, ""));
-                module.setSize(JsonUtils.getStringFromKey(jsonModule, ""));
-                module.setRating(JsonUtils.getStringFromKey(jsonModule, ""));
-                module.setNew(JsonUtils.getBoolFromKey(jsonModule, ""));
-                module.setMaker(JsonUtils.getStringFromKey(jsonModule, ""));
-                module.setType(JsonUtils.getStringFromKey(jsonModule, ""));
-                JSONArray coms = jsonModule.getJSONArray("commentaires");
+                module.setVersion(JsonUtils.getStringFromKey(jsonModule, "version"));
+                module.setName(JsonUtils.getStringFromKey(jsonModule, "name"));
+                module.setDesc(JsonUtils.getStringFromKey(jsonModule, "description"));
+                module.setSize(JsonUtils.getStringFromKey(jsonModule, "size"));
+                module.setRating(JsonUtils.getStringFromKey(jsonModule, "note"));
+                module.setNew(Boolean.parseBoolean(JsonUtils.getStringFromKey(jsonModule, "isNew")));
+                module.setMaker(JsonUtils.getStringFromKey(jsonModule, "organisme"));
+                module.setType(JsonUtils.getStringFromKey(jsonModule, "type"));
+                JSONArray coms = jsonModule.getJSONArray("comments");
                 List<String> commentaires = new ArrayList<String>();
                 for (int j = 0; j < coms.length(); j++) {
                     commentaires.add(JsonUtils.getStringFromArray(coms, j));
                 }
                 module.setCommentaires(commentaires);
-                module.setURLStore(JsonUtils.getStringFromKey(jsonModule, ""));
-                module.setURLWeb(JsonUtils.getStringFromKey(jsonModule, ""));
+                module.setURLStore(JsonUtils.getStringFromKey(jsonModule, "urlStore"));
+                module.setURLWeb(JsonUtils.getStringFromKey(jsonModule, "urlSiteWeb"));
                 //module.setLogo();
                 modules.add(module);
             }
         } catch (JSONException e) {
-            Log.e(getClass().getSimpleName(), "Error json invalid = [" + obj.toString() + "]");
+            Log.e(getClass().getSimpleName(), "Error json invalid = [" + arr.toString() + "]");
         }
     }
 

@@ -18,7 +18,7 @@ public class JsonUtils {
             return (JSONObject) new JSONTokener(serializable).nextValue();
 
         } catch (JSONException e) {
-            Log.e("JsonUtils", "Error json invalid = [" + serializable + "]");
+            Log.e("JsonUtils", "getObj Error json invalid = [" + serializable + "]");
             return (null);
         }
     }
@@ -29,7 +29,7 @@ public class JsonUtils {
             return (JSONArray) new JSONTokener(serializable).nextValue();
 
         } catch (JSONException e) {
-            Log.e("JsonUtils", "Error json invalid = [" + serializable + "]");
+            Log.e("JsonUtils", "getArray Error json invalid = [" + serializable + "]");
             return (null);
         }
     }
@@ -41,7 +41,7 @@ public class JsonUtils {
         }
         catch (JSONException e)
         {
-            Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "]");
+            Log.e("JsonUtils", "getStringFromKey Error json invalid = [" + obj.toString() + "]");
             return (null);
         }
     }
@@ -53,7 +53,7 @@ public class JsonUtils {
         }
         catch (JSONException e)
         {
-            Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "]");
+            Log.e("JsonUtils", " getBoolFromKey Error json invalid = [" + obj.toString() + "]");
             return (null);
         }
     }
