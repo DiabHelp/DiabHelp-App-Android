@@ -53,17 +53,13 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_user) {
-            return (false);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem item=menu.findItem(R.id.action_user);
-        item.setVisible(false);
-        item.setEnabled(false);
+
         return ;
     }
 

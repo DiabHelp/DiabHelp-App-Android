@@ -48,5 +48,9 @@
     <string name="URL_API">http://10.0.3.2/DiabHelp-WebSite/web/</string>
     <string name="error_server">Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard</string>
 
+    <!--Drawer-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
 

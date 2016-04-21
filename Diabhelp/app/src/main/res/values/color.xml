@@ -2,4 +2,8 @@
 <resources>
         <color name="background_welcome">#078b87</color>
     <color name="test">#ffffff</color>
+    <color name="colorPrimary">#078b87</color>
+    <color name="colorPrimaryDark">#18C1BB</color>
+    <color name="colorAccent">#18C1BB</color>
+    <color name="white">#FFFF</color>
 </resources>

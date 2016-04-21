@@ -14,7 +14,9 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="fr.diabhelp.diabhelp.Core.CoreActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
         </activity>
 
         <receiver
