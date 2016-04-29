@@ -83,12 +83,13 @@ public class StatisticsWeekFragment extends Fragment {
         mall = bdd.selectBetweenDays(startDate, endDate);
         bdd.close();
 
-        Log.e("MALL", mall.toString());
-
         List<Line> lines = new ArrayList<Line>();
         List<AxisValue> axisValues = new ArrayList<>();
 
         List<PointValue> values = new ArrayList<PointValue>();
+
+        if (mall.size() == 1)
+            values.add(new PointValue(-1, 0));
 
         for (int j = 0; j < mall.size(); ++j) {
             double val = mall.get(j).getglycemy();
@@ -135,6 +136,8 @@ public class StatisticsWeekFragment extends Fragment {
 
         @Override
         public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
+            if (mall.size() == 1)
+                pointIndex--;
             final EntryOfCDS entry = mall.get(pointIndex);
             GoToEntry go = new GoToEntry(entry, getContext(), getActivity());
         }

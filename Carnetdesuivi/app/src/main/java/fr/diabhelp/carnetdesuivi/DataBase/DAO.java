@@ -547,35 +547,18 @@ public class DAO extends DAOBase {
         EntryOfCDS m = null;
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
-        Log.e("START", startDate.toString());
-        Log.e("END", endDate.toString());
-        Log.e("BREAKFAST", __breakfast.toString());
-        Log.e("LAUNCH", __launch.toString());
-        Log.e("DINER", __diner.toString());
-        Log.e("ENCAS", __encas.toString());
-        Log.e("SLEEP", __sleep.toString());
-        Log.e("WAKEUP", __wakeup.toString());
-        Log.e("NIGHT", __night.toString());
-        Log.e("WORKOUT", __workout.toString());
-        Log.e("HYPO", __hypogly.toString());
-        Log.e("HYPER", __hypergly.toString());
-        Log.e("WORK", __work.toString());
-        Log.e("HOME", __athome.toString());
-        Log.e("ALCOHOL", __alcohol.toString());
-        Log.e("PERIOD", __period.toString());
-
         if (startDate == null)
             startDate = "0-0-0";
         if (endDate == null)
             endDate = "0-0-0";
-//        Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + tdate + " BETWEEN ? AND ? AND " + breakfast + " = ? " + " AND " + launch + " = ? " + " AND " + diner + " = ? " + " AND " + encas + " = ? " + " AND " + sleep + " = ? " + " AND " + wakeup + " = ? " + " AND " + night + " = ? " + " AND " + workout + " = ? " + " AND " + hypogly + " = ? " + " AND " + hypergly + " = ? " + " AND " + work + " = ? " + " AND " + athome + " = ? " + " AND " + alcohol + " = ? " + " AND " + period + " = ? ", new String[] { startDate, endDate, __breakfast, __launch, __diner, __encas, __sleep, __wakeup, __night, __workout, __hypogly, __hypergly, __work, __athome, __alcohol, __period });
-//        Log.e("requete", "SELECT * FROM " + TABLE_NAME + " WHERE " + tdate + " BETWEEN ? AND ? AND " + breakfast + " = ? " + " and " + launch + " = ? " + " and " + diner + " = ? " + " and " + encas + " = ? " + " and " + sleep + " = ? " + " and " + wakeup + " = ? " + " and " + night + " = ? " + " and " + workout + " = ? " + " and " + hypogly + " = ? " + " and " + hypergly + " = ? " + " and " + work + " = ? " + " and " + athome + " = ? " + " and " + alcohol + " = ? " + " and " + period + " = ?");
 
         String[] args = { startDate, endDate, __breakfast, __launch, __diner, __encas, __sleep, __wakeup, __night, __workout, __hypogly, __hypergly, __work, __athome };
 
-        Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + tdate + " BETWEEN ? AND ? AND " + breakfast + " = ? " + " AND " + launch + " = ? " + " AND " + diner + " = ? " + " AND " + encas + " = ? " + " AND " + sleep + " = ? " + " AND " + wakeup + " = ? " + " AND " + night + " = ? " + " AND " + workout + " = ? " + " AND " + hypogly + " = ? " + " AND " + hypergly + " = ? " + " AND " + work + " = ? " + " AND " + athome + " = ? ", args);
+        Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + tdate + " BETWEEN ? AND ? AND " + breakfast + " = ? AND " + launch + " = ? AND " + diner + " = ? AND " + encas + " = ? AND " + sleep + " = ? AND " + wakeup + " = ? AND " + night + " = ? AND " + workout + " = ? AND " + hypogly + " = ? AND " + hypergly + " = ? AND " + work + " = ? AND " + athome + " = ?", args);
 
         String[] i = c.getColumnNames();
+
+        // ICI ON A c.getCount() == 0
 
         if (c == null || c.getCount() <= 0) {
           Log.e("Selectdaydateicone", "fail");

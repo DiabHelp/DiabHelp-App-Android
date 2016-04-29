@@ -183,7 +183,8 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
         onClickSwitch(v.getId());
-        launchGraph();
+        if (v.getId() != R.id.startDate && v.getId() != R.id.endDate && v.getId() != R.id.show_form)
+            launchGraph();
     }
 
     public void onClickSwitch(int id) {
@@ -371,8 +372,8 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
             statEntry.setSleep(0);
             statEntry.setWakeup(0);
             statEntry.setWorkout(0);
-            statEntry.setBeg_date("");
-            statEntry.setEnd_date("");
+            statEntry.setBeg_date("00-00-00");
+            statEntry.setEnd_date("00-00-00");
         }
     }
 
@@ -480,6 +481,7 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
     }
 
     private boolean getAndSetData() {
+
         try {
             _startCalendar = stringToCalendar(statEntry.getBeg_date());
             _endCalendar = stringToCalendar(statEntry.getEnd_date());
@@ -583,9 +585,9 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
                 });
                 alertDialog.show();
             } else {
-                if (getAndSetData()) {
+                if (getAndSetData())
                     chart.startDataAnimation();
-                } else {
+                else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                     alertDialog.setTitle("Aucun résultat");
                     alertDialog.setMessage("Auncun résultat n'a été trouvé.");
