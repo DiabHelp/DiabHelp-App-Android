@@ -4,15 +4,15 @@
     <group android:checkableBehavior="single">
         <item android:title="Menu">
             <menu>
-                <item android:id="@+id/nav_website" android:icon="@android:drawable/ic_menu_mapmode"
-                    android:title="Site Web" />
                 <item android:id="@+id/nav_profil" android:icon="@android:drawable/ic_menu_manage"
                     android:title="Profile" />
                 <item android:id="@+id/nav_help" android:icon="@android:drawable/ic_menu_help"
                     android:title="Manuel D'utilisation" />
                 <item android:id="@+id/nav_info" android:icon="@android:drawable/ic_menu_info_details"
                     android:title="Informations" />
-                <item android:id="@+id/nav_mail" android:icon="@android:drawable/ic_menu_close_clear_cancel"
+                <item android:id="@+id/nav_website" android:icon="@android:drawable/ic_menu_mapmode"
+                    android:title="Site Web" />
+                <item android:id="@+id/nav_logout" android:icon="@android:drawable/ic_menu_close_clear_cancel"
                     android:title="Se déconnecter" />
             </menu>
         </item>

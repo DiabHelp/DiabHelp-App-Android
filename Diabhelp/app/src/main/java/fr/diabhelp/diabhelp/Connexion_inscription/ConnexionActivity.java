@@ -16,6 +16,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -25,6 +28,8 @@ import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.BDD.User;
+import fr.diabhelp.diabhelp.Services.MyInstanceIDListenerService;
+import fr.diabhelp.diabhelp.Services.RegistrationIntentService;
 import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Core.CoreActivity;
 import fr.diabhelp.diabhelp.R;
@@ -38,6 +43,8 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     public static final String IS_NETWORK = "fr.diabhelp.diabhelp.isNetwork";
     public static final String SESSION = "fr.diabhelp.diabhelp.session";
     public static final String AUTO_CONNEXION_PREFERENCE = "auto_connexion";
+    public static final String SENT_TOKEN_TO_SERVER = "token_is_sent_to_server";
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     private String _login_input = null;
     private String _pwd_input = null;
@@ -205,7 +212,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         }
         else {
             bdd.close();
-            System.out.println("je vais tenter la connexion");
+            System.out.println("je vais tenter la connexion non automatique");
             //new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getBasicAuthSession").execute("2", "login_check", "username", _login_input, "password", _pwd_input);
             new ConnexionAPICallTask(this).execute(_login_input, _pwd_input);
         }
@@ -287,7 +294,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
                 edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
                 edit.commit();
                 if (!bdd.isUserAlreadyFilled("0")) {
-                    bdd.AddUser(user);
+                    bdd.addUser(user);
                 }
             }
         }
@@ -295,6 +302,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             user = bdd.selectUser();
             if (user == null){
                 _progress.dismiss();
+                disableAutomaticConnexion();
                 Log.e("ConnexionActivity", "Erreur lors de la récupération de l'utilisateur en bdd locale");
                 return;
             }
@@ -306,6 +314,8 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
 
     /**
      * Lance la {@link CoreActivity} lorsque l'utilisateur est connecté à internet
+     * verifie aussi si le token representant de manière unique l'application, à été envoyé au serveur
+     * en vue de recevoir des alertes pushs
      * @param user correspond à la classe contenant les informations de l'utilisateur
      */
     public void launchCoreWithConnexion(User user)
@@ -315,7 +325,13 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         coreInt.putExtra(IS_NETWORK, false);
         System.out.println("session = " + _session);
         coreInt.putExtra(SESSION, _session);
+        Boolean tokenGcmSentToServer = _settings.getBoolean(SENT_TOKEN_TO_SERVER, false);
+        if (!tokenGcmSentToServer) {
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
         _progress.dismiss();
+
         startActivity(coreInt);
         finish();
     }
@@ -328,6 +344,27 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     {
         Intent signUpInt = new Intent(ConnexionActivity.this, RegisterActivity.class);
         startActivity(signUpInt);
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i(getLocalClassName(), "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     public enum  Error

@@ -40,6 +40,7 @@ public class ResponseCatalogue {
                 module.setRating(JsonUtils.getStringFromKey(jsonModule, ""));
                 module.setNew(JsonUtils.getBoolFromKey(jsonModule, ""));
                 module.setMaker(JsonUtils.getStringFromKey(jsonModule, ""));
+                module.setType(JsonUtils.getStringFromKey(jsonModule, ""));
                 JSONArray coms = jsonModule.getJSONArray("commentaires");
                 List<String> commentaires = new ArrayList<String>();
                 for (int j = 0; j < coms.length(); j++) {

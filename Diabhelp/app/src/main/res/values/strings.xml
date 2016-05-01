@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Diabhelp</string>
+    <string name="project_number">426701180871</string>
     <string name="action_settings">Options</string>
     <!--ConnexionActivity-->
     <string name="title_activity_connexion">Connexion</string>
@@ -52,5 +53,14 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!--Profile-->
+    <string name="name">Nom</string>
+    <string name="last_name">Prénom</string>
+    <string name="birthdate">Date de naissance</string>
+    <string name="mail">Email</string>
+    <string name="mobile">Téléphone</string>
+    <string name="organism">Organisme</string>
+    <string name="password">Mot de pass</string>
+    <string name="confirmation">Confirmation</string>
 </resources>
 

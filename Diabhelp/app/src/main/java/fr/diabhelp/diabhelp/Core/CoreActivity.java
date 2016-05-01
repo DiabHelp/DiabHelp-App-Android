@@ -1,10 +1,14 @@
 package fr.diabhelp.diabhelp.Core;
 
+
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
+import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
+import fr.diabhelp.diabhelp.Menu.ProfileActivity;
 import fr.diabhelp.diabhelp.R;
 
 
@@ -31,6 +37,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     private Drawable[] img;
     private DAO bdd;
     private Boolean NetState;
+    private TabLayout tabLayout;
 
     class PInfo{
         public String appname = "";
@@ -93,8 +100,8 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Accueil"), 0);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Mes Outils"), 0);
         tabLayout.addTab(tabLayout.newTab().setText("Catalogue"), 1);
         tabLayout.addTab(tabLayout.newTab().setText("Paramètre"), 2);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -126,11 +133,6 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         System.out.println("bloublou");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_core, menu);
-        return true;
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -138,19 +140,29 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-/*        if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_profil) {
+            Intent mainIntent = new Intent(CoreActivity.this, ProfileActivity.class);
+            CoreActivity.this.startActivity(mainIntent);
+            CoreActivity.this.finish();
+        } else if (id == R.id.nav_website) {
+            String url = "http://www.diabhelp.fr";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        } else if (id == R.id.nav_help) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_logout) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
+        } else if (id == R.id.nav_facebook) {
+            String url = "https://www.facebook.com/diabhelp";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_twitter) {
+            // TODO Twitter account
+            String url = "https://www.facebook.com/diabhelp";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -159,10 +171,24 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
+        switch (item.getItemId()) {
+            case R.id.settings_mod:
+/*                tabLayout.setta*/
+/*                launch_parametre();*/
+                return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+
+/*    private void launch_parametre()
+    {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        HelloFragment hello = new HelloFragment();
+        fragmentTransaction.add(R.id.fragment_container, hello, "HELLO");
+        fragmentTransaction.commit();
+    }*/
     private ArrayList<PInfo> getPackages() {
         ArrayList<PInfo> apps = getInstalledApps(false); /* false = no system packages */
         final int max = apps.size();
@@ -182,24 +208,6 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         return ctr;
     }
 
-    private PInfo nav_manageur(Drawable t)
-    {
-        PInfo inf = new PInfo();
-        inf.appname = "Site Diabhelp";
-        inf.icon = t;
-        inf.versionCode = 0;
-        inf.pname = "diab_website";
-        return inf;
-    }
-    private PInfo help_manageur(Drawable t)
-    {
-        PInfo inf = new PInfo();
-        inf.appname = "Aide";
-        inf.icon = t;
-        inf.versionCode = 0;
-        inf.pname = "help_me";
-        return inf;
-    }
 
     private ArrayList<PInfo> getInstalledApps(boolean getSysPackages) {
         int ctr = 0;
@@ -209,8 +217,8 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         ArrayList<PInfo> res = new ArrayList<PInfo>();
         List<PackageInfo> packs = getPackageManager().getInstalledPackages(0);
         int nbDApp = count_dApp(packs);
-        img = new Drawable[nbDApp + 4];
-        web = new String[nbDApp + 4];
+        img = new Drawable[nbDApp];
+        web = new String[nbDApp];
         for(int i=0;i<packs.size();i++) {
             PackageInfo p = packs.get(i);
             if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp")) {
@@ -233,16 +241,6 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
                 res.add(newInfo);
             }
         }
-        //set du nav
-        newInfo = nav_manageur(getResources().getDrawable(R.drawable.web)); // icone par défaut a changer !!
-        img[ctr] = newInfo.icon;
-        web[ctr++] = newInfo.appname;
-        res.add(newInfo);
-        // set de l'help
-        newInfo = help_manageur(getResources().getDrawable(R.drawable.help)); // icone par défaut a changer !!
-        img[ctr] = newInfo.icon;
-        web[ctr] = newInfo.appname;
-        res.add(newInfo);
         return res;
     }
 }
