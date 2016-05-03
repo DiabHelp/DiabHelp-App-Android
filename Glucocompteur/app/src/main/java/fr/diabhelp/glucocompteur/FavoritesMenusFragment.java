@@ -51,10 +51,10 @@ public class FavoritesMenusFragment extends Fragment {
                 _menuList = manager.getSavedMenu();
                 ArrayList<ExpandableListAdapter.Item> data = new ArrayList<>();
                 for (fr.diabhelp.glucocompteur.Menu menu : _menuList) {
-                    ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), 0., menu.getMenuGlucids());
+                    ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), menu.getMenuGlucids());
                     ArrayList<Aliment> aliments = menu.alimentsList;
                     for (Aliment aliment : aliments) {
-                        item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getTotalGlucids()));
+                        item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getTotalGlucids()));
                     }
                     data.add(item);
                 }
@@ -66,10 +66,10 @@ public class FavoritesMenusFragment extends Fragment {
         _menuList = manager.getSavedMenu();
         ArrayList<ExpandableListAdapter.Item> data = new ArrayList<>();
         for (fr.diabhelp.glucocompteur.Menu menu : _menuList) {
-            ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), 0., menu.getMenuGlucids());
+            ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), menu.getMenuGlucids());
             ArrayList<Aliment> aliments = menu.alimentsList;
             for (Aliment aliment : aliments) {
-                item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getTotalGlucids()));
+                item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getTotalGlucids()));
             }
             data.add(item);
         }

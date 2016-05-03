@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,8 +120,8 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                             public void onClick(DialogInterface dialog, int which) {
                                 _data.remove(position);
                                 final MenuManager menuManager = new MenuManager(v.getContext().getApplicationInfo().dataDir + "/menus_favoris.json");
-                                JSONMenuWriter writer = new JSONMenuWriter(v.getContext().getApplicationInfo().dataDir + "/menus_favoris.json");
-                                writer.saveMenu(convertMenu(_data));
+                                JSONMenuWriter writer = new JSONMenuWriter(getActivity().getApplicationInfo().dataDir + "/menus_favoris.json");
+                                writer.saveMenu(_data);
                                 notifyDataSetChanged();
                             }
                         });
@@ -144,30 +143,15 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
-    private ArrayList<Menu> convertMenu(List<Item> data) {
-        ArrayList<Menu> menus = new ArrayList<>();
-
-        for (Item item : data) {
-            ArrayList<Aliment> aliments = new ArrayList<>();
-            for (Item item1 : item.invisibleChildren) {
-                aliments.add(new Aliment(item1.name, item1.weight, item1.glucids));
-            }
-            menus.add(new Menu(item.name, aliments));
-        }
-        return menus;
-    }
-
     public static class Item {
         public int              type;
         public String           name;
-        public Double           weight;
         public Double           glucids;
         public List<Item>       invisibleChildren = new ArrayList<>();
 
-        public Item(int type, String name, Double weight, Double glucids) {
+        public Item(int type, String name, Double glucids) {
             this.type = type;
             this.name = name;
-            this.weight = weight;
             this.glucids = glucids;
         }
     }
