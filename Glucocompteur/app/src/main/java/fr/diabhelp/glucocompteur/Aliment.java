@@ -7,41 +7,40 @@ import android.graphics.drawable.Drawable;
  */
 public class Aliment {
     private String      _name;
-    private Float     _weight;
-    private Float     _glucids;
-    private Float     _totalGlucids;
+    private Double      _weight;
+    private Double      _glucids;
+    private Double      _totalGlucids;
     private Drawable    _alimentLogo;
 
-    public Aliment(String name, Float weight, Float glucids, Float totalGlucids) {
+    public Aliment(String name, Double weight, Double glucids) {
         _name = name;
         _weight = weight;
         _glucids = glucids;
-        _totalGlucids = totalGlucids;
+        _totalGlucids = weight * glucids;
     }
 
     public String getName() { return _name; }
 
     public void setName(String name) { _name = name; }
 
-    public Float getWeight() { return _weight; }
+    public Double getWeight() { return _weight; }
 
-    public void setWeight(Float weight) { _weight = weight; }
+    public void setWeight(Double weight) { _weight = weight; }
 
-    public Float getGlucids() { return _glucids; }
+    public Double getGlucids() { return _glucids; }
 
-    public void set_glucids(Float glucids) { _glucids = glucids; }
+    public void set_glucids(Double glucids) { _glucids = glucids; }
 
-    public Float getTotalGlucids() { return _totalGlucids; }
+    public Double getTotalGlucids() { return _totalGlucids; }
 
-    public void setTotalGlucids(Float totalGlucids) { _totalGlucids = totalGlucids; }
+    public void setTotalGlucids(Double totalGlucids) { _totalGlucids = totalGlucids; }
 
     public Drawable getAlimentLogo() { return _alimentLogo; }
 
     public void setAlimentLogo(Drawable alimentLogo) { this._alimentLogo = alimentLogo; }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Aliment :");
         sb.append(System.getProperty("line.separator"));

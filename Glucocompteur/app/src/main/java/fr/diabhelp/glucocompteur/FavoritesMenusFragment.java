@@ -5,22 +5,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Simon on 25-Nov-15.
  */
 public class FavoritesMenusFragment extends Fragment {
-    private RecyclerView _recyclerView;
-    private RecyclerView.Adapter        _recAdapter;
+    private RecyclerView                _recyclerView;
     private RecyclerView.LayoutManager  _recLayoutManager;
     private ArrayList<Menu>             _menuList = new ArrayList<>();
 
@@ -30,42 +25,54 @@ public class FavoritesMenusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_favorites, container, false);
-
         _recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         _recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         _recyclerView.setLayoutManager(_recLayoutManager);
-        final MenuManager manager = new MenuManager(getActivity().getApplicationInfo().dataDir + "/menus_favoris.json");
+
+        /*
+        Delete fichier menu
+
+        File file = new File(getActivity().getApplicationInfo().dataDir + "/menus_favoris.json");
+        boolean deleted = file.delete();
+
+        Log.d("DELETING JSON FILE", "" + file + " == " + deleted);
+        try {
+            boolean created = file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
+
         final SwipeRefreshLayout swipeRefresh = (SwipeRefreshLayout) v.findViewById(R.id.swiperefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                System.out.println(manager.getSavedMenu());
+                final MenuManager manager = new MenuManager(getActivity().getApplicationInfo().dataDir + "/menus_favoris.json");
+                _menuList = manager.getSavedMenu();
+                ArrayList<ExpandableListAdapter.Item> data = new ArrayList<>();
+                for (fr.diabhelp.glucocompteur.Menu menu : _menuList) {
+                    ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), 0., menu.getMenuGlucids());
+                    ArrayList<Aliment> aliments = menu.alimentsList;
+                    for (Aliment aliment : aliments) {
+                        item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getTotalGlucids()));
+                    }
+                    data.add(item);
+                }
                 swipeRefresh.setRefreshing(false);
+                _recyclerView.setAdapter(new ExpandableListAdapter(data));
             }
         });
-
-
+        final MenuManager manager = new MenuManager(getActivity().getApplicationInfo().dataDir + "/menus_favoris.json");
+        _menuList = manager.getSavedMenu();
         ArrayList<ExpandableListAdapter.Item> data = new ArrayList<>();
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Matin"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Lait"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Cereales"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Pomme"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Midi"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Pates"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Poulet"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Fromage"));
-        data.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Yaourt"));
-
-        ExpandableListAdapter.Item places = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Places");
-       places.invisibleChildren = new ArrayList<>();
-       places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Kerala"));
-       places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Tamil Nadu"));
-       places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Karnataka"));
-       places.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "Maharashtra"));
-
-       data.add(places);
-
-
+        for (fr.diabhelp.glucocompteur.Menu menu : _menuList) {
+            ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), 0., menu.getMenuGlucids());
+            ArrayList<Aliment> aliments = menu.alimentsList;
+            for (Aliment aliment : aliments) {
+                item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getTotalGlucids()));
+            }
+            data.add(item);
+        }
         _recyclerView.setAdapter(new ExpandableListAdapter(data));
         return v;
     }

@@ -32,7 +32,7 @@ public class AlimentRecyclerAdapter extends RecyclerView.Adapter<AlimentRecycler
         }
     }
 
-    public AlimentRecyclerAdapter(ArrayList<Aliment> alimentsList) { _alimentsList = alimentsList; }
+     public AlimentRecyclerAdapter(ArrayList<Aliment> alimentsList) { _alimentsList = alimentsList; }
 
     @Override
     public AlimentHolder onCreateViewHolder(ViewGroup parent, int viewType) {

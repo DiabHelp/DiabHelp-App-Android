@@ -7,11 +7,31 @@ import java.util.ArrayList;
  */
 public class Menu {
     public String               menuName;
-    public int                  menuGlucids;
+    public Double               menuGlucids;
     public ArrayList<Aliment>   alimentsList;
 
+    public Menu() {
+        alimentsList = new ArrayList<>();
+    }
+
+    public Menu (String name, ArrayList<Aliment> aliments) {
+        menuName = name;
+        alimentsList = aliments;
+        menuGlucids = calcGlucids(alimentsList);
+    }
+
+    private Double calcGlucids(ArrayList<Aliment> alimentsList) {
+        Double tmp = 0.;
+        for (Aliment aliment : alimentsList) {
+            tmp += aliment.getGlucids();
+        }
+        return (tmp);
+    }
+
     public String getMenuName() {return menuName;}
-    public int getMenuGlucids() {return menuGlucids;}
+
+    public Double getMenuGlucids() {return menuGlucids;}
+
     public ArrayList<Aliment> getAlimentsList() { return alimentsList;}
 
     public void setMenuName (String name)
@@ -19,11 +39,10 @@ public class Menu {
         this.menuName = name;
     }
 
-    public void setMenuGlucids(int glucids)
+    public void setMenuGlucids(Double glucids)
     {
         this.menuGlucids = glucids;
     }
-
 
     public void addAliment(Aliment aliment)
     {
