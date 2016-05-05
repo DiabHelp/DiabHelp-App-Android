@@ -34,7 +34,7 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     private RecyclerView                _recyclerView;
     private RecyclerView.Adapter        _recAdapter;
     private RecyclerView.LayoutManager  _recLayoutManager;
-    private List<CatalogModule>         _modulesList = new ArrayList<>();
+    private List<CatalogModule>         _modulesList/* = new ArrayList<>()*/;
     private ProgressDialog              _progress;
 
 
@@ -74,8 +74,7 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
         _recyclerView.setHasFixedSize(true);
         _recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         _recyclerView.setLayoutManager(_recLayoutManager);
-        _recAdapter = new CatalogRecyclerAdapter(_modulesList);
-        _recyclerView.setAdapter(_recAdapter);
+
         return v;
     }
 
@@ -111,6 +110,9 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     private void displayModules(List<CatalogModule> modules) {
         _progress.dismiss();
         _modulesList = modules;
+        _recAdapter = new CatalogRecyclerAdapter(_modulesList);
+        _recyclerView.setAdapter(_recAdapter);
+        Log.i("display module", "nb = " + modules.size());
         checkAvailability();
         _recAdapter.notifyDataSetChanged();
     }

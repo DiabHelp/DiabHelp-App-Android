@@ -17,14 +17,14 @@ public class SuiviProche_listAdapter extends RecyclerView.Adapter<SuiviProche_li
     private List<Proche> listProches;
     private MainActivity context;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView nickname;
-        public ImageView avatar;
+        public static class ViewHolder extends RecyclerView.ViewHolder {
+            public TextView nickname;
+            public ImageView avatar;
 
-        public ViewHolder(final View procheItem) {
-            super(procheItem);
-            nickname = (TextView) procheItem.findViewById(R.id.proche_nickname);
-            avatar = (ImageView) procheItem.findViewById(R.id.proche_avatar);
+            public ViewHolder(final View procheItem) {
+                super(procheItem);
+                nickname = (TextView) procheItem.findViewById(R.id.proche_nickname);
+                avatar = (ImageView) procheItem.findViewById(R.id.proche_avatar);
 
 //            procheItem.setOnClickListener(new View.OnClickListener(){
 //                @Override

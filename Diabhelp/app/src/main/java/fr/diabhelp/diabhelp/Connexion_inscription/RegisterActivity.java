@@ -103,6 +103,11 @@ public class RegisterActivity extends FragmentActivity implements MainRegisterFr
 
 
 
+    /*
+    Lorsque l'on appui sur la touche de retour, on verifie a quel page nous sommes
+    si on est à la deuxième étape d'inscription on retourne à la précédente, sinon, on retourne à la page
+    d'inscription principale
+     */
     @Override
     public void onBackPressed() {
         NonSwipeableViewPager mViewPager = (NonSwipeableViewPager) findViewById(R.id.view_pager);

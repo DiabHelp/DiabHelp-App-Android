@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.diabhelp.diabhelp.ConnexionActivity"
+    tools:context="fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity"
     android:id="@+id/root_co">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -58,9 +58,9 @@
                 android:id="@+id/login_label"/>
 
             <EditText
+                android:id="@+id/login_input"
                 style="@style/editText_connexion"
-                android:hint="@string/connexion_login_input"
-                android:id="@+id/login_input" />
+                android:hint="@string/connexion_login_input"/>
 
             <TextView
                 android:background="@color/background_welcome"
@@ -73,40 +73,40 @@
                 android:id="@+id/pwd_label"/>
 
             <EditText
+                android:id="@+id/pwd_input"
+                android:inputType="textPassword"
                 style="@style/editText_connexion"
-                android:hint="@string/connexion_pwd_input"
-                android:password="true"
-                android:id="@+id/pwd_input" />
+                android:hint="@string/connexion_pwd_input" />
 
             <CheckBox
+                android:id="@+id/checkbox_connexion_auto"
+                android:checked="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/checkbox_autoConnect"
                 android:textColor="@color/abc_primary_text_disable_only_material_dark"
-                android:id="@+id/checkbox_connexion_auto"
                 android:textAllCaps="false"
-                android:layout_gravity="center_horizontal"
-                android:checked="false" />
+                android:layout_gravity="center_horizontal" />
 
             <Button
+                android:id="@+id/connexionButton"
+                android:onClick="connectByInput"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_size"
                 android:text="@string/connexion_button"
                 android:textAllCaps="true"
-                android:onClick="connectByInput"
-                android:id="@+id/connexionButton"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/abc_secondary_text_material_dark"
                 android:background="#308c37" />
             <Button
+                android:id="@+id/signup_button"
+                android:onClick="signUp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/button_size"
                 android:text="@string/register_button"
                 android:textAllCaps="true"
-                android:onClick="signUp"
-                android:id="@+id/signup_button"
                 android:textColor="@color/abc_secondary_text_material_dark"
                 android:background="#313e4f" />
         </LinearLayout>
