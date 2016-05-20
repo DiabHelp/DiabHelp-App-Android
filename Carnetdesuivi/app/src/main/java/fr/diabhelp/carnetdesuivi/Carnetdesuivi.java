@@ -39,13 +39,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+
 import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
 import fr.diabhelp.carnetdesuivi.API.Task.ExportAPICallTask;
-import fr.diabhelp.carnetdesuivi.Carnet.AccueilStatistics;
+
 import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Utils.MyToast;
@@ -62,7 +64,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     private ProgressDialog _progress;
     static DAO bdd;
     final int sdk = android.os.Build.VERSION.SDK_INT;
-
 
     //export
     private Calendar myCalendar;
@@ -95,9 +96,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
             return value;
         }
     }
-
-    ;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +164,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
 
         });
         fillAverageGly();
-
     }
 
     @Override
@@ -193,7 +190,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         RelativeLayout glyl = (RelativeLayout) findViewById(R.id.relativeavg);
 
         Calendar c = Calendar.getInstance();
-
 
         String myFormat ="MM-dd-yyyy";
         SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
@@ -360,7 +356,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     }
 
     public void launch_statistics() {
-        Intent Statsintent = new Intent(Carnetdesuivi.this, AccueilStatistics.class);
+        Intent Statsintent = new Intent(Carnetdesuivi.this, StatisticsActivity.class);
         Carnetdesuivi.this.startActivity(Statsintent);
     }
 

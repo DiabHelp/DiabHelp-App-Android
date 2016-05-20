@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by naqued on 21/11/15.
  */
-public class                              EntryOfCDS {
+public class EntryOfCDS {
     // Notez que l'identifiant est un long
 
     public enum TimeDay{
@@ -42,8 +42,8 @@ public class                              EntryOfCDS {
     private Double glycemy;
 
     private String dateApi;
-    private String datesql;
 
+    private String datesql;
 
     public Integer launch;
     public Integer diner;
@@ -115,6 +115,7 @@ public class                              EntryOfCDS {
     public Double getHba1c() { return this.hba1c; }
     public String getHour () { return this.hour; }
     public Double getglycemy() { return this.glycemy; }
+
     public String getDatesql() {
         return datesql;
     }

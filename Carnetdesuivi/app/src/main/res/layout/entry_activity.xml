@@ -558,7 +558,7 @@
                             android:id="@+id/imglaunch"
                             android:layout_width="@dimen/img_entry_size_width"
                             android:layout_height="@dimen/img_entry_size_height"
-                            android:src="@drawable/launch"
+                            android:src="@drawable/lunch"
                             >
                         </ImageView>
 

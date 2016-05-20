@@ -24,7 +24,7 @@ public class Bdd_manager extends SQLiteOpenHelper {
     public static final String Hour = "hour";
 
     public static final String breakfast = "breakfast";
-    public static final String launch = "launch";
+    public static final String launch = "lunch";
     public static final String diner = "diner";
     public static final String encas = "encas";
     public static final String sleep = "sleep";
@@ -39,9 +39,19 @@ public class Bdd_manager extends SQLiteOpenHelper {
     public static final String period = "period";
 
     public static final String TABLE_NAME = "Diabhelp_CDS";
+    public static final String TABLE_NAME_STAT = "Diabhelp_CDS_Statistiques";
+
     public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + tdate + " TEXT, " + Titre + " TEXT, " + Lieux + " TEXT, " + Date_hour + " TEXT, " + glucide + " DOUBLE, " + activity + " TEXT, " + activityType + " TEXT, " + notes + " TEXT, " + fast_insu + " DOUBLE, " + slow_insu + " DOUBLE, " + hba1c + " DOUBLE, " + Hour + " TEXT, " + glycemy + " DOUBLE, " + breakfast + " INTEGER, " + launch + " INTEGER, " + diner + " INTEGER, " + encas + " INTEGER, " + sleep + " INTEGER, " + wakeup + " INTEGER, " + night + " INTEGER, " + workout + " INTEGER, " + hypogly + " INTEGER, " + hypergly + " INTEGER, " + work + " INTEGER, " + athome + " INTEGER, " + alcohol + " INTEGER, " + period + " INTEGER, " + "rdate datetime default (datetime(current_timestamp)));";
 
+    public static final String DATE_DEBUT = "beg_date";
+    public static final String DATE_FIN = "end_date";
+
+    // Table Statistiques
+    public static final String TABLE_CREATE_STAT = "CREATE TABLE " + TABLE_NAME_STAT + " (" + breakfast + " INTEGER, " + launch + " INTEGER, " + diner + " INTEGER, " + encas + " INTEGER, " + sleep + " INTEGER, " + wakeup + " INTEGER, " + night + " INTEGER, " + workout + " INTEGER, " + hypogly + " INTEGER, " + hypergly + " INTEGER, " + work + " INTEGER, " + athome + " INTEGER, " + alcohol + " INTEGER, " + period + " INTEGER, " + DATE_DEBUT + " TEXT, " + DATE_FIN + " TEXT, " + "rdate datetime default (datetime(current_timestamp)));";
+
+
     public static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
+    public static final String TABLE_DROP_STAT = "DROP TABLE IF EXISTS " + TABLE_NAME_STAT + ";";
 
     public Bdd_manager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -50,11 +60,14 @@ public class Bdd_manager extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE);
+        db.execSQL(TABLE_CREATE_STAT);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(TABLE_DROP);
+        db.execSQL(TABLE_DROP_STAT);
         onCreate(db);
     }
 }

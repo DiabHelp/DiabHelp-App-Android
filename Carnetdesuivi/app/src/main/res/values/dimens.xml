@@ -17,5 +17,6 @@
     <dimen name="width_img_entry_activity">20dp</dimen>
     <dimen name="heigh_img_entry_activity">20dp</dimen>
     <dimen name="width_linear_text">150dp</dimen>
-<dimen name="margin_leftImg_entry">40dp</dimen>
+    <dimen name="margin_leftImg_entry">40dp</dimen>
+    <dimen name="layout_edittext_small">100dp</dimen>
 </resources>

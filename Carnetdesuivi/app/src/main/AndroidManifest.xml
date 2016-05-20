@@ -35,6 +35,13 @@
             android:label="@string/app_name">
 
         </activity>
+        <activity
+            android:name=".Carnet.Statistics.StatisticsActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan"
+            >
+        </activity>
+
     </application>
 
 </manifest>

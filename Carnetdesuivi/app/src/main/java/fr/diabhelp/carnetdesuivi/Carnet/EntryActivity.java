@@ -551,7 +551,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
         }
         else {
-            img.setImageResource(R.drawable.launch);
+            Log.e("debug launch", "desactivé");
+            img.setImageResource(R.drawable.lunch);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
         }
     }

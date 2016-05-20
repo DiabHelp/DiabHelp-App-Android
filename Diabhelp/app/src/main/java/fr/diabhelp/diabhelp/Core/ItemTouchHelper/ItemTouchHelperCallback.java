@@ -53,7 +53,6 @@ public class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         Log.d("ModuleManager", "OnSwipe called");
-        viewHolder.itemView.setX(0);
         adapter.onItemDismiss(viewHolder);
     }
     @Override

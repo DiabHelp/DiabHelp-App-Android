@@ -7,6 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsAllFragment;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsMonthFragment;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsPersoFragment;
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsWeekFragment;
+
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
 
@@ -20,7 +25,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                StatisticsDayFragment tab1 = new StatisticsDayFragment();
+                StatisticsWeekFragment tab1 = new StatisticsWeekFragment();
                 return tab1;
             case 1:
                 StatisticsMonthFragment tab2 = new StatisticsMonthFragment();

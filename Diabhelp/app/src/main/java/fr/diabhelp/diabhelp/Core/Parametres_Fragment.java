@@ -83,12 +83,13 @@ public class Parametres_Fragment extends Fragment implements IApiCallTask {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("ModuleManager", "onCreateView");
         View v = inflater.inflate(R.layout.parametres_fragment, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         recyclerView.setLayoutManager(recLayoutManager);
-        recAdapter = new ParametresRecyclerAdapter(getModulesList(), getActivity());
+        recAdapter = new ParametresRecyclerAdapter(getModulesList((CoreActivity)getActivity()), getActivity());
         recyclerView.setAdapter(recAdapter);
         registerForContextMenu(recyclerView);
         ItemTouchHelperCallback callback = new ItemTouchHelperCallback(recAdapter);
@@ -97,8 +98,9 @@ public class Parametres_Fragment extends Fragment implements IApiCallTask {
         return v;
     }
 
-    private ArrayList<ParametresModule> getModulesList() {
-        ArrayList<CoreActivity.PInfo> pInfoList= ((CoreActivity)getActivity()).getAppList();
+    private ArrayList<ParametresModule> getModulesList(CoreActivity activity) {
+        ArrayList<CoreActivity.PInfo> pInfoList= activity.getAppList();
+        Log.d("ModuleManager", "pInfoList CoreActivity size = " + pInfoList.size());
         ArrayList modulesList = new ArrayList<>();
         if (pInfoList != null)
         {

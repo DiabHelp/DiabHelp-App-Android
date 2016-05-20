@@ -368,7 +368,6 @@ public class DayResultActivity extends Activity {
         return date;
     }
 
-
     @Override
     public void onBackPressed() {
         Intent Dayintent = new Intent(DayResultActivity.this, Carnetdesuivi.class);
