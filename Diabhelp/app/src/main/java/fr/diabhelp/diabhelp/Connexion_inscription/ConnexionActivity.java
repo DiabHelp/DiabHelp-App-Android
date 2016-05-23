@@ -28,7 +28,6 @@ import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.BDD.User;
-import fr.diabhelp.diabhelp.Services.MyInstanceIDListenerService;
 import fr.diabhelp.diabhelp.Services.RegistrationIntentService;
 import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Core.CoreActivity;
@@ -206,14 +205,12 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             else {
                 System.out.println("Ids de l'user = " + user.getUser() + " " + user.getPwd());
                 bdd.close();
-//                new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getBasicAuthSession").execute("2", "connect", "login", user.getUser(), "password", user.getPwd());
                 new ConnexionAPICallTask(this).execute(user.getUser(), user.getPwd());
             }
         }
         else {
             bdd.close();
             System.out.println("je vais tenter la connexion non automatique");
-            //new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getBasicAuthSession").execute("2", "login_check", "username", _login_input, "password", _pwd_input);
             new ConnexionAPICallTask(this).execute(_login_input, _pwd_input);
         }
     }
