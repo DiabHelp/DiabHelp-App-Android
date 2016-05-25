@@ -1,5 +1,6 @@
 package fr.diabhelp.diabhelp.Core;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
+import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.R;
 
 
@@ -64,6 +66,9 @@ public class CoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core);
+
+        String token = ConnexionActivity._settings.getString(ConnexionActivity.TOKEN, "");
+        Log.i(getLocalClassName(), "token de l'user = " + token);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         listApp = new ArrayList<String>();
@@ -79,13 +84,10 @@ public class CoreActivity extends AppCompatActivity {
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-        System.out.println("blabla");
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        System.out.println("blibli");
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                System.out.println("tab numero = [" + tab.getPosition() + "] selectionnée");
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -99,7 +101,6 @@ public class CoreActivity extends AppCompatActivity {
 
             }
         });
-        System.out.println("bloublou");
     }
 
     @Override
@@ -200,5 +201,14 @@ public class CoreActivity extends AppCompatActivity {
         web[ctr] = newInfo.appname;
         res.add(newInfo);
         return res;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences.Editor edit = ConnexionActivity._settings.edit();
+        edit.putString(ConnexionActivity.TOKEN, "");
+        edit.putString(ConnexionActivity.TYPE_USER, "");
+        edit.commit();
     }
 }

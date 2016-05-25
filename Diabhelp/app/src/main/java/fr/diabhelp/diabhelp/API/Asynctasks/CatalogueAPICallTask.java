@@ -35,6 +35,7 @@ public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCata
         _listener = listener;
         _context = context;
         URL_API = _context.getString(R.string.URL_API);
+        URL_API = _context.getString(R.string.URL_API);
     }
 
     @Override
