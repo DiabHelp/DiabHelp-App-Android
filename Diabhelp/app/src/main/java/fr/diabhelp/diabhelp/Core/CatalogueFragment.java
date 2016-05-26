@@ -45,10 +45,25 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if (NetworkUtils.getConnectivityStatus(getActivity())){
-            new CatalogueAPICallTask(getActivity(), this).execute();
+
+
+    }
+
+    // Override this function is a tricks to launch a task only when the user hint the fragment
+    // cf : PageViewer life cycle
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (NetworkUtils.getConnectivityStatus(getActivity())) {
+                new CatalogueAPICallTask(getActivity(), this).execute();
+            }
+        }else{
+            // fragment is no longer visible
         }
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
