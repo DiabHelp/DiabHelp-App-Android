@@ -293,6 +293,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             if (((CheckBox) findViewById(R.id.checkbox_connexion_auto)).isChecked()){
                 edit = _settings.edit();
                 edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
+                edit.putString(TYPE_USER, typeUser);
                 edit.apply();
                 if (!bdd.isUserAlreadyFilled("0")) {
                     bdd.addUser(user);

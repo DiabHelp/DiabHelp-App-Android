@@ -35,7 +35,6 @@ public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCata
         _listener = listener;
         _context = context;
         URL_API = _context.getString(R.string.URL_API);
-        URL_API = _context.getString(R.string.URL_API);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCata
         ResponseCatalogue responseCatalogue = null;
 
         ApiServices service = createService();
-        call= service.getModules();
+        call= service.getModules(params[0]);
         try{
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess()){

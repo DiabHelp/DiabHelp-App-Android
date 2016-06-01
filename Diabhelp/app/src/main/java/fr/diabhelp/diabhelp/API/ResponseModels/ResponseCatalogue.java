@@ -27,7 +27,6 @@ public class ResponseCatalogue {
 
     public ResponseCatalogue(JSONArray arr) {
         try {
-            //TODO recuperer les erreurs et les bons noms de variables json
             modules = new ArrayList<CatalogModule>();
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject jsonModule = JsonUtils.getObjFromArray(arr, i);

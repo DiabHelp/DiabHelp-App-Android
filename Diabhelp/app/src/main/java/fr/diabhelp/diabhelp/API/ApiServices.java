@@ -7,6 +7,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Query;
 
 /**
  * Created by Sumbers on 28/01/2016.
@@ -30,5 +31,5 @@ public interface ApiServices {
 
 
         @GET("app_dev.php/api/modules/all")
-        Call<ResponseBody> getModules();
+        Call<ResponseBody> getModules(@Query("typeUser") String typeUser);
 }

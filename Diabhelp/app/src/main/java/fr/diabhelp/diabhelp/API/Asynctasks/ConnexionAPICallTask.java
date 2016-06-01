@@ -75,8 +75,6 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
                     cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
                     responseConnexion = new ResponseConnexion(JsonUtils.getObj(reponse.body().string()));
                     responseConnexion.setCookie(cookie);
-                    ResponseBody body = (ResponseBody) reponse.body();
-                    System.out.println("response body" + body.string());
                 }
                 else {
                     Log.e("ConnexionApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());

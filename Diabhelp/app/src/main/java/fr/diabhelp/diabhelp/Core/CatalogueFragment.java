@@ -25,6 +25,7 @@ import java.util.List;
 import fr.diabhelp.diabhelp.API.Asynctasks.CatalogueAPICallTask;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseCatalogue;
+import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Models.CatalogModule;
 import fr.diabhelp.diabhelp.R;
@@ -56,7 +57,7 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (NetworkUtils.getConnectivityStatus(getActivity())) {
-                new CatalogueAPICallTask(getActivity(), this).execute();
+                new CatalogueAPICallTask(getActivity(), this).execute(ConnexionActivity._settings.getString(ConnexionActivity.TYPE_USER, ""));
             }
         }else{
             // fragment is no longer visible
