@@ -170,7 +170,8 @@ public class CoreActivity extends AppCompatActivity {
         web = new String[nbDApp + 4];
         for(int i=0;i<packs.size();i++) {
             PackageInfo p = packs.get(i);
-            if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp")) {
+            if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp") && 
+                    p.packageName.contains(ConnexionActivity._settings.getString(ConnexionActivity.TYPE_USER, ""))) {
 
                 if ((!getSysPackages) && (p.versionName == null)) {
                     continue;
