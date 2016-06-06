@@ -50,6 +50,7 @@ import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;
 import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 import fr.diabhelp.carnetdesuivi.Utils.MyToast;
 
 /**
@@ -63,11 +64,13 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     private ArrayAdapter<String> listAdapter;
     private ProgressDialog _progress;
     static DAO bdd;
+    private DateMagnifier _dm;
     final int sdk = android.os.Build.VERSION.SDK_INT;
 
     //export
     private Calendar myCalendar;
     private EditText[] inputdate;
+    private String[] inputdateus;
     private int whichInput;
     private String myemail;
 
@@ -105,6 +108,8 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         toolbar.setTitle("Carnet de Suivi");
         setSupportActionBar(toolbar);
         bdd = new DAO(this);
+        _dm = new DateMagnifier();
+        inputdateus = new String[2];
         TextView noEntry = (TextView) findViewById(R.id.Noentry);
 
         createGroupList();
@@ -401,6 +406,8 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
             return null;
         bdd.close();
 
+        DateMagnifier dt = new DateMagnifier();
+
         while (idx < mall.size())
         {
             String Title = mall.get(idx).getTitle();
@@ -408,54 +415,11 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
             Log.e("original date", mall.get(idx).getDate());
             if (Title.length() > 20)
                 Title = Title.substring(0, 20) + "..";
-            String DisplayDate = Title + " - " + getCleanDate(mall.get(idx).getDate()) + " " + mall.get(idx).getHour() ;
+            String DisplayDate = Title + " - " + dt.getCleanDate(mall.get(idx).getDate()) + " " + mall.get(idx).getHour() ;
             date.add(DisplayDate);
             idx++;
         }
         return date;
-    }
-
-    protected String getCleanDate(String date)
-    {
-        String finaldate;
-        finaldate = date.split("-")[1] + " ";
-        finaldate += getMonthstr(date.split("-")[0]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
-        finaldate += date.split("-")[2];
-        Log.e("date finaldate", finaldate);
-        return finaldate;
-    }
-
-    protected String getMonthstr(String month)
-    {
-        Log.e("month written in DB" , month);
-        switch (month)
-        {
-            case "01" :
-                return ("Janvier");
-            case "02" :
-                return ("Fevrier");
-            case "03" :
-                return ("Mars");
-            case "04" :
-                return ("Avril");
-            case "05" :
-                return ("Mai");
-            case "06" :
-                return ("Juin");
-            case "07" :
-                return ("Juillet");
-            case "08" :
-                return ("Aout");
-            case "09" :
-                return ("Septembre");
-            case "10" :
-                return ("Octobre");
-            case "11" :
-                return ("Novembre");
-            case "12" :
-                return ("Decembre");
-        }
-        return null;
     }
 
     protected int[] getDate() {
@@ -467,67 +431,13 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         return daymonth;
     }
 
-    private String getMonth(int month)
-    {
-        switch (month)
-        {
-            case 1 :
-                return ("Janvier");
-            case 2 :
-                return ("Fevrier");
-            case 3 :
-                return ("Mars");
-            case 4 :
-                return ("Avril");
-            case 5 :
-                return ("Mai");
-            case 6 :
-                return ("Juin");
-            case 7 :
-                return ("Juillet");
-            case 8 :
-                return ("Aout");
-            case 9 :
-                return ("Septembre");
-            case 10 :
-                return ("Octobre");
-            case 11 :
-                return ("Novembre");
-            case 12 :
-                return ("Decembre");
-        }
-        return null;
-    }
-
-    private String getDay(int day) {
-        if (day > 7)
-            day = day % 7;
-        switch (day) {
-            case 1:
-                return "Lundi";
-            case 2:
-                return "Mardi";
-            case 3:
-                return "Mercredi";
-            case 4:
-                return "Jeudi";
-            case 5:
-                return "Vendredi";
-            case 6:
-                return "Samedi";
-            case 0:
-                return "Dimanche";
-            default:
-                return "Null";
-        }
-    }
-
 
     private void updateLabel() {
         String myFormat = "MM-dd-yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        inputdate[whichInput].setText(sdf.format(myCalendar.getTime()));
+        inputdateus[whichInput] = sdf.format(myCalendar.getTime());
+        inputdate[whichInput].setText(_dm.getCleanDate(sdf.format(myCalendar.getTime())));
     }
 
     public void exportPdf()
@@ -574,6 +484,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                 new DatePickerDialog(Carnetdesuivi.this, datepicker, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                Log.e("date beg", "ya");
             }
         });
 
@@ -585,27 +496,31 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                 new DatePickerDialog(Carnetdesuivi.this, datepicker, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                Log.e("date beg", "yo");
             }
         });
+
+
         inputdate[0] = begin;
         inputdate[1] = endin;
 
+        Log.e("date beg", inputdate[0].getText().toString());
         adb.setPositiveButton("Envoyer par mail", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
                 DAO bdd = new DAO(getApplicationContext());
                 //Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
-                EditText beg = (EditText)alertDialogView.findViewById(R.id.date_begin);
-                EditText end = (EditText)alertDialogView.findViewById(R.id.date_end);
+/*                EditText beg = (EditText)alertDialogView.findViewById(R.id.date_begin);
+                EditText end = (EditText)alertDialogView.findViewById(R.id.date_end);*/
                 EditText mail = (EditText)alertDialogView.findViewById(R.id.mail_addr);
 
-                if (beg.getText().toString().isEmpty())
+                if (inputdateus[0].isEmpty())
                     Toast.makeText(Carnetdesuivi.this, "La date de début n'a pas été remplis", Toast.LENGTH_SHORT).show();
-                else if (end.getText().toString().isEmpty())
+                else if (inputdateus[1].isEmpty())
                     Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
                 else {
                     bdd.open();
-                    ArrayList<EntryOfCDS> entryOfCDSes = bdd.selectBetweenDays(beg.getText().toString(), end.getText().toString()); //todo a changer
+                    ArrayList<EntryOfCDS> entryOfCDSes = bdd.selectBetweenDays(inputdateus[0], inputdateus[1]);//beg.getText().toString(), end.getText().toString()); //todo a changer
                     if (mail.getText().toString().isEmpty()) {
                         myemail = null;
                     }

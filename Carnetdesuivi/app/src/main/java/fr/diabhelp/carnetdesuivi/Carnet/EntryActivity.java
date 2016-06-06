@@ -35,6 +35,7 @@ import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
+import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 
 /**
  * Created by naqued on 27/11/15.
@@ -101,7 +102,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     DAO bdd;
     EntryActivity _this;
     List<Integer> isActiveicon;
-
+    private DateMagnifier _dm;
     private String _title;
     private String _place;
     private Double _glucide;
@@ -140,7 +141,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE); // in thread
         _this = this;
 
-        final String myDate;
+        _dm = new DateMagnifier();
         bdd = new DAO(this);
         init_fields();
         init_icon();
@@ -181,6 +182,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         }
         if (intent.hasExtra("date")) {
             _date = intent.getExtras().getString("date");
+            formattedDate = _date;
         }
         if (intent.hasExtra("launch"))
             _launch = intent.getExtras().getInt("launch");
@@ -212,7 +214,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _breakfast = intent.getExtras().getInt("breakfast");
 
 
-        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run(); // TODO soucis sur le fill_place
+//        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run(); // TODO soucis sur le fill_place
 
         time = (EditText) findViewById(R.id.editactivity);
         time.setOnClickListener(new View.OnClickListener() {
@@ -243,7 +245,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
         if (location == null) {
-            txtplace.setText("N/A");
+            txtplace.setText("Not found");
         }
         else {
             try {
@@ -270,7 +272,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         List<Address> addresses;
         geocoder = new Geocoder(this, Locale.getDefault());
         if (location == null) {
-            txtplace.setText("N///A");
+            txtplace.setText("Not found");
         }
         else {
             try {
@@ -302,9 +304,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     protected void fill_date()
     {
-        _inputlist.get(InputType.DATE.getValue()).setText(formattedDate);
+        _inputlist.get(InputType.DATE.getValue()).setText(_dm.getCleanDate(formattedDate));
         Log.e("date actuel", formattedDate);
-
     }
 
     protected void saveIt() {
@@ -332,7 +333,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Entry.setGlucide(_inputlist.get(InputType.GLUCIDE.getValue()).getText().toString());
         Entry.setActivity(_inputlist.get(InputType.ACTIVITY.getValue()).getText().toString());
         Entry.setActivityType(_inputlist.get(InputType.ACTIVITYTYPE.getValue()).getText().toString());
-        Entry.setDate(_inputlist.get(InputType.DATE.getValue()).getText().toString());
+        Entry.setDate(formattedDate);
         Entry.setFast_insu(_inputlist.get(InputType.FAST_INSU.getValue()).getText().toString());
         Entry.setSlow_insu(_inputlist.get(InputType.SLOW_INSU.getValue()).getText().toString());
         Entry.setHba1c(_inputlist.get(InputType.HBA1C.getValue()).getText().toString());
@@ -373,7 +374,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     private void fill_fields()
     {
-        _inputlist.get(InputType.DATE.getValue()).setText(_date);
+        _inputlist.get(InputType.DATE.getValue()).setText(_dm.getCleanDate(_date));
+        formattedDate = _date;
         if (_title != null)
             _inputlist.get(InputType.TITLE.getValue()).setText(_title);
         if (_place != null)

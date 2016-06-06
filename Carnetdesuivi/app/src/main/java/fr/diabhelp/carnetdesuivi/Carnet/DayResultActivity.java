@@ -27,6 +27,7 @@ import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
+import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 
 public class DayResultActivity extends Activity {
 
@@ -122,7 +123,7 @@ public class DayResultActivity extends Activity {
     String _hour;
     DAO _bdd;
     EntryOfCDS inf;
-
+    DateMagnifier _mt;
 
 
 
@@ -134,6 +135,7 @@ public class DayResultActivity extends Activity {
         _relativeCell = new ArrayList<RelativeLayout>();
         _linearCell = new ArrayList<LinearLayout>();
         _txtCell = new ArrayList<TextView>();
+        _mt = new DateMagnifier();
         _bdd = new DAO(this);
 
         Intent intent = getIntent();
@@ -151,7 +153,7 @@ public class DayResultActivity extends Activity {
         _bdd.open();
         inf = _bdd.SelectDay(_date, _hour);
 
-        _txtCell.get(TXTedit.DAYTEXT.getValue()).setText(getCleanDate(_date) + " " + _hour);
+        _txtCell.get(TXTedit.DAYTEXT.getValue()).setText(_mt.getCleanDate(_date) + " " + _hour);
         _txtCell.get(TXTedit.TITLE.getValue()).setText(inf.getTitle());
         if (inf.getGlucide() == null || inf.getglycemy() == 0.0) {
             _relativeCell.get(Relative.GLU.getValue()).setVisibility(View.GONE);
@@ -357,15 +359,6 @@ public class DayResultActivity extends Activity {
         _linearCell.add(Linear.SPORT2.getValue(), (LinearLayout) findViewById(R.id.layout_sport2));
         _linearCell.add(Linear.NOTES.getValue(), (LinearLayout) findViewById(R.id.layoutdetail));
         _linearCell.add(Linear.PLACE.getValue(), (LinearLayout) findViewById(R.id.layoutplace));
-    }
-
-    protected String getCleanDate(String date) {
-        String finaldate;
-/*        finaldate = date.split("-")[0] + " ";
-        finaldate += getMonthstr(date.split("-")[1]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
-        finaldate += date.split("-")[2];
-        Log.e("date finaldate", finaldate);*/
-        return date;
     }
 
     @Override
