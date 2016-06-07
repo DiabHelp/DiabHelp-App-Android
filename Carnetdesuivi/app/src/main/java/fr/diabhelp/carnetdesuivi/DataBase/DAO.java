@@ -552,9 +552,145 @@ public class DAO extends DAOBase {
         if (endDate == null)
             endDate = "0-0-0";
 
-        String[] args = { startDate, endDate, __breakfast, __launch, __diner, __encas, __sleep, __wakeup, __night, __workout, __hypogly, __hypergly, __work, __athome };
+        String[] args = { startDate, endDate, "", "", "", "", "", "", "", "", "", "", "", "",}; // __breakfast, __launch, __diner, __encas, __sleep, __wakeup, __night, __workout, __hypogly, __hypergly, __work, __athome };
+        int idx = 2;
+        Log.e("length args ", String.valueOf(args.length));
+        Log.e("value breakdast", String.valueOf(__breakfast.equals("1")));
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + tdate + " BETWEEN ? AND ?";
 
-        Cursor c = mDb.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + tdate + " BETWEEN ? AND ? AND " + breakfast + " = ? AND " + launch + " = ? AND " + diner + " = ? AND " + encas + " = ? AND " + sleep + " = ? AND " + wakeup + " = ? AND " + night + " = ? AND " + workout + " = ? AND " + hypogly + " = ? AND " + hypergly + " = ? AND " + work + " = ? AND " + athome + " = ?", args);
+        if (__breakfast.equals("1") == true) {
+            if (idx == 2)
+                query += " AND (";
+            query += breakfast + " = ? ";
+            args[idx++] = __breakfast;
+        }
+
+        if (__launch.equals("1") == true) {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += launch + " = ? ";
+            args[idx++] = __launch;
+        }
+
+        if (__diner.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += diner + " = ? ";
+            args[idx++] = __diner;
+        }
+
+        if (__encas.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += encas + " = ? ";
+            args[idx++] = __encas;
+        }
+
+        if (__sleep.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += sleep + " = ? ";
+            args[idx++] = __sleep;
+        }
+
+        if (__wakeup.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += wakeup + " = ? ";
+            args[idx++] = __wakeup;
+        }
+
+        if (__night.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += night + " = ? ";
+            args[idx++] = __night;
+        }
+
+        if (__workout.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += workout + " = ? ";
+            args[idx++] = __workout;
+        }
+
+        if (__hypogly.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += hypogly + " = ? ";
+            args[idx++] = __hypogly;
+        }
+
+        if (__hypergly.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += hypergly + " = ? ";
+            args[idx++] = __hypergly;
+        }
+
+        if (__work.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += work + " = ? ";
+            args[idx++] = __work;
+        }
+
+        if (__athome.equals("1"))
+        {
+            if (idx == 2)
+                query += " AND (";
+            if (idx >= 3)
+                query += "OR ";
+            query += athome + " = ? ";
+            args[idx++] = __athome;
+        }
+
+/*        " = ? OR " + diner + " = ? OR " + encas +
+                " = ? OR " + sleep +
+                " = ? OR " + wakeup + " = ? OR " + night +
+                " = ? OR " + workout +
+                " = ? OR " + hypogly + " = ? OR " + hypergly + " = ? OR " +
+                work + " = ? OR " + athome + " = ?)";*/
+
+        Log.e("query sql", query + "size id : " + String.valueOf(idx));
+        if (idx > 2)
+            query += ")";
+
+        String[] argsok = new String[idx];
+        int icopy = 0;
+        while (icopy < idx)
+            argsok[icopy] = args[icopy++];
+
+        Cursor c = mDb.rawQuery(query, argsok);
 
         String[] i = c.getColumnNames();
 

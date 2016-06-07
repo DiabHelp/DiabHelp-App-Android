@@ -158,6 +158,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                         intent.putExtra("date", datesplit);
                         intent.putExtra("hour", Hour);
                         Carnetdesuivi.this.startActivity(intent);
+                        Carnetdesuivi.this.finish();
                         return true;
                     }
                 });
@@ -363,6 +364,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     public void launch_statistics() {
         Intent Statsintent = new Intent(Carnetdesuivi.this, StatisticsActivity.class);
         Carnetdesuivi.this.startActivity(Statsintent);
+        this.finish();
     }
 
     private void loadChild(String[] laptopModels) {

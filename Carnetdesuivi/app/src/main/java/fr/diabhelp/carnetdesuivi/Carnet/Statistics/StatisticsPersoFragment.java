@@ -372,8 +372,8 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
             statEntry.setSleep(0);
             statEntry.setWakeup(0);
             statEntry.setWorkout(0);
-            statEntry.setBeg_date("00-00-00");
-            statEntry.setEnd_date("00-00-00");
+            statEntry.setBeg_date("Date de début"); // 00-00-00
+            statEntry.setEnd_date("Date de fin");
         }
     }
 
@@ -451,7 +451,7 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
         for (int j = 0; j < mall.size(); ++j) {
             double val = mall.get(j).getglycemy();
             float f = (float) val;
-            if (val >= 8)
+            if (val > 125 || val < 75)
                 values.add(new SubcolumnValue(f, Color.parseColor("#FF4444")));
             else
                 values.add(new SubcolumnValue(f, Color.parseColor("#99CC00")));
@@ -514,7 +514,7 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
         for (int j = 0; j < mall.size(); ++j) {
             double val = mall.get(j).getglycemy();
             float f = (float) val;
-            if (val >= 8)
+            if (val > 125 || val < 75)
                 values.add(new SubcolumnValue(f, Color.parseColor("#FF4444")));
             else
                 values.add(new SubcolumnValue(f, Color.parseColor("#99CC00")));

@@ -6,6 +6,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
@@ -29,7 +31,7 @@ import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 
-public class DayResultActivity extends Activity {
+public class DayResultActivity extends AppCompatActivity {
 
     final int sdk = android.os.Build.VERSION.SDK_INT;
 
@@ -131,7 +133,17 @@ public class DayResultActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultday);
-
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Entrée détaillé");
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Carnetintent = new Intent(DayResultActivity.this, Carnetdesuivi.class);
+                startActivity(Carnetintent);
+            }
+        });
         _relativeCell = new ArrayList<RelativeLayout>();
         _linearCell = new ArrayList<LinearLayout>();
         _txtCell = new ArrayList<TextView>();
@@ -144,6 +156,8 @@ public class DayResultActivity extends Activity {
         Log.e("gethour oncreate", _hour);
         initArray();
         initView();
+/*        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Détail");*/
 
     }
 
@@ -152,6 +166,8 @@ public class DayResultActivity extends Activity {
 
         _bdd.open();
         inf = _bdd.SelectDay(_date, _hour);
+/*        Toolbar toto = (Toolbar) findViewById(R.id.toolbar);
+        toto.setTitle(inf.getTitle());*/
 
         _txtCell.get(TXTedit.DAYTEXT.getValue()).setText(_mt.getCleanDate(_date) + " " + _hour);
         _txtCell.get(TXTedit.TITLE.getValue()).setText(inf.getTitle());
@@ -159,6 +175,9 @@ public class DayResultActivity extends Activity {
             _relativeCell.get(Relative.GLU.getValue()).setVisibility(View.GONE);
         } else {
             ImageView glyi = (ImageView) findViewById(R.id.glycemiimg);
+
+            TextView txtgly2 = (TextView) findViewById(R.id.txtglucide);
+            txtgly2.setVisibility(View.VISIBLE);
 
             Double gluglu = inf.getglycemy();
             _relativeCell.get(Relative.GLY.getValue()).setVisibility(View.VISIBLE);
@@ -177,6 +196,9 @@ public class DayResultActivity extends Activity {
                 }
             }
         }
+
+        int count = 0;
+
         if (inf.getGlucide() == null || inf.getGlucide() == 0)
             _relativeCell.get(Relative.GLU.getValue()).setVisibility(View.GONE);
         else {
@@ -204,38 +226,38 @@ public class DayResultActivity extends Activity {
         if (inf.getBreakfast() == null || inf.getBreakfast() == 0)
             _linearCell.get(Linear.BREAKFAST.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.BREAKFAST.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getLaunch() == null || inf.getLaunch() == 0)
             _linearCell.get(Linear.LAUNCH.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.LAUNCH.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getDiner() == null || inf.getDiner() == 0)
             _linearCell.get(Linear.DINER.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.DINER.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getEncas() == null || inf.getEncas() == 0)
             _linearCell.get(Linear.ENCAS.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.ENCAS.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getSleep() == null || inf.getSleep() == 0)
             _linearCell.get(Linear.SLEEP.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.SLEEP.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getWakeup() == null || inf.getWakeup() == 0) {
             _linearCell.get(Linear.WAKEUP.getValue()).setVisibility(View.GONE);
         } else {
-            _linearCell.get(Linear.WAKEUP.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
         }
 
         if (inf.getNight() == null || inf.getNight() == 0)
             _linearCell.get(Linear.NIGHT.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.NIGHT.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
 
         if (inf.getWorkout() == null || inf.getWorkout() == 0) // detail activity
@@ -243,38 +265,38 @@ public class DayResultActivity extends Activity {
             _linearCell.get(Linear.WORKOUT.getValue()).setVisibility(View.GONE);
 
         } else
-            _linearCell.get(Linear.WORKOUT.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getHypogly() == null || inf.getHypogly() == 0)
             _linearCell.get(Linear.HYPO.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.HYPO.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getHypergly() == null || inf.getHypergly() == 0)
             _linearCell.get(Linear.HYPER.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.HYPER.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getAtwork() == null || inf.getAtwork() == 0)
             _linearCell.get(Linear.WORK.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.WORK.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
 
         if (inf.getAthome() == null || inf.getAthome() == 0)
             _linearCell.get(Linear.HOME.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.HOME.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getAlcohol() == null || inf.getAlcohol() == 0)
             _linearCell.get(Linear.ALCOHOL.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.ALCOHOL.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getPeriod() == null || inf.getPeriod() == 0)
             _linearCell.get(Linear.PERIOD.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(Linear.PERIOD.getValue()).setVisibility(View.VISIBLE);
+            _linearCell.get(count++).setVisibility(View.VISIBLE);
 
         if (inf.getActivity() == null || inf.getActivity() == "" || inf.getActivity().length() == 0) {
             _linearCell.get(Linear.SPORT2.getValue()).setVisibility(View.GONE);
@@ -307,16 +329,19 @@ public class DayResultActivity extends Activity {
             _txtCell.get(TXTedit.NOTES.getValue()).setText(inf.getNotes());
         }
 
+        Log.e("getplace for icone", "yo:" + inf.getPlace() + "$");
         if (inf.getPlace() == null || inf.getPlace() == "" || inf.getPlace() == "N/A") {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.GONE);
             ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
             img.setVisibility(View.GONE);
+            Log.e("test place", "yohou");
         }
         else {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.VISIBLE);
             _txtCell.get(TXTedit.PLACETEXT.getValue()).setText(inf.getPlace());
             ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
-            img.setVisibility(View.VISIBLE);
+//            img.setVisibility(View.VISIBLE);
+            Log.e("test place", "yaha");
         }
         _bdd.close();
     }

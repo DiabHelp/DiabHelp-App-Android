@@ -24,6 +24,7 @@ public abstract class DAOBase {
     {
         this.mHandler = new Bdd_manager(null, NOM, null, VERSION);
     }
+
     public SQLiteDatabase open() {
         // Pas besoin de fermer la dernière base puisque getWritableDatabase s'en charge
         mDb = mHandler.getWritableDatabase();

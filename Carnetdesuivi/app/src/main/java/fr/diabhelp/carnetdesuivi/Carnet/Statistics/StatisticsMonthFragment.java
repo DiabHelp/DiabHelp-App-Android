@@ -83,7 +83,7 @@ public class StatisticsMonthFragment extends Fragment {
         for (int j = 0; j < mall.size(); ++j) {
             double val = mall.get(j).getglycemy();
             float f = (float) val;
-            if (val >= 8)
+            if (val > 125 || val < 75)
                 values.add(new SubcolumnValue(f, Color.parseColor("#FF4444")));
             else
                 values.add(new SubcolumnValue(f, Color.parseColor("#99CC00")));
