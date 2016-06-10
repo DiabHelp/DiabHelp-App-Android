@@ -19,4 +19,5 @@
     <dimen name="width_linear_text">150dp</dimen>
     <dimen name="margin_leftImg_entry">40dp</dimen>
     <dimen name="layout_edittext_small">100dp</dimen>
+    <dimen name="margin_left_icone_resultday">7dp</dimen>
 </resources>

@@ -91,18 +91,6 @@ public class EntryOfCDS {
         this.breakfast = null;
     }
 
-
-/*    public double getSlowInsu() {return  this.lentus; }
-    public String getDate() {
-        return date;
-    }
-    public double getGlycMorning(int time) {return this.Morning[time]; }
-    public double getInsuMorning() {return this.Morning[TimeDay.INSULINE.getValue()]; }
-    public double getGlycMidDay(int time) {return this.Midnight[time]; }
-    public double getInsuMidDay()  {return this.Midnight[TimeDay.INSULINE.getValue()]; }
-    public double getGlycEnDay(int time) {return this.EndDay[time]; }
-    public double getInsuEndDay() { return this.EndDay[TimeDay.INSULINE.getValue()];}*/
-
     public String getTitle() { return this.title; }
     public String getPlace() { return this.place; }
     public Double getGlucide() { return this.glucide; }
@@ -318,10 +306,7 @@ public class EntryOfCDS {
         this.dateApi = final_date;
         Log.e("final_date", this.dateApi);
     }
-    public String getDateApi()
-    {
-        return this.dateApi;
-    }
+
     private int    getMonthint(String month)
     {
         if (month.contains("Janvier"))

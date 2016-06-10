@@ -226,7 +226,7 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
             }
         }
         glu.setText(String.valueOf(en.getGlucide().intValue()) + "\n g");
-        hba1c.setText(String.valueOf(en.getHba1c().intValue()) + "\n %");
+        hba1c.setText(String.valueOf(en.getHba1c().doubleValue()) + "\n %");
         fast.setText(String.valueOf(en.getFast_insu())+ "\n  u");
         slow.setText(String.valueOf(en.getSlow_insu())+ "\n  u");
         notes.setText(en.getNotes());
@@ -244,7 +244,7 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
 
         return datefinal;
     }
-    protected String getMonthstr(String month) //TODO Pas bon du tout peux causer ds soucis avec des select de db..
+    protected String getMonthstr(String month) //TODO utiliser la classe DateMagnifier
     {
         switch (month)
         {

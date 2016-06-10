@@ -74,7 +74,6 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:visibility="gone"
             android:layout_gravity="right"
             android:src="@drawable/ic_place_black_48dp"
             android:layout_marginRight="5dp"
@@ -93,7 +92,7 @@
 
     </LinearLayout>
 
-        <GridLayout
+            <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
             android:layout_below="@+id/header"
@@ -350,517 +349,36 @@
 
             <!--icone status-->
         <!--                    Petit dej-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="0"
-            android:layout_row="2"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_breakfast"
-            >
 
-            <ImageView
-                android:id="@+id/imgptidej"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/ptidej"
-                >
-            </ImageView>
+                <!--Déjeuner-->
 
-            <TextView
-                android:id="@+id/txtptidej"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/petitdej"
-                android:layout_gravity="center"
-                >
-            </TextView>
+                <!--Diner-->
 
-        </LinearLayout>
+                <!--Encas-->
 
-        <!--Déjeuner-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="1"
-            android:layout_row="2"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/launch"
-            >
-            <ImageView
-                android:id="@+id/imglaunch"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/lunch"
-                >
-            </ImageView>
+                <!--coucher-->
 
-            <TextView
-                android:id="@+id/txtlaunch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/launch"
-                android:layout_gravity="center"
-                >
-            </TextView>
-        </LinearLayout>
+                <!--levée-->
 
-        <!--Diner-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="0"
-            android:layout_row="3"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/diner"
-            >
-            <ImageView
-                android:id="@+id/imgdiner"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/diner"
-                >
-            </ImageView>
+                <!--nuit-->
 
-            <TextView
-                android:id="@+id/txtdiner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/diner"
-                android:layout_gravity="center"
-                >
-            </TextView>
-        </LinearLayout>
+                <!--Sport-->
 
-        <!--Encas-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="1"
-            android:layout_row="3"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_encas"
-            >
-            <ImageView
-                android:id="@+id/imgencas"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/cassecroute"
-                >
-            </ImageView>
+                <!--hypo-->
 
-            <TextView
-                android:id="@+id/txtencas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/encas"
-                android:layout_gravity="center"
-                >
-            </TextView>
-        </LinearLayout>
+                <!--hyper-->
 
-        <!--coucher-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="2"
-            android:layout_row="2"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_sleep"
-            >
-            <ImageView
-                android:id="@+id/imgcoucher"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/coucher"
-                >
-            </ImageView>
+                <!--Travail-->
 
-            <TextView
-                android:id="@+id/txtcoucher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/sleep"
-                android:layout_gravity="center"
-                >
-            </TextView>
+                <!--Home-->
 
-        </LinearLayout>
+                <!--Alcohol-->
 
-        <!--levée-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="2"
-            android:layout_row="3"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_wakeup"
-            >
-            <ImageView
-                android:id="@+id/imglevee"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/reveil"
-                >
-            </ImageView>
+                <!--Period-->
 
-            <TextView
-                android:id="@+id/txtlevee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/wakeup"
-                android:layout_gravity="center"
-                >
-            </TextView>
+                <!--                    sport2-->
 
-        </LinearLayout>
-
-        <!--nuit-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="3"
-            android:layout_row="2"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_night"
-            >
-            <ImageView
-                android:id="@+id/imgnuit"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/night"
-                >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/txtnuit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/night"
-                android:layout_gravity="center"
-                >
-            </TextView>
-
-        </LinearLayout>
-
-        <!--Sport-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="3"
-            android:layout_row="3"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_sport"
-            >
-            <ImageView
-                android:id="@+id/imgsport"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/sport"
-                >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/txtsport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/workout"
-                android:layout_gravity="center"
-                >
-            </TextView>
-
-        </LinearLayout>
-
-        <!--hypo-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="4"
-            android:layout_row="2"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_hypo"
-            >
-            <ImageView
-                android:id="@+id/imghypo"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/hypo"
-                >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/txthypo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/hypoglycemi"
-                android:layout_gravity="center"
-                >
-            </TextView>
-
-        </LinearLayout>
-
-        <!--hyper-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="4"
-            android:layout_row="3"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_hyper"
-            >
-            <ImageView
-                android:id="@+id/imghyper"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/hyper"
-                >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/txthyper"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/hyperglycemi"
-                android:layout_gravity="center"
-                >
-            </TextView>
-
-        </LinearLayout>
-
-        <!--Travail-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="0"
-            android:layout_row="4"
-            android:layout_marginLeft="15dp"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_work"
-            >
-            <ImageView
-                android:id="@+id/imgwork"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/work"
-                >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/txtwork"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/work"
-                android:layout_gravity="center"
-                >
-            </TextView>
-
-        </LinearLayout>
-
-        <!--Home-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="1"
-            android:layout_row="4"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:id="@+id/layout_home"
-            >
-            <ImageView
-                android:id="@+id/imghome"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/home"
-                >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/txthome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/home"
-                android:layout_gravity="center"
-                >
-            </TextView>
-
-        </LinearLayout>
-
-        <!--Alcohol-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="2"
-            android:layout_row="4"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:id="@+id/layout_alcohol"
-            >
-            <ImageView
-                android:id="@+id/imgalcool"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/alcool"
-                >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/txtalcool"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/alcohol"
-                android:layout_gravity="center"
-                >
-            </TextView>
-
-        </LinearLayout>
-
-        <!--Period-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_column="3"
-            android:layout_row="4"
-            android:layout_marginBottom="@dimen/entry_icone_marginBottom"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:id="@+id/layout_period"
-            >
-            <ImageView
-                android:id="@+id/imgperiod"
-                android:layout_width="@dimen/img_entry_size_width"
-                android:layout_height="@dimen/img_entry_size_height"
-                android:src="@drawable/period"
-                >
-            </ImageView>
-
-            <TextView
-                android:id="@+id/txtperiod"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:text="@string/period"
-                android:layout_gravity="center"
-                >
-            </TextView>
-        </LinearLayout>
-
-            <!--                    sport2-->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_column="0"
-                android:layout_row="5"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center"
-                android:id="@+id/layout_sport2"
-                >
-
-                <ImageView
-                    android:id="@+id/imgsport2"
-                    android:layout_width="@dimen/img_entry_size_width"
-                    android:layout_height="@dimen/img_entry_size_height"
-                    android:src="@drawable/sport2"
-                    >
-                </ImageView>
-                <TextView
-                    android:id="@+id/ndheuresport"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/txt_entry_marginTop"
-                    android:textSize="@dimen/text_entry_size"
-                    android:text="Sport : 5H00"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    >
-                </TextView>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txtsportdesc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:textSize="@dimen/text_entry_size"
-                android:visibility="gone"
-                android:text="Détail :"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:layout_column="1"
-                android:layout_row="5"
-                >
-            </TextView>
-            <TextView
-                android:id="@+id/txtsport2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/txt_entry_marginTop"
-                android:layout_marginLeft="10dp"
-                android:textSize="@dimen/text_entry_size"
-                android:text="TEST"
-                android:textStyle="italic"
-                android:layout_gravity="center"
-                android:layout_column="2"
-                android:layout_row="5"
-                >
-            </TextView>
-    </GridLayout>
+            </GridLayout>
         <!--    <GridLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -875,12 +393,493 @@
 
             </GridLayout>-->
 
-        <LinearLayout
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/gridicone"
+                android:layout_marginTop="15dp"
+                android:id="@+id/gridLayout" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_breakfast"
+                    >
+
+                    <ImageView
+                        android:id="@+id/imgptidej"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/ptidej"
+                        >
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/txtptidej"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/petitdej"
+                        android:layout_gravity="center"
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/launch"
+                    >
+                    <ImageView
+                        android:id="@+id/imglaunch"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/lunch"
+                        >
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/txtlaunch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/launch"
+                        android:layout_gravity="center"
+                        >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/diner"
+                    >
+                    <ImageView
+                        android:id="@+id/imgdiner"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/diner"
+                        >
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/txtdiner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/diner"
+                        android:layout_gravity="center"
+                        >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_encas"
+                    >
+                    <ImageView
+                        android:id="@+id/imgencas"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/cassecroute"
+                        >
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/txtencas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/encas"
+                        android:layout_gravity="center"
+                        >
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_sleep"
+                    >
+                    <ImageView
+                        android:id="@+id/imgcoucher"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/coucher"
+                        >
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/txtcoucher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/sleep"
+                        android:layout_gravity="center"
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_wakeup"
+                    >
+                    <ImageView
+                        android:id="@+id/imglevee"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/reveil"
+                        >
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/txtlevee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/wakeup"
+                        android:layout_gravity="center"
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/gridLayout"
+                android:layout_marginTop="15dp"
+                android:id="@+id/gridLayout2" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_night" >
+
+                    <ImageView
+                        android:id="@+id/imgnuit"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/night" />
+
+                    <TextView
+                        android:id="@+id/txtnuit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/night"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_sport" >
+
+                    <ImageView
+                        android:id="@+id/imgsport"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/sport" />
+
+                    <TextView
+                        android:id="@+id/txtsport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/workout"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_hypo" >
+
+                    <ImageView
+                        android:id="@+id/imghypo"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/hypo" />
+
+                    <TextView
+                        android:id="@+id/txthypo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/hypoglycemi"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_hyper" >
+
+                    <ImageView
+                        android:id="@+id/imghyper"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/hyper" />
+
+                    <TextView
+                        android:id="@+id/txthyper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/hyperglycemi"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_work" >
+
+                    <ImageView
+                        android:id="@+id/imgwork"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/work" />
+
+                    <TextView
+                        android:id="@+id/txtwork"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/work"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_home" >
+
+                    <ImageView
+                        android:id="@+id/imghome"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/home" />
+
+                    <TextView
+                        android:id="@+id/txthome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/home"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/gridLayout2"
+                android:layout_marginTop="15dp"
+                android:id="@+id/gridLayout3" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/layout_alcohol" >
+
+                    <ImageView
+                        android:id="@+id/imgalcool"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/alcool" />
+
+                    <TextView
+                        android:id="@+id/txtalcool"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/alcohol"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/layout_period" >
+
+                    <ImageView
+                        android:id="@+id/imgperiod"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/period" />
+
+                    <TextView
+                        android:id="@+id/txtperiod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="@string/period"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/gridLayout3"
+                android:layout_marginTop="15dp"
+                android:id="@+id/gridLayout4" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_left_icone_resultday"
+                    android:layout_marginBottom="@dimen/entry_icone_marginBottom"
+                    android:layout_gravity="center"
+                    android:id="@+id/layout_sport2" >
+
+                    <ImageView
+                        android:id="@+id/imgsport2"
+                        android:layout_width="@dimen/img_entry_size_width"
+                        android:layout_height="@dimen/img_entry_size_height"
+                        android:src="@drawable/sport2" />
+
+                    <TextView
+                        android:id="@+id/ndheuresport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/txt_entry_marginTop"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="Sport : 5H00"
+                        android:textStyle="bold"
+                        android:layout_gravity="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:id="@+id/linearLayout2" >
+
+                    <TextView
+                        android:id="@+id/txtsportdesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_entry_size"
+                        android:visibility="gone"
+                        android:text="Détail :"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:layout_column="1"
+                        android:layout_row="5" />
+
+                    <TextView
+                        android:id="@+id/txtsport2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_entry_size"
+                        android:text="TEST"
+                        android:textStyle="italic"
+                        android:layout_gravity="center"
+                        android:layout_column="2"
+                        android:layout_row="5" />
+                </LinearLayout>
+
+            </GridLayout>
+
+            <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/layoutdetail"
-            android:layout_below="@+id/gridicone"
+            android:layout_below="@+id/gridLayout4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:gravity="center"

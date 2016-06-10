@@ -3,14 +3,12 @@ package fr.diabhelp.carnetdesuivi;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -81,25 +79,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     ExpandableListView expListView;
 
 
-
-    public enum InputType {
-        GLUCIDE(0),
-        FAST_INSU(1),
-        SLOW_INSU(2),
-        HBA1C(3),
-        GLYCEMY(4);
-
-        private final int value;
-
-        private InputType(int v) {
-            this.value = v;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,7 +131,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
 
 
                         String _title = (String) expListAdapter.getGroup(groupPosition);
-                        String datesplit = reconstructDate(_title);
+                        String datesplit = _title;
                         String Hour = _title.split("-")[1].split(" ")[4];
 
                         intent.putExtra("date", datesplit);
@@ -177,12 +156,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    protected String reconstructDate(String date) {
-            //// TODO: 31/03/16 Afficher la date en lettre
-        Log.e("datefinale expendable", date); //datefinal
-        return date; // datefinal
     }
 
     private void fillAverageGly() {
@@ -218,7 +191,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                 total = total / size;
             else
                 total = 0;
-            Log.e("Average glycemie", String.valueOf(total));
             if (total >= 80 && total <= 120) {
                 if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                     glyl.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.round_cornerglyclean));
@@ -384,7 +356,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
 
 
     protected String[] fillValueDay(String dateVal, String hour) {
-        String value[] = new String[1]; //TODO a faire mieux
+        String value[] = new String[1];
         return value;
     }
 
@@ -414,7 +386,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         {
             String Title = mall.get(idx).getTitle();
             // TODO faire un uppercase sur le titre
-            Log.e("original date", mall.get(idx).getDate());
             if (Title.length() > 20)
                 Title = Title.substring(0, 20) + "..";
             String DisplayDate = Title + " - " + dt.getCleanDate(mall.get(idx).getDate()) + " " + mall.get(idx).getHour() ;
@@ -486,7 +457,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                 new DatePickerDialog(Carnetdesuivi.this, datepicker, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                Log.e("date beg", "ya");
             }
         });
 
@@ -498,7 +468,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                 new DatePickerDialog(Carnetdesuivi.this, datepicker, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                Log.e("date beg", "yo");
             }
         });
 
@@ -506,7 +475,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         inputdate[0] = begin;
         inputdate[1] = endin;
 
-        Log.e("date beg", inputdate[0].getText().toString());
         adb.setPositiveButton("Envoyer par mail", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
@@ -522,7 +490,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                     Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
                 else {
                     bdd.open();
-                    ArrayList<EntryOfCDS> entryOfCDSes = bdd.selectBetweenDays(inputdateus[0], inputdateus[1]);//beg.getText().toString(), end.getText().toString()); //todo a changer
+                    ArrayList<EntryOfCDS> entryOfCDSes = bdd.selectBetweenDays(inputdateus[0], inputdateus[1]);
                     if (mail.getText().toString().isEmpty()) {
                         myemail = null;
                     }

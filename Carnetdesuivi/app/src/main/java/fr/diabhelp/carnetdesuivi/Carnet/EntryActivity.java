@@ -258,7 +258,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
                     txtplace.setText(cityName);
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -305,7 +304,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     protected void fill_date()
     {
         _inputlist.get(InputType.DATE.getValue()).setText(_dm.getCleanDate(formattedDate));
-        Log.e("date actuel", formattedDate);
     }
 
     protected void saveIt() {
@@ -358,14 +356,10 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         bdd.open();
         if (bdd.SelectDay(_date, _hour) == null) {
             Entry.setHour(Hours);
-            Log.e("save", "select day != null");
-            Log.e("entryhour : ", Entry.getHour());
             bdd.AddDay(Entry);
         }
         else {
             Entry.setHour(_hour);
-            Log.e("save", "select day == null");
-            Log.e("entryhour : ", Entry.getHour());
             bdd.Update(Entry);
         }
         bdd.close();
@@ -553,7 +547,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
         }
         else {
-            Log.e("debug launch", "desactivé");
             img.setImageResource(R.drawable.lunch);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
         }

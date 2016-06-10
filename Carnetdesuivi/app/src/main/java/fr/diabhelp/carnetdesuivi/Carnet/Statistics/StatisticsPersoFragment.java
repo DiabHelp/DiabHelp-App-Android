@@ -676,7 +676,6 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
 
         @Override
         public void onValueDeselected() {
-            // TODO Auto-generated method stub
 
         }
 

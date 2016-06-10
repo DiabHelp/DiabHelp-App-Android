@@ -156,8 +156,6 @@ public class DayResultActivity extends AppCompatActivity {
         Log.e("gethour oncreate", _hour);
         initArray();
         initView();
-/*        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Détail");*/
 
     }
 
@@ -166,9 +164,6 @@ public class DayResultActivity extends AppCompatActivity {
 
         _bdd.open();
         inf = _bdd.SelectDay(_date, _hour);
-/*        Toolbar toto = (Toolbar) findViewById(R.id.toolbar);
-        toto.setTitle(inf.getTitle());*/
-
         _txtCell.get(TXTedit.DAYTEXT.getValue()).setText(_mt.getCleanDate(_date) + " " + _hour);
         _txtCell.get(TXTedit.TITLE.getValue()).setText(inf.getTitle());
         if (inf.getGlucide() == null || inf.getglycemy() == 0.0) {
@@ -231,33 +226,33 @@ public class DayResultActivity extends AppCompatActivity {
         if (inf.getLaunch() == null || inf.getLaunch() == 0)
             _linearCell.get(Linear.LAUNCH.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.LAUNCH.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getDiner() == null || inf.getDiner() == 0)
             _linearCell.get(Linear.DINER.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.DINER.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getEncas() == null || inf.getEncas() == 0)
             _linearCell.get(Linear.ENCAS.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.ENCAS.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getSleep() == null || inf.getSleep() == 0)
             _linearCell.get(Linear.SLEEP.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.SLEEP.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getWakeup() == null || inf.getWakeup() == 0) {
             _linearCell.get(Linear.WAKEUP.getValue()).setVisibility(View.GONE);
         } else {
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.WAKEUP.getValue()).setVisibility(View.VISIBLE);
         }
 
         if (inf.getNight() == null || inf.getNight() == 0)
             _linearCell.get(Linear.NIGHT.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.NIGHT.getValue()).setVisibility(View.VISIBLE);
 
 
         if (inf.getWorkout() == null || inf.getWorkout() == 0) // detail activity
@@ -265,38 +260,38 @@ public class DayResultActivity extends AppCompatActivity {
             _linearCell.get(Linear.WORKOUT.getValue()).setVisibility(View.GONE);
 
         } else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.WORKOUT.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getHypogly() == null || inf.getHypogly() == 0)
             _linearCell.get(Linear.HYPO.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.HYPO.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getHypergly() == null || inf.getHypergly() == 0)
             _linearCell.get(Linear.HYPER.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.HYPER.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getAtwork() == null || inf.getAtwork() == 0)
             _linearCell.get(Linear.WORK.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.WORK.getValue()).setVisibility(View.VISIBLE);
 
 
         if (inf.getAthome() == null || inf.getAthome() == 0)
             _linearCell.get(Linear.HOME.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.HOME.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getAlcohol() == null || inf.getAlcohol() == 0)
             _linearCell.get(Linear.ALCOHOL.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.ALCOHOL.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getPeriod() == null || inf.getPeriod() == 0)
             _linearCell.get(Linear.PERIOD.getValue()).setVisibility(View.GONE);
         else
-            _linearCell.get(count++).setVisibility(View.VISIBLE);
+            _linearCell.get(Linear.PERIOD.getValue()).setVisibility(View.VISIBLE);
 
         if (inf.getActivity() == null || inf.getActivity() == "" || inf.getActivity().length() == 0) {
             _linearCell.get(Linear.SPORT2.getValue()).setVisibility(View.GONE);
@@ -330,7 +325,7 @@ public class DayResultActivity extends AppCompatActivity {
         }
 
         Log.e("getplace for icone", "yo:" + inf.getPlace() + "$");
-        if (inf.getPlace() == null || inf.getPlace() == "" || inf.getPlace() == "N/A") {
+        if (inf.getPlace() == null || inf.getPlace() == "") {
             _linearCell.get(Linear.PLACE.getValue()).setVisibility(View.GONE);
             ImageView img = (ImageView) findViewById(R.id.ic_placeentry);
             img.setVisibility(View.GONE);

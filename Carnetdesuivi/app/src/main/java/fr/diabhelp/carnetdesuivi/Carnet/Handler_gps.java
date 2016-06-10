@@ -139,7 +139,6 @@ public class Handler_gps extends Service implements LocationListener {
                     txtplace.setText(cityName);
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -201,7 +200,6 @@ public class Handler_gps extends Service implements LocationListener {
                     txtplace.setText(cityName);
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

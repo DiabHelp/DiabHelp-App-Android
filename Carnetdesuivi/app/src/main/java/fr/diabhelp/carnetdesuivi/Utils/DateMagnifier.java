@@ -9,7 +9,6 @@ public class DateMagnifier {
 
     protected String getMonthstr(String month)
     {
-        Log.e("month written in DB", month);
         switch (month)
         {
             case "01" :
@@ -44,7 +43,7 @@ public class DateMagnifier {
     {
         String finaldate;
         finaldate = date.split("-")[1] + " ";
-        finaldate += getMonthstr(date.split("-")[0]) + " "; // TODO afficher le mois en toute lettre.. connaitre comment sont sortie les mois..
+        finaldate += getMonthstr(date.split("-")[0]) + " ";
         finaldate += date.split("-")[2];
         return finaldate;
     }

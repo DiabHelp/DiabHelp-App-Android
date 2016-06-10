@@ -114,7 +114,6 @@ public class StatisticsAllFragment extends Fragment {
 
         @Override
         public void onValueDeselected() {
-            // TODO Auto-generated method stub
 
         }
 
