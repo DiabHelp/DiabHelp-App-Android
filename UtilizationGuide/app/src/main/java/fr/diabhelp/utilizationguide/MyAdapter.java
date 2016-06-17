@@ -1,10 +1,5 @@
 package fr.diabhelp.utilizationguide;
 
-/**
- * Created by Maxime on 28/03/2016.
- */
-
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,15 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.util.Arrays;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private String[]    mDataset;
-    private String      parentName;
-    private String      currentName;
-    private boolean     children;
-    private MyArticleHandler articles;
+    private String[]            mDataset;
+    private String              parentName;
+    private String              currentName;
+    private boolean             children;
+    private MyArticleHandler    articles;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -35,12 +28,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] myDataset, String cName, String pName, boolean isChildren, MyArticleHandler articleHandler) {
-        mDataset = myDataset;
+    public MyAdapter(String[] data, String cName, String pName, boolean child, MyArticleHandler a){
+        mDataset = data;
         currentName = cName;
         parentName = pName;
-        children = isChildren;
-        articles = articleHandler;
+        children = child;
+        articles = a;
     }
 
     // Create new views (invoked by the layout manager)
@@ -60,7 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 String clicked = t.getText().toString();
                 Log.e("item : ", clicked);
                 //if the item clicked is a category, we reset the saved parent & curr name
-                if (articles.isCategory(clicked)){
+                if (MyArticleHandler.isCategory(clicked)){
                     parentName = null;
                     currentName = null;
                 }
@@ -72,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 else if (currentName == null)
                     currentName = clicked;
                 //if we are already inside a submenu, parent shouldn't change
-                else if (!articles.isRubrik(currentName) && !articles.isRubrik(clicked)){
+                else if (!MyArticleHandler.isRubrik(currentName) && !MyArticleHandler.isRubrik(clicked)){
                     parentName = currentName;
                     currentName = clicked;
                 }
@@ -91,8 +84,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 root.getContext().startActivity(intent);
             }
         });
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -105,5 +97,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
-    public int getItemCount() {return mDataset.length;}
+    public int getItemCount() {
+        if (mDataset != null)
+            return mDataset.length;
+        else
+            return 0;
+    }
 }

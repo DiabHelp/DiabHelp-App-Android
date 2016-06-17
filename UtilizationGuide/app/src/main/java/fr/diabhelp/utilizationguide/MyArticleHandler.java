@@ -1,114 +1,117 @@
 package fr.diabhelp.utilizationguide;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
-
-import java.lang.reflect.Array;
+import android.content.res.Resources;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import android.util.Log;
 
-/**
- * Created by Maxime on 29/03/2016.
- */
 public class MyArticleHandler {
-//    private String title;
+    private static MyArticleHandler instance;
     private static List<Article> articles;
-    private static Iterator<Article> iterator;
     private Context context;
-    MyArticleHandler(Context pContext){
+    private Resources res;
+
+    public MyArticleHandler(Context pContext){
         context = pContext;
+        res = pContext.getResources();
         initializeData();
     }
 
-    // This method creates an ArrayList that has three Person objects
-// Checkout the project associated with this tutorial on Github if
-// you want to use the same images.
+    //code to create the handler only one time
+    public static synchronized MyArticleHandler getInstance(Context context){
+        if (instance == null)
+            instance = new MyArticleHandler(context);
+        return instance;
+    }
+
+    // Here we fill the Articles of the User Manual that are composed
+    // of ([String : Title], [String : Rubrik], [String-Array : content], [Int-Array : img-ids])
+    // Articles Titles in each categories must be unique.
     private void initializeData(){
         articles = new ArrayList<>();
-        articles.add(new Article("Premiers pas dans l'application", "Accueil", context.getString(R.string.article_accueil), R.mipmap.ic_launcher));
-        articles.add(new Article("Premiers pas dans l'application", "AccueilAutre", context.getString(R.string.article_accueil2), R.mipmap.ic_launcher));
-        articles.add(new Article("Gestion des modules - Le catalogue", "Premiers pas", context.getString(R.string.catalogue_premiers_pas), R.mipmap.ic_launcher));
-        articles.add(new Article("Gestion des modules - Le catalogue", "Installation des modules", context.getString(R.string.catalogue_installation), R.mipmap.ic_launcher));
-        articles.add(new Article("Gestion des modules - Le catalogue", "Mise à jour des modules", context.getString(R.string.catalogue_mise_a_jour), R.mipmap.ic_launcher));
-        articles.add(new Article("Connexion, inscription", "Comment se connecter", context.getString(R.string.connexion), R.mipmap.ic_launcher));
-        articles.add(new Article("Connexion, inscription", "Inviter un proche à créer un compte", context.getString(R.string.inviter_proche), R.mipmap.ic_launcher));
-        articles.add(new Article("Les différents modules disponibles", "Le carnet de suivi", context.getString(R.string.carnet_de_suivi), R.mipmap.ic_launcher));
-        articles.add(new Article("Les différents modules disponibles", "Le glucocompteur", context.getString(R.string.glucocompteur), R.mipmap.ic_launcher));
-        articles.add(new Article("Les différents modules disponibles", "Le suivi par un proche", context.getString(R.string.suivi_par_proche), R.mipmap.ic_launcher));
-        articles.add(new Article("Les différents modules disponibles", "La relation médecin-patient", context.getString(R.string.relation_medecin_patient), R.mipmap.ic_launcher));
-        articles.add(new Article("Les différents modules disponibles", "Les alertes glycémiques", context.getString(R.string.alertes_glycemiques), R.mipmap.ic_launcher));
-        articles.add(new Article("Les différents modules disponibles", "La Foire aux Questions", context.getString(R.string.foire_aux_questions), R.mipmap.ic_launcher));
+        //Premiers pas dans l'app
+        articles.add(new Article(context.getString(R.string.ctg1), context.getString(R.string.ctg1_rbk1), res.getStringArray(R.array.ctg1_rbk1_art1)));
+        articles.add(new Article(context.getString(R.string.ctg1), context.getString(R.string.ctg1_rbk2), res.getStringArray(R.array.ctg1_rbk2_art1)));
+        articles.add(new Article(context.getString(R.string.ctg1), context.getString(R.string.ctg1_rbk3), res.getStringArray(R.array.ctg1_rbk3_art1)));
+        articles.add(new Article(context.getString(R.string.ctg1), context.getString(R.string.ctg1_rbk4), res.getStringArray(R.array.ctg1_rbk4_art1)));
+
+        //Modules DiabHelp
+        articles.add(new Article(context.getString(R.string.ctg2), context.getString(R.string.ctg2_rbk1), res.getStringArray(R.array.ctg2_rbk1_art1)));
+        articles.add(new Article(context.getString(R.string.ctg2), context.getString(R.string.ctg2_rbk2), res.getStringArray(R.array.ctg2_rbk2_art1)));
+        articles.add(new Article(context.getString(R.string.ctg2), context.getString(R.string.ctg2_rbk3), res.getStringArray(R.array.ctg2_rbk3_art1)));
     }
 
     public static boolean isCategory(String category){
-        if (Arrays.asList(getCategories()).contains(category))
-            return true;
-        return false;
+        return getCategories() != null && Arrays.asList(getCategories()).contains(category);
     }
 
     public static boolean isRubrik(String rubrik){
-        if (Arrays.asList(getAllTitles()).contains(rubrik))
-            return true;
-        return false;
+        return Arrays.asList(getAllTitles()).contains(rubrik);
     }
 
     public static String[] getDistinctCategories(){
-        List<String> existingKey = new ArrayList<String>();
+        List<String> existingKey = new ArrayList<>();
         String[] categories = getCategories();
         int i = 0;
+        assert categories != null;
         while (i < categories.length){
             if (!(existingKey.contains(categories[i])))
                 existingKey.add(categories[i]);
             i++;
         }
-        return (existingKey.toArray(new String[0]));
+        return (existingKey.toArray(new String[existingKey.size()]));
     }
 
     public static String[] getCategories(){
-        List<String> categories = new ArrayList<String>();
-        if (articles.size() == 0)
-            return null;
+        List<String> categories = new ArrayList<>();
+        Iterator<Article> iterator;
+        if (articles != null && articles.size() == 0) return null;
         else if (articles != null && articles.size() > 0){
             for (iterator = articles.iterator(); iterator.hasNext();){
                 Article item = iterator.next();
                 categories.add(item.category);
             }
         }
-        return categories.toArray(new String[0]);
+        return categories.toArray(new String[categories.size()]);
     }
+
 
     public static Article getArticle(String title, String category) //carefull, title must be unique in the category
     {
         Article ret = null;
+        Iterator<Article> iterator;
         for (iterator = articles.iterator(); iterator.hasNext();){
             ret = iterator.next();
-//            Log.e("processing", "analyzing element " + item.title + " in category " + item.category);
             if (ret.title.equals(title) && ret.category.equals(category))
                 return ret;
         }
         return ret;
     }
 
-    public static String[] getArticlesTitles(String category)
-    {
-        List<String> titles = new ArrayList<String>();
+    //get all the articles titles of the category [category]
+    public static String[] getArticlesTitles(String category){
+        List<String> titles = new ArrayList<>();
+        Iterator<Article> iterator;
         for (iterator = articles.iterator(); iterator.hasNext();){
             Article item = iterator.next();
             if (item.category.equals(category))
                 titles.add(item.getTitle());
         }
-        return titles.toArray(new String[0]);
+        return titles.toArray(new String[titles.size()]);
     }
 
+    //get all the articles titles
     public static String[] getAllTitles() {
-        List<String> titles = new ArrayList<String>();
+        List<String> titles = new ArrayList<>();
+        Iterator<Article> iterator;
         for (iterator = articles.iterator(); iterator.hasNext();){
             Article item = iterator.next();
             titles.add(item.getTitle());
         }
-        return titles.toArray(new String[0]);
+        return titles.toArray(new String[titles.size()]);
     }
 }

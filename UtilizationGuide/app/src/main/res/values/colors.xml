@@ -5,4 +5,8 @@
     <color name="colorPrimaryDark">#18C1BB</color>
     <color name="colorAccent">#18C1BB</color>
     <color name="white">#FFFF</color>
+    <color name="yellow">#ffd700</color>
+    <color name="blue">#87cefa</color>
+    <color name="red">#ee4000</color>
+
 </resources>
