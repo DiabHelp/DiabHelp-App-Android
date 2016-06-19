@@ -18,11 +18,11 @@ public class FaqSubmenu extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private String item;
-    private String diabete[] = {"Comprendre le Diabete",
-            "Qu'elles sont les symptomes ?", "Hypo/Hyper Glycémie, qu'est-ce que c'est ?",
+    private String diabete[] = {"Comprendre le diabete",
+            "Qu'elles sont les symptômes ?", "Hypo/hyper glycémie, qu'est-ce que c'est ?",
             "Hypoglycémie, qu'elles sont les risques ?", "Hyperglycémie, qu'elles sont les risques ?",
-            "Les différents type de Diabète", "L'Acétone - HBA1C - Basal - termes..", "Traitement diabète sans insuline ?",
-            "Diabete = interdiction ?", "Chose à éviter"
+            "Les différents type de diabète", "L'acétone - HBA1C - Basal - termes..", "Traitement diabète sans insuline ?",
+            "Diabete = interdiction ?", "Choses à éviter"
             };
 
     private String traitements[] = {"Piqures",
@@ -31,7 +31,7 @@ public class FaqSubmenu extends AppCompatActivity {
     };
 
     private String typediabete[] = {"Diabète de Type 1",
-            "Diabète de Type 2", "Diabète gestationelle"
+            "Diabète de Type 2", "Diabète gestationel"
     };
 
     @Override

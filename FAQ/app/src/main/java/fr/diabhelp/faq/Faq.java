@@ -16,10 +16,10 @@ public class Faq extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String myDataset[] = {"Savoir Réagir face à un malaise", "Type de Diabète, Cause, Traitements",
-            "Diabète égale interdiction ?\nSavoir gérer son repas",
-            "Trucs et Astuces pour ne pas se faire surprendre", "Cigarette/Alcool/Autres.. Que se passe t'il ?",
-            "Aide financiere lié au Diabète",
+    private String myDataset[] = {"Savoir réagir face à un malaise", "Types de diabètes, cause, traitements",
+            "Diabète égal interdiction ?\nSavoir gérer son repas",
+            "Trucs et astuces pour ne pas se faire surprendre", "Cigarette/Alcool/Autres.. Que se passe-t-il ?",
+            "Aide financiere liée au diabète",
             "Sexualité / Grossesse / Contraception", "Apprivoiser la maladie"};
 
 //TODO ; Equipement lié au Diabete ; Etude et vie professionelle ;
