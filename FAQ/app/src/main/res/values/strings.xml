@@ -41,14 +41,15 @@
         personne, il se peut qu\'elle ait envie de faire certaines expériences.
         Ici nous parlerons donc des complications liées au diabète.
         Veuillez vous renseigner auprès de votre médecin traitant pour connaitre les conséquences
-        que peuvent avoir ces substances sur votre organisme.</string>
+        que peuvent avoir ces substances sur votre organisme.
+    </string>
     <string name="sub_title1_alco_toxic">L\'alcool</string>
     <string name="content_alco_toxic">
-        L'alcool augmente grandement le risque d\'hypoglycémies sévères\n
+        L\'alcool augmente grandement le risque d\'hypoglycémies sévères\n
         L\'alcool peut inhiber la fabrication de glucose par le foie et la transformation des
         réserves de glycogène en glucose. Le taux de glucose diminue donc fortement.\n
         Ce phénomène peut être accentué. Par exemple, si vous dansez (consommation de glucose) et
-        que vous oubliez de manger, vous pouvez risquez de faire une crise d'hypoglycémie sévère.\n\n
+        que vous oubliez de manger, vous pouvez risquez de faire une crise d\'hypoglycémie sévère.\n\n
         Attention, le Glucagon ne fonctionnera pas pour traiter une hypoglycémie sévère.
     </string>
 
@@ -56,16 +57,17 @@
     <string name="content_conseil_alco_toxic">
         Associez toujours de la nourriture contenant des glucides à la prise d\'alcool\n
         Si vous buvez de l\'alcool en soirée, il est essentiel de faire une glycémie au coucher et
-        une collation (risque d\'hypoglycémie jusqu\'à 8 à 12h après avoir consommé de l'alcool)\n
+        une collation (risque d\'hypoglycémie jusqu\'à 8 à 12h après avoir consommé de l\'alcool)\n
         Toujours avoir sur soi une source de glucide concentrés\n
         Vérifiez votre glycémie avant pendant et après la consommation\n
         Pour ne pas être déréglé, mettez une alarme le matin pour vous lever à l\'heure habituelle
-        afin de prendre votre insuline ainsi que votre petit déjeuner.</string>
+        afin de prendre votre insuline ainsi que votre petit déjeuner.
+    </string>
 
     <string name="sub_title2_cana_toxic">Le cannabis</string>
     <string name="noeffect_diabete_toxic">Aucun effet direct sur le Diabète..\n</string>
     <string name="content_cana_toxic">
-        Le cannabis n'a aucun effet direct sur le diabète. Les sensations procurées à une personne
+        Le cannabis n\'a aucun effet direct sur le diabète. Les sensations procurées à une personne
         diabétique sont les mêmes que sur une personne non atteinte, les sens et la faculté de
         jugement sont tout autant impactés\n\n
         Cependant, la gestion quotidienne du diabète pourrait devenir problèmatique lors d\'une
@@ -81,11 +83,11 @@
     </string>
     <string name="warning_drug_toxic">Attention aux amphétamines ou à l\'ecstasy (MDMA)\n</string>
     <string name="consequence_drug_toxic">
-        L'effet coupe-faim de ces drogues peut fortement influer sur votre gestion du diabète.
-        N'ayant pas de sentiment de faim et étant sous l'effet de ces substances, il est probable
-        que vous oubliez d'effectuer votre suivi. De ce fait, votre taux de glycémie peut diminuer
-        jusqu'à atteindre un stade critique, menant à des hypoglycémies de gravité différente. \n
-        Comme pour l'alcool, prévoyez toujours une source de glucides en cas de besoin.
+        L\'effet coupe-faim de ces drogues peut fortement influer sur votre gestion du diabète.
+        N\'ayant pas de sentiment de faim et étant sous l\'effet de ces substances, il est probable
+        que vous oubliez d\'effectuer votre suivi. De ce fait, votre taux de glycémie peut diminuer
+        jusqu\'à atteindre un stade critique, menant à des hypoglycémies de gravité différente. \n
+        Comme pour l\'alcool, prévoyez toujours une source de glucides en cas de besoin.
     </string>
 
 
@@ -201,7 +203,8 @@
         - une origine génétique : le facteur familial est tout à fait prépondérant. Des antécédents
         de diabète du même type sont souvent présents dans la famille.\n
         - des facteurs environnementaux : alimentation déséquilibrée, un manque d’activité physique
-        responsables du surpoids."</string>
+        responsables du surpoids."
+    </string>
     <string name="traitements_diabete_type2">Traitement du diabète de type 2</string>
     <string name="content_traitements_diabete_type2">
         Il est traité dans un premier temps par des mesures hygiéno-dététiques puis on a rapidement
@@ -291,7 +294,7 @@
         consommées, prendre l\'avis d\'un nutritionniste ou d\'un diététicien avec l\'accord de son
         diabétologue. Éviter la consommation isolée d\'aliments riches en sucre et respecter à
         chaque repas la proportion des différentes catégories d\'aliments indispensables avec 40 à
-        50% de glucides, 15% de protéines et 30 à 45% de lipides.\n
+        50%% de glucides, 15%% de protéines et 30 à 45%% de lipides.\n
         D\'autre part, ne jamais consommer de morceaux de sucre sauf lorsqu\'une situation
         exceptionnelle le nécessite (hypoglycémie par exemple).
         Respecter les quantités totales de glucides autorisés et contrôler son poids. Chez les
@@ -322,13 +325,14 @@
         faibles si la contraception a de faibles taux en oestrogènes.
         De plus, les anovulants ne compliquent pas le traitement du diabète.\n
         Demandez plus de conseils à votre médecin sur la contraception à utiliser,
-        chaque corps est différent.</string>
+        chaque corps est différent.
+    </string>
 
 <!--    Chose a éviter-->
     <string name="title_dodge">Trucs et astuces pour ne pas se faire surprendre</string>
     <string name="intro_dodge">
         Ici nous vous proposons certaines astuces pratiques pour ne pas vous faire surprendre par le
-        Diabète. Ces petites astuces sont tirées des membres de la communauté.
+        diabète. Ces petites astuces sont tirées des membres de la communauté.
     </string>
     <string name="content_dodge">
         Avant d\'aller se coucher :\n
