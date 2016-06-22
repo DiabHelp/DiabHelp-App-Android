@@ -1072,3 +1072,6 @@ SuiviPatientProche/gradlew.bat
 SuiviPatientProche/local.properties
 SuiviPatientProche/settings.gradle
 Carnetdesuivi/.idea/encodings.xml
+Diabhelp/.idea/gradle.xml
+Diabhelp/app/app.iml
+Diabhelp/.idea/vcs.xml
