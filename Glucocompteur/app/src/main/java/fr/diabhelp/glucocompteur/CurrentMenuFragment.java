@@ -84,16 +84,23 @@ public class CurrentMenuFragment extends Fragment {
                             alertDialog.show();
                         } else {
                             weight = Double.parseDouble(String.valueOf(pEdit.getText()));
-                            _aliment.setWeight(weight);
-                            _aliment.setTotalGlucids(weight * _aliment.getGlucids());
-                            _alimentsList.add(_aliment);
-                            _searchBox.setText("");
-                            TextView totalGlucids  = (TextView) container.getRootView().findViewById(R.id.totalGlucids);
-                            TextView totalWeight  = (TextView) container.getRootView().findViewById(R.id.totalWeight);
-                            totalGlucids.setText("Glycemie totale : " + getTotalGlucids(_alimentsList).toString() + "g");
-                            totalWeight.setText("Poids total : " + String.valueOf(getTotalWeight(_alimentsList)) + "g");
-                            _recAdapter.notifyDataSetChanged();
-                            dialog.dismiss();
+                            Log.e("var debug", "w : " +String.valueOf(weight) + "-" );
+                            if (_aliment == null) {
+                                Toast.makeText(getActivity(), "Aliment renseigné non trouvé",
+                                        Toast.LENGTH_LONG).show();
+                                return ;
+                            } else {
+                                _aliment.setWeight(weight);
+                                _aliment.setTotalGlucids(weight * _aliment.getGlucids());
+                                _alimentsList.add(_aliment);
+                                _searchBox.setText("");
+                                TextView totalGlucids = (TextView) container.getRootView().findViewById(R.id.totalGlucids);
+                                TextView totalWeight = (TextView) container.getRootView().findViewById(R.id.totalWeight);
+                                totalGlucids.setText("Glycemie totale : " + getTotalGlucids(_alimentsList).toString() + "g");
+                                totalWeight.setText("Poids total : " + String.valueOf(getTotalWeight(_alimentsList)) + "g");
+                                _recAdapter.notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
                         }
                     }
                 });

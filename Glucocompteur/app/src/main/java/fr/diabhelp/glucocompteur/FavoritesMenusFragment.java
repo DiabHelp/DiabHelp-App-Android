@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class FavoritesMenusFragment extends Fragment {
                     ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), 0., menu.getMenuGlucids());
                     ArrayList<Aliment> aliments = menu.alimentsList;
                     for (Aliment aliment : aliments) {
+                        Log.e("debugfavoris", "t : " + String.valueOf(aliment.getTotalGlucids()));
                         item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getTotalGlucids()));
                     }
                     data.add(item);
