@@ -15,18 +15,18 @@ public class DAO extends DAOBase {
 
     public static final String tdate = "date";
 
-    public static final String glycemy = "glycemy"; // y
-    public static final String Titre = "title"; // y
-    public static final String Lieux = "place"; //y
-    public static final String Date_hour = "date_hour"; // y
-    public static final String glucide = "glucide"; // y
-    public static final String activity = "activity"; //
-    public static final String activityType = "activity_type"; //
-    public static final String notes = "notes"; //
-    public static final String fast_insu = "fast_insu"; // y
-    public static final String slow_insu = "slow_insu"; // y
-    public static final String hba1c = "hba1c"; // y
-    public static final String Hour = "hour"; // y
+    public static final String glycemy = "glycemy";
+    public static final String Titre = "title";
+    public static final String Lieux = "place";
+    public static final String Date_hour = "date_hour";
+    public static final String glucide = "glucide";
+    public static final String activity = "activity";
+    public static final String activityType = "activity_type";
+    public static final String notes = "notes";
+    public static final String fast_insu = "fast_insu";
+    public static final String slow_insu = "slow_insu";
+    public static final String hba1c = "hba1c";
+    public static final String Hour = "hour";
 
     public static final String breakfast = "breakfast";
     public static final String launch = "lunch";

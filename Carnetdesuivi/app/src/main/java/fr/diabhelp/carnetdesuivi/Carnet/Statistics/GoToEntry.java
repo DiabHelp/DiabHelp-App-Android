@@ -1,9 +1,12 @@
 package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -12,37 +15,56 @@ import android.widget.TextView;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
+import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 
 /**
  * Created by vigour_a on 16/03/2016.
  */
 public class GoToEntry {
 
-    public GoToEntry(EntryOfCDS entry, Context context, Activity activity) {
+    public GoToEntry(final EntryOfCDS entry, Context context, final Activity activity) {
         final EntryOfCDS ent = entry;
         final Activity act = activity;
+        LayoutInflater factory = LayoutInflater.from(context);
 
-        Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.graph_entry_view);
+//        Dialog dialog = new Dialog(context);
+        final View alertDialogView = factory.inflate(R.layout.graph_entry_view, null);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setView(alertDialogView);
 
-        TextView txt = (TextView)dialog.findViewById(R.id.textbox);
-        Button button = (Button)dialog.findViewById(R.id.goToEntry);
+/*        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.graph_entry_view);*/
+
+        TextView txtdate = (TextView) alertDialogView.findViewById(R.id.textboxdate);
+        TextView txtgly = (TextView) alertDialogView.findViewById(R.id.textboxgly);
+        TextView txtcalo = (TextView) alertDialogView.findViewById(R.id.textboxcalo);
 
         String day = entry.getDate().toString().substring(3, 5);
         String month = entry.getDate().toString().substring(0, 2);
         String year = entry.getDate().toString().substring(6, 10);
         String formated_date = day + "-" + month + "-" + year;
+        DateMagnifier dt = new DateMagnifier();
+        dialog.setTitle(entry.getTitle());
+        dialog.setIcon(R.drawable.diab_logo);
 
-        txt.setText("Titre : " + entry.getTitle() +
-                    "\nDate : " + formated_date +
-                    "\nGlycémie : " + entry.getglycemy());
+        txtdate.setText("Date : " + dt.getCleanDate(formated_date));
+        txtgly.setText("Glycémie : " + entry.getglycemy());
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                goToEntry(ent, act);
-            }
-        });
+
+        dialog.setPositiveButton("Modifier",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        goToEntry(entry, activity);
+
+                    }
+                });
+
+        dialog.setNegativeButton("Annuler",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                    }
+                });
 
         dialog.show();
     }
@@ -77,9 +99,10 @@ public class GoToEntry {
         intent.putExtra("alcohol", entry.getAlcohol());
         intent.putExtra("period", entry.getPeriod());
         intent.putExtra("breakfast", entry.getBreakfast());
+        intent.putExtra("activity", "stat");
 
         activity.startActivity(intent);
-//        activity.finish();
+        activity.finish();
     }
 
 }

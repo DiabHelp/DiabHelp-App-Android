@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.PagerAdapter;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.R;
@@ -64,4 +65,15 @@ public class StatisticsActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+        Intent Entryintent = null;
+
+        Entryintent = new Intent(StatisticsActivity.this, Carnetdesuivi.class);
+        StatisticsActivity.this.startActivity(Entryintent);
+        this.finish();
+
+    }
 }

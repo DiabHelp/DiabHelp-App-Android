@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
@@ -133,6 +134,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     private Integer _period;
     private Integer _breakfast;
 
+    String _activitycycle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +156,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
         fill_date();
         Intent intent = getIntent();
+
+        _activitycycle = intent.getExtras().getString("activity");
 
         if (intent.hasExtra("title"))
             _title = intent.getExtras().getString("title");
@@ -518,9 +522,24 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     @Override
     public void onBackPressed() {
-        Intent Entryintent = new Intent(EntryActivity.this, Carnetdesuivi.class);
+
+        Intent Entryintent = null;
+
+        if (_activitycycle.equals("carnet"))
+             Entryintent = new Intent(EntryActivity.this, Carnetdesuivi.class);
+        else if (_activitycycle.equals("infoday")) {
+            Entryintent = new Intent(EntryActivity.this, DayResultActivity.class);
+            Entryintent.putExtra("date", _date);
+            Entryintent.putExtra("hour", _hour);
+        }
+        else if (_activitycycle.equals("stat"))
+            Entryintent = new Intent(EntryActivity.this, StatisticsActivity.class);
+
         EntryActivity.this.startActivity(Entryintent);
         this.finish();
+
+
+
     }
 
     // Methode icones

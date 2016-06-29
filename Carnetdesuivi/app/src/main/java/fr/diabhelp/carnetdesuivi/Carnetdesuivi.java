@@ -295,6 +295,8 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                     Entryintent.putExtra("alcohol", ent.getAlcohol());
                     Entryintent.putExtra("period", ent.getPeriod());
                     Entryintent.putExtra("breakfast", ent.getBreakfast());
+                    Entryintent.putExtra("activity", "carnet");
+
                     Carnetdesuivi.this.startActivity(Entryintent);
                     Carnetdesuivi.this.finish();
                 }
@@ -308,6 +310,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         }
         else {
             Intent Entryintent = new Intent(Carnetdesuivi.this, EntryActivity.class);
+            Entryintent.putExtra("activity", "carnet");
             Carnetdesuivi.this.startActivity(Entryintent);
             Carnetdesuivi.this.finish();
         }
