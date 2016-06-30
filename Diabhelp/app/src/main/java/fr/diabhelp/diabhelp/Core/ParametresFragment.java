@@ -45,17 +45,12 @@ public class ParametresFragment extends Fragment implements IApiCallTask {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_user) {
-            return (false);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem item=menu.findItem(R.id.action_user);
-        item.setVisible(false);
-        item.setEnabled(false);
         return ;
     }
 

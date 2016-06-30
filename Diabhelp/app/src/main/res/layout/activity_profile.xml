@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Profile"
+    android:orientation="vertical"
+    >
+    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/include">
+
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
+            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/profile_img"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/nav_header_vertical_spacing"
+                    android:src="@drawable/diab_logo_max"
+                    android:id="@+id/imageView"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:columnCount="2"
+                android:rowCount="4">
+
+                <EditText
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0.5"
+                    android:layout_margin="5dp"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/editLastName"
+                    android:id="@+id/editName"
+                    android:hint="@string/name" />
+
+                <EditText
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0.5"
+                    android:layout_margin="5dp"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/editBirthDate"
+                    android:id="@+id/editLastName"
+                    android:hint="@string/last_name" />
+
+                <EditText
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0.5"
+                    android:layout_margin="5dp"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/editEmail"
+                    android:id="@+id/editBirthDate"
+                    android:hint="@string/birthdate" />
+
+                <EditText
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0.5"
+                    android:layout_margin="5dp"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/editPhone"
+                    android:id="@+id/editEmail"
+                    android:hint="@string/mail" />
+
+                <EditText
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0.5"
+                    android:layout_margin="5dp"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/editOrganism"
+                    android:id="@+id/editPhone"
+                    android:hint="@string/mobile" />
+
+                <EditText
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0.5"
+                    android:layout_margin="5dp"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/editPassword"
+                    android:id="@+id/editOrganism"
+                    android:hint="@string/organism" />
+
+                <EditText
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0.5"
+                    android:layout_margin="5dp"
+                    android:singleLine="true"
+                    android:nextFocusDown="@+id/editPassword2"
+                    android:id="@+id/editPassword"
+                    android:hint="@string/password" />
+
+                <EditText
+                    android:layout_columnSpan="1"
+                    android:layout_gravity="fill"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0.5"
+                    android:layout_margin="5dp"
+                    android:singleLine="true"
+                    android:id="@+id/editPassword2"
+                    android:hint="@string/confirmation" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|bottom"
+        android:orientation="vertical"
+        >
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Edit"
+            android:textAllCaps="true"
+            android:textColor="@color/abc_secondary_text_material_dark"
+            android:background="#078b87"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:id="@+id/update_profile"
+            />
+
+    </LinearLayout>
+</LinearLayout>

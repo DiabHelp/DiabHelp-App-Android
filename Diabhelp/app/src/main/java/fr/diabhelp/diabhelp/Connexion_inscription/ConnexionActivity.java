@@ -28,6 +28,7 @@ import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.BDD.User;
+import fr.diabhelp.diabhelp.Services.MyInstanceIDListenerService;
 import fr.diabhelp.diabhelp.Services.RegistrationIntentService;
 import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Core.CoreActivity;
@@ -42,13 +43,12 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     public static final String IS_NETWORK = "fr.diabhelp.diabhelp.isNetwork";
     public static final String SESSION = "fr.diabhelp.diabhelp.session";
     public static final String AUTO_CONNEXION_PREFERENCE = "auto_connexion";
-    public static final String TOKEN = "token";
-    public static final String TYPE_USER = "type_user";
     public static final String SENT_TOKEN_TO_SERVER = "token_is_sent_to_server";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     private String _login_input = null;
     private String _pwd_input = null;
+    private String _session = null;
 
     public ProgressDialog _progress = null;
 
@@ -137,11 +137,11 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     {
         //findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
         if (NetworkUtils.getConnectivityStatus(getApplicationContext())) {
-            Log.i(getLocalClassName(), "connexion en ligne");
+            System.out.println("connexion en ligne");
             tryConnectWithNetwork();
         }
         else {
-            Log.i(getLocalClassName(),"connexion hors ligne");
+            System.out.println("connexion hors ligne");
             tryConnectWithoutNetwork();
         }
     }
@@ -204,13 +204,16 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             }
             //on essaye de se connecter avec les Ids stockés dans la base sqlLITE
             else {
-                Log.i(getLocalClassName(),"Ids de l'user = " + user.getUser() + " " + user.getPwd());
+                System.out.println("Ids de l'user = " + user.getUser() + " " + user.getPwd());
                 bdd.close();
+//                new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getBasicAuthSession").execute("2", "connect", "login", user.getUser(), "password", user.getPwd());
                 new ConnexionAPICallTask(this).execute(user.getUser(), user.getPwd());
             }
         }
         else {
             bdd.close();
+            System.out.println("je vais tenter la connexion non automatique");
+            //new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getBasicAuthSession").execute("2", "login_check", "username", _login_input, "password", _pwd_input);
             new ConnexionAPICallTask(this).execute(_login_input, _pwd_input);
         }
     }
@@ -234,7 +237,8 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             manageError(response.getError());
         }
         else if (action.equals("initSession")) {
-            initSession(response.getCookie(), response.getTypeUser());
+            _session = response.getCookie();
+            initSession();
         }
     }
 
@@ -276,25 +280,19 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     /**
      * Effectue les actions de mise à jour de la base utilisateur et d'activation de la connexion automatique quand cela est necessaire puis
      * lance l'initialisation du {@link CoreActivity}
-     * @param token
-     * @param typeUser
      */
-    private void initSession(String token, String typeUser)
-    {
-        SharedPreferences.Editor edit = _settings.edit();
-        edit.putString(TOKEN,token);
-        edit.putString(TYPE_USER, typeUser);
-        edit.apply();
+    private void initSession()
+    { System.out.println("init");
+
         User user = null;
         DAO bdd = new DAO(this);
         bdd.open();
         if (!_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)){
             user = new User(0L, _login_input, _pwd_input);
             if (((CheckBox) findViewById(R.id.checkbox_connexion_auto)).isChecked()){
-                edit = _settings.edit();
+                SharedPreferences.Editor edit = _settings.edit();
                 edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
-                edit.putString(TYPE_USER, typeUser);
-                edit.apply();
+                edit.commit();
                 if (!bdd.isUserAlreadyFilled("0")) {
                     bdd.addUser(user);
                 }
@@ -309,6 +307,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
                 return;
             }
         }
+        System.out.println("fin");
         bdd.close();
         launchCoreWithConnexion(user);
     }
@@ -324,6 +323,8 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         Intent coreInt = new Intent(this, CoreActivity.class);
         coreInt.putExtra(USERNAME, user.getUser());
         coreInt.putExtra(IS_NETWORK, false);
+        System.out.println("session = " + _session);
+        coreInt.putExtra(SESSION, _session);
         Boolean tokenGcmSentToServer = _settings.getBoolean(SENT_TOKEN_TO_SERVER, false);
         if (!tokenGcmSentToServer) {
             Intent intent = new Intent(this, RegistrationIntentService.class);
@@ -366,15 +367,6 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         return true;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SharedPreferences.Editor edit = _settings.edit();
-        edit.putString(TOKEN, "");
-        edit.putString(TYPE_USER, "");
-        edit.commit();
-    }
-
     public enum  Error
     {
         NONE(0),
@@ -390,18 +382,6 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
 
         public Integer getErrorCode() {
             return this.errorCode;
-        }
-    }
-
-    public enum TypeUser
-    {
-        PATIENT("patient"),
-        PROCHE("proche");
-
-        private String type;
-
-        TypeUser(String t) {
-            this.type = t;
         }
     }
 }

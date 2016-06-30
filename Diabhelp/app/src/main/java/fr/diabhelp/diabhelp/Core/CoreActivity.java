@@ -1,11 +1,18 @@
 package fr.diabhelp.diabhelp.Core;
 
-import android.content.SharedPreferences;
+
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,10 +25,12 @@ import java.util.List;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
+import fr.diabhelp.diabhelp.FAQ.Faq;
+import fr.diabhelp.diabhelp.Menu.ProfileActivity;
 import fr.diabhelp.diabhelp.R;
 
 
-public class CoreActivity extends AppCompatActivity {
+public class CoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<PInfo> app;
     private ArrayList<String> listApp;
@@ -29,6 +38,7 @@ public class CoreActivity extends AppCompatActivity {
     private Drawable[] img;
     private DAO bdd;
     private Boolean NetState;
+    private TabLayout tabLayout;
 
     class PInfo{
         public String appname = "";
@@ -54,8 +64,10 @@ public class CoreActivity extends AppCompatActivity {
 
 
     public Boolean getNetState() {return this.NetState; }
+
     public void setNetStateAndChange(Boolean netstate) { this.NetState = netstate;
     // Change layout
+        // apply Drawable.mutate().setColorFilter( 0xffff0000, Mode.MULTIPLY) on offline icone
         if (this.NetState == true)
             Toast.makeText(this, "Internet on", Toast.LENGTH_LONG).show();
         else if (this.NetState == false)
@@ -63,19 +75,36 @@ public class CoreActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core);
-
-        String token = ConnexionActivity._settings.getString(ConnexionActivity.TOKEN, "");
-        Log.i(getLocalClassName(), "token de l'user = " + token);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         listApp = new ArrayList<String>();
         app = getPackages();
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Accueil"), 0);
+        //init menu
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Mes Outils"), 0);
         tabLayout.addTab(tabLayout.newTab().setText("Catalogue"), 1);
         tabLayout.addTab(tabLayout.newTab().setText("Paramètre"), 2);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -84,10 +113,13 @@ public class CoreActivity extends AppCompatActivity {
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
+        System.out.println("blabla");
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        System.out.println("blibli");
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                System.out.println("tab numero = [" + tab.getPosition() + "] selectionnée");
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -101,25 +133,69 @@ public class CoreActivity extends AppCompatActivity {
 
             }
         });
+        System.out.println("bloublou");
     }
 
+
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_core, menu);
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_profil) {
+            Intent mainIntent = new Intent(CoreActivity.this, ProfileActivity.class);
+            CoreActivity.this.startActivity(mainIntent);
+            CoreActivity.this.finish();
+        } else if (id == R.id.nav_website) {
+            String url = "http://www.diabhelp.fr";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        } else if (id == R.id.nav_help) {
+
+        } else if (id == R.id.nav_faq) {
+            Intent mainIntent = new Intent(CoreActivity.this, Faq.class);
+            CoreActivity.this.startActivity(mainIntent);
+            CoreActivity.this.finish();
+        } else if (id == R.id.nav_logout) {
+
+        } else if (id == R.id.nav_facebook) {
+            String url = "https://www.facebook.com/diabhelp";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_twitter) {
+            // TODO Twitter account
+            String url = "https://www.facebook.com/diabhelp";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        if (id == R.id.action_user)
-        {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.settings_mod:
+/*                tabLayout.setta*/
+/*                launch_parametre();*/
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+
+/*    private void launch_parametre()
+    {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        HelloFragment hello = new HelloFragment();
+        fragmentTransaction.add(R.id.fragment_container, hello, "HELLO");
+        fragmentTransaction.commit();
+    }*/
     private ArrayList<PInfo> getPackages() {
         ArrayList<PInfo> apps = getInstalledApps(false); /* false = no system packages */
         final int max = apps.size();
@@ -139,24 +215,6 @@ public class CoreActivity extends AppCompatActivity {
         return ctr;
     }
 
-    private PInfo nav_manageur(Drawable t)
-    {
-        PInfo inf = new PInfo();
-        inf.appname = "Site Diabhelp";
-        inf.icon = t;
-        inf.versionCode = 0;
-        inf.pname = "diab_website";
-        return inf;
-    }
-    private PInfo help_manageur(Drawable t)
-    {
-        PInfo inf = new PInfo();
-        inf.appname = "Aide";
-        inf.icon = t;
-        inf.versionCode = 0;
-        inf.pname = "help_me";
-        return inf;
-    }
 
     private ArrayList<PInfo> getInstalledApps(boolean getSysPackages) {
         int ctr = 0;
@@ -166,12 +224,11 @@ public class CoreActivity extends AppCompatActivity {
         ArrayList<PInfo> res = new ArrayList<PInfo>();
         List<PackageInfo> packs = getPackageManager().getInstalledPackages(0);
         int nbDApp = count_dApp(packs);
-        img = new Drawable[nbDApp + 4];
-        web = new String[nbDApp + 4];
+        img = new Drawable[nbDApp];
+        web = new String[nbDApp];
         for(int i=0;i<packs.size();i++) {
             PackageInfo p = packs.get(i);
-            if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp") && 
-                    p.packageName.contains(ConnexionActivity._settings.getString(ConnexionActivity.TYPE_USER, ""))) {
+            if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp")) {
 
                 if ((!getSysPackages) && (p.versionName == null)) {
                     continue;
@@ -191,25 +248,6 @@ public class CoreActivity extends AppCompatActivity {
                 res.add(newInfo);
             }
         }
-        //set du nav
-        newInfo = nav_manageur(getResources().getDrawable(R.drawable.web)); // icone par défaut a changer !!
-        img[ctr] = newInfo.icon;
-        web[ctr++] = newInfo.appname;
-        res.add(newInfo);
-        // set de l'help
-        newInfo = help_manageur(getResources().getDrawable(R.drawable.help)); // icone par défaut a changer !!
-        img[ctr] = newInfo.icon;
-        web[ctr] = newInfo.appname;
-        res.add(newInfo);
         return res;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SharedPreferences.Editor edit = ConnexionActivity._settings.edit();
-        edit.putString(ConnexionActivity.TOKEN, "");
-        edit.putString(ConnexionActivity.TYPE_USER, "");
-        edit.commit();
     }
 }

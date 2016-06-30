@@ -14,7 +14,6 @@ import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.R;
-import fr.diabhelp.diabhelp.Utils.JsonUtils;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -60,37 +59,36 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
 
     @Override
     protected ResponseConnexion doInBackground(String... params) {
-        ResponseConnexion responseConnexion = null;
+        ResponseConnexion responseConnexion = new ResponseConnexion();
         Call<ResponseBody> call = null;
 
         ApiServices service = createService(params[PARAM_USERNAME] + ":" + params[PARAM_PASSWORD]);
         call = service.getBasicAuthSession(params[PARAM_USERNAME], params[PARAM_PASSWORD]);
 
         try {
-                retrofit2.Response<ResponseBody> reponse = call.execute();
-                Headers headers = reponse.headers();
-                if (reponse.isSuccess()) {
-                    System.out.println("headers");
-                    String cookie = headers.get("set-Cookie");
-                    cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
-                    responseConnexion = new ResponseConnexion(JsonUtils.getObj(reponse.body().string()));
-                    responseConnexion.setCookie(cookie);
-                }
-                else {
-                    Log.e("ConnexionApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
-                    responseConnexion = new ResponseConnexion();
-                    responseConnexion.setError(ConnexionActivity.Error.SERVER_ERROR);
-                }
+            retrofit2.Response reponse = call.execute();
+            Headers headers = reponse.headers();
+            if (reponse.isSuccess()) {
+                System.out.println("headers");
+                String cookie = headers.get("set-Cookie");
+                cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
+//                System.out.println("cookie formaté = " + cookie);
+                responseConnexion.setCookie(cookie);
+                ResponseBody body = (ResponseBody) reponse.body();
+                System.out.println("response body" + body.string());
+            }
+            else {
+                Log.e("ConnexionApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
+                responseConnexion.setError(ConnexionActivity.Error.SERVER_ERROR);
+            }
 
         } catch (ProtocolException e)
         {
             progress.dismiss();
-            if (responseConnexion == null){responseConnexion = new ResponseConnexion();}
             responseConnexion.setError(ConnexionActivity.Error.BAD_CREDENTIALS);
             e.printStackTrace();
         } catch (IOException e) {
             progress.dismiss();
-            if (responseConnexion == null){responseConnexion = new ResponseConnexion();}
             responseConnexion.setError(ConnexionActivity.Error.SERVER_ERROR);
             e.printStackTrace();
         }

@@ -79,7 +79,9 @@ public class RegisterAPICallTask extends AsyncTask<String, Integer, ResponseRegi
         }
         catch (IOException e) {
             progress.dismiss();
-            if (responseRegister == null) {responseRegister = new ResponseRegister();}
+            if (responseRegister == null) {
+                responseRegister = new ResponseRegister();
+            }
             responseRegister.setError(RegisterActivity.Error.SERVER_ERROR);
             e.printStackTrace();
         }

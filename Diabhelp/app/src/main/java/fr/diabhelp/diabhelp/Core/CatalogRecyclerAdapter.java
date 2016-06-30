@@ -8,7 +8,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,7 +114,6 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
     @Override
     public void onBindViewHolder(CatalogModuleHolder holder, int pos) {
         holder.name.setText(_modulesList.get(pos).getName());
-        Log.d("OnBienViewHolder", "name = " + holder.name);
         holder.version.setText(_modulesList.get(pos).getVersion());
         holder.rating.setRating(Integer.valueOf(_modulesList.get(pos).getRating()));
         holder.desc.setText(_modulesList.get(pos).getDesc());

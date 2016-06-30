@@ -23,7 +23,7 @@ import retrofit2.Retrofit;
 /**
  * Created by Sumbers on 24/03/2016.
  */
-public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCatalogue> {
+public class CatalogueAPICallTask extends AsyncTask<Integer, String, ResponseCatalogue> {
 
     private String URL_API;
 
@@ -48,18 +48,17 @@ public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCata
     }
 
     @Override
-    protected ResponseCatalogue doInBackground(String... params) {
+    protected ResponseCatalogue doInBackground(Integer... params) {
         Call<ResponseBody> call = null;
         ResponseCatalogue responseCatalogue = null;
 
         ApiServices service = createService();
-        call= service.getModules(params[0]);
+        call= service.getModules();
         try{
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess()){
-                String body = reponse.body().string();
-                Log.i(getClass().getSimpleName(), body);
-                responseCatalogue = new ResponseCatalogue(JsonUtils.getArray(body));
+                Log.i(getClass().getSimpleName(), reponse.body().string());
+                responseCatalogue = new ResponseCatalogue(JsonUtils.getObj(reponse.body().string()));
             }
             else {
                 Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
