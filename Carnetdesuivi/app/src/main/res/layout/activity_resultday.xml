@@ -186,7 +186,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Glucide"
+                android:text="Glucides"
                 android:textSize="@dimen/text_entry_size"
                 android:textAlignment="center"
                 android:gravity="bottom"
@@ -891,7 +891,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Détail"
+                android:text="Détails"
                 android:textStyle="bold"
                 android:id="@+id/Detail"
                 android:layout_centerHorizontal="true" />
