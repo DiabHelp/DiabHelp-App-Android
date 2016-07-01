@@ -47,9 +47,26 @@
             android:exported="false">
         </service>
         <activity
-            android:name=".Core.CoreActivity"
-            android:label="@string/app_name" />
-
+            android:name="fr.diabhelp.diabhelp.Core.CoreActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
+        <activity
+            android:name="fr.diabhelp.diabhelp.FAQ.Faq"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name="fr.diabhelp.diabhelp.FAQ.FaqSubmenu"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name="fr.diabhelp.diabhelp.FAQ.InfoActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
         <receiver
             android:name=".Core.Broadcast_Receiver.NetworkChangeReceiver"
             android:label="NetworkChangeReceiver">
@@ -76,6 +93,13 @@
             android:name=".Connexion_inscription.RegisterActivity"
             android:label="@string/title_register"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name="fr.diabhelp.diabhelp.Menu.ProfileActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+        </activity>
     </application>
 
 </manifest>

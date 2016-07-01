@@ -25,7 +25,6 @@ import java.util.List;
 import fr.diabhelp.diabhelp.API.Asynctasks.CatalogueAPICallTask;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseCatalogue;
-import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Models.CatalogModule;
 import fr.diabhelp.diabhelp.R;
@@ -35,7 +34,7 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     private RecyclerView                _recyclerView;
     private RecyclerView.Adapter        _recAdapter;
     private RecyclerView.LayoutManager  _recLayoutManager;
-    private List<CatalogModule>         _modulesList/* = new ArrayList<>()*/;
+    private List<CatalogModule>         _modulesList = new ArrayList<>();
     private ProgressDialog              _progress;
 
 
@@ -46,40 +45,21 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-
-    }
-
-    // Override this function is a tricks to launch a task only when the user hint the fragment
-    // cf : PageViewer life cycle
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (NetworkUtils.getConnectivityStatus(getActivity())) {
-                new CatalogueAPICallTask(getActivity(), this).execute(ConnexionActivity._settings.getString(ConnexionActivity.TYPE_USER, ""));
-            }
-        }else{
-            // fragment is no longer visible
+        if (NetworkUtils.getConnectivityStatus(getActivity())){
+            new CatalogueAPICallTask(getActivity(), this).execute();
         }
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_user) {
-            return (false);
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem item=menu.findItem(R.id.action_user);
-        item.setVisible(false);
-        item.setEnabled(false);
+
         return ;
     }
 
@@ -90,7 +70,8 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
         _recyclerView.setHasFixedSize(true);
         _recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         _recyclerView.setLayoutManager(_recLayoutManager);
-
+        _recAdapter = new CatalogRecyclerAdapter(_modulesList);
+        _recyclerView.setAdapter(_recAdapter);
         return v;
     }
 
@@ -126,9 +107,6 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     private void displayModules(List<CatalogModule> modules) {
         _progress.dismiss();
         _modulesList = modules;
-        _recAdapter = new CatalogRecyclerAdapter(_modulesList);
-        _recyclerView.setAdapter(_recAdapter);
-        Log.i("display module", "nb = " + modules.size());
         checkAvailability();
         _recAdapter.notifyDataSetChanged();
     }

@@ -8,6 +8,7 @@ import android.os.Handler;
 
 
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
+import fr.diabhelp.diabhelp.Core.CoreActivity;
 
 /**
  * Created by naqued on 28/09/15.
@@ -29,7 +30,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(SplashScreen.this, ConnexionActivity.class);
+                Intent mainIntent = new Intent(SplashScreen.this, CoreActivity.class);
                 SplashScreen.this.startActivity(mainIntent);
                 SplashScreen.this.finish();
             }
