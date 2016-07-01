@@ -58,7 +58,7 @@ public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCata
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess()){
                 String body = reponse.body().string();
-                Log.i(getClass().getSimpleName(), body);
+                Log.i(getClass().getSimpleName(),"modules du catalogue = " + body);
                 responseCatalogue = new ResponseCatalogue(JsonUtils.getArray(body));
             }
             else {

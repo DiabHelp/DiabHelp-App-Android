@@ -26,6 +26,9 @@ public class ResponseRegister {
                     if (arr.getString(i).equalsIgnoreCase("Username already use")) {
                         setError(RegisterActivity.Error.LOGIN_ALREADY_USED);
                     }
+                    if (arr.getString(i).equalsIgnoreCase("Email already use")){
+                        setError(RegisterActivity.Error.EMAIL_ALREADY_USED);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

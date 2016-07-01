@@ -70,10 +70,12 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
                 retrofit2.Response<ResponseBody> reponse = call.execute();
                 Headers headers = reponse.headers();
                 if (reponse.isSuccess()) {
+                    String body = reponse.body().string();
+                    System.out.println("body = " + body);
                     System.out.println("headers");
                     String cookie = headers.get("set-Cookie");
                     cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
-                    responseConnexion = new ResponseConnexion(JsonUtils.getObj(reponse.body().string()));
+                    responseConnexion = new ResponseConnexion(JsonUtils.getObj(body));
                     responseConnexion.setCookie(cookie);
                 }
                 else {

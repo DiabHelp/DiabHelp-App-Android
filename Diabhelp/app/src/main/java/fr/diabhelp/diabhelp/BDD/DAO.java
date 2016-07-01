@@ -1,77 +1,42 @@
 package fr.diabhelp.diabhelp.BDD;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 /**
- * Created by naqued on 28/09/15.
+ * Created by sumbers on 22/06/16.
  */
-public class DAO extends DAOBase {
-    public static final String TABLE_NAME = "Diabhelp";
-    public static final String ID = "id";
-    public static final String USER = "user";
-    public static final String PWD = "pwd";
+public class DAO{
 
+    private static DAO instance = null;
 
-    public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + USER + " TEXT, " + PWD + " TEXT);";
-    public static final String TABLE_DROP =  "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
-
-    public DAO(Context context)
+    public static DAO getInstance(Context context)
     {
-        this.mHandler = new Bdd_manager(context, NOM, null, VERSION);
+        if (instance == null)
+            instance = new DAO(context);
+        return (instance);
     }
 
-    public void addUser(User m) {
-        ContentValues value = new ContentValues();
-        value.put(DAO.ID, m.getId());
-        value.put(DAO.USER, m.getUser());
-        value.put(DAO.PWD, m.getPwd());
-        mDb.insert(DAO.TABLE_NAME, null, value);
+    //version de la BDD
+    private final static int VERSION_HEAD = 19;
+
+    // Le nom du fichier qui représente ma base
+    private final static String NOM = "dh_db.db";
+
+    private SQLiteDatabase mDb = null;
+    private BddManager mHandler = null;
+
+    private DAO(Context context) {
+        this.mHandler = new BddManager(context, NOM, null, VERSION_HEAD);
     }
 
-    /**
-     * @param id l'identifiant du métier à supprimer
-     */
-    public void deleteUser(long id) {
-        mDb.delete(TABLE_NAME, ID + " = ?", new String[] {String.valueOf(id)});
+    public SQLiteDatabase open() {
+        // Pas besoin de fermer la dernière base puisque getWritableDatabase s'en charge
+        mDb = mHandler.getWritableDatabase();
+        return mDb;
     }
 
-    /**
-     * @param m le métier modifié
-     */
-    public void UpdateUser(User m) {
-        ContentValues value = new ContentValues();
-        value.put(PWD, m.getPwd());
-        value.put(USER, m.getUser());
-        value.put(ID, 0);
-        mDb.update(TABLE_NAME, value, ID  + " = ?", new String[] {"0"});
+    public void close() {
+        mDb.close();
     }
-
-
-    public User selectUser() {
-        User m = null;
-        Cursor c = mDb.rawQuery("SELECT " + USER + ", " + PWD + " from " + TABLE_NAME , null);
-
-        //String[] i = c.getColumnNames();
-        if (c.moveToNext()) {
-            String user = c.getString(c.getColumnIndex("user"));
-            String pwd = c.getString(c.getColumnIndex("pwd"));
-
-            m = new User(0, user, pwd);
-        }
-        return m;
-    }
-
-    public boolean isUserAlreadyFilled(String id)
-    {
-        Cursor c = mDb.rawQuery("SELECT " + USER + " FROM " + TABLE_NAME + " WHERE " + ID + " = ?", new String[] {id});
-        if (c.moveToNext()) {
-            c.close();
-            return true;
-        }
-        c.close();
-        return false;
-    }
-
 }

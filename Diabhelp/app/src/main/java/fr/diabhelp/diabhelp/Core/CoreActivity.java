@@ -210,6 +210,7 @@ public class CoreActivity extends AppCompatActivity {
         SharedPreferences.Editor edit = ConnexionActivity._settings.edit();
         edit.putString(ConnexionActivity.TOKEN, "");
         edit.putString(ConnexionActivity.TYPE_USER, "");
+        edit.putString(ConnexionActivity.ID_USER, "");
         edit.commit();
     }
 }

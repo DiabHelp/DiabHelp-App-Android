@@ -18,9 +18,9 @@ import fr.diabhelp.diabhelp.Utils.JsonUtils;
  */
 public class ResponseCatalogue {
 
-    CatalogueFragment.Error error = CatalogueFragment.Error.NONE;
+    private CatalogueFragment.Error error = CatalogueFragment.Error.NONE;
 
-    List<CatalogModule> modules;
+    private List<CatalogModule> modules;
 
     public ResponseCatalogue(){}
 
@@ -52,6 +52,7 @@ public class ResponseCatalogue {
             }
         } catch (JSONException e) {
             Log.e(getClass().getSimpleName(), "Error json invalid = [" + arr.toString() + "]");
+            error = CatalogueFragment.Error.SERVER_ERROR;
         }
     }
 
