@@ -136,6 +136,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     String _activitycycle;
 
+    private Handler_gps _gps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,7 +220,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _breakfast = intent.getExtras().getInt("breakfast");
 
 
-//        new Handler_gps(this, (TextView) findViewById(R.id.editplace)).run(); // TODO soucis sur le fill_place
+        _gps = new Handler_gps(this, (TextView) findViewById(R.id.editplace)); // TODO soucis sur le fill_place
+        _gps.run();
 
         time = (EditText) findViewById(R.id.editactivity);
         time.setOnClickListener(new View.OnClickListener() {
@@ -241,31 +244,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             fill_fields();
     }
 
-    private void fillPlace(Location location)
-    {
-        TextView txtplace = (TextView) findViewById(R.id.editplace);
-
-        Geocoder geocoder;
-        List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
-        if (location == null) {
-            txtplace.setText("Not found");
-        }
-        else {
-            try {
-                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                if (addresses.size() > 0) {
-                    String cityName = addresses.get(0).getAddressLine(0);
-                    String stateName = addresses.get(0).getAddressLine(1);
-                    //Toast.makeText(getApplicationContext(),stateName , 1).show();
-                    String countryName = addresses.get(0).getAddressLine(2);
-                    txtplace.setText(cityName);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public void onLocationChanged(Location location) {
@@ -503,6 +481,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
                         saveIt();
                     Intent Entryintent = new Intent(EntryActivity.this, Carnetdesuivi.class);
                     EntryActivity.this.startActivity(Entryintent);
+                    _gps.stopGPS();
                     _this.finish();
                 }
             });
@@ -516,6 +495,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             saveIt();
             Intent Entryintent = new Intent(EntryActivity.this, Carnetdesuivi.class);
             EntryActivity.this.startActivity(Entryintent);
+            _gps.stopGPS();
             _this.finish();
         }
     }
@@ -536,6 +516,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             Entryintent = new Intent(EntryActivity.this, StatisticsActivity.class);
 
         EntryActivity.this.startActivity(Entryintent);
+        _gps.stopGPS();
         this.finish();
 
 

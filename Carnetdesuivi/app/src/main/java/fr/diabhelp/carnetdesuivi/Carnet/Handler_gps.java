@@ -120,9 +120,16 @@ public class Handler_gps extends Service implements LocationListener {
     {
         TextView txtplace = _txtviewplace;
 
-        Geocoder geocoder;
+        Geocoder geocoder = null;
         List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            geocoder = new Geocoder(this, Locale.getDefault());
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtplace.setText("Non renseigné");
+            Log.e("geocoder", "crash catch");
+            return ;
+        }
         if (location == null) {
             txtplace.setText("N/A");
         }
@@ -142,6 +149,7 @@ public class Handler_gps extends Service implements LocationListener {
                 e.printStackTrace();
             }
         }
+
     }
 
     @Override
@@ -183,11 +191,18 @@ public class Handler_gps extends Service implements LocationListener {
 */
         TextView txtplace = _txtviewplace;
 
-        Geocoder geocoder;
+        Geocoder geocoder = null;
         List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            geocoder = new Geocoder(this, Locale.getDefault());
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtplace.setText("Non renseigné");
+            Log.e("geocoder", "crash catch");
+            return ;
+        }
         if (location == null) {
-            txtplace.setText("N///A");
+            txtplace.setText("");
         }
         else {
             try {

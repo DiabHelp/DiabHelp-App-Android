@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -50,11 +51,13 @@ import fr.diabhelp.carnetdesuivi.DataBase.DAO;
 import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 import fr.diabhelp.carnetdesuivi.Utils.MyToast;
+import fr.diabhelp.carnetdesuivi.Utils.NetBroadcast.ConnectivityReceiver;
 
 /**
  * Created by naqued on 10/11/15.
  */
-public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<ResponseMail> {
+public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<ResponseMail> , ConnectivityReceiver.ConnectivityReceiverListener {
+
     private String token = "";
     public GridView grid;
     public GridView gridba;
@@ -78,6 +81,8 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     Map<String, List<String>> laptopCollection;
     ExpandableListView expListView;
 
+    private static Carnetdesuivi mInstance;
+    private boolean _isConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         bdd = new DAO(this);
         _dm = new DateMagnifier();
         inputdateus = new String[2];
+        mInstance = this;
         TextView noEntry = (TextView) findViewById(R.id.Noentry);
 
         createGroupList();
@@ -419,11 +425,12 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     public void exportPdf()
     {
         LayoutInflater factory = LayoutInflater.from(this);
-/*        if (_session == null)
+        checkConnection();
+        if (_isConnected == false)
         {
             Toast.makeText(this, "Vous ne pouvez pas accéder à cette fonctionnalité car vous n'êtes pas connécté. Veuillez vous connécter", Toast.LENGTH_LONG).show();
             return ;
-        }*/
+        }
         final View alertDialogView = factory.inflate(R.layout.alert_export, null);
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setView(alertDialogView);
@@ -568,5 +575,53 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         SERVER_ERROR,
         MAIL_NOT_SENT,
         INVALID_TOKEN
+    }
+
+    // Net BroadCast
+    public static synchronized Carnetdesuivi getInstance() {
+        return mInstance;
+    }
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+        ConnectivityReceiver.connectivityReceiverListener = listener;
+    }
+
+    // Method to manually check connection status
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        showSnack(isConnected);
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+        String message = null;
+
+        _isConnected = isConnected;
+
+        if (isConnected) {
+            Log.e("Connexion stat", "ok");
+        } else {
+            message = "Sorry! Not connected to internet";
+            Toast.makeText(this,(String) message,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // register connection status listener
+        Carnetdesuivi.getInstance().setConnectivityListener(this);
+    }
+
+    /**
+     * Callback will be triggered when there is change in
+     * network connection
+     */
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showSnack(isConnected);
+        _isConnected = false;
     }
 }
