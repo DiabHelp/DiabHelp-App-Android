@@ -11,6 +11,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,9 +24,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import fr.diabhelp.carnetdesuivi.BDD.DAO;
+import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
-import fr.diabhelp.carnetdesuivi.DataBase.DAO;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 
 public class ExpandableListAdapters extends BaseExpandableListAdapter {
@@ -33,7 +35,8 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
     private Activity context;
     private Map<String, List<String>> laptopCollections;
     private List<String> laptops;
-    private DAO bdd;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
     private Carnetdesuivi _acti;
 
     public ExpandableListAdapters(Activity context, List<String> laptops,
@@ -57,7 +60,6 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = context.getLayoutInflater();
-        bdd = new DAO(context);
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.child_item, null);
@@ -108,16 +110,14 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         RelativeLayout hba1cl = (RelativeLayout) convertView
                 .findViewById(R.id.layouthba1c);
 
-        bdd.open();
         String date = laptops.get(groupPosition);
         System.out.println(date);
         String finaldate = reconstructDate(date);
-        EntryOfCDS en = bdd.SelectDay(finaldate, date.split("-")[1].split(" ")[4]);
+        EntryOfCDS en = EntryOfCDSDAO.selectDay(finaldate, date.split("-")[1].split(" ")[4], db);
 
         if (en == null)
         {
             Log.e("Bug", "requete selectDay echoué");
-            bdd.close();
             return convertView;
         }
         if (en.getglycemy() == 0.0 ) {
@@ -230,7 +230,6 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         fast.setText(String.valueOf(en.getFast_insu())+ "\n  u");
         slow.setText(String.valueOf(en.getSlow_insu())+ "\n  u");
         notes.setText(en.getNotes());
-        bdd.close();
 
         return convertView;
     }

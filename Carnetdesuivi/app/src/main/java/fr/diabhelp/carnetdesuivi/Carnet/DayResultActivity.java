@@ -2,38 +2,33 @@ package fr.diabhelp.carnetdesuivi.Carnet;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.media.Image;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import fr.diabhelp.carnetdesuivi.BDD.DAO;
+import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
-import fr.diabhelp.carnetdesuivi.DataBase.DAO;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 
 public class DayResultActivity extends AppCompatActivity {
 
     final int sdk = android.os.Build.VERSION.SDK_INT;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
 
     public enum TXTedit {
         DAYTEXT(0),
@@ -123,7 +118,6 @@ public class DayResultActivity extends AppCompatActivity {
 
     String _date;
     String _hour;
-    DAO _bdd;
     EntryOfCDS inf;
     DateMagnifier _mt;
 
@@ -133,6 +127,8 @@ public class DayResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultday);
+        dao = DAO.getInstance(this);
+        db = dao.open();
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Entrée détaillé");
         setSupportActionBar(toolbar);
@@ -148,7 +144,6 @@ public class DayResultActivity extends AppCompatActivity {
         _linearCell = new ArrayList<LinearLayout>();
         _txtCell = new ArrayList<TextView>();
         _mt = new DateMagnifier();
-        _bdd = new DAO(this);
 
         Intent intent = getIntent();
         _date = intent.getStringExtra("date");
@@ -162,8 +157,7 @@ public class DayResultActivity extends AppCompatActivity {
 
     protected void initView() {
 
-        _bdd.open();
-        inf = _bdd.SelectDay(_date, _hour);
+        inf = EntryOfCDSDAO.selectDay(_date, _hour, db);
         _txtCell.get(TXTedit.DAYTEXT.getValue()).setText(_mt.getCleanDate(_date) + " " + _hour);
         _txtCell.get(TXTedit.TITLE.getValue()).setText(inf.getTitle());
         if (inf.getGlucide() == null || inf.getglycemy() == 0.0) {
@@ -338,7 +332,6 @@ public class DayResultActivity extends AppCompatActivity {
 //            img.setVisibility(View.VISIBLE);
             Log.e("test place", "yaha");
         }
-        _bdd.close();
     }
 
     protected void initArray() {
@@ -434,9 +427,7 @@ public class DayResultActivity extends AppCompatActivity {
                 .setMessage("Vous êtes sur le point de supprimer cette entrée. Etes vous sur de vouloir continuer ?")
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        _bdd.open();
-                        _bdd.deleteDay(inf.getDate(), inf.getHour());
-                        _bdd.close();
+                        EntryOfCDSDAO.deleteDay(inf.getDate(), inf.getHour(), db);
                         Intent intent = new Intent(DayResultActivity.this, Carnetdesuivi.class);
 
                         DayResultActivity.this.startActivity(intent);

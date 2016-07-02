@@ -5,7 +5,8 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -28,10 +29,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -40,15 +43,22 @@ import java.util.Map;
 
 
 import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
+import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetAllEntries;
+import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetLastEdition;
+import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSetMissingEntries;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
+import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetAllEntriesApiCallTask;
+import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetLastEditionApiCallTask;
+import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSetMissingEntriesApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Task.ExportAPICallTask;
 
+import fr.diabhelp.carnetdesuivi.BDD.DAO;
+import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;
 import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
-import fr.diabhelp.carnetdesuivi.DataBase.DAO;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 import fr.diabhelp.carnetdesuivi.Utils.MyToast;
 import fr.diabhelp.carnetdesuivi.Utils.NetBroadcast.ConnectivityReceiver;
@@ -56,15 +66,20 @@ import fr.diabhelp.carnetdesuivi.Utils.NetBroadcast.ConnectivityReceiver;
 /**
  * Created by naqued on 10/11/15.
  */
-public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<ResponseMail> , ConnectivityReceiver.ConnectivityReceiverListener {
+public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, ConnectivityReceiver.ConnectivityReceiverListener {
 
+    public static final String PREF_FILE = "ConnexionActivityPreferences";
+    public static final String TOKEN = "token";
+    public static final String ID_USER = "id";
     private String token = "";
+    public static SharedPreferences _settings = null;
     public GridView grid;
     public GridView gridba;
     private ListView mainListView;
     private ArrayAdapter<String> listAdapter;
     private ProgressDialog _progress;
-    static DAO bdd;
+    public DAO dao = null;
+    private SQLiteDatabase db = null;
     private DateMagnifier _dm;
     final int sdk = android.os.Build.VERSION.SDK_INT;
 
@@ -84,14 +99,28 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     private static Carnetdesuivi mInstance;
     private boolean _isConnected;
 
+    public static Integer launch = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dao = DAO.getInstance(getApplicationContext());
+        db = dao.open();
+        if (launch == 0 && !(_settings.getString(TOKEN, "").equalsIgnoreCase("")))
+        {
+            System.out.println("launch = " + launch);
+            launch = 1;
+            _progress = new ProgressDialog(this);
+            _progress.setCancelable(false);
+            _progress.setMessage(getString(R.string.synchro_bd));
+            _progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            _progress.show();
+            synchronizeDb(db);
+        }
         setContentView(R.layout.activity_carnet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Carnet de Suivi");
         setSupportActionBar(toolbar);
-        bdd = new DAO(this);
         _dm = new DateMagnifier();
         inputdateus = new String[2];
         mInstance = this;
@@ -157,6 +186,28 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         fillAverageGly();
     }
 
+    private void synchronizeDb(SQLiteDatabase db) {
+        String idUser = _settings.getString(ID_USER, "");
+        if (!idUser.isEmpty())
+        {
+            String lastEditionDateEntryOfCDC = EntryOfCDSDAO.getLastEdition(idUser, db);
+            if (lastEditionDateEntryOfCDC.equalsIgnoreCase("")) {
+                getRemoteEntriesOfCDS(idUser);
+            }
+            else{
+                checkIfServerIsUpToDate(idUser);
+            }
+        }
+    }
+
+    private void checkIfServerIsUpToDate(String idUser) {
+        new BddSyncrhroCDSGetLastEditionApiCallTask(this, getApplicationContext()).execute(idUser);
+    }
+
+    private void getRemoteEntriesOfCDS(String idUser) {
+        new BddSyncrhroCDSGetAllEntriesApiCallTask(this, getApplicationContext()).execute(idUser);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -181,9 +232,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
 
         String formattedDate = df.format(c.getTime());
 
-        bdd.open();
-        mAll = bdd.SelectAllOneday(formattedDate);
-        bdd.close();
+        mAll = EntryOfCDSDAO.selectAllOneday(formattedDate, db);
         int size = 0;
         if (mAll.size() > 0) {
             while (idx < mAll.size()) {
@@ -231,12 +280,10 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     private void createCollection() {
         laptopCollection = new LinkedHashMap<String, List<String>>();
         if (groupList != null) {
-            bdd.open();
             for (String date : groupList) {
                 loadChild(fillValueDay(date.split(" ")[0], date.split(" ")[1]));
                 laptopCollection.put(date, childList);
             }
-            bdd.close();
         }
     }
 
@@ -260,9 +307,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         String formattedDate = df.format(c.getTime());
 
-        bdd.open();
-        final EntryOfCDS ent = bdd.SelectDay(formattedDate, Hours);
-        bdd.close();
+        final EntryOfCDS ent = EntryOfCDSDAO.selectDay(formattedDate, Hours, db);
         if (ent != null)
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -383,11 +428,9 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         Calendar mycal = new GregorianCalendar(iYear, today[1], iDay);
 
         // Get the number of days in that month
-        bdd.open();
-        mall = bdd.SelectAll();
+        mall = EntryOfCDSDAO.selectAll(db);
         if (mall == null)
             return null;
-        bdd.close();
 
         DateMagnifier dt = new DateMagnifier();
 
@@ -488,7 +531,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
         adb.setPositiveButton("Envoyer par mail", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
 
-                DAO bdd = new DAO(getApplicationContext());
                 //Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
 /*                EditText beg = (EditText)alertDialogView.findViewById(R.id.date_begin);
                 EditText end = (EditText)alertDialogView.findViewById(R.id.date_end);*/
@@ -499,14 +541,12 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
                 else if (inputdateus[1].isEmpty())
                     Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
                 else {
-                    bdd.open();
-                    ArrayList<EntryOfCDS> entryOfCDSes = bdd.selectBetweenDays(inputdateus[0], inputdateus[1]);
+                    ArrayList<EntryOfCDS> entryOfCDSes = EntryOfCDSDAO.selectBetweenDays(inputdateus[0], inputdateus[1], Carnetdesuivi.this.db);
                     if (mail.getText().toString().isEmpty()) {
                         myemail = null;
                     }
                     else
                         myemail = mail.getText().toString();
-                    bdd.close();
                     if (entryOfCDSes != null && !entryOfCDSes.isEmpty()) {
                         System.out.println("context = [" + Carnetdesuivi.this + "] listener = [" + (IApiCallTask) Carnetdesuivi.this + "] entries = [" + entryOfCDSes + "]");
                         new ExportAPICallTask(Carnetdesuivi.this, (IApiCallTask) Carnetdesuivi.this, entryOfCDSes).execute(token);
@@ -531,16 +571,74 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask<Res
     }
 
     @Override
-    public void onBackgroundTaskCompleted(ResponseMail reponse, String action, ProgressDialog progress) {
-        _progress = progress;
-        Carnetdesuivi.Error error = reponse.getError();
-        if (error!= Error.NONE){
-            manageError(error);
+    public void onBackgroundTaskCompleted(Object response, String action, ProgressDialog progress)
+    {
+        Carnetdesuivi.Error error;
+        if (action.equalsIgnoreCase("informOfsending"))
+        {
+            ResponseMail reponse = (ResponseMail) response;
+            error = reponse.getError();
+            if (error != Error.NONE)
+                manageError(error);
+            else
+                informSuccess();
         }
-        else if (action == "informOfsending") {
-            informSuccess();
-        }
+        else if (action.equalsIgnoreCase("getEntries"))
+        {
+            ResponseCDSGetAllEntries reponse = (ResponseCDSGetAllEntries) response;
+            error = reponse.getError();
+            if (error != Error.NONE)
+                manageError(error);
+            else
+            {
+                List<EntryOfCDS> entries = reponse.getEntries();
+                if (!entries.isEmpty())
+                {
+                    for (EntryOfCDS entry : entries) {
+                        EntryOfCDSDAO.addDay(entry, db);
+                    }
+                    //TODO set les entries récupérées dans la base et dans la list
+                }
+            }
 
+        }
+        else if (action.equalsIgnoreCase("getLastEdition"))
+        {
+            ResponseCDSGetLastEdition reponse = (ResponseCDSGetLastEdition) response;
+            error = reponse.getError();
+            if (error != Error.NONE)
+                manageError(error);
+            else
+                compareDates(reponse.getLastEdition());
+        }
+        else if (action.equalsIgnoreCase("setMissingEntries"))
+        {
+            ResponseCDSetMissingEntries reponse = (ResponseCDSetMissingEntries) response;
+            error = reponse.getError();
+            if (error != Error.NONE)
+                manageError(error);
+            else
+                _progress.dismiss();
+        }
+    }
+
+    private void compareDates(Date lastEditionServer) {
+        String lastEditionLocalStr = EntryOfCDSDAO.getLastEdition(_settings.getString(ID_USER, ""), db);
+        try {
+            Date lastEditionLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastEditionLocalStr);
+            if (lastEditionServer.before(lastEditionLocal))
+                sendMissingEntries(lastEditionServer.toString(), lastEditionLocal.toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendMissingEntries(String from, String to) {
+        ArrayList<EntryOfCDS> missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, db);
+        if (missingEntries.isEmpty())
+            _progress.dismiss();
+        else
+            new BddSyncrhroCDSetMissingEntriesApiCallTask(this, getApplicationContext(), missingEntries).execute(_settings.getString(ID_USER, ""));
     }
 
     private void informSuccess() {

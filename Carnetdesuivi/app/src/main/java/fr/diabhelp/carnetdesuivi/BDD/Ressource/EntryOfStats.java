@@ -1,4 +1,4 @@
-package fr.diabhelp.carnetdesuivi.DataBase;
+package fr.diabhelp.carnetdesuivi.BDD.Ressource;
 
 /**
  * Created by naqued on 23/03/16.

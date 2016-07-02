@@ -12,8 +12,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 

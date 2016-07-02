@@ -24,6 +24,7 @@
     <string name="mail_loading">Envoi des données..</string>
     <string name="error_server">Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard</string>
     <string name="sending_success">Mail envoyé !</string>
+    <string name="synchro_bd">Chargement…</string>
 
     <string name="hyposhort">Hypo</string>
     <string name="hypershort">Hyper</string>

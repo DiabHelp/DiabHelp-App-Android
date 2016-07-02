@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -30,9 +31,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import fr.diabhelp.carnetdesuivi.DataBase.DAO;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfStats;
+import fr.diabhelp.carnetdesuivi.BDD.DAO;
+import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
+import fr.diabhelp.carnetdesuivi.BDD.EntryOfStatsDAO;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfStats;
 import fr.diabhelp.carnetdesuivi.R;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
@@ -59,6 +62,8 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
     private EditText _startDate, _endDate;
 
     private Calendar _startCalendar, _endCalendar;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
 
     public enum IconeType {
         BREAKFAST(0),
@@ -351,10 +356,7 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
     }
 
     private void getLastGraph() {
-        DAO bdd = new DAO(getContext());
-        bdd.open();
-        statEntry = bdd.SelectStat();
-        bdd.close();
+        statEntry = EntryOfStatsDAO.selectStat(db);
         if (statEntry == null) {
             getAllData();
             statEntry = new EntryOfStats();
@@ -437,10 +439,7 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
     }
 
     private void getAllData() {
-        DAO bdd = new DAO(getContext());
-        bdd.open();
-        mall = bdd.SelectAll();
-        bdd.close();
+        mall = EntryOfCDSDAO.selectAll(db);
 
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
@@ -493,15 +492,12 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
         String startDate = sdf.format(_startCalendar.getTime());
         String endDate = sdf.format(_endCalendar.getTime());
 
-        DAO bdd = new DAO(getContext());
-        bdd.open();
         setStatEntry();
-        bdd.AddStat(statEntry);
-        mall = bdd.SelectDayDateAndIcone(startDate, endDate, String.valueOf(isActiveicon.get(IconeType.BREAKFAST.getValue())), String.valueOf(isActiveicon.get(IconeType.LUNCH.getValue())), String.valueOf(isActiveicon.get(IconeType.DINER.getValue())),
+        EntryOfStatsDAO.addStat(statEntry, db);
+        mall = EntryOfCDSDAO.selectDayDateAndIcone(startDate, endDate, String.valueOf(isActiveicon.get(IconeType.BREAKFAST.getValue())), String.valueOf(isActiveicon.get(IconeType.LUNCH.getValue())), String.valueOf(isActiveicon.get(IconeType.DINER.getValue())),
                 String.valueOf(isActiveicon.get(IconeType.ENCAS.getValue())), String.valueOf(isActiveicon.get(IconeType.SLEEP.getValue())), String.valueOf(isActiveicon.get(IconeType.WAKEUP.getValue())), String.valueOf(isActiveicon.get(IconeType.NIGHT.getValue())),
                 String.valueOf(isActiveicon.get(IconeType.WORKOUT.getValue())), String.valueOf(isActiveicon.get(IconeType.HYPO.getValue())), String.valueOf(isActiveicon.get(IconeType.HYPER.getValue())), String.valueOf(isActiveicon.get(IconeType.WORK.getValue())),
-                String.valueOf(isActiveicon.get(IconeType.HOME.getValue())), String.valueOf(isActiveicon.get(IconeType.ALCOHOL.getValue())), String.valueOf(isActiveicon.get(IconeType.PERIOD.getValue())));
-        bdd.close();
+                String.valueOf(isActiveicon.get(IconeType.HOME.getValue())), String.valueOf(isActiveicon.get(IconeType.ALCOHOL.getValue())), String.valueOf(isActiveicon.get(IconeType.PERIOD.getValue())), db);
 
         if (mall == null)
             return false;

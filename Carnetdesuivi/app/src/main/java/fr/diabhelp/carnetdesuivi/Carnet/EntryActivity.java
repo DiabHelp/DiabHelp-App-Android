@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -31,10 +32,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import fr.diabhelp.carnetdesuivi.BDD.DAO;
+import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
-import fr.diabhelp.carnetdesuivi.DataBase.DAO;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 
@@ -45,6 +47,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     private String formattedDate;
     private EditText time;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
 
     protected LocationManager locationManager;
 
@@ -100,7 +104,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     };
 
     List<EditText> _inputlist;
-    DAO bdd;
     EntryActivity _this;
     List<Integer> isActiveicon;
     private DateMagnifier _dm;
@@ -142,11 +145,12 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entry_activity);
+        dao = DAO.getInstance(this);
+        db = dao.open();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE); // in thread
         _this = this;
 
         _dm = new DateMagnifier();
-        bdd = new DAO(this);
         init_fields();
         init_icon();
         Calendar c = Calendar.getInstance();
@@ -335,16 +339,14 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Entry.setAlcohol(isActiveicon.get(IconeType.ALCOHOL.getValue()));
         Entry.setPeriod(isActiveicon.get(IconeType.PERIOD.getValue()));
 
-        bdd.open();
-        if (bdd.SelectDay(_date, _hour) == null) {
+        if (EntryOfCDSDAO.selectDay(_date, _hour, db) == null) {
             Entry.setHour(Hours);
-            bdd.AddDay(Entry);
+            EntryOfCDSDAO.addDay(Entry, db);
         }
         else {
             Entry.setHour(_hour);
-            bdd.Update(Entry);
+            EntryOfCDSDAO.update(Entry, db);
         }
-        bdd.close();
         Toast.makeText(this, "Enregistrement efféctué", Toast.LENGTH_LONG).show();
     }
 

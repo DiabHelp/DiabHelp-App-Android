@@ -1,9 +1,11 @@
-package fr.diabhelp.carnetdesuivi.DataBase;
+package fr.diabhelp.carnetdesuivi.BDD.Ressource;
 
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by naqued on 21/11/15.
@@ -27,11 +29,14 @@ public class EntryOfCDS {
         }
     };
 
+
     private String user;
     private String title;
     private String place;
     private Double glucide;
     private String activity;
+
+    @SerializedName("activity_type")
     private String activityType;
     private String notes;
     private String date;
@@ -44,6 +49,9 @@ public class EntryOfCDS {
     private String dateApi;
 
     private String datesql;
+
+    @SerializedName("date_edition")
+    private String dateEdition;
 
     public Integer launch;
     public Integer diner;
@@ -60,9 +68,11 @@ public class EntryOfCDS {
     public Integer period;
     public Integer breakfast;
 
+    public EntryOfCDS(){}
+
     public EntryOfCDS(String date) { // String date
-        super();
         this.date = date;
+        this.dateEdition = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         this.title = null;
         this.place = null;
         this.glucide = null;
@@ -305,6 +315,11 @@ public class EntryOfCDS {
         final_date = tmpdate[2].concat("-").concat(month).concat("-").concat(tmpdate[0]);
         this.dateApi = final_date;
         Log.e("final_date", this.dateApi);
+    }
+
+    public void setDateEdition(String dateEd)
+    {
+        this.dateEdition = dateEd;
     }
 
     private int    getMonthint(String month)

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import fr.diabhelp.carnetdesuivi.API.ApiServices;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
 import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.JsonUtils;

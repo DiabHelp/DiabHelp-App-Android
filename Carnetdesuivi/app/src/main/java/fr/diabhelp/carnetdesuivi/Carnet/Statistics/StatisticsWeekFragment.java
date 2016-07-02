@@ -4,6 +4,7 @@ package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
  * Created by vigour_a on 02/02/2016.
  */
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +17,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import fr.diabhelp.carnetdesuivi.DataBase.DAO;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.BDD.DAO;
+import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -44,6 +46,8 @@ public class StatisticsWeekFragment extends Fragment {
     private boolean hasLabels = false;
     private boolean isCubic = false;
     private boolean hasLabelForSelected = false;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
 
     private ArrayList<EntryOfCDS> mall = null;
 
@@ -78,10 +82,7 @@ public class StatisticsWeekFragment extends Fragment {
         c.add(Calendar.DATE, -7);
         String startDate = sdf.format(c.getTime());
 
-        DAO bdd = new DAO(getContext());
-        bdd.open();
-        mall = bdd.selectBetweenDays(startDate, endDate);
-        bdd.close();
+        mall = EntryOfCDSDAO.selectBetweenDays(startDate, endDate, db);
 
         List<Line> lines = new ArrayList<Line>();
         List<AxisValue> axisValues = new ArrayList<>();

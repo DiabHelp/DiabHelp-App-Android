@@ -1,5 +1,6 @@
 package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,12 +14,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import fr.diabhelp.carnetdesuivi.DataBase.DAO;
-import fr.diabhelp.carnetdesuivi.DataBase.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.BDD.DAO;
+import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.R;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
@@ -36,6 +37,8 @@ public class StatisticsMonthFragment extends Fragment {
     private boolean hasAxesNames = true;
     private boolean hasLabels = false;
     private boolean hasLabelForSelected = false;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
 
     private ArrayList<EntryOfCDS> mall = null;
 
@@ -69,10 +72,8 @@ public class StatisticsMonthFragment extends Fragment {
         c.add(Calendar.DATE, -30);
         String startDate = sdf.format(c.getTime());
 
-        DAO bdd = new DAO(getContext());
-        bdd.open();
-        mall = bdd.selectBetweenDays(startDate, endDate);
-        bdd.close();
+
+        mall = EntryOfCDSDAO.selectBetweenDays(startDate, endDate, db);
 
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
