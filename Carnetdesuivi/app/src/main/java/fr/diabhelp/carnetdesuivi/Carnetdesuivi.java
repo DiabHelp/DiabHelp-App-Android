@@ -108,15 +108,24 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         db = dao.open();
         if (launch == 0 && !(_settings.getString(TOKEN, "").equalsIgnoreCase("")))
         {
-            System.out.println("launch = " + launch);
             launch = 1;
-            _progress = new ProgressDialog(this);
-            _progress.setCancelable(false);
-            _progress.setMessage(getString(R.string.synchro_bd));
-            _progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            _progress.show();
             synchronizeDb(db);
         }
+        else
+            initActivity();
+
+    }
+
+    private void displayWaitingTime() {
+        _progress = new ProgressDialog(this);
+        _progress.setCancelable(false);
+        _progress.setMessage(getString(R.string.synchro_bd));
+        _progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        _progress.show();
+    }
+
+    public void initActivity()
+    {
         setContentView(R.layout.activity_carnet);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Carnet de Suivi");
@@ -187,14 +196,17 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     }
 
     private void synchronizeDb(SQLiteDatabase db) {
+
         String idUser = _settings.getString(ID_USER, "");
         if (!idUser.isEmpty())
         {
             String lastEditionDateEntryOfCDC = EntryOfCDSDAO.getLastEdition(idUser, db);
             if (lastEditionDateEntryOfCDC.equalsIgnoreCase("")) {
+                displayWaitingTime();
                 getRemoteEntriesOfCDS(idUser);
             }
             else{
+                initActivity();
                 checkIfServerIsUpToDate(idUser);
             }
         }
@@ -600,14 +612,16 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                     //TODO set les entries récupérées dans la base et dans la list
                 }
             }
+            initActivity();
 
         }
         else if (action.equalsIgnoreCase("getLastEdition"))
         {
             ResponseCDSGetLastEdition reponse = (ResponseCDSGetLastEdition) response;
             error = reponse.getError();
-            if (error != Error.NONE)
-                manageError(error);
+            if (error != Error.NONE) {
+                Log.e("getLastEdition", error.toString());
+            }
             else
                 compareDates(reponse.getLastEdition());
         }
@@ -616,9 +630,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             ResponseCDSetMissingEntries reponse = (ResponseCDSetMissingEntries) response;
             error = reponse.getError();
             if (error != Error.NONE)
-                manageError(error);
-            else
-                _progress.dismiss();
+                Log.e("setMissingEntries", error.toString());
         }
     }
 
