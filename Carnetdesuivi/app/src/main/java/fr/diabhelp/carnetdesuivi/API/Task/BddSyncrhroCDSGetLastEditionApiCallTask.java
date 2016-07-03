@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.io.IOException;
 
+import fr.diabhelp.carnetdesuivi.API.ApiServices;
 import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetLastEdition;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
