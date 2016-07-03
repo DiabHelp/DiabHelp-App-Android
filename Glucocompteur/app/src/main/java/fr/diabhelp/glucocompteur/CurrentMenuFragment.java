@@ -1,6 +1,7 @@
 package fr.diabhelp.glucocompteur;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -40,6 +41,29 @@ public class CurrentMenuFragment extends Fragment {
         _recyclerView.setLayoutManager(_recLayoutManager);
         _recAdapter = new AlimentRecyclerAdapter(_alimentsList);
         _recyclerView.setAdapter(_recAdapter);
+        v.findViewById(R.id.cleanMenu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                alertDialogBuilder.setTitle("Supprimer le menu actuel");
+                alertDialogBuilder.setMessage("Voulez-vous vraiment supprimer le menu actuel ?")
+                        .setCancelable(false);
+                final AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OUI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        _alimentsList.clear();
+                        _recAdapter.notifyDataSetChanged();
+                    }
+                });
+                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NON", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+                alertDialog.show();
+
+            }
+        });
         v.findViewById(R.id.addFood).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
