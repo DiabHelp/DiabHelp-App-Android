@@ -1,6 +1,9 @@
 package fr.diabhelp.glucocompteur;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +39,31 @@ public class AlimentRecyclerAdapter extends RecyclerView.Adapter<AlimentRecycler
 
     @Override
     public AlimentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.aliment_cardview, parent, false);
-        AlimentHolder alimentHolder = new AlimentHolder(view);
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.aliment_cardview, parent, false);
+        final AlimentHolder alimentHolder = new AlimentHolder(view);
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                alertDialogBuilder.setTitle("Supprimer l'aliment");
+                alertDialogBuilder.setMessage("Voulez-vous vraiment supprimer cet aliment ?")
+                        .setCancelable(false);
+                final AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OUI", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        _alimentsList.remove(alimentHolder.getAdapterPosition());
+                        notifyDataSetChanged();
+                    }
+                });
+                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NON", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+                alertDialog.show();
+                return true;
+            }
+        });
         return alimentHolder;
     }
 

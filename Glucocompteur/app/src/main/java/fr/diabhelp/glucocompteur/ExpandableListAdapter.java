@@ -27,15 +27,15 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private static class ListHeaderViewHolder extends RecyclerView.ViewHolder {
         public TextView     headerTitle;
-        public ImageView    buttonExpand;
         public TextView     totalGlucids;
+        public ImageView    buttonExpand;
         public Item         refferalItem;
 
         public ListHeaderViewHolder(View itemView) {
             super(itemView);
             headerTitle = (TextView) itemView.findViewById(R.id.headerTitle);
-            buttonExpand = (ImageView) itemView.findViewById(R.id.buttonExpand);
             totalGlucids = (TextView) itemView.findViewById(R.id.totalGlucids);
+            buttonExpand = (ImageView) itemView.findViewById(R.id.buttonExpand);
         }
     }
 
@@ -112,9 +112,9 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     @Override
                     public boolean onLongClick(final View v) {
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
-                            alertDialogBuilder.setTitle("Supprimer le menu");
-                            alertDialogBuilder.setMessage("Voulez-vous vraiment supprimer ce menu ?")
-                                    .setCancelable(false);
+                        alertDialogBuilder.setTitle("Supprimer le menu");
+                        alertDialogBuilder.setMessage("Voulez-vous vraiment supprimer ce menu ?")
+                                .setCancelable(false);
                         final AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OUI", new DialogInterface.OnClickListener() {
                             @Override
