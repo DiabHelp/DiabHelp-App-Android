@@ -106,6 +106,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         super.onCreate(savedInstanceState);
         dao = DAO.getInstance(getApplicationContext());
         db = dao.open();
+        _settings = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
         if (launch == 0 && !(_settings.getString(TOKEN, "").equalsIgnoreCase("")))
         {
             launch = 1;
