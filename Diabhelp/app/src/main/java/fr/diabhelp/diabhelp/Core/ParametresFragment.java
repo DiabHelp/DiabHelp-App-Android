@@ -99,7 +99,7 @@ public class ParametresFragment extends Fragment implements IApiCallTask {
         ArrayList modulesList = new ArrayList<>();
         if (pInfoList != null)
         {
-            int moduleListSize = pInfoList.size() - 2; //Offset parce que l'array actuel contient l'aide + la redirection vers le site
+            int moduleListSize = pInfoList.size(); //Offset parce que l'array actuel contient l'aide + la redirection vers le site
             for (int i = 0; i < moduleListSize; i++)
             {
                 CoreActivity.PInfo module = pInfoList.get(i);

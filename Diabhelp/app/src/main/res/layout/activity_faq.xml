@@ -5,15 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:fitsSystemWindows="true" tools:context=".Faq">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/include">
+    <include layout="@layout/toolbar" android:id="@+id/toolbaric"/>
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
 
 <!--    <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
@@ -26,7 +19,7 @@
     <include layout="@layout/content_faq"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/include"
+        android:layout_below="@+id/toolbaric"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

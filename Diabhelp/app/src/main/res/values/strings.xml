@@ -175,9 +175,6 @@
         2. les femmes qui développent un diabète uniquement à l’occasion de la grossesse, trouble
         qui disparaît le plus souvent après la grossesse.\n\n
 
-        Pour des questions liées à la grossesse chez la femme qui se sait diabétique, consultez la
-        page Diabète et grossesse : le suivi de la femme enceinte diabétique dans notre dossier
-        spécial femmes. \n\n
         S’il y a un risque accru de diabète pendant la grossesse, c’est que la grossesse est par
         nature diabétogène car il existe physiologiquement pendant cette période un état
         d’insulinorésistance qui va s’aggraver progressivement avec le déroulement de la grossesse.\n
@@ -405,6 +402,310 @@
         Si pompe à insuline :\n
         - Changer son cathéter avant d\'aller se coucher ............. Retour Communauté....
     </string>
+
+    <!-- [Title] [Image] [Space] are fields available to format data properly -->
+    <!-- Category1 -Premiers pas dans l'app- start-->
+    <string name="ctg1">Premiers pas dans l\'application</string>
+
+    <!-- INSCRIPTION -->
+    <string name="ctg1_rbk1">Inscription</string>
+    <string-array name="ctg1_rbk1_art1">
+        <item>[Space]</item>
+                <item>Sur cette page, vous pouvez créer un compte pour accéder à toutes les
+                    fonctionnalités qu\'offre DiabHelp.\n Pour ceci, cliquez sur le bouton
+                    "Inscription" affiché au lancement de l\'application.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg1_rbk1_inscription1</item>
+
+        <item>[Space]</item>
+                <item>Ce bouton vous mène alors à un formulaire. Remplissez les informations
+                    requises puis cliquez sur "passer à la prochaine étape"
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg1_rbk1_inscription2</item>
+
+        <item>[Space]</item>
+                <item>Encore quelques informations afin de pouvoir rentrer en contact avec ses
+                    proches ou son diabétologue via l\'application.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg1_rbk1_inscription3</item>
+
+        <item>[Space]</item>
+                <item>Cliquez sur "valider l\'inscription", et vous voici inscrits !
+                    Vous pouvez maintenant pleinement profiter des services DiabHelp. \n
+                    L\'équipe DiabHelp vous souhaite une agréable utilisation.
+                </item>
+        <item>[Space]</item>
+    </string-array>
+
+    <!-- CONNEXION -->
+    <string name="ctg1_rbk2">Connexion</string>
+    <string-array name="ctg1_rbk2_art1">
+        <item>[Space]</item>
+        <item>Ceci est l\écran de connexion à l\'application DiabHelp.</item>
+        <item>[Space]</item>
+        <item>[Image]ctg1_rbk2_connexion1</item>
+
+        <item>[Space]</item>
+                <item>Pour accéder à l\'application, renseignez votre nom d\'utilisateur ainsi que
+                    votre mot de passe, puis appuyez sur "se connecter" \n
+                    Si toutefois vous n\'avez pas de compte DiabHelp, vous pouvez vous inscrire en
+                    cliquant sur le bouton "s\'inscrire".
+                </item>
+        <item>[Space]</item>
+                <item>Si vous n\'avez pas accès à internet lors de votre connexion, le mode
+                    "hors ligne" sera activé. Vous pourrez accéder à toutes les fonctionnalités
+                    DiabHelp ne nécessitant pas de communications
+                </item>
+        <item>[Space]</item>
+
+    </string-array>
+
+    <!-- LAUNCHER -->
+    <string name="ctg1_rbk3">Lanceur d\'applications</string>
+    <string-array name="ctg1_rbk3_art1">
+        <item>[Space]</item>
+                <item>Le lanceur d\'applications permet de lancer les différents modules DiabHelp
+                    (GlucoCompteur, Carnet de Suivi…), disponibles dans votre application.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg1_rbk3_launcher</item>
+        <item>[Space]</item>
+                <item>Comme vous pouvez le voir sur cette image, la vue se compose de plusieurs
+                    éléments : \n
+                    1 - Les modules disponibles (cliquez sur l\'icône pour lancer le module) \n
+                    2 - Accéder au catalogue afin d\'obtenir les nouveaux modules depuis le PlayStore
+                    ou sur notre site web.. \n
+                    3 - Accéder aux paramètres (gestion / désinstallation  d\'un ou plusieurs modules) \n
+                    4 - Accéder au menu (cf section suivante)
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg1_rbk3_launcher_menu</item>
+        <item>[Space]</item>
+                <item>Depuis le menu vous pouvez : \n
+                    - Gérer votre profil \n
+                    - Accéder à ce manuel d\'utilisation \n
+                    - Obtenir des informations sur l\'application \n
+                    - Accéder à nos pages Facebook et Twitter \n
+                    - Vous déconnecter
+                </item>
+        <item>[Space]</item>
+    </string-array>
+
+    <!-- CATALOGUE -->
+    <string name="ctg1_rbk4">Catalogue d\'applications</string>
+    <string-array name="ctg1_rbk4_art1">
+        <item>[Space]</item>
+                <item>Le catalogue d\'applications vous permet de visionner les modules disponibles,
+                   et d\'accéder à leur fiche sur le PlayStore ou sur notre site.
+                </item>
+        <item>[Space]</item>
+                <item>Vous pourrez télécharger les modules souhaités, il se grefferont au reste de
+                    votre application DiabHelp et apparaîtront dans le lanceur d\'applications.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg1_rbk4_launcher_catalogue</item>
+        <item>[Space]</item>
+    </string-array>
+    <!-- Category1 end -->
+
+
+    <!-- Category2 -Modules DiabHelp- start -->
+    <string name="ctg2">Modules DiabHelp</string>
+    <!-- GLUCOCOMPTEUR -->
+    <string name="ctg2_rbk1">Glucocompteur</string>
+    <string-array name="ctg2_rbk1_art1">
+        <item>[Space]</item>
+                <item>
+                    Ce module permet d\'obtenir le taux de glucose contenu dans le repas saisi. \n
+                    Le calcul se base sur les données de la table CIQUAL fournie par l\'ANSES.\n
+                    Cette table contient bon nombre d\'aliments, toutefois, s\'il venait à manquer
+                    un aliment qui vous semble pertinent, n\'hésitez pas à nous le signaler.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk1_glucoOverview</item>
+        <item>[Space]</item>
+        <item>[Title]Composition d\'un repas</item>
+        <item>[Space]</item>
+                <item>
+                    Pour composer votre repas, il vous suffit de saisir le nom de l\'aliment
+                    souhaité dans la zone de recherche.Renseignez ensuite le poids de la portion.
+                    Vous pouvez ajouter d\'autres aliments en suivant le même procédé.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk1_gluco_create_menu</item>
+        <item>[Space]</item>
+
+                <item>
+                    La glycémie totale est calculée à chaque fois qu\'un aliment est rajouté.
+                    Vous pouvez sauvegarder le menu en cliquant sur "Ajouter le menu aux favoris".\n
+                    Vous pouvez alors nommer ce menu. A l\'appui sur "ajouter", il sera disponible
+                    dans vos menus favoris.
+                </item>
+        <item>[Space]</item>
+        <item>[Title]Repas favoris</item>
+        <item>[Space]</item>
+                <item>L\'onlet "Menus favoris" vous permet de gérer vos menus favoris et d\'obtenir
+                    le taux de glucides d\'un de vos repas préférés en un coup d\'oeil.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk_gluco_menu_fav</item>
+        <item>[Space]</item>
+    </string-array>
+
+    <!-- CARNET DE SUIVI -->
+    <string name="ctg2_rbk2">Carnet de Suivi</string>
+    <string-array name="ctg2_rbk2_art1">
+        <item>[Title]Le carnet de suivi</item>
+        <item>[Space]</item>
+                <item>Le carnet de suivi permet d\’enregistrer simplement vos glycémies et autres
+                    événements de votre journée. Il vous offre aussi la possibilité de visualiser
+                    vos statistiques que vous pouvez personnaliser.
+                </item>
+                <item>Ce module permet aussi d\'exporter votre carnet de suivi au format PDF
+                    afin de le communiquer à un proche, ou encore à votre médecin.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk2_cs_overview</item>
+        <item>[Space]</item>
+                <item>
+                    1- Nom et Date de l’entrée \n
+                    2- Informations de l’entrée \n
+                    3- Détails de l’entrée \n
+                    4- Ajouter une entrée \n
+                    5- Accéder aux statistiques \n
+                    6- Exporter le carnet
+                </item>
+        <item>[Space]</item>
+        <item>[Space]</item>
+
+        <item>[Title]Export du carnet de suivi</item>
+        <item>[Space]</item>
+                <item>
+                    Voici l\'écran d\'export du carnet. Vous pouvez envoyer celui-ci au format PDF
+                    par email, ou encore le conserver sur votre téléphone. \n
+                    Vous devez choisir une date de début ainsi qu\'une date de fin pour obtenir le
+                    rapport sur cet intervalle.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk2_cs_export</item>
+        <item>[Space]</item>
+        <item>[Space]</item>
+
+        <item>[Title]Ajout d\'une entrée</item>
+        <item>[Space]</item>
+                <item>Cet écran vous permet d\'ajouter une entrée à votre carnet de suivi. \n
+                    Vous pouvez alors renseigner : \n
+                    - Un titre \n
+                    - Une position GPS si vous le souhaitez \n
+                    - Votre glycémie \n
+                    - La quantité de glucides ingérés \n
+                    - La durée et le type d\'activité \n
+                    - La quantité d\'insuline rapide injectée \n
+                    - La quantité d\'insuline lente injectée \n
+                    - Le taux d\'HbA1c \n
+                    - Une note (facultative) \n
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk2_cs_add_entry2</item>
+        <item>[Space]</item>
+                <item>
+                    Enfin, tout en bas de cette présentation, vous pouvez séléctionner des icônes
+                    afin d\'ajouter un ou plusieurs statuts à l\'entrée. Ceci permet d\'organiser au
+                    mieux vos entrées, d\'avoir une meilleure visibilité sur les statistiques,
+                    et par conséquent, une meilleure gestion de votre diabète.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk2_cs_add_entry1</item>
+        <item>[Space]</item>
+        <item>[Space]</item>
+
+
+        <item>[Title]Informations détaillées</item>
+        <item>[Space]</item>
+                <item>
+                    Cette fenêtre vous permet de visualiser une entrée du carnet en détails. \n
+                    Vous pouvez ainsi éditer ou supprimer cette entrée si elle s\'avère incorrecte.
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk2_cs_view_entry</item>
+        <item>[Space]</item>
+        <item>[Space]</item>
+
+        <item>[Title]Statistiques</item>
+        <item>[Space]</item>
+                <item>
+                    Grâce aux statistiques, vous pouvez visualiser l\'évolution de votre condition,
+                    et l\'impact positif ou négatif de votre gestion. \n
+                    Vous pouvez visualiser ces données sur différentes périodes : semaines, mois,
+                    depuis le début de l\'utilisation…
+                </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk2_cs_stats</item>
+        <item>[Space]</item>
+
+                <item>Vous pouvez aussi créer votre graphique personnalisé en cliquant
+                    sur l\'onglet "Perso"</item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk2_cs_perso_stats</item>
+        <item>[Space]</item>
+    </string-array>
+
+    <!-- MEDECIN PATIENT -->
+    <string name="ctg2_rbk3">Relation médecin patient</string>
+    <string-array name="ctg2_rbk3_art1">
+        <item>[Space]</item>
+        <item>Ce module vous permet de communiquer avec votre diabétologue. </item>
+        <item>[Space]</item>
+        <item>[Title]Conversations</item>
+        <item>[Space]</item>
+            <item>La première interface sur laquelle vous évoluez présente vos conversations. \n
+                Pour initier un contact avec votre diabétologue, il faudra l\'ajouter à votre liste
+                de médecins.
+            </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk3_medecin_patient_overview</item>
+        <item>[Space]</item>
+            <item>Les messages de votre correspondant s\'affichent sur la gauche en gris. \n
+                Par conséquent, vos messages sont situés sur la droite, en vert. \n
+
+                Vous pouvez saisir votre message en cliquant sur la zone de texte située en bas. \n
+                Pour l\'envoyer, cliquez sur l\'icône triangulaire située juste à droite.
+            </item>
+        <item>[Space]</item>
+
+        <item>[Title]Liste des médecins</item>
+        <item>[Space]</item>
+            <item>Sur cet écran, vous pouvez voir la liste des diabétologues vous ayant envoyé une
+                demande de contact. Vous pouvez accepter ou décliner ces invitations.
+            </item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk3_medecin_patient_liste_medecin</item>
+        <item>[Space]</item>
+            <item>Dans la section "Mes médecins", vous pouvez voir les diabétologues avec lesquels
+                vous êtes actuellement en contact. Vous pouvez supprimer un médecin de
+                vos contacts en appuyant sur le petit "-" encerclé situé à droite de son nom
+            </item>
+        <item>[Space]</item>
+
+
+        <item>[Title]Paramètres</item>
+        <item>[Space]</item>
+        <item>[Image]ctg2_rbk3_medecin_patient_params</item>
+        <item>[Space]</item>
+            <item>Cet onglet permet de gérer ce que vous communiquez avec vos contacts (médecins).
+                Autoriser les médecins à accéder à vos données médicales leur permet de consulter
+                les données des autres modules de votre application (notament le carnet de suivi).
+                \n \n
+                Autoriser les médecins à accéder à la position GPS leur permet d\'avoir un relevé
+                de vos positions GPS à intervalle régulier.
+            </item>
+        <item>[Space]</item>
+
+    </string-array>
+    <!--Fin mode d'emploi-->
 
 </resources>
 
