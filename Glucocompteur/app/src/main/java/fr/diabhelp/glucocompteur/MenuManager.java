@@ -63,6 +63,7 @@ public class MenuManager {
                         savedMenu.setMenuName(reader.nextString());
                     reader.endObject(); // End menuInfo object
                     reader.beginArray(); //Begin Aliment Array
+                    //Log.d("HELLO", savedMenu.menuName + " " + savedMenu.menuGlucids);
                     while (reader.hasNext())
                         savedMenu.addAliment(readAliment(reader));
                     reader.endArray(); // End Aliment Array
@@ -81,9 +82,9 @@ public class MenuManager {
     private Aliment readAliment(JsonReader reader) throws IOException {
         Log.d("MenuFavori", "Reading Aliment...");
         String name = null;
-        double weight = -1.0f;
-        double glucids = -1.0f;
-        double totalGlucids = -1.0f;
+        double weight = 1.0f;
+        double glucids = 1.0f;
+        double totalGlucids = 1.0f;
         reader.beginObject();
         while (reader.hasNext())
         {

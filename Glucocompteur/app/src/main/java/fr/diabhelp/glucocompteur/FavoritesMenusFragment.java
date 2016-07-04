@@ -54,10 +54,8 @@ public class FavoritesMenusFragment extends Fragment {
                 for (fr.diabhelp.glucocompteur.Menu menu : _menuList) {
                     ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), 0., menu.getMenuGlucids());
                     ArrayList<Aliment> aliments = menu.alimentsList;
-                    for (Aliment aliment : aliments) {
-                        Log.e("debugfavoris", "t : " + String.valueOf(aliment.getTotalGlucids()));
+                    for (Aliment aliment : aliments)
                         item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getTotalGlucids()));
-                    }
                     data.add(item);
                 }
                 swipeRefresh.setRefreshing(false);

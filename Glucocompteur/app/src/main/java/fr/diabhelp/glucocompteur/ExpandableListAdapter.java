@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 final ListHeaderViewHolder headerHolder = (ListHeaderViewHolder) holder;
                 headerHolder.refferalItem = item;
                 headerHolder.headerTitle.setText(item.name);
-                headerHolder.totalGlucids.setText(String.valueOf(item.glucids));
+                headerHolder.totalGlucids.setText("Glucides : " + String.valueOf(item.glucids) + "g");
                 if (item.invisibleChildren == null)
                     headerHolder.buttonExpand.setImageResource(R.drawable.circle_minus);
                 else
@@ -139,7 +140,18 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case CHILD:
                 final ListCHildViewHolder childHolder = (ListCHildViewHolder) holder;
                 childHolder.childTitle.setText(item.name);
-                childHolder.totalGLucids.setText(String.valueOf(item.glucids));
+                Log.d("HELLO", item.name + " " + item.weight + " " + item.glucids);
+                childHolder.totalGLucids.setText(String.valueOf(item.weight) + "g");
+                childHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                        alertDialogBuilder.setTitle(item.name);
+                        alertDialogBuilder.setMessage("Quantité : " + item.weight + "g" + System.lineSeparator() + "Glucides par gramme : " + item.glucids / item.weight + "g" + System.lineSeparator() + "Total glucidique : " + item.glucids + "g");
+                        final AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+                });
                 break;
         }
     }

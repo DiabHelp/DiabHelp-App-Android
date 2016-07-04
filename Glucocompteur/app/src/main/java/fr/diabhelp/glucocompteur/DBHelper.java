@@ -160,10 +160,14 @@ public class DBHelper extends SQLiteOpenHelper
                     //// int productId = Integer.parseInt(cursor.getString(cursor.getColumnIndex(fieldProductId)));
                     Log.d("cursor ", cursor.getString(cursor.getColumnIndex(fieldObjectName))); // A commenter pour virer le Log
                     String objectName = cursor.getString(cursor.getColumnIndex(fieldObjectName));
-                    String objectGlucides = cursor.getString(cursor.getColumnIndex(fieldObjectGlucides));
+                    String objectGlucides;
+                    if (cursor.getString(cursor.getColumnIndex(fieldObjectGlucides)).equals("traces")) {
+                        objectGlucides = "0.001";
+                    } else {
+                        objectGlucides = cursor.getString(cursor.getColumnIndex(fieldObjectGlucides));
+                    }
                     MyObject myObject = new MyObject(objectName, objectGlucides);
                     recordsList.add(myObject);
-
                 } while (cursor.moveToNext());
             }
             cursor.close();
