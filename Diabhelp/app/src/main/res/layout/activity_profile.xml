@@ -148,7 +148,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Edit"
+            android:text="Modifier"
             android:textAllCaps="true"
             android:textColor="@color/abc_secondary_text_material_dark"
             android:background="#078b87"

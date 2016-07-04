@@ -54,8 +54,6 @@ public class Faq extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-    Intent mainIntent = new Intent(Faq.this, CoreActivity.class);
-    Faq.this.startActivity(mainIntent);
-    Faq.this.finish();
+        Faq.this.finish();
     }
 }

@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import fr.diabhelp.diabhelp.R;
 
 public class GuideActivity extends AppCompatActivity {
-    private String mDataSet[] = MyArticleHandler.getCategories();
+    private String mDataSet[] = null;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +18,8 @@ public class GuideActivity extends AppCompatActivity {
             setContentView(R.layout.activity_manual);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+            MyArticleHandler art = new MyArticleHandler(this);
+            mDataSet = art.getDistinctCategories();
 
             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
             mRecyclerView.setHasFixedSize(true);
@@ -28,15 +30,12 @@ public class GuideActivity extends AppCompatActivity {
             RecyclerView.Adapter mAdapter = new MyAdapter(mDataSet, null, null, false,
                     MyArticleHandler.getInstance(getApplicationContext()));
             mRecyclerView.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+
         }
 
-/*    @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Handle action bar item clicks here. The action bar will automatically handle clicks
-            // on the Home/Up button, so long as you specify a parent activity in AndroidManifest
-            int id = item.getItemId();
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) return true;
-            return super.onOptionsItemSelected(item);
-        }*/
+    @Override
+    public void onBackPressed() {
+        this.finish();
+    }
 }

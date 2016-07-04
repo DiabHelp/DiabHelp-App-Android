@@ -19,6 +19,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.Core.ItemTouchHelper.ItemTouchHelperAdapter;
@@ -128,7 +129,12 @@ public class ParametresRecyclerAdapter extends RecyclerView.Adapter<ParametresRe
         }
 
         public void openStore() {
-            itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pname)));
+            try {
+                itemView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + pname)));
+            }
+            catch (Exception e) {
+                Log.e("OpenStore", "Can't start Activity market");
+            }
         }
 
         public void uninstallApp() {

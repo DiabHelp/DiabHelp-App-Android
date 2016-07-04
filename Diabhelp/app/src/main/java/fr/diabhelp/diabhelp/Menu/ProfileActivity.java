@@ -69,9 +69,9 @@ public class ProfileActivity extends AppCompatActivity
         } else if (id == R.id.nav_facebook) {
 
         }
-        else if (id == R.id.nav_twitter) {
+/*        else if (id == R.id.nav_twitter) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -87,8 +87,6 @@ public class ProfileActivity extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        Intent Carnetintent = new Intent(ProfileActivity.this, CoreActivity.class);
-        startActivity(Carnetintent);
         finish();
 
         super.onBackPressed();

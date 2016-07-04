@@ -111,7 +111,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Mes Outils"), 0);
         tabLayout.addTab(tabLayout.newTab().setText("Catalogue"), 1);
-        tabLayout.addTab(tabLayout.newTab().setText("Paramètre"), 2);
+        tabLayout.addTab(tabLayout.newTab().setText("Paramètres"), 2);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -126,7 +126,12 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+                try {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
+                catch (Exception e) {
+
+                }
             }
 
             @Override
@@ -152,13 +157,12 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             Intent mainIntent = new Intent(CoreActivity.this, ProfileActivity.class);
             CoreActivity.this.startActivity(mainIntent);
         } else if (id == R.id.nav_website) {
-            String url = "http://www.diabhelp.fr";
+            String url = "http://www.diabhelp.org";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         } else if (id == R.id.nav_help) {
             Intent mainIntent = new Intent(CoreActivity.this, GuideActivity.class);
             CoreActivity.this.startActivity(mainIntent);
-            CoreActivity.this.finish();
         } else if (id == R.id.nav_faq) {
             Intent mainIntent = new Intent(CoreActivity.this, Faq.class);
             CoreActivity.this.startActivity(mainIntent);
@@ -169,12 +173,12 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         }
-        else if (id == R.id.nav_twitter) {
+ /*       else if (id == R.id.nav_twitter) {
             // TODO Twitter account
             String url = "https://www.facebook.com/diabhelp";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
