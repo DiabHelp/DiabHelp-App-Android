@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ import fr.diabhelp.diabhelp.API.Asynctasks.ConnexionAPICallTask;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.BDD.DAO;
+import fr.diabhelp.diabhelp.BDD.UserDAO;
+import fr.diabhelp.diabhelp.BDD.Ressource.User;
 import fr.diabhelp.diabhelp.BDD.User;
 import fr.diabhelp.diabhelp.Services.MyInstanceIDListenerService;
 import fr.diabhelp.diabhelp.Services.RegistrationIntentService;
@@ -43,8 +46,14 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     public static final String IS_NETWORK = "fr.diabhelp.diabhelp.isNetwork";
     public static final String SESSION = "fr.diabhelp.diabhelp.session";
     public static final String AUTO_CONNEXION_PREFERENCE = "auto_connexion";
+    public static final String TOKEN = "token";
+    public static final String TYPE_USER = "type_user";
+    public static final String ID_USER = "id";
+
     public static final String SENT_TOKEN_TO_SERVER = "token_is_sent_to_server";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
 
     private String _login_input = null;
     private String _pwd_input = null;
@@ -58,9 +67,11 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connexion);
+        dao = DAO.getInstance(this);
+        db = dao.open();
 //        inflateLoadingBar();
 //        //recupere les préférences dans le fichier donné en param
-        _settings = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+        _settings = getSharedPreferences(PREF_FILE, Context.MODE_WORLD_READABLE);
         if (_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
             Log.i("ConnexionActivity", "connexion automatique");
             connectAutomaticaly();
@@ -81,6 +92,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         SharedPreferences.Editor edit = _settings.edit();
         edit.putBoolean(AUTO_CONNEXION_PREFERENCE, false);
         edit.commit();
+        UserDAO.deleteAllUsers(db);
     }
 
     @Override
@@ -147,34 +159,27 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     }
 
     private void tryConnectWithoutNetwork() {
-        DAO bdd  = new DAO(this);
-        bdd.open();
         User user = null;
         if (_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
-            if ((user = bdd.selectUser()) == null){
+            if ((user = UserDAO.selectUser(db)) == null){
                 MyToast.getInstance().displayWarningMessage("Une erreur est survenue, veuillez vous connectez manuellement", Toast.LENGTH_LONG, this);
                 //on desactive la connexion automatique pour lui permettre de se connecter manuellement
                 disableAutomaticConnexion();
-                bdd.close();
                 //on essaye de se connecter avec les Ids stockés dans la base sqlLITE
             }
             else {
-                bdd.close();
                 launchCoreWithoutConnexion(user);
             }
         }
         else {
-            if ((user = bdd.selectUser()) == null){
+            if ((user = UserDAO.selectUser(db)) == null){
                 MyToast.getInstance().displayWarningMessage("La connexion hors ligne necessite une première connexion en ligne pour pouvoir être active", Toast.LENGTH_LONG, this);
-                bdd.close();
             }
             else{
                 if (!_login_input.equals(user.getUser()) || !_pwd_input.equals(user.getPwd())) {
                     MyToast.getInstance().displayWarningMessage("Mauvais nom de compte/mot de passe", Toast.LENGTH_LONG, this);
-                    bdd.close();
                 }
                 else {
-                    bdd.close();
                     launchCoreWithoutConnexion(user);
                 }
             }
@@ -191,29 +196,25 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     }
 
     private void tryConnectWithNetwork() {
-        DAO bdd  = new DAO(this);
-        bdd.open();
         //si connexion automatique
         if (_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
             User user = null;
-            if ((user = bdd.selectUser()) == null){
+            if ((user = UserDAO.selectUser(db)) == null){
                 MyToast.getInstance().displayWarningMessage("Une erreur est survenue, veuillez vous connectez manuellement", Toast.LENGTH_LONG, this);
                 //on desactive la connexion automatique pour lui permettre de se connecter manuellement
                 disableAutomaticConnexion();
-                bdd.close();
             }
             //on essaye de se connecter avec les Ids stockés dans la base sqlLITE
             else {
+                Log.i(getLocalClassName(),"Ids de l'user = " + user.getUser() + " " + user.getPwd());
                 System.out.println("Ids de l'user = " + user.getUser() + " " + user.getPwd());
                 bdd.close();
-//                new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getBasicAuthSession").execute("2", "connect", "login", user.getUser(), "password", user.getPwd());
                 new ConnexionAPICallTask(this).execute(user.getUser(), user.getPwd());
             }
         }
         else {
             bdd.close();
             System.out.println("je vais tenter la connexion non automatique");
-            //new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "getBasicAuthSession").execute("2", "login_check", "username", _login_input, "password", _pwd_input);
             new ConnexionAPICallTask(this).execute(_login_input, _pwd_input);
         }
     }
@@ -237,8 +238,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             manageError(response.getError());
         }
         else if (action.equals("initSession")) {
-            _session = response.getCookie();
-            initSession();
+            initSession(response.getCookie(), response.getTypeUser(), response.getIdUser());
         }
     }
 
@@ -256,9 +256,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
                     disableAutomaticConnexion();
                     MyToast.getInstance().displayWarningMessage("Il semblerait que vous ayez mis à jour vos identifiants, veuillez vous reconnecter", Toast.LENGTH_LONG, this);
                     Log.e("ConnexionActivity", "Les identifiants locaux sont differents des identifiants serveur");
-                    DAO bdd = new DAO(this);
-                    bdd.open();
-                    bdd.deleteUser(0);
+                    UserDAO.deleteUser(0, db);
                 }
                 else if (coAuto == false) {
                     MyToast.getInstance().displayWarningMessage("Mauvais identifiants", Toast.LENGTH_LONG, this);
@@ -281,34 +279,39 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
      * Effectue les actions de mise à jour de la base utilisateur et d'activation de la connexion automatique quand cela est necessaire puis
      * lance l'initialisation du {@link CoreActivity}
      */
-    private void initSession()
-    { System.out.println("init");
-
+    private void initSession(String token, String typeUser, String idUser)
+    {
+        SharedPreferences.Editor edit = _settings.edit();
+        edit.putString(TOKEN,token);
+        edit.putString(TYPE_USER, typeUser);
+        edit.putString(ID_USER, idUser);
+        edit.apply();
         User user = null;
-        DAO bdd = new DAO(this);
-        bdd.open();
         if (!_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)){
-            user = new User(0L, _login_input, _pwd_input);
+            //TODO recevoir l'id de l'user
+            if (idUser != null)
+                user = new User(Long.valueOf(idUser), _login_input, _pwd_input);
+            else
+                user = new User(0L, _login_input, _pwd_input);
             if (((CheckBox) findViewById(R.id.checkbox_connexion_auto)).isChecked()){
                 SharedPreferences.Editor edit = _settings.edit();
                 edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
-                edit.commit();
-                if (!bdd.isUserAlreadyFilled("0")) {
-                    bdd.addUser(user);
+                edit.putString(TYPE_USER, typeUser);
+                edit.apply();
+                if (!UserDAO.isUserAlreadyFilled(idUser, db)) {
+                    UserDAO.addUser(user, db);
                 }
             }
         }
         else {
-            user = bdd.selectUser();
+            user = UserDAO.selectUser(db);
             if (user == null){
                 _progress.dismiss();
                 disableAutomaticConnexion();
-                Log.e("ConnexionActivity", "Erreur lors de la récupération de l'utilisateur en bdd locale");
+                Log.e("ConnexionActivity", "Erreur lors de la récupération de l'utilisateur en db locale");
                 return;
             }
         }
-        System.out.println("fin");
-        bdd.close();
         launchCoreWithConnexion(user);
     }
 
@@ -365,6 +368,16 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences.Editor edit = _settings.edit();
+        edit.putString(TOKEN, "");
+        edit.putString(TYPE_USER, "");
+        edit.putString(ID_USER, "");
+        edit.commit();
     }
 
     public enum  Error

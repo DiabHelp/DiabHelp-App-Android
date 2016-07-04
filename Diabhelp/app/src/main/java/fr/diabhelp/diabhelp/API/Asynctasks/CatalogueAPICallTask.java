@@ -57,8 +57,10 @@ public class CatalogueAPICallTask extends AsyncTask<Integer, String, ResponseCat
         try{
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess()){
-                Log.i(getClass().getSimpleName(), reponse.body().string());
-                responseCatalogue = new ResponseCatalogue(JsonUtils.getObj(reponse.body().string()));
+                
+                String body = reponse.body().string();
+                Log.i(getClass().getSimpleName(),"modules du catalogue = " + body);
+                responseCatalogue = new ResponseCatalogue(JsonUtils.getArray(body));
             }
             else {
                 Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());

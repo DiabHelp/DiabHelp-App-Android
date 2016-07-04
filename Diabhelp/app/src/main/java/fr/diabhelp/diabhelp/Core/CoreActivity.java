@@ -2,6 +2,7 @@ package fr.diabhelp.diabhelp.Core;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
+import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.FAQ.Faq;
 import fr.diabhelp.diabhelp.Menu.ProfileActivity;
 import fr.diabhelp.diabhelp.R;
@@ -250,5 +252,15 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             }
         }
         return res;
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferences.Editor edit = ConnexionActivity._settings.edit();
+        edit.putString(ConnexionActivity.TOKEN, "");
+        edit.putString(ConnexionActivity.TYPE_USER, "");
+        edit.putString(ConnexionActivity.ID_USER, "");
+        edit.commit();
     }
 }

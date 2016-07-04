@@ -66,21 +66,23 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
         call = service.getBasicAuthSession(params[PARAM_USERNAME], params[PARAM_PASSWORD]);
 
         try {
-            retrofit2.Response reponse = call.execute();
-            Headers headers = reponse.headers();
-            if (reponse.isSuccess()) {
-                System.out.println("headers");
-                String cookie = headers.get("set-Cookie");
-                cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
-//                System.out.println("cookie formaté = " + cookie);
-                responseConnexion.setCookie(cookie);
-                ResponseBody body = (ResponseBody) reponse.body();
-                System.out.println("response body" + body.string());
-            }
-            else {
-                Log.e("ConnexionApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
-                responseConnexion.setError(ConnexionActivity.Error.SERVER_ERROR);
-            }
+
+                retrofit2.Response<ResponseBody> reponse = call.execute();
+                Headers headers = reponse.headers();
+                if (reponse.isSuccess()) {
+                    String body = reponse.body().string();
+                    System.out.println("body = " + body);
+                    System.out.println("headers");
+                    String cookie = headers.get("set-Cookie");
+                    cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
+                    responseConnexion = new ResponseConnexion(JsonUtils.getObj(body));
+                    responseConnexion.setCookie(cookie);
+                }
+                else {
+                    Log.e("ConnexionApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
+                    responseConnexion = new ResponseConnexion();
+                    responseConnexion.setError(ConnexionActivity.Error.SERVER_ERROR);
+                }9
 
         } catch (ProtocolException e)
         {

@@ -6,6 +6,7 @@ package fr.diabhelp.diabhelp.Core;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,17 +24,19 @@ import fr.diabhelp.diabhelp.R;
 
 public class AccueilFragment extends Fragment {
 
-
     public GridView grid;
     private String[] web;
     private Drawable[] img;
-    private DAO bdd;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        dao = DAO.getInstance(getActivity().getApplicationContext());
+        db = dao.open();
     }
 
     @Override
@@ -84,7 +87,6 @@ public class AccueilFragment extends Fragment {
                             .unflattenFromString(unflat));
                     intent.addCategory("android.intent.category.LAUNCHER");
                     //intent.putExtra("session", _session);
-
                     startActivity(intent);
                 }
             }

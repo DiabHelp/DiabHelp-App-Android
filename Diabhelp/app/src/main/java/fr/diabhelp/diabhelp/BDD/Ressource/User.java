@@ -1,4 +1,4 @@
-package fr.diabhelp.diabhelp.BDD;
+package fr.diabhelp.diabhelp.BDD.Ressource;
 
 /**
  * Created by naqued on 28/09/15.
