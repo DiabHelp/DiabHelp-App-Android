@@ -22,7 +22,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Bundle extra = getIntent().getExtras();
-         Title = extra.getString("title");
+        Title = extra.getString("title");
 
         if (Title.equals("Savoir réagir face à un malaise"))
             setContentView(R.layout.activity_howtoreact);
@@ -49,6 +49,10 @@ public class InfoActivity extends AppCompatActivity {
             setContentView(R.layout.activity_study_pro);
         else
             Log.e("error", "no title found : " + Title);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(Title);
+
     }
 
     // Redirige sur le site de l'ajd

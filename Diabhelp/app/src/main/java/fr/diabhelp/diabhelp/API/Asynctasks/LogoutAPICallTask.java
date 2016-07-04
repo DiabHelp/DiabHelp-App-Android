@@ -40,7 +40,7 @@ public class LogoutAPICallTask extends AsyncTask<String, Integer, Boolean> {
         Response<ResponseBody> response = null;
         ApiServices service = createService();
         Boolean work = false;
-        call =  service.logout(params[PARAM_TOKEN]);
+/*        call =  service.logout(params[PARAM_TOKEN]);*/
         try {
             response = call.execute();
             if (response.isSuccess()) {

@@ -16,7 +16,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -24,10 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
-import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.FAQ.Faq;
 import fr.diabhelp.diabhelp.Menu.ProfileActivity;
 import fr.diabhelp.diabhelp.R;
+import fr.diabhelp.diabhelp.UtilizationGuide.GuideActivity;
 
 
 public class CoreActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -152,7 +151,9 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         } else if (id == R.id.nav_help) {
-
+            Intent mainIntent = new Intent(CoreActivity.this, GuideActivity.class);
+            CoreActivity.this.startActivity(mainIntent);
+            CoreActivity.this.finish();
         } else if (id == R.id.nav_faq) {
             Intent mainIntent = new Intent(CoreActivity.this, Faq.class);
             CoreActivity.this.startActivity(mainIntent);
