@@ -13,12 +13,24 @@ import java.io.Serializable;
  * Created by Sumbers on 13/10/2015.
  */
 public class JsonUtils {
+
     static public JSONObject getObj(String serializable){
         try {
             return (JSONObject) new JSONTokener(serializable).nextValue();
 
         } catch (JSONException e) {
             Log.e("JsonUtils", "Error json invalid = [" + serializable + "]");
+            return (null);
+        }
+    }
+
+    static public JSONObject getObjFromObj(JSONObject obj, String key)
+    {
+        try {
+            return (obj.getJSONObject(key));
+
+        } catch (JSONException e) {
+            Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "] key = " + key);
             return (null);
         }
     }
@@ -30,6 +42,17 @@ public class JsonUtils {
 
         } catch (JSONException e) {
             Log.e("JsonUtils", "Error json invalid = [" + serializable + "]");
+            return (null);
+        }
+    }
+
+    static public JSONArray getArrayFromObj(JSONObject obj, String key)
+    {
+        try {
+            return (obj.getJSONArray(key));
+
+        } catch (JSONException e) {
+            Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "] key = " + key);
             return (null);
         }
     }

@@ -7,34 +7,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
+import java.util.ArrayList;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs) {
+public class PagerAdapter extends FragmentStatePagerAdapter {
+    private ArrayList<Fragment> pages;
+
+    public PagerAdapter(FragmentManager fm, ArrayList<Fragment> pages) {
         super(fm);
-        this.mNumOfTabs = NumOfTabs;
+        this.pages = new ArrayList<Fragment>(pages);
     }
 
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
-        System.out.println("pagerview position actuelle = " + position);
-        switch (position) {
-            case 0:
-                fragment = new AccueilFragment();
-                break;
-            case 1:
-                fragment = new CatalogueFragment();
-                break;
-            case 2:
-                fragment = new ParametresFragment();
-                break;
-           }
+        fragment = this.pages.get(position);
         return (fragment);
     }
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return this.pages.size();
     }
 }

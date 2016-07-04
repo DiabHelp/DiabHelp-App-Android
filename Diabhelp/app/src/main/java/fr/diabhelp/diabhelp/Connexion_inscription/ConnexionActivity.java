@@ -30,8 +30,6 @@ import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.BDD.UserDAO;
 import fr.diabhelp.diabhelp.BDD.Ressource.User;
-import fr.diabhelp.diabhelp.BDD.User;
-import fr.diabhelp.diabhelp.Services.MyInstanceIDListenerService;
 import fr.diabhelp.diabhelp.Services.RegistrationIntentService;
 import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Core.CoreActivity;
@@ -208,13 +206,10 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             else {
                 Log.i(getLocalClassName(),"Ids de l'user = " + user.getUser() + " " + user.getPwd());
                 System.out.println("Ids de l'user = " + user.getUser() + " " + user.getPwd());
-                bdd.close();
                 new ConnexionAPICallTask(this).execute(user.getUser(), user.getPwd());
             }
         }
         else {
-            bdd.close();
-            System.out.println("je vais tenter la connexion non automatique");
             new ConnexionAPICallTask(this).execute(_login_input, _pwd_input);
         }
     }
@@ -288,13 +283,12 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         edit.apply();
         User user = null;
         if (!_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)){
-            //TODO recevoir l'id de l'user
             if (idUser != null)
                 user = new User(Long.valueOf(idUser), _login_input, _pwd_input);
             else
                 user = new User(0L, _login_input, _pwd_input);
             if (((CheckBox) findViewById(R.id.checkbox_connexion_auto)).isChecked()){
-                SharedPreferences.Editor edit = _settings.edit();
+                edit = _settings.edit();
                 edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
                 edit.putString(TYPE_USER, typeUser);
                 edit.apply();

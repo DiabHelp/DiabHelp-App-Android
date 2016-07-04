@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:background="?attr/colorPrimary"
+        android:elevation="16dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
+<!--    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Exporter au format PDF"
+        android:textAllCaps="true"
+        android:elevation="20dp"
+        android:onClick=""
+        android:id="@+id/pdfexport"
+        android:textColor="@color/white"
+        android:background="#18C1BB"
+        android:layout_below="@+id/toolbar"
+        />-->
+
+<!--    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Noentry"
+        android:gravity="center"
+        android:focusable="false"
+        android:layout_below="@id/toolbar"
+        android:visibility="invisible"
+        android:layout_marginTop="70dp"
+        android:textColor="@color/black"
+        android:text="Pour Ajouter une entrée appuyez sur le bouton + en bas à droite de l'écran"
+        android:enabled="false"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/avday"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aujourd'hui"
+                android:textStyle="bold"
+
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/slowtextView"
+                android:layout_alignStart="@+id/slowtextView"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/texttoday"
+                android:textSize="15dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_below="@+id/texttoday"
+                android:id="@+id/relativeavg"
+                android:layout_marginLeft="15dp"
+                >
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/avglyimg"
+                android:layout_centerInParent="true"
+
+                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TEST"
+                    android:id="@+id/avgglytextView"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Variation glycemie"
+                android:layout_below="@id/relativeavg"
+                android:textStyle="bold"
+                />
+
+        </RelativeLayout>
+
+        <ExpandableListView
+            android:id="@+id/expandableListView"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:layout_below="@+id/avday"
+            android:elevation="18dp"
+            android:layout_width="match_parent"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:divider="#FFFF"
+            android:dividerHeight="0.5dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/relativeavg"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/linearLayout"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button"
+                android:id="@+id/button" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!--    </LinearLayout>-->
+</RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:background="#18C1BB"
+        android:layout_margin="16dp"
+        android:onClick="launch_entry"
+        android:clickable="true"
+        android:src="@drawable/ic_add_black_24dp" />
+
+</android.support.design.widget.CoordinatorLayout>

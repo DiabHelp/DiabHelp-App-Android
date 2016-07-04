@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/horizontalScrollView2"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:id="@+id/linearchild"
+                >
+
+                <!--Glycemie-->
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top"
+                    android:id="@+id/layoutgly"
+                    >
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/glycemiimg"
+                        android:layout_centerInParent="true"
+                        />
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="1"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        android:textAlignment="center"
+                        android:id="@+id/glytextview"
+
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        />
+                </RelativeLayout>
+                <!--Glucide-->
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top"
+                    android:id="@+id/layoutglu"
+                    >
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/glucideimg"
+                        android:src="@drawable/glucide"
+                        android:layout_centerInParent="true"
+                        />
+                    <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="1"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:id="@+id/glutextview"
+
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                        android:layout_centerInParent="true"
+                />
+            </RelativeLayout>
+
+
+                <!--Insuline rapide-->
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="@dimen/child_icone_marginLeft"
+                    android:id="@+id/layoutfast"
+                    >
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/fast"
+                        android:id="@+id/fastimg"
+                        android:layout_centerInParent="true"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TEST"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:id="@+id/fasttextView"
+                        android:layout_centerInParent="true"
+                        />
+                </RelativeLayout>
+
+
+                <!--Insuline lente-->
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="@dimen/child_icone_marginLeft"
+                    android:id="@+id/layoutslow"
+                    >
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/slow"
+                        android:id="@+id/slowimg"
+                        android:layout_centerInParent="true"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TEST"
+                        android:id="@+id/slowtextView"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_centerInParent="true"
+                        />
+                </RelativeLayout>
+
+        <!--        <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="  1"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:id="@+id/slowtextView"
+                    android:background="@drawable/round_cornerslow"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    />-->
+
+                <!--HBA1C-->
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="@dimen/child_icone_marginLeft"
+                    android:id="@+id/layouthba1c"
+                    >
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:id="@+id/hba1cimg"
+                        android:src="@drawable/hba1c"
+                        android:layout_centerInParent="true"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TEST"
+                        android:id="@+id/hba1ctextView"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_centerInParent="true"
+                        />
+
+
+                </RelativeLayout>
+        <!--        <TextView
+                    android:layout_width="60dp"
+                    android:gravity="center"
+                    android:layout_height="60dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="  1"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:id="@+id/hba1ctextView"
+                    android:background="@drawable/round_cornerhba1c"
+                    android:layout_marginLeft="10dp"
+                    />-->
+
+                <!--Notes-->
+                <TextView
+                    android:layout_width="60dp"
+                    android:gravity="center"
+                    android:layout_height="60dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="  1"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:id="@+id/notestextView"
+                    android:background="@color/white"
+                    android:layout_marginLeft="@dimen/child_icone_marginLeft"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    />
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+</RelativeLayout>

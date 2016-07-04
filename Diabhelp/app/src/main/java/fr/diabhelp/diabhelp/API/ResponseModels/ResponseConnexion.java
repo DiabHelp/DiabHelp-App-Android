@@ -1,6 +1,12 @@
 package fr.diabhelp.diabhelp.API.ResponseModels;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
+import fr.diabhelp.diabhelp.Utils.JsonUtils;
 
 /**
  * Created by Sumbers on 29/01/2016.
@@ -13,7 +19,10 @@ public class ResponseConnexion {
     private String _id = null;
 
 
-      public ResponseConnexion(JSONObject datas) {
+    public ResponseConnexion() {
+    }
+
+    public ResponseConnexion(JSONObject datas) {
         _error = ConnexionActivity.Error.NONE;
         if (datas != null){
             _typeUser = JsonUtils.getStringFromKey(datas, "type");
@@ -24,7 +33,7 @@ public class ResponseConnexion {
             if(_id == null){
                 Log.e(getClass().getSimpleName(), "id non retourné par l'API");
             }
-            _typeUser = JsonUtils.getStringFromKey(datas, "role");
+             _typeUser = (JsonUtils.getArrayFromObj(datas, "role")).toString();
             if(_typeUser == null){
                 Log.e(getClass().getSimpleName(), "type user non retourné par l'API");
             }

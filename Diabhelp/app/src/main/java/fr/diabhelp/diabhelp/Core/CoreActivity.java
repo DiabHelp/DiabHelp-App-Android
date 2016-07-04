@@ -2,6 +2,7 @@ package fr.diabhelp.diabhelp.Core;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
@@ -39,6 +42,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     private DAO bdd;
     private Boolean NetState;
     private TabLayout tabLayout;
+    public static SharedPreferences _settings = null;
 
     class PInfo{
         public String appname = "";
@@ -88,6 +92,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core);
+        _settings = getSharedPreferences(ConnexionActivity.PREF_FILE, MODE_WORLD_READABLE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         listApp = new ArrayList<String>();
@@ -110,16 +115,17 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        ArrayList<Fragment> pages = new ArrayList<>(3);
+        pages.add(new AccueilFragment());
+        pages.add(new CatalogueFragment());
+        pages.add(new ParametresFragment());
         final PagerAdapter adapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+                (getSupportFragmentManager(), pages);
         viewPager.setAdapter(adapter);
-        System.out.println("blabla");
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        System.out.println("blibli");
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                System.out.println("tab numero = [" + tab.getPosition() + "] selectionnée");
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
@@ -133,7 +139,6 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });
-        System.out.println("bloublou");
     }
 
 
@@ -146,7 +151,6 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_profil) {
             Intent mainIntent = new Intent(CoreActivity.this, ProfileActivity.class);
             CoreActivity.this.startActivity(mainIntent);
-            CoreActivity.this.finish();
         } else if (id == R.id.nav_website) {
             String url = "http://www.diabhelp.fr";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -156,7 +160,6 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_faq) {
             Intent mainIntent = new Intent(CoreActivity.this, Faq.class);
             CoreActivity.this.startActivity(mainIntent);
-            CoreActivity.this.finish();
         } else if (id == R.id.nav_logout) {
 
         } else if (id == R.id.nav_facebook) {
@@ -228,6 +231,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         web = new String[nbDApp];
         for(int i=0;i<packs.size();i++) {
             PackageInfo p = packs.get(i);
+
             if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp")) {
 
                 if ((!getSysPackages) && (p.versionName == null)) {

@@ -25,6 +25,7 @@ import java.util.List;
 import fr.diabhelp.diabhelp.API.Asynctasks.CatalogueAPICallTask;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseCatalogue;
+import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.Utils.NetworkUtils;
 import fr.diabhelp.diabhelp.Models.CatalogModule;
 import fr.diabhelp.diabhelp.R;
@@ -45,9 +46,7 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if (NetworkUtils.getConnectivityStatus(getActivity())){
-            new CatalogueAPICallTask(getActivity(), this).execute();
-        }
+
     }
 
     @Override
@@ -84,6 +83,18 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
                     if (_modulesList.get(j).getName().equals(p.applicationInfo.loadLabel(getActivity().getPackageManager()).toString()));
                         //_modulesList.remove(j);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (NetworkUtils.getConnectivityStatus(getActivity())) {
+                new CatalogueAPICallTask(getActivity(), this).execute();
+                //TODO mettre en place le chargement en fonction du type d'utilisteur
+                //new CatalogueAPICallTask(getActivity(), this).execute(ConnexionActivity._settings.getString(ConnexionActivity.TYPE_USER, ""));//
             }
         }
     }

@@ -23,7 +23,7 @@ import retrofit2.Retrofit;
 /**
  * Created by Sumbers on 24/03/2016.
  */
-public class CatalogueAPICallTask extends AsyncTask<Integer, String, ResponseCatalogue> {
+public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCatalogue> {
 
     private String URL_API;
 
@@ -48,12 +48,14 @@ public class CatalogueAPICallTask extends AsyncTask<Integer, String, ResponseCat
     }
 
     @Override
-    protected ResponseCatalogue doInBackground(Integer... params) {
+    protected ResponseCatalogue doInBackground(String... params) {
         Call<ResponseBody> call = null;
         ResponseCatalogue responseCatalogue = null;
 
         ApiServices service = createService();
-        call= service.getModules();
+        call = service.getModules();
+        //TODO enlever les commentaires
+//        call= service.getModules(params[0]);
         try{
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess()){

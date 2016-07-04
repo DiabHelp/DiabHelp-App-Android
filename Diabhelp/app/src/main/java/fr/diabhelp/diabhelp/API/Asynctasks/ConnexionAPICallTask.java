@@ -14,6 +14,7 @@ import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.API.ResponseModels.ResponseConnexion;
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.R;
+import fr.diabhelp.diabhelp.Utils.JsonUtils;
 import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -72,7 +73,6 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
                 if (reponse.isSuccess()) {
                     String body = reponse.body().string();
                     System.out.println("body = " + body);
-                    System.out.println("headers");
                     String cookie = headers.get("set-Cookie");
                     cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
                     responseConnexion = new ResponseConnexion(JsonUtils.getObj(body));
@@ -82,7 +82,7 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
                     Log.e("ConnexionApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
                     responseConnexion = new ResponseConnexion();
                     responseConnexion.setError(ConnexionActivity.Error.SERVER_ERROR);
-                }9
+                }
 
         } catch (ProtocolException e)
         {
