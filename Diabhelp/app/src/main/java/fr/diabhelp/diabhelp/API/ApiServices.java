@@ -23,7 +23,7 @@ public interface ApiServices {
         Call<ResponseBody> getBasicAuthSession(@Field("username") String usr, @Field("password") String pwd);
 
         @FormUrlEncoded
-        @POST("app_dev.php/api/")
+        @POST("app_dev.php/rest-login")
         Call<ResponseBody> getAuth(@Field("username") String usr, @Field("password") String pwd);
 
         @FormUrlEncoded

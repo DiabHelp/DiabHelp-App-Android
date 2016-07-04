@@ -233,7 +233,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             manageError(response.getError());
         }
         else if (action.equals("initSession")) {
-            initSession(response.getCookie(), response.getTypeUser(), response.getIdUser());
+            initSession(response.getTypeUser(), response.getIdUser());
         }
     }
 
@@ -274,10 +274,10 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
      * Effectue les actions de mise à jour de la base utilisateur et d'activation de la connexion automatique quand cela est necessaire puis
      * lance l'initialisation du {@link CoreActivity}
      */
-    private void initSession(String token, String typeUser, String idUser)
+    private void initSession(String typeUser, String idUser)
     {
         SharedPreferences.Editor edit = _settings.edit();
-        edit.putString(TOKEN,token);
+       // edit.putString(TOKEN,token);
         edit.putString(TYPE_USER, typeUser);
         edit.putString(ID_USER, idUser);
         edit.apply();

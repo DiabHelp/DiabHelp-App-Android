@@ -32,14 +32,24 @@ public class ParametresFragment extends Fragment implements IApiCallTask {
     private RecyclerView                recyclerView;
     private ParametresRecyclerAdapter recAdapter;
     private RecyclerView.LayoutManager  recLayoutManager;
+    private static Integer launch = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (NetworkUtils.getConnectivityStatus(getActivity())) {
-            new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "ParametresModuleList").execute("0", "modules");
-        }
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser == true && launch == 0)
+        {
+            if (NetworkUtils.getConnectivityStatus(getActivity())) {
+                new ApiCallTask(this, ApiCallTask.POST, ApiCallTask.OBJECT, "ParametresModuleList").execute("0", "modules");
+            }
+            launch = 1;
+        }
+        super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override

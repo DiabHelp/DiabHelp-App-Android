@@ -37,6 +37,7 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     private RecyclerView.LayoutManager  _recLayoutManager;
     private List<CatalogModule>         _modulesList = new ArrayList<>();
     private ProgressDialog              _progress;
+    private static Integer launch = 0;
 
 
     //default constructor
@@ -90,9 +91,11 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (NetworkUtils.getConnectivityStatus(getActivity())) {
+        if (isVisibleToUser && launch == 0) {
+            if (NetworkUtils.getConnectivityStatus(getActivity()))
+            {
                 new CatalogueAPICallTask(getActivity(), this).execute();
+                launch = 1;
                 //TODO mettre en place le chargement en fonction du type d'utilisteur
                 //new CatalogueAPICallTask(getActivity(), this).execute(ConnexionActivity._settings.getString(ConnexionActivity.TYPE_USER, ""));//
             }

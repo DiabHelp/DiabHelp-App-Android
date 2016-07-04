@@ -22,6 +22,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 
 /**
@@ -63,20 +64,19 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
         ResponseConnexion responseConnexion = new ResponseConnexion();
         Call<ResponseBody> call = null;
 
-        ApiServices service = createService(params[PARAM_USERNAME] + ":" + params[PARAM_PASSWORD]);
-        call = service.getBasicAuthSession(params[PARAM_USERNAME], params[PARAM_PASSWORD]);
-
+//        ApiServices service = createService(params[PARAM_USERNAME] + ":" + params[PARAM_PASSWORD]);
+        ApiServices service = createService();
+        call = service.getAuth(params[PARAM_USERNAME], params[PARAM_PASSWORD]);
         try {
-
                 retrofit2.Response<ResponseBody> reponse = call.execute();
                 Headers headers = reponse.headers();
                 if (reponse.isSuccess()) {
                     String body = reponse.body().string();
                     System.out.println("body = " + body);
-                    String cookie = headers.get("set-Cookie");
-                    cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
+//                    String cookie = headers.get("set-Cookie");
+//                    cookie = cookie.substring(cookie.indexOf("=") + 1, (cookie.indexOf("=") + 1 + COOKIE_LENGTH));
                     responseConnexion = new ResponseConnexion(JsonUtils.getObj(body));
-                    responseConnexion.setCookie(cookie);
+//                    responseConnexion.setCookie(cookie);
                 }
                 else {
                     Log.e("ConnexionApiCallTask", "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
@@ -95,6 +95,17 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
             e.printStackTrace();
         }
         return (responseConnexion);
+    }
+
+    private ApiServices createService() {
+        OkHttpClient client = new OkHttpClient();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(URL_API)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        return (retrofit.create(ApiServices.class));
     }
 
     private ApiServices createService(String credentials) {

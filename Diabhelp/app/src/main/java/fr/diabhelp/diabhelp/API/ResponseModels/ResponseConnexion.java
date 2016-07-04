@@ -25,21 +25,27 @@ public class ResponseConnexion {
     public ResponseConnexion(JSONObject datas) {
         _error = ConnexionActivity.Error.NONE;
         if (datas != null){
-            _typeUser = JsonUtils.getStringFromKey(datas, "type");
-            if(_typeUser == null){
-                Log.e(getClass().getSimpleName(), "typeUser non retourné par l'API");
+            Boolean success = JsonUtils.getBoolFromKey(datas, "success");
+            if (success != null) {
+                if (success == true) {
+                    _id = JsonUtils.getStringFromKey(datas, "id_user");
+                    if (_id == null) {
+                        Log.e(getClass().getSimpleName(), "id non retourné par l'API");
+                    }
+                    _typeUser = (JsonUtils.getArrayFromObj(datas, "role")).toString();
+                    if (_typeUser == null) {
+                        Log.e(getClass().getSimpleName(), "type user non retourné par l'API");
+                    }
+                }
+                else
+                    _error = ConnexionActivity.Error.BAD_CREDENTIALS;
             }
-            _id = JsonUtils.getStringFromKey(datas, "id_user");
-            if(_id == null){
-                Log.e(getClass().getSimpleName(), "id non retourné par l'API");
-            }
-             _typeUser = (JsonUtils.getArrayFromObj(datas, "role")).toString();
-            if(_typeUser == null){
-                Log.e(getClass().getSimpleName(), "type user non retourné par l'API");
-            }
+            else
+            _error = ConnexionActivity.Error.SERVER_ERROR;
         }
         else {
             Log.e(getClass().getSimpleName(), "Chaine JSON vide");
+            _error = ConnexionActivity.Error.SERVER_ERROR;
         }
     }
 
