@@ -67,11 +67,9 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.catalogue_fragment, container, false);
         _recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-        _recyclerView.setHasFixedSize(true);
+        _recyclerView.setHasFixedSize(false);
         _recLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         _recyclerView.setLayoutManager(_recLayoutManager);
-        _recAdapter = new CatalogRecyclerAdapter(_modulesList);
-        _recyclerView.setAdapter(_recAdapter);
         return v;
     }
 
@@ -119,10 +117,12 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
     }
 
     private void displayModules(List<CatalogModule> modules) {
+        System.out.println("nombre de modules = " + modules.size());
         _progress.dismiss();
         _modulesList = modules;
-        checkAvailability();
-        _recAdapter.notifyDataSetChanged();
+        //checkAvailability();
+        _recAdapter = new CatalogRecyclerAdapter(_modulesList);
+        _recyclerView.setAdapter(_recAdapter);
     }
 
     private void manageError(CatalogueFragment.Error error) {
