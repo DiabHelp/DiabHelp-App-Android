@@ -37,6 +37,13 @@ public interface ApiServices {
 
         @GET("app_dev.php/api/modules/all")
         Call<ResponseBody> getModules();
+
+        @GET("/api/usr/getInfo")
+        Call<ResponseBody>  getInfo(@Query("id") String id);
+
+        @POST("/api/usr/setInfo")
+        Call<ResponseBody>  setInfo(@Query("id") String id);
+
         //TODO
 //        Call<ResponseBody> getModules(@Query("typeUser") JSONArray typeUser);
 }

@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import fr.diabhelp.diabhelp.API.Asynctasks.ProfilAPICallTask;
+import fr.diabhelp.diabhelp.API.IApiCallTask;
 import fr.diabhelp.diabhelp.Core.CoreActivity;
 import fr.diabhelp.diabhelp.R;
 
@@ -50,6 +52,10 @@ public class ProfileActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);*/
     }
 
+    public void updateProfil()
+    {
+/*        new ProfilAPICallTask(ProfileActivity.this, );*/
+    }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -91,4 +97,21 @@ public class ProfileActivity extends AppCompatActivity
 
         super.onBackPressed();
     }
+
+    public enum  Error
+    {
+        NONE(0),
+        SERVER_ERROR(1);
+
+        private Integer errorCode;
+
+        Error(Integer i) {
+            this.errorCode = i;
+        }
+
+        public Integer getErrorCode() {
+            return this.errorCode;
+        }
+    }
+
 }
