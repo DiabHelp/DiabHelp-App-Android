@@ -136,6 +136,12 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        launch = 0;
+    }
+
     public enum  Error
     {
         NONE(0),
@@ -151,5 +157,4 @@ public class CatalogueFragment extends Fragment implements IApiCallTask<Response
             return this.errorCode;
         }
     }
-
 }

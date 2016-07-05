@@ -19,23 +19,23 @@ import retrofit2.http.Query;
  */
 public interface ApiServices {
         @FormUrlEncoded
-        @POST("app_dev.php/login_check")
+        @POST("/login_check")
         Call<ResponseBody> getBasicAuthSession(@Field("username") String usr, @Field("password") String pwd);
 
         @FormUrlEncoded
-        @POST("app_dev.php/rest-login")
+        @POST("/rest-login")
         Call<ResponseBody> getAuth(@Field("username") String usr, @Field("password") String pwd);
 
         @FormUrlEncoded
-        @POST("app_dev.php/api/users/add")
+        @POST("/api/user/register")
         Call<ResponseBody> register(@Field("username") String usr,@Field("email") String mail, @Field("password") String pwd, @Field("role") String role, @Field("firstname") String first, @Field("lastname") String last);
 
 
         @FormUrlEncoded
-        @POST("app_dev.php/logout")
+        @POST("/logout")
         Call<ResponseBody> logout(@Field("token") String token);
 
-        @GET("app_dev.php/api/modules/all")
+        @GET("/api/modules/all")
         Call<ResponseBody> getModules();
         //TODO
 //        Call<ResponseBody> getModules(@Query("typeUser") JSONArray typeUser);

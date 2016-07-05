@@ -68,8 +68,9 @@ public class RegisterAPICallTask extends AsyncTask<String, Integer, ResponseRegi
         try {
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess()) {
+                String body = reponse.body().string();
                 Log.i("RegisterApiCallTask", "resultat de la requète : + [ " + reponse.raw() + "]");
-                responseRegister = new ResponseRegister(JsonUtils.getObj(reponse.body().string()));
+                responseRegister = new ResponseRegister(JsonUtils.getObj(body));
             }
             else {
                 Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
