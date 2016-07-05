@@ -1,5 +1,6 @@
 package fr.diabhelp.diabhelp.Menu;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,21 +10,36 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import org.json.JSONException;
 
 import fr.diabhelp.diabhelp.API.Asynctasks.ProfilAPICallTask;
 import fr.diabhelp.diabhelp.API.IApiCallTask;
+import fr.diabhelp.diabhelp.API.ResponseModels.ResponseCatalogue;
+import fr.diabhelp.diabhelp.API.ResponseModels.ResponseProfilGet;
 import fr.diabhelp.diabhelp.Core.CoreActivity;
 import fr.diabhelp.diabhelp.R;
+import fr.diabhelp.diabhelp.Utils.MyToast;
 
 /**
  * Created by naqued on 21/04/16.
  */
 
 public class ProfileActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener
+        implements NavigationView.OnNavigationItemSelectedListener, IApiCallTask<ResponseProfilGet>
 {
+    private ProgressDialog              _progress;
+    private EditText                    _name;
+    private EditText                    _lastname;
+    private EditText                    _email;
+    private EditText                    _mobile;
+    private EditText                    _birthdate;
+    private EditText                    _organism;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity
                 finish();
             }
         });
+        new ProfilAPICallTask(ProfileActivity.this, this).execute();
 /*        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -56,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity
     {
 /*        new ProfilAPICallTask(ProfileActivity.this, );*/
     }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -114,4 +132,49 @@ public class ProfileActivity extends AppCompatActivity
         }
     }
 
+    public void displayInfos(ResponseProfilGet res)
+    {
+        _name = (EditText) findViewById(R.id.editName);
+        _lastname = (EditText) findViewById(R.id.editName);
+        _mobile = (EditText) findViewById(R.id.editPhone);
+        _birthdate = (EditText) findViewById(R.id.editBirthDate);
+        _organism = (EditText) findViewById(R.id.editOrganism);
+        _email = (EditText) findViewById(R.id.editEmail);
+
+        _name.setHint(res.getFirstname());
+        _lastname.setHint(res.getLastname());
+        _mobile.setHint(res.getMobile());
+        _birthdate.setHint(res.getOrganism());
+        _organism.setHint(res.getOrganism());
+        _email.setHint(res.getEmail());
+
+    }
+
+    @Override
+    public void onBackgroundTaskCompleted(String s, int type, String action) throws JSONException {}
+
+    @Override
+    public void onBackgroundTaskCompleted(ResponseProfilGet response, String action, ProgressDialog progress) {
+        _progress = progress;
+        ProfileActivity.Error error = response.getError();
+        Integer errorCode = error.getErrorCode();
+        if (errorCode != null && errorCode != 0) {
+            manageError(response.getError());
+        }
+        else if (action.equals("getInfo")) {
+            displayInfos(response);
+        }
+    }
+
+
+    private void manageError(ProfileActivity.Error error) {
+        _progress.dismiss();
+        switch (error) {
+            case SERVER_ERROR:{
+                MyToast.getInstance().displayWarningMessage(getString(R.string.error_server), Toast.LENGTH_LONG, this);
+                Log.e(getClass().getSimpleName(), "Problème survenu lors de la connexion au serveur");
+                break;
+            }
+        }
+    }
 }

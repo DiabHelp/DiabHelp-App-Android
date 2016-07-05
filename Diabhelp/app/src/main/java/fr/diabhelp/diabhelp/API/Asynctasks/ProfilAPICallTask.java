@@ -62,7 +62,7 @@ public class ProfilAPICallTask extends AsyncTask<String, String, ResponseProfilG
 
                 String body = reponse.body().string();
                 Log.i(getClass().getSimpleName(), "usr =  " + body);
-                responseProfil = new ResponseProfilGet(JsonUtils.getArray(body));
+/*                responseProfil = new ResponseProfilGet(JsonUtils.getArray(body));*/
             }
             else {
                 Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
@@ -77,7 +77,7 @@ public class ProfilAPICallTask extends AsyncTask<String, String, ResponseProfilG
             responseProfil.setError(ProfileActivity.Error.SERVER_ERROR);
             e.printStackTrace();
         }
-        return (responseProfil);
+        return(responseProfil);
     }
 
     private ApiServices createService() {
@@ -94,7 +94,8 @@ public class ProfilAPICallTask extends AsyncTask<String, String, ResponseProfilG
     @Override
     protected void onPostExecute(ResponseProfilGet responseProfil) {
         super.onPostExecute(responseProfil);
-        _listener.onBackgroundTaskCompleted(responseProfil, "getModules", progress);
+        _listener.onBackgroundTaskCompleted(responseProfil, "getInfo", progress);
     }
+
 }
 

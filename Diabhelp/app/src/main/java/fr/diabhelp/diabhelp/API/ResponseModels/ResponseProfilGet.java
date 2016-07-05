@@ -20,8 +20,63 @@ import fr.diabhelp.diabhelp.Utils.JsonUtils;
 public class ResponseProfilGet {
 
 
+    String lastname;
+    String birthdate;
+    String mobile;
+    String organism;
+
     private ProfileActivity.Error error = ProfileActivity.Error.NONE;
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getFirstname() {
+        return this.firstname;
+    }
+
+    public String getLastname() {
+        return this.lastname;
+    }
+
+    public String getBirthdate() {
+        return this.birthdate;
+    }
+
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    public String getOrganism() {
+        return this.organism;
+    }
+
+    String email ;
+    String firstname;
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public void setOrganism(String organism) {
+        this.organism = organism;
+    }
 
     private List<CatalogModule> modules;
 
@@ -29,20 +84,20 @@ public class ResponseProfilGet {
 
 
     public ResponseProfilGet(JSONObject data) {
-
-
-/*        try {
-            String toto = data.getString("email");
+        try {
+            email = JsonUtils.getStringFromKey(data, "email");
+            firstname = JsonUtils.getStringFromKey(data, "firstname");
+            lastname = JsonUtils.getStringFromKey(data, "lastname");
+            mobile = JsonUtils.getStringFromKey(data, "phone");
+            birthdate = JsonUtils.getStringFromKey(data, "birthdate");
+            organism = JsonUtils.getStringFromKey(data, "organisme");
             }
-        } catch (JSONException e) {
-            Log.e(getClass().getSimpleName(), "Error json invalid = [" + arr.toString() + "]");
+         catch (Exception e) {
+            Log.e(getClass().getSimpleName(), "Error json invalid = [" + data.toString() + "]");
             error = ProfileActivity.Error.SERVER_ERROR;
-        }*/
+        }
+
     }
-
-    public List<CatalogModule> getModules() {return this.modules;}
-
-    public void setModules(List<CatalogModule> modules) {this.modules = modules;}
 
     public ProfileActivity.Error getError() {return this.error;}
 
