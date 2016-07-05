@@ -39,7 +39,6 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<String> listApp;
     private String[] web;
     private Drawable[] img;
-    private DAO bdd;
     private Boolean NetState;
     private TabLayout tabLayout;
     public static SharedPreferences _settings = null;
@@ -93,6 +92,8 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_core);
         _settings = getSharedPreferences(ConnexionActivity.PREF_FILE, MODE_WORLD_READABLE);
+        System.out.println("core ID_USER = " + _settings.getString(ConnexionActivity.ID_USER, ""));
+        System.out.println("core ROLE = " + _settings.getString(ConnexionActivity.TYPE_USER, ""));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         listApp = new ArrayList<String>();
@@ -264,7 +265,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPreferences.Editor edit = ConnexionActivity._settings.edit();
+        SharedPreferences.Editor edit = _settings.edit();
         edit.putString(ConnexionActivity.TOKEN, "");
         edit.putString(ConnexionActivity.TYPE_USER, "");
         edit.putString(ConnexionActivity.ID_USER, "");

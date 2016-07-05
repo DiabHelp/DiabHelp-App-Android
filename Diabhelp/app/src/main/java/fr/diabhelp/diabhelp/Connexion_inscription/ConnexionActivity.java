@@ -45,8 +45,8 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     public static final String SESSION = "fr.diabhelp.diabhelp.session";
     public static final String AUTO_CONNEXION_PREFERENCE = "auto_connexion";
     public static final String TOKEN = "token";
-    public static final String TYPE_USER = "type_user";
-    public static final String ID_USER = "id";
+    public static final String TYPE_USER = "role";
+    public static final String ID_USER = "id_user";
 
     public static final String SENT_TOKEN_TO_SERVER = "token_is_sent_to_server";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -119,8 +119,9 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     {
         for (int i = 0; i < fieldsNames.size();i++)
         {
-            if ((((EditText)findViewById(fieldsNames.get(i))).getText().toString().isEmpty())) {
-                return false;
+            String editText = ((EditText)findViewById(fieldsNames.get(i))).getText().toString();
+            if ((editText.isEmpty())) {
+                return (false);
             }
         }
         return (true);
@@ -204,8 +205,6 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             }
             //on essaye de se connecter avec les Ids stockés dans la base sqlLITE
             else {
-                Log.i(getLocalClassName(),"Ids de l'user = " + user.getUser() + " " + user.getPwd());
-                System.out.println("Ids de l'user = " + user.getUser() + " " + user.getPwd());
                 new ConnexionAPICallTask(this).execute(user.getUser(), user.getPwd());
             }
         }
@@ -281,6 +280,8 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         edit.putString(TYPE_USER, typeUser);
         edit.putString(ID_USER, idUser);
         edit.apply();
+        System.out.println("connexion ID_USER = " + _settings.getString(ConnexionActivity.ID_USER, ""));
+        System.out.println("connexion ROLE = " + _settings.getString(ConnexionActivity.TYPE_USER, ""));
         User user = null;
         if (!_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)){
             if (idUser != null)
@@ -290,11 +291,11 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
             if (((CheckBox) findViewById(R.id.checkbox_connexion_auto)).isChecked()){
                 edit = _settings.edit();
                 edit.putBoolean(AUTO_CONNEXION_PREFERENCE, true);
-                edit.putString(TYPE_USER, typeUser);
                 edit.apply();
-                if (!UserDAO.isUserAlreadyFilled(idUser, db)) {
+                if (!UserDAO.isUserAlreadyFilled(idUser, db))
                     UserDAO.addUser(user, db);
-                }
+                else
+                    UserDAO.UpdateUser(user, db);
             }
         }
         else {
@@ -367,11 +368,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPreferences.Editor edit = _settings.edit();
-        edit.putString(TOKEN, "");
-        edit.putString(TYPE_USER, "");
-        edit.putString(ID_USER, "");
-        edit.commit();
+        db.close();
     }
 
     public enum  Error
