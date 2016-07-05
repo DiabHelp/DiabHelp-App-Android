@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +79,12 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 final ListHeaderViewHolder headerHolder = (ListHeaderViewHolder) holder;
                 headerHolder.refferalItem = item;
                 headerHolder.headerTitle.setText(item.name);
-                headerHolder.totalGlucids.setText("Glucides : " + String.valueOf(item.glucids) + "g");
+                if (item.glucids > 999) {
+                    Double tmp = item.glucids * 0.001;
+                    headerHolder.totalGlucids.setText("Glucides : " + String.valueOf(new DecimalFormat("#.##").format(tmp)) + "kg");
+                } else {
+                    headerHolder.totalGlucids.setText("Glucides : " + String.valueOf(new DecimalFormat("#.##").format(item.glucids)) + "g");
+                }
                 if (item.invisibleChildren == null)
                     headerHolder.buttonExpand.setImageResource(R.drawable.circle_minus);
                 else
@@ -140,7 +146,6 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case CHILD:
                 final ListCHildViewHolder childHolder = (ListCHildViewHolder) holder;
                 childHolder.childTitle.setText(item.name);
-                Log.d("HELLO", item.name + " " + item.weight + " " + item.glucids);
                 childHolder.totalGLucids.setText(String.valueOf(item.weight) + "g");
                 childHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

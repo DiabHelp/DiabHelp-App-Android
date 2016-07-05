@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable;
 public class Aliment {
     private String      _name;
     private Double      _weight;
-    private Double      _glucids;
+    private Double      _glucids; // g/100g
     private Double      _totalGlucids;
     private Drawable    _alimentLogo;
 
@@ -16,7 +16,7 @@ public class Aliment {
         _name = name;
         _weight = weight;
         _glucids = glucids;
-        _totalGlucids = weight * glucids;
+        _totalGlucids = (weight * glucids) / 100;
     }
 
     public String getName() { return _name; }

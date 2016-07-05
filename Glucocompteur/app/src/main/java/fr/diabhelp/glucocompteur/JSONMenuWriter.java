@@ -56,7 +56,6 @@ public class JSONMenuWriter {
                 savedFile.createNewFile();
             Writer writer = new BufferedWriter(new FileWriter(savedFile));
             writer.write(JSONMenuList.toString());
-            Log.d("HELLO", JSONMenuList.toString());
             writer.close();
         } catch (IOException e) {
             Log.d("MenuFavori", "Could not create file writer");

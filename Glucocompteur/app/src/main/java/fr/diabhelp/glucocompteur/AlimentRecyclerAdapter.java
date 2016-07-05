@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -70,9 +71,15 @@ public class AlimentRecyclerAdapter extends RecyclerView.Adapter<AlimentRecycler
     @Override
     public void onBindViewHolder(AlimentHolder holder, int position) {
         holder.name.setText(_alimentsList.get(position).getName());
-        holder.weight.setText(String.valueOf("Quantité : " + _alimentsList.get(position).getWeight()) + "g");
-        holder.glucids.setText(String.valueOf("Glucides : " + _alimentsList.get(position).getGlucids()) + "g/100");
-        holder.totalGlucids.setText("Total : " + String.valueOf(_alimentsList.get(position).getTotalGlucids()) + "g");
+        if (_alimentsList.get(position).getWeight() > 999)
+            holder.weight.setText("Quantité : " + String.valueOf(new DecimalFormat("#.##").format(_alimentsList.get(position).getWeight() * 0.001)) + "kg");
+        else
+            holder.weight.setText("Quantité : " + String.valueOf(new DecimalFormat("#.##").format(_alimentsList.get(position).getWeight())) + "g");
+        holder.glucids.setText("Glucides : " + String.valueOf(_alimentsList.get(position).getGlucids()) + "g/100");
+        if (_alimentsList.get(position).getTotalGlucids() > 999)
+            holder.totalGlucids.setText("Total : " + String.valueOf(new DecimalFormat("#.##").format(_alimentsList.get(position).getTotalGlucids() * 0.001)) + "kg");
+        else
+            holder.totalGlucids.setText("Total : " + String.valueOf(new DecimalFormat("#.##").format(_alimentsList.get(position).getTotalGlucids())) + "g");
         //holder.alimentLogo.setImageResource(R.drawable.aliment);
     }
 

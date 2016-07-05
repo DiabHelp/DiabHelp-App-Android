@@ -23,7 +23,7 @@ public class Menu {
     private Double calcGlucids(ArrayList<Aliment> alimentsList) {
         Double tmp = 0.;
         for (Aliment aliment : alimentsList) {
-            tmp += aliment.getGlucids();
+            tmp += aliment.getTotalGlucids();
         }
         return (tmp);
     }

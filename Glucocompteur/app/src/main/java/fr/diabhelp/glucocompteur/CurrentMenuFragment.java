@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -115,13 +116,21 @@ public class CurrentMenuFragment extends Fragment {
                                 return ;
                             } else {
                                 _aliment.setWeight(weight);
-                                _aliment.setTotalGlucids(weight * _aliment.getGlucids());
+                                _aliment.setTotalGlucids(weight * _aliment.getGlucids() / 100);
                                 _alimentsList.add(_aliment);
                                 _searchBox.setText("");
                                 TextView totalGlucids = (TextView) container.getRootView().findViewById(R.id.totalGlucids);
                                 TextView totalWeight = (TextView) container.getRootView().findViewById(R.id.totalWeight);
-                                totalGlucids.setText("Glycemie totale : " + getTotalGlucids(_alimentsList).toString() + "g");
-                                totalWeight.setText("Poids total : " + String.valueOf(getTotalWeight(_alimentsList)) + "g");
+                                if (getTotalGlucids(_alimentsList) > 999) {
+                                    Double tmp = getTotalGlucids(_alimentsList) * 0.001;
+                                    totalGlucids.setText("Glycemie totale : " + String.valueOf(new DecimalFormat("#.##").format(tmp)) + "kg");
+                                } else
+                                    totalGlucids.setText("Glycemie totale : " + String.valueOf(new DecimalFormat("#.##").format(getTotalGlucids(_alimentsList))) + "g");
+                                if (getTotalWeight(_alimentsList) > 999) {
+                                    Double tmp = getTotalWeight(_alimentsList) * 0.001;
+                                    totalWeight.setText("Poids total : " + String.valueOf(new DecimalFormat("#.##").format(tmp)) + "kg");
+                                } else
+                                    totalWeight.setText("Poids total : " + String.valueOf(new DecimalFormat("#.##").format(getTotalWeight(_alimentsList))) + "g");
                                 _recAdapter.notifyDataSetChanged();
                                 dialog.dismiss();
                             }
