@@ -30,6 +30,12 @@ public interface ApiServices {
         @POST("/api/user/register")
         Call<ResponseBody> register(@Field("username") String usr,@Field("email") String mail, @Field("password") String pwd, @Field("role") String role, @Field("firstname") String first, @Field("lastname") String last);
 
+        @GET("/api/usr/getInfo")
+        Call<ResponseBody>  getInfo(@Query("id") String id);
+
+        @POST("/api/usr/setInfo")
+        Call<ResponseBody>  setInfo(@Query("id") String id);
+
 
         @FormUrlEncoded
         @POST("/logout")
@@ -37,13 +43,6 @@ public interface ApiServices {
 
         @GET("/api/modules/all")
         Call<ResponseBody> getModules();
-
-        @GET("/api/usr/getInfo")
-        Call<ResponseBody>  getInfo(@Query("id") String id);
-
-        @POST("/api/usr/setInfo")
-        Call<ResponseBody>  setInfo(@Query("id") String id);
-
         //TODO
 //        Call<ResponseBody> getModules(@Query("typeUser") JSONArray typeUser);
 }
