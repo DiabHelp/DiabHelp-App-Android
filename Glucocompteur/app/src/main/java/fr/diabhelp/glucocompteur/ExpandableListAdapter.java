@@ -152,7 +152,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     public void onClick(View v) {
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                         alertDialogBuilder.setTitle(item.name);
-                        alertDialogBuilder.setMessage("Quantité : " + item.weight + "g" + System.lineSeparator() + "Glucides par gramme : " + item.glucids / item.weight + "g" + System.lineSeparator() + "Total glucidique : " + item.glucids + "g");
+                        alertDialogBuilder.setMessage("Quantité : " + item.weight + "g" + System.lineSeparator() + "Glucides par gramme : " + item.weight /item.glucids + "g" + System.lineSeparator() + "Total glucidique : " + item.glucids + "g");
                         final AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
                     }
