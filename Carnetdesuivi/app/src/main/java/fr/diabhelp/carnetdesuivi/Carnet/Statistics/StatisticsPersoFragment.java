@@ -36,6 +36,7 @@ import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfStatsDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfStats;
+import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.R;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
@@ -439,7 +440,7 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
     }
 
     private void getAllData() {
-        mall = EntryOfCDSDAO.selectAll(db);
+        mall = EntryOfCDSDAO.selectAll(Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""), db);
 
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;

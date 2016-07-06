@@ -84,6 +84,7 @@ public class EntryOfCDSDAO {
         value.put(athome, m.getAthome());
         value.put(period, m.getPeriod());
         value.put(alcohol, m.getAlcohol());
+        value.put(idUser, m.getIdUser());
         value.put(dateEdition, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
         mDb.insert(TABLE_NAME, null, value);
     }
@@ -128,10 +129,10 @@ public class EntryOfCDSDAO {
         mDb.update(TABLE_NAME, value, Date_hour + " = ?" + " and " + Hour + " = ?", new String[]{String.valueOf(m.getDate()), m.getHour() });
     }
 
-    public static ArrayList<EntryOfCDS> selectBetweenDays(String mtDate, String endMtdate, SQLiteDatabase mDb ) {
+    public static ArrayList<EntryOfCDS> selectBetweenDays(String mtDate, String endMtdate, String idUser, SQLiteDatabase mDb ) {
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + tdate + " BETWEEN ? AND ?" , new String[] { mtDate, endMtdate} );
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + tdate + " BETWEEN ? AND ? AND " + idUser + " = ?" , new String[] { mtDate, endMtdate, idUser} );
         if (c == null)
             Log.e("Status SelectBetweenDay", "False");
 
@@ -207,10 +208,10 @@ public class EntryOfCDSDAO {
         return mAll;
     }
 
-    public static ArrayList<EntryOfCDS> selectAll(SQLiteDatabase mDb)
+    public static ArrayList<EntryOfCDS> selectAll(String id, SQLiteDatabase mDb)
     {
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME , null);
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + idUser +" = ?"  , new String[] {id});
 
         while (c.moveToNext()) {
 
@@ -286,12 +287,12 @@ public class EntryOfCDSDAO {
         return mAll;
     }
 
-    public static ArrayList<EntryOfCDS> selectAllOneday(String mtDate, SQLiteDatabase mDb)
+    public static ArrayList<EntryOfCDS> selectAllOneday(String mtDate, String id, SQLiteDatabase mDb)
     {
         EntryOfCDS m = null;
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?"  , new String[] { mtDate});
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ? AND " + idUser + " = ?"  , new String[] { mtDate, id});
 
         String[] i = c.getColumnNames();
 
@@ -310,7 +311,7 @@ public class EntryOfCDSDAO {
         return mAll;
     }
 
-    public static EntryOfCDS selectDay(String mtDate, String _hour, SQLiteDatabase mDb) {
+    public static EntryOfCDS selectDay(String mtDate, String _hour, String idUser, SQLiteDatabase mDb) {
         EntryOfCDS m = null;
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
@@ -318,7 +319,7 @@ public class EntryOfCDSDAO {
             _hour = "00h00";
         if (mtDate == null)
             mtDate = "0-0-0";
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?" + " and " + Hour + " = ?" , new String[] { mtDate, _hour});
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?" + " and " + Hour + " = ? AND " + idUser + " = ?" , new String[] { mtDate, _hour, idUser});
 
         String[] i = c.getColumnNames();
 
@@ -605,11 +606,15 @@ public class EntryOfCDSDAO {
     public static String getLastEdition(String userId, SQLiteDatabase mDb)
     {
         String[] arr = {dateEdition};
-        Cursor c = mDb.rawQuery("SELECT " + dateEdition + " FROM " + TABLE_NAME + " WHERE " + idUser + " = ? ORDER BY " + dateEdition + " DESC limit 1", new String[] {userId} );
+        Cursor c = mDb.rawQuery("SELECT " + dateEdition + " FROM " + TABLE_NAME + " WHERE " + idUser + " = ? ORDER BY " + dateEdition + " DESC limit 1", new String[] {userId});
         if (c.moveToFirst() != false)
         {
+            System.out.println("Je renvois la date !!!");
             return (c.getString(c.getColumnIndex(dateEdition)));
         }
-        else return ("");
+        else{
+            System.out.println("je vais retourner vide c'est la merde");
+            return ("");
+        }
     }
 }

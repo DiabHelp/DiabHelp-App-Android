@@ -338,8 +338,9 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Entry.setAthome(isActiveicon.get(IconeType.HOME.getValue()));
         Entry.setAlcohol(isActiveicon.get(IconeType.ALCOHOL.getValue()));
         Entry.setPeriod(isActiveicon.get(IconeType.PERIOD.getValue()));
+        Entry.setIdUser(Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
 
-        if (EntryOfCDSDAO.selectDay(_date, _hour, db) == null) {
+        if (EntryOfCDSDAO.selectDay(_date, _hour, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""),  db) == null) {
             Entry.setHour(Hours);
             EntryOfCDSDAO.addDay(Entry, db);
         }

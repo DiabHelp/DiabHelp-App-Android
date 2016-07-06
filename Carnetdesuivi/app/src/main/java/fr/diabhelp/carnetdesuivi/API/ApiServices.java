@@ -10,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -21,12 +22,12 @@ public interface ApiServices {
     @POST
     Call<ResponseBody> sendEmail(@Field("token") String token, @Field("datas") ArrayList<EntryOfCDS> datas);
 
-    @GET("app_dev.php/api/cds/entry/getAllByUserId")
-    Call<ResponseBody> getAllEntries(@Query("idUser") String idUser);
+    @GET("/api/carnet/entry/getAllByUserId/{idUser}")
+    Call<ResponseBody> getAllEntries(@Path("idUser") String idUser);
 
-    @GET("app_dev.php/api/cds/entry/getLastDate")
-    Call<ResponseBody> getLastEdition(@Query("idUser") String idUser);
+    @GET("/api/carnet/entry/getLastDate/{idUser}")
+    Call<ResponseBody> getLastEdition(@Path("idUser") String idUser);
 
-    @POST("app_dev.php/api/cds/entry/setFromApp")
+    @POST("/api/carnet/entry/setFromApp")
     Call<ResponseBody> setMissingEntries(@Field("idUser") String idUser, @Body ArrayList<EntryOfCDS> entries);
 }

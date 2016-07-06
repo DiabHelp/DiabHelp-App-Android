@@ -20,6 +20,7 @@ import java.util.List;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -82,7 +83,7 @@ public class StatisticsWeekFragment extends Fragment {
         c.add(Calendar.DATE, -7);
         String startDate = sdf.format(c.getTime());
 
-        mall = EntryOfCDSDAO.selectBetweenDays(startDate, endDate, db);
+        mall = EntryOfCDSDAO.selectBetweenDays(startDate, endDate, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""), db);
 
         List<Line> lines = new ArrayList<Line>();
         List<AxisValue> axisValues = new ArrayList<>();

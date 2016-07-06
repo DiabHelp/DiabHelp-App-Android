@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,48 +26,72 @@ public class ResponseCDSGetAllEntries {
 
     public ResponseCDSGetAllEntries(){}
 
-    public ResponseCDSGetAllEntries(JSONArray arr)
+    public ResponseCDSGetAllEntries(JSONObject datas)
     {
         try {
-            entries = new ArrayList<EntryOfCDS>();
-            for (int i = 0; i < arr.length(); i++)
+            if (datas != null)
             {
-                JSONObject jsonEntry = JsonUtils.getObjFromArray(arr, i);
-                EntryOfCDS entry = new EntryOfCDS();
-                entry.setActivity(jsonEntry.getString("activity"));
-                entry.setActivityType(jsonEntry.getString("activity_type"));
-                entry.setAlcohol(jsonEntry.getInt("alcohol"));
-                entry.setAthome(jsonEntry.getInt("athome"));
-                entry.setAtwork(jsonEntry.getInt("work"));
-                entry.setBreakfast(jsonEntry.getInt("breakfast"));
-                entry.setDate(jsonEntry.getString("date"));
-                entry.setTitle(jsonEntry.getString("title"));
-                entry.setPlace(jsonEntry.getString("place"));
-                entry.setGlucide(jsonEntry.getDouble("glucide"));
-                entry.setNotes(jsonEntry.getString("notes"));
-                entry.setFast_insu(jsonEntry.getDouble("fast_insu"));
-                entry.setSlow_insu(jsonEntry.getDouble("slow_insu"));
-                entry.setHba1c(jsonEntry.getDouble("hba1c"));
-                entry.setHour(jsonEntry.getString("hour"));
-                entry.setglycemy(jsonEntry.getDouble("glycemy"));
-                entry.setLaunch(jsonEntry.getInt("lunch"));
-                entry.setDiner(jsonEntry.getInt("diner"));
-                entry.setEncas(jsonEntry.getInt("encas"));
-                entry.setSleep(jsonEntry.getInt("sleep"));
-                entry.setWakeup(jsonEntry.getInt("wakeup"));
-                entry.setNight(jsonEntry.getInt("night"));
-                entry.setWorkout(jsonEntry.getInt("workout"));
-                entry.setHypogly(jsonEntry.getInt("hypogly"));
-                entry.setHypergly(jsonEntry.getInt("hypergly"));
-                entry.setPeriod(jsonEntry.getInt("period"));
-                entry.setDateEdition(jsonEntry.getString("date_edition"));
-                entries.add(entry);
+                Boolean success = JsonUtils.getBoolFromKey(datas, "success");
+                if (success != null)
+                {
+                    if (success == true) {
+                        entries = new ArrayList<EntryOfCDS>();
+                        JSONArray arr = JsonUtils.getArray(datas, "entries");
+                        if (arr != null) {
+                            for (int i = 0; i < arr.length(); i++) {
+                                JSONObject jsonEntry = JsonUtils.getObjFromArray(arr, i);
+                                EntryOfCDS entry = new EntryOfCDS();
+                                entry.setIdUser(jsonEntry.getString("idUser"));
+                                entry.setActivity(jsonEntry.getString("activity"));
+                                entry.setActivityType(jsonEntry.getString("activityType"));
+                                entry.setAlcohol(jsonEntry.getInt("alcohol"));
+                                entry.setAthome(jsonEntry.getInt("athome"));
+                                entry.setAtwork(jsonEntry.getInt("work"));
+                                entry.setBreakfast(jsonEntry.getInt("breakfast"));
+                                entry.setDate(jsonEntry.getString("date"));
+                                entry.setTitle(jsonEntry.getString("title"));
+                                entry.setPlace(jsonEntry.getString("place"));
+                                entry.setGlucide(jsonEntry.getDouble("glucide"));
+                                entry.setNotes(jsonEntry.getString("notes"));
+                                entry.setFast_insu(jsonEntry.getDouble("fastInsu"));
+                                entry.setSlow_insu(jsonEntry.getDouble("slowInsu"));
+                                entry.setHba1c(jsonEntry.getDouble("hba1c"));
+                                entry.setHour(jsonEntry.getString("hour"));
+                                entry.setglycemy(jsonEntry.getDouble("glycemy"));
+                                entry.setLaunch(jsonEntry.getInt("lunch"));
+                                entry.setDiner(jsonEntry.getInt("diner"));
+                                entry.setEncas(jsonEntry.getInt("encas"));
+                                entry.setSleep(jsonEntry.getInt("sleep"));
+                                entry.setWakeup(jsonEntry.getInt("wakeup"));
+                                entry.setNight(jsonEntry.getInt("night"));
+                                entry.setWorkout(jsonEntry.getInt("workout"));
+                                entry.setHypogly(jsonEntry.getInt("hypogly"));
+                                entry.setHypergly(jsonEntry.getInt("hypergly"));
+                                entry.setPeriod(jsonEntry.getInt("period"));
+                                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                entry.setDate(simpleFormat.format(simpleFormat.parse((jsonEntry.getJSONObject("date")).getString("timestamp"))));
+                                entry.setDateEdition(simpleFormat.format(simpleFormat.parse((jsonEntry.getJSONObject("dateEdition")).getString("timestamp"))));
+                                entries.add(entry);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Log.e(getClass().getSimpleName(), "Error json invalid = [" + datas.toString() + "]");
+                    error = Carnetdesuivi.Error.SERVER_ERROR;
+                }
             }
-
+            else
+            {
+                Log.e(getClass().getSimpleName(), "Error json invalid = [" + datas.toString() + "]");
+                error = Carnetdesuivi.Error.SERVER_ERROR;
+            }
         } catch (JSONException e) {
-            Log.e(getClass().getSimpleName(), "Error json invalid = [" + arr.toString() + "]");
+            Log.e(getClass().getSimpleName(), "Error json invalid = [" + datas.toString() + "]");
             error = Carnetdesuivi.Error.SERVER_ERROR;
-
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

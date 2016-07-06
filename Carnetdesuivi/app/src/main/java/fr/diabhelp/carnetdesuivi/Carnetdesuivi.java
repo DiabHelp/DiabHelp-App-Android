@@ -2,10 +2,14 @@ package fr.diabhelp.carnetdesuivi;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.IntentService;
 import android.app.ProgressDialog;
+import android.app.Service;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -47,6 +51,7 @@ import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetAllEntries;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetLastEdition;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSetMissingEntries;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
+import fr.diabhelp.carnetdesuivi.API.ServerUdpateService;
 import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetAllEntriesApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetLastEditionApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSetMissingEntriesApiCallTask;
@@ -70,7 +75,9 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
 
     public static final String PREF_FILE = "ConnexionActivityPreferences";
     public static final String TOKEN = "token";
-    public static final String ID_USER = "id";
+    public static final String ID_USER = "id_user";
+
+    public static final String TYPE_USER = "role";
     private String token = "";
     public static SharedPreferences _settings = null;
     public GridView grid;
@@ -100,21 +107,33 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     private boolean _isConnected;
 
     public static Integer launch = 0;
+    public static Context mContext = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dao = DAO.getInstance(getApplicationContext());
         db = dao.open();
-        _settings = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
-        if (launch == 0 && !(_settings.getString(TOKEN, "").equalsIgnoreCase("")))
+        try {
+            mContext = getApplicationContext().createPackageContext(
+                    "fr.diabhelp.diabhelp",
+                    Context.MODE_PRIVATE);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        _settings = mContext.getSharedPreferences(PREF_FILE, MODE_PRIVATE);
+        for (Map.Entry<String, ?> entry : _settings.getAll().entrySet()) {
+            System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+        }
+        System.out.println("launch = " + Carnetdesuivi.launch);
+        System.out.println("Bonjour Lol je suis un panda MDR PTDR");
+        if (Carnetdesuivi.launch == 0 && !(_settings.getString(ID_USER, "").equalsIgnoreCase("")))
         {
-            launch = 1;
+            Carnetdesuivi.launch = 1;
             synchronizeDb(db);
         }
         else
             initActivity();
-
     }
 
     private void displayWaitingTime() {
@@ -182,7 +201,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                         intent.putExtra("date", datesplit);
                         intent.putExtra("hour", Hour);
                         Carnetdesuivi.this.startActivity(intent);
-                        Carnetdesuivi.this.finish();
+//                        Carnetdesuivi.this.finish();
                         return true;
                     }
                 });
@@ -202,13 +221,19 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         if (!idUser.isEmpty())
         {
             String lastEditionDateEntryOfCDC = EntryOfCDSDAO.getLastEdition(idUser, db);
+            System.out.println("LAST EDITION = " + lastEditionDateEntryOfCDC);
             if (lastEditionDateEntryOfCDC.equalsIgnoreCase("")) {
+                System.out.println("last edition vide WTF");
                 displayWaitingTime();
                 getRemoteEntriesOfCDS(idUser);
             }
-            else{
+            else
+            {
                 initActivity();
-                checkIfServerIsUpToDate(idUser);
+                Intent updateServer = new Intent(this, ServerUdpateService.class);
+                updateServer.putExtra(ServerUdpateService.EXTRA_ID_USER, _settings.getString(ID_USER, ""));
+                startService(updateServer);
+               // checkIfServerIsUpToDate(idUser);
             }
         }
     }
@@ -245,7 +270,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
 
         String formattedDate = df.format(c.getTime());
 
-        mAll = EntryOfCDSDAO.selectAllOneday(formattedDate, db);
+        mAll = EntryOfCDSDAO.selectAllOneday(formattedDate, _settings.getString(ID_USER, ""), db);
         int size = 0;
         if (mAll.size() > 0) {
             while (idx < mAll.size()) {
@@ -320,7 +345,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         String formattedDate = df.format(c.getTime());
 
-        final EntryOfCDS ent = EntryOfCDSDAO.selectDay(formattedDate, Hours, db);
+        final EntryOfCDS ent = EntryOfCDSDAO.selectDay(formattedDate, Hours, _settings.getString(ID_USER, ""), db);
         if (ent != null)
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -362,7 +387,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                     Entryintent.putExtra("activity", "carnet");
 
                     Carnetdesuivi.this.startActivity(Entryintent);
-                    Carnetdesuivi.this.finish();
                 }
             });
             alertDialog.setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -376,7 +400,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             Intent Entryintent = new Intent(Carnetdesuivi.this, EntryActivity.class);
             Entryintent.putExtra("activity", "carnet");
             Carnetdesuivi.this.startActivity(Entryintent);
-            Carnetdesuivi.this.finish();
+//            Carnetdesuivi.this.finish();
         }
         return true;
     }
@@ -403,7 +427,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     public void launch_statistics() {
         Intent Statsintent = new Intent(Carnetdesuivi.this, StatisticsActivity.class);
         Carnetdesuivi.this.startActivity(Statsintent);
-        this.finish();
+//        this.finish();
     }
 
     private void loadChild(String[] laptopModels) {
@@ -441,7 +465,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         Calendar mycal = new GregorianCalendar(iYear, today[1], iDay);
 
         // Get the number of days in that month
-        mall = EntryOfCDSDAO.selectAll(db);
+        mall = EntryOfCDSDAO.selectAll(_settings.getString(ID_USER, ""), db);
         if (mall == null)
             return null;
 
@@ -554,7 +578,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                 else if (inputdateus[1].isEmpty())
                     Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
                 else {
-                    ArrayList<EntryOfCDS> entryOfCDSes = EntryOfCDSDAO.selectBetweenDays(inputdateus[0], inputdateus[1], Carnetdesuivi.this.db);
+                    ArrayList<EntryOfCDS> entryOfCDSes = EntryOfCDSDAO.selectBetweenDays(inputdateus[0], inputdateus[1], _settings.getString(ID_USER, ""), Carnetdesuivi.this.db);
                     if (mail.getText().toString().isEmpty()) {
                         myemail = null;
                     }
@@ -605,16 +629,16 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             else
             {
                 List<EntryOfCDS> entries = reponse.getEntries();
-                if (!entries.isEmpty())
+                if (entries != null)
                 {
                     for (EntryOfCDS entry : entries) {
                         EntryOfCDSDAO.addDay(entry, db);
                     }
                     //TODO set les entries récupérées dans la base et dans la list
                 }
+                _progress.dismiss();
             }
             initActivity();
-
         }
         else if (action.equalsIgnoreCase("getLastEdition"))
         {
@@ -647,7 +671,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     }
 
     private void sendMissingEntries(String from, String to) {
-        ArrayList<EntryOfCDS> missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, db);
+        ArrayList<EntryOfCDS> missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, _settings.getString(ID_USER, ""), db);
         if (missingEntries.isEmpty())
             _progress.dismiss();
         else
@@ -723,7 +747,15 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         super.onResume();
 
         // register connection status listener
-        Carnetdesuivi.getInstance().setConnectivityListener(this);
+        //Carnetdesuivi.getInstance().setConnectivityListener(this);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        launch = 0;
+        db.close();
     }
 
     /**

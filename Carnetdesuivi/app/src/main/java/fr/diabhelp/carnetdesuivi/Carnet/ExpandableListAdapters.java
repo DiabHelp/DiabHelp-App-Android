@@ -45,6 +45,8 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         this.laptopCollections = laptopCollections;
         this.laptops = laptops;
         this._acti = acti;
+        dao = DAO.getInstance(context);
+        db = dao.open();
     }
 
     public Object getChild(int groupPosition, int childPosition) {
@@ -113,7 +115,7 @@ public class ExpandableListAdapters extends BaseExpandableListAdapter {
         String date = laptops.get(groupPosition);
         System.out.println(date);
         String finaldate = reconstructDate(date);
-        EntryOfCDS en = EntryOfCDSDAO.selectDay(finaldate, date.split("-")[1].split(" ")[4], db);
+        EntryOfCDS en = EntryOfCDSDAO.selectDay(finaldate, date.split("-")[1].split(" ")[4], Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""), db);
 
         if (en == null)
         {

@@ -49,7 +49,7 @@ public class BddSyncrhroCDSGetAllEntriesApiCallTask extends AsyncTask<String, St
             if (reponse.isSuccess())
             {
                 String body = reponse.body().string();
-                responseCDS = new ResponseCDSGetAllEntries(JsonUtils.getArray(body));
+                responseCDS = new ResponseCDSGetAllEntries(JsonUtils.getObj(body));
             }
             else
             {

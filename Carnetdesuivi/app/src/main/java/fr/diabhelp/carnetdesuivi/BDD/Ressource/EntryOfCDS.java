@@ -31,12 +31,12 @@ public class EntryOfCDS {
 
 
     private String user;
+    private String idUser;
     private String title;
     private String place;
     private Double glucide;
     private String activity;
 
-    @SerializedName("activity_type")
     private String activityType;
     private String notes;
     private String date;
@@ -50,7 +50,6 @@ public class EntryOfCDS {
 
     private String datesql;
 
-    @SerializedName("date_edition")
     private String dateEdition;
 
     public Integer launch;
@@ -117,6 +116,11 @@ public class EntryOfCDS {
     public String getDatesql() {
         return datesql;
     }
+
+
+    public String getIdUser() {return this.idUser;}
+
+    public void setIdUser(String idUser) {this.idUser = idUser;}
 
     public void setDatesql(String datesql) {
         this.datesql = datesql;
@@ -350,6 +354,4 @@ public class EntryOfCDS {
             return (12);
         return (-1);
     }
-
-
 }

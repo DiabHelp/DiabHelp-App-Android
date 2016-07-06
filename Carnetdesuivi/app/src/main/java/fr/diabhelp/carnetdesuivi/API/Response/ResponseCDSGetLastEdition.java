@@ -25,7 +25,7 @@ public class ResponseCDSGetLastEdition {
     public ResponseCDSGetLastEdition(JSONObject obj)
     {
         try {
-            String lastEditionStr = obj.getString("last_edition");
+            String lastEditionStr = obj.getString("dateEdition");
             lastEdition = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastEditionStr);
 
         } catch (JSONException e) {
@@ -34,6 +34,7 @@ public class ResponseCDSGetLastEdition {
 
         } catch (ParseException e) {
             e.printStackTrace();
+            error = Carnetdesuivi.Error.SERVER_ERROR;
         }
     }
 

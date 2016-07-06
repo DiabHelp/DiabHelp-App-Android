@@ -157,7 +157,7 @@ public class DayResultActivity extends AppCompatActivity {
 
     protected void initView() {
 
-        inf = EntryOfCDSDAO.selectDay(_date, _hour, db);
+        inf = EntryOfCDSDAO.selectDay(_date, _hour, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""), db);
         _txtCell.get(TXTedit.DAYTEXT.getValue()).setText(_mt.getCleanDate(_date) + " " + _hour);
         _txtCell.get(TXTedit.TITLE.getValue()).setText(inf.getTitle());
         if (inf.getGlucide() == null || inf.getglycemy() == 0.0) {

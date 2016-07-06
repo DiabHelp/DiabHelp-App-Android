@@ -17,6 +17,7 @@ import java.util.List;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.R;
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
@@ -73,7 +74,7 @@ public class StatisticsMonthFragment extends Fragment {
         String startDate = sdf.format(c.getTime());
 
 
-        mall = EntryOfCDSDAO.selectBetweenDays(startDate, endDate, db);
+        mall = EntryOfCDSDAO.selectBetweenDays(startDate, endDate, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""), db);
 
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
