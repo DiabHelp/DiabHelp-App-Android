@@ -50,7 +50,30 @@ public class ServerUdpateService extends IntentService {
     protected void onHandleIntent(Intent intent)
     {
        initVars(intent);
+        if (idUser != null)
+            getLastEditionOnServer();
+    }
 
+
+
+    private void initVars(Intent intent)
+    {
+        dao = DAO.getInstance(getApplicationContext());
+        db = dao.open();
+        intent.getExtras();
+        if (intent.hasExtra(EXTRA_ID_USER))
+        {
+            System.out.println("l'user id a bien été envoyé au service");
+            idUser = intent.getStringExtra(EXTRA_ID_USER);
+        }
+        else
+            System.out.println("Cla merde pas d'id ca va crash omg");
+        URL_API = getApplicationContext().getString(R.string.URL_API);
+        service = createService();
+    }
+
+    public void getLastEditionOnServer()
+    {
         ResponseCDSGetLastEdition responseCDS = null;
         call = service.getLastEdition(idUser);
         try {
@@ -59,7 +82,7 @@ public class ServerUdpateService extends IntentService {
                 String body = reponse.body().string();
                 responseCDS = new ResponseCDSGetLastEdition(JsonUtils.getObj(body));
                 if (responseCDS.getError() == Carnetdesuivi.Error.NONE) {
-                   compareDates(responseCDS.getLastEdition());
+                    compareDates(responseCDS.getLastEdition());
                 }
             } else
                 Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
@@ -68,15 +91,6 @@ public class ServerUdpateService extends IntentService {
         }
     }
 
-    private void initVars(Intent intent)
-    {
-        dao = DAO.getInstance(getApplicationContext());
-        db = dao.open();
-        Bundle bundle = intent.getExtras();
-        idUser = bundle.getString(EXTRA_ID_USER);
-        URL_API = getApplicationContext().getString(R.string.URL_API);
-        service = createService();
-    }
 
     private ApiServices createService() {
         OkHttpClient client = new OkHttpClient();
@@ -93,8 +107,14 @@ public class ServerUdpateService extends IntentService {
         String lastEditionLocalStr = EntryOfCDSDAO.getLastEdition(idUser, db);
         try {
             Date lastEditionLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastEditionLocalStr);
-            if (lastEditionServer.before(lastEditionLocal))
-                sendMissingEntries(lastEditionServer.toString(), lastEditionLocal.toString());
+            if (lastEditionServer != null)
+            {
+                if (lastEditionServer.before(lastEditionLocal))
+                    sendMissingEntries(lastEditionServer.toString(), lastEditionLocal.toString());
+            }
+            else{
+                sendMissingEntries(null, lastEditionLocal.toString());
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -102,14 +122,19 @@ public class ServerUdpateService extends IntentService {
 
     public void sendMissingEntries(String from, String to)
     {
-        ArrayList<EntryOfCDS> missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, idUser, db);
+        ArrayList<EntryOfCDS> missingEntries;
+        if (from != null)
+            missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, idUser, db);
+        else
+            missingEntries = EntryOfCDSDAO.selectAll(idUser, db);
         ResponseCDSetMissingEntries responseCDS = null;
-        call = service.setMissingEntries(idUser, missingEntries);
+        call = service.setMissingEntries(missingEntries);
         try {
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess())
             {
                 String body = reponse.body().string();
+                System.out.println("body sendMissingEntries = " + body);
                 responseCDS = new ResponseCDSetMissingEntries();
             }
             else

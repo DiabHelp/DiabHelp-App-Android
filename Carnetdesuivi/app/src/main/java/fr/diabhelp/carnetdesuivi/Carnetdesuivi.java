@@ -2,9 +2,7 @@ package fr.diabhelp.carnetdesuivi;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.IntentService;
 import android.app.ProgressDialog;
-import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -67,6 +65,7 @@ import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 import fr.diabhelp.carnetdesuivi.Utils.MyToast;
 import fr.diabhelp.carnetdesuivi.Utils.NetBroadcast.ConnectivityReceiver;
+import fr.diabhelp.carnetdesuivi.Utils.SharedContext;
 
 /**
  * Created by naqued on 10/11/15.
@@ -106,30 +105,25 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     private static Carnetdesuivi mInstance;
     private boolean _isConnected;
 
-    public static Integer launch = 0;
-    public static Context mContext = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dao = DAO.getInstance(getApplicationContext());
+        dao = DAO.getInstance(this);
         db = dao.open();
         try {
-            mContext = getApplicationContext().createPackageContext(
+            SharedContext.setContext(getApplicationContext().createPackageContext(
                     "fr.diabhelp.diabhelp",
-                    Context.MODE_PRIVATE);
+                    Context.MODE_PRIVATE));
+
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        _settings = mContext.getSharedPreferences(PREF_FILE, MODE_PRIVATE);
-        for (Map.Entry<String, ?> entry : _settings.getAll().entrySet()) {
-            System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
-        }
-        System.out.println("launch = " + Carnetdesuivi.launch);
-        System.out.println("Bonjour Lol je suis un panda MDR PTDR");
-        if (Carnetdesuivi.launch == 0 && !(_settings.getString(ID_USER, "").equalsIgnoreCase("")))
+        System.out.println("launch = " + SharedContext.getLaunch());
+        _settings = SharedContext.getSharedContext().getSharedPreferences(PREF_FILE, MODE_PRIVATE);
+        if ((SharedContext.getLaunch() == 0) && !(_settings.getString(ID_USER, "").equalsIgnoreCase("")))
         {
-            Carnetdesuivi.launch = 1;
+            SharedContext.setLaunch(1);
             synchronizeDb(db);
         }
         else
@@ -201,7 +195,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                         intent.putExtra("date", datesplit);
                         intent.putExtra("hour", Hour);
                         Carnetdesuivi.this.startActivity(intent);
-//                        Carnetdesuivi.this.finish();
+                        Carnetdesuivi.this.finish();
                         return true;
                     }
                 });
@@ -223,7 +217,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             String lastEditionDateEntryOfCDC = EntryOfCDSDAO.getLastEdition(idUser, db);
             System.out.println("LAST EDITION = " + lastEditionDateEntryOfCDC);
             if (lastEditionDateEntryOfCDC.equalsIgnoreCase("")) {
-                System.out.println("last edition vide WTF");
                 displayWaitingTime();
                 getRemoteEntriesOfCDS(idUser);
             }
@@ -400,7 +393,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             Intent Entryintent = new Intent(Carnetdesuivi.this, EntryActivity.class);
             Entryintent.putExtra("activity", "carnet");
             Carnetdesuivi.this.startActivity(Entryintent);
-//            Carnetdesuivi.this.finish();
+            Carnetdesuivi.this.finish();
         }
         return true;
     }
@@ -427,7 +420,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     public void launch_statistics() {
         Intent Statsintent = new Intent(Carnetdesuivi.this, StatisticsActivity.class);
         Carnetdesuivi.this.startActivity(Statsintent);
-//        this.finish();
+        this.finish();
     }
 
     private void loadChild(String[] laptopModels) {
@@ -636,6 +629,9 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                     }
                     //TODO set les entries récupérées dans la base et dans la list
                 }
+                else {
+                    Log.i(getLocalClassName(), "pas d'entrées sur le serveur");
+                }
                 _progress.dismiss();
             }
             initActivity();
@@ -675,7 +671,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         if (missingEntries.isEmpty())
             _progress.dismiss();
         else
-            new BddSyncrhroCDSetMissingEntriesApiCallTask(this, getApplicationContext(), missingEntries).execute(_settings.getString(ID_USER, ""));
+            new BddSyncrhroCDSetMissingEntriesApiCallTask(this, getApplicationContext(), missingEntries).execute();
     }
 
     private void informSuccess() {
@@ -754,8 +750,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        launch = 0;
-        db.close();
     }
 
     /**

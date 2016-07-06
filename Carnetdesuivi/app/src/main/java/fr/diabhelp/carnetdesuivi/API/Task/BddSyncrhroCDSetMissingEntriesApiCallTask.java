@@ -47,7 +47,7 @@ public class BddSyncrhroCDSetMissingEntriesApiCallTask extends AsyncTask<String,
         ApiServices service = null;
         ResponseCDSetMissingEntries responseCDS = null;
         service = createService();
-        call = service.setMissingEntries(params[0], entryOfCDSList);
+        call = service.setMissingEntries(entryOfCDSList);
         try {
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess())

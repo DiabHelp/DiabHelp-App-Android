@@ -32,6 +32,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import fr.diabhelp.carnetdesuivi.API.ServerUdpateService;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
@@ -295,7 +296,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     protected void saveIt() {
 
         // save
-        EntryOfCDS Entry = new EntryOfCDS(formattedDate);
+        EntryOfCDS entry = new EntryOfCDS(formattedDate);
         Toast.makeText(getApplicationContext(), formattedDate,
                 Toast.LENGTH_LONG).show();
 
@@ -311,42 +312,45 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
 
 
-        Entry.setNotes(_inputlist.get(InputType.NOTES.getValue()).getText().toString());
-        Entry.setPlace(_inputlist.get(InputType.PLACE.getValue()).getText().toString());
-        Entry.setTitle(_inputlist.get(InputType.TITLE.getValue()).getText().toString());
-        Entry.setGlucide(_inputlist.get(InputType.GLUCIDE.getValue()).getText().toString());
-        Entry.setActivity(_inputlist.get(InputType.ACTIVITY.getValue()).getText().toString());
-        Entry.setActivityType(_inputlist.get(InputType.ACTIVITYTYPE.getValue()).getText().toString());
-        Entry.setDate(formattedDate);
-        Entry.setFast_insu(_inputlist.get(InputType.FAST_INSU.getValue()).getText().toString());
-        Entry.setSlow_insu(_inputlist.get(InputType.SLOW_INSU.getValue()).getText().toString());
-        Entry.setHba1c(_inputlist.get(InputType.HBA1C.getValue()).getText().toString());
+        entry.setNotes(_inputlist.get(InputType.NOTES.getValue()).getText().toString());
+        entry.setPlace(_inputlist.get(InputType.PLACE.getValue()).getText().toString());
+        entry.setTitle(_inputlist.get(InputType.TITLE.getValue()).getText().toString());
+        entry.setGlucide(_inputlist.get(InputType.GLUCIDE.getValue()).getText().toString());
+        entry.setActivity(_inputlist.get(InputType.ACTIVITY.getValue()).getText().toString());
+        entry.setActivityType(_inputlist.get(InputType.ACTIVITYTYPE.getValue()).getText().toString());
+        entry.setDate(formattedDate);
+        entry.setFast_insu(_inputlist.get(InputType.FAST_INSU.getValue()).getText().toString());
+        entry.setSlow_insu(_inputlist.get(InputType.SLOW_INSU.getValue()).getText().toString());
+        entry.setHba1c(_inputlist.get(InputType.HBA1C.getValue()).getText().toString());
 
-        Entry.setglycemy(_inputlist.get(InputType.GLYCEMY.getValue()).getText().toString());
+        entry.setglycemy(_inputlist.get(InputType.GLYCEMY.getValue()).getText().toString());
 
-        Entry.setBreakfast(isActiveicon.get(IconeType.BREAKFAST.getValue()));
-        Entry.setLaunch(isActiveicon.get(IconeType.LAUNCH.getValue()));
-        Entry.setDiner(isActiveicon.get(IconeType.DINER.getValue()));
-        Entry.setEncas(isActiveicon.get(IconeType.ENCAS.getValue()));
-        Entry.setSleep(isActiveicon.get(IconeType.SLEEP.getValue()));
-        Entry.setWakeup(isActiveicon.get(IconeType.WAKEUP.getValue()));
-        Entry.setNight(isActiveicon.get(IconeType.NIGHT.getValue()));
-        Entry.setWorkout(isActiveicon.get(IconeType.WORKOUT.getValue()));
-        Entry.setHypogly(isActiveicon.get(IconeType.HYPO.getValue()));
-        Entry.setHypergly(isActiveicon.get(IconeType.HYPER.getValue()));
-        Entry.setAtwork(isActiveicon.get(IconeType.WORK.getValue()));
-        Entry.setAthome(isActiveicon.get(IconeType.HOME.getValue()));
-        Entry.setAlcohol(isActiveicon.get(IconeType.ALCOHOL.getValue()));
-        Entry.setPeriod(isActiveicon.get(IconeType.PERIOD.getValue()));
-        Entry.setIdUser(Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
-
+        entry.setBreakfast(isActiveicon.get(IconeType.BREAKFAST.getValue()));
+        entry.setLaunch(isActiveicon.get(IconeType.LAUNCH.getValue()));
+        entry.setDiner(isActiveicon.get(IconeType.DINER.getValue()));
+        entry.setEncas(isActiveicon.get(IconeType.ENCAS.getValue()));
+        entry.setSleep(isActiveicon.get(IconeType.SLEEP.getValue()));
+        entry.setWakeup(isActiveicon.get(IconeType.WAKEUP.getValue()));
+        entry.setNight(isActiveicon.get(IconeType.NIGHT.getValue()));
+        entry.setWorkout(isActiveicon.get(IconeType.WORKOUT.getValue()));
+        entry.setHypogly(isActiveicon.get(IconeType.HYPO.getValue()));
+        entry.setHypergly(isActiveicon.get(IconeType.HYPER.getValue()));
+        entry.setAtwork(isActiveicon.get(IconeType.WORK.getValue()));
+        entry.setAthome(isActiveicon.get(IconeType.HOME.getValue()));
+        entry.setAlcohol(isActiveicon.get(IconeType.ALCOHOL.getValue()));
+        entry.setPeriod(isActiveicon.get(IconeType.PERIOD.getValue()));
+        entry.setIdUser(Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
         if (EntryOfCDSDAO.selectDay(_date, _hour, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""),  db) == null) {
-            Entry.setHour(Hours);
-            EntryOfCDSDAO.addDay(Entry, db);
+            entry.setHour(Hours);
+            EntryOfCDSDAO.addDay(entry, db);
+            Intent updateServer = new Intent(this, ServerUdpateService.class);
+            System.out.println("je set l'id lors de l'ajout d'une entrée = " + Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
+            updateServer.putExtra(ServerUdpateService.EXTRA_ID_USER, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
+            startService(updateServer);
         }
         else {
-            Entry.setHour(_hour);
-            EntryOfCDSDAO.update(Entry, db);
+            entry.setHour(_hour);
+            EntryOfCDSDAO.update(entry, db);
         }
         Toast.makeText(this, "Enregistrement efféctué", Toast.LENGTH_LONG).show();
     }
@@ -464,6 +468,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     public void save_button(View v)
     {
+        System.out.println("SAVE BUTTON !!!!");
         if (_inputlist.get(InputType.TITLE.getValue()).getText().toString().length() == 0)
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);

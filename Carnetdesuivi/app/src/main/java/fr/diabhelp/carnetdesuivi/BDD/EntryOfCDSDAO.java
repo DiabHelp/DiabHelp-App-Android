@@ -311,7 +311,7 @@ public class EntryOfCDSDAO {
         return mAll;
     }
 
-    public static EntryOfCDS selectDay(String mtDate, String _hour, String idUser, SQLiteDatabase mDb) {
+    public static EntryOfCDS selectDay(String mtDate, String _hour, String id, SQLiteDatabase mDb) {
         EntryOfCDS m = null;
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
@@ -319,7 +319,7 @@ public class EntryOfCDSDAO {
             _hour = "00h00";
         if (mtDate == null)
             mtDate = "0-0-0";
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?" + " and " + Hour + " = ? AND " + idUser + " = ?" , new String[] { mtDate, _hour, idUser});
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?" + " and " + Hour + " = ? AND " + idUser + " = ?" , new String[] { mtDate, _hour, id});
 
         String[] i = c.getColumnNames();
 
@@ -609,7 +609,7 @@ public class EntryOfCDSDAO {
         Cursor c = mDb.rawQuery("SELECT " + dateEdition + " FROM " + TABLE_NAME + " WHERE " + idUser + " = ? ORDER BY " + dateEdition + " DESC limit 1", new String[] {userId});
         if (c.moveToFirst() != false)
         {
-            System.out.println("Je renvois la date !!!");
+            Log.i("EntryOfCDSDAO", "Je renvois la derniere date d'edition");
             return (c.getString(c.getColumnIndex(dateEdition)));
         }
         else{

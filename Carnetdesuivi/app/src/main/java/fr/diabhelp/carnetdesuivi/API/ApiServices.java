@@ -29,5 +29,5 @@ public interface ApiServices {
     Call<ResponseBody> getLastEdition(@Path("idUser") String idUser);
 
     @POST("/api/carnet/entry/setFromApp")
-    Call<ResponseBody> setMissingEntries(@Field("idUser") String idUser, @Body ArrayList<EntryOfCDS> entries);
+    Call<ResponseBody> setMissingEntries(@Body ArrayList<EntryOfCDS> entries);
 }

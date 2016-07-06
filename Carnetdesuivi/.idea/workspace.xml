@@ -33,13 +33,22 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-4.6666665">
-              <caret line="193" column="71" selection-start-line="193" selection-start-column="71" selection-end-line="193" selection-end-column="71" />
+              <caret line="673" column="113" selection-start-line="673" selection-start-column="113" selection-end-line="673" selection-end-column="113" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#15968#16141#0" expanded="true" />
-                <element signature="e#16140#16141#0" expanded="true" />
-                <element signature="e#27270#27305#0" expanded="true" />
+                <element signature="e#29281#29282#0" expanded="true" />
+                <element signature="e#29314#29315#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BddSyncrhroCDSGetAllEntriesApiCallTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="51" column="42" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -47,69 +56,58 @@
       <file leaf-file-name="EntryActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.5555556">
-              <caret line="474" column="22" selection-start-line="474" selection-start-column="22" selection-end-line="474" selection-end-column="22" />
+            <state vertical-scroll-proportion="-1.8333334">
+              <caret line="351" column="33" selection-start-line="351" selection-start-column="33" selection-end-line="351" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="entry_activity.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml">
+      <file leaf-file-name="ServerUdpateService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.4752476">
-              <caret line="671" column="35" selection-start-line="671" selection-start-column="35" selection-end-line="671" selection-end-column="35" />
-              <folding>
-                <element signature="e#10107#10131#0" expanded="true" />
-                <element signature="e#11900#11924#0" expanded="true" />
-                <element signature="e#12373#12399#0" expanded="true" />
-                <element signature="e#13250#13293#0" expanded="true" />
-                <element signature="e#19084#19108#0" expanded="true" />
-                <element signature="e#28806#28821#0" expanded="true" />
-                <element signature="e#35175#35199#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.7692308">
-              <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+            <state vertical-scroll-proportion="-10.694445">
+              <caret line="130" column="41" selection-start-line="130" selection-start-column="41" selection-end-line="130" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EntryOfCDS.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryOfCDS.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.6666665">
-              <caret line="112" column="22" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DayResultActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.551495">
-              <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExpandableListAdapters.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/ExpandableListAdapters.java">
+      <file leaf-file-name="BddSyncrhroCDSetMissingEntriesApiCallTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSetMissingEntriesApiCallTask.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="117" column="154" selection-start-line="117" selection-start-column="154" selection-end-line="117" selection-end-column="154" />
+              <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApiServices.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="11.65625">
+              <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Field.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Field.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResponseCDSGetLastEdition.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetLastEdition.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -118,8 +116,8 @@
       <file leaf-file-name="EntryOfCDSDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-21.86111">
-              <caret line="86" column="37" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="37" />
+            <state vertical-scroll-proportion="-7.2777777">
+              <caret line="210" column="40" selection-start-line="210" selection-start-column="40" selection-end-line="210" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -128,24 +126,21 @@
       <file leaf-file-name="ResponseCDSGetAllEntries.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetAllEntries.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.527778">
-              <caret line="43" column="75" selection-start-line="43" selection-start-column="69" selection-end-line="43" selection-end-column="75" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StatisticsWeekFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/Statistics/StatisticsWeekFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="80" column="49" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
+              <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="availableProjects">
@@ -1825,26 +1820,27 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/JsonUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetLastEditionApiCallTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSetMissingEntriesApiCallTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetLastEdition.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryOfCDS.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetAllEntries.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/Statistics/StatisticsAllFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/Statistics/StatisticsMonthFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/Statistics/StatisticsPersoFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/Statistics/StatisticsWeekFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/ExpandableListAdapters.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/SharedContext.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetLastEdition.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSetMissingEntriesApiCallTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java" />
       </list>
     </option>
   </component>
@@ -1879,30 +1875,16 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="Carnetdesuivi" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Carnetdesuivi" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1973,7 +1955,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Carnet" />
+              <option name="myItemId" value="Utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1995,7 +1977,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="BDD" />
+              <option name="myItemId" value="Carnet" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2056,17 +2038,9 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2352,7 +2326,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2360,8 +2334,8 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5682614" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.92415404" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32905483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2392,11 +2366,184 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="193" column="71" selection-start-line="193" selection-start-column="71" selection-end-line="193" selection-end-column="71" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#29281#29282#0" expanded="true" />
+            <element signature="e#29314#29315#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="474" column="22" selection-start-line="474" selection-start-column="22" selection-end-line="474" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="671" column="35" selection-start-line="671" selection-start-column="35" selection-end-line="671" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryOfCDS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="112" column="22" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#456#457#0" expanded="false" />
+            <element signature="e#498#499#0" expanded="false" />
+            <element signature="e#531#532#0" expanded="false" />
+            <element signature="e#567#568#0" expanded="false" />
+            <element signature="e#3075#3076#0" expanded="false" />
+            <element signature="e#3105#3106#0" expanded="false" />
+            <element signature="e#3271#3272#0" expanded="false" />
+            <element signature="e#3309#3310#0" expanded="false" />
+            <element signature="e#3346#3347#0" expanded="false" />
+            <element signature="e#3378#3379#0" expanded="false" />
+            <element signature="e#3429#3430#0" expanded="false" />
+            <element signature="e#3471#3472#0" expanded="false" />
+            <element signature="e#3507#3508#0" expanded="false" />
+            <element signature="e#3536#3537#0" expanded="false" />
+            <element signature="e#3581#3582#0" expanded="false" />
+            <element signature="e#3617#3618#0" expanded="false" />
+            <element signature="e#3649#3650#0" expanded="false" />
+            <element signature="e#3677#3678#0" expanded="false" />
+            <element signature="e#3720#3721#0" expanded="false" />
+            <element signature="e#3754#3755#0" expanded="false" />
+            <element signature="e#3787#3788#0" expanded="false" />
+            <element signature="e#3815#3816#0" expanded="false" />
+            <element signature="e#3858#3859#0" expanded="false" />
+            <element signature="e#3892#3893#0" expanded="false" />
+            <element signature="e#3925#3926#0" expanded="false" />
+            <element signature="e#3953#3954#0" expanded="false" />
+            <element signature="e#3996#3997#0" expanded="false" />
+            <element signature="e#4030#4031#0" expanded="false" />
+            <element signature="e#4064#4065#0" expanded="false" />
+            <element signature="e#4093#4094#0" expanded="false" />
+            <element signature="e#4138#4139#0" expanded="false" />
+            <element signature="e#4174#4175#0" expanded="false" />
+            <element signature="e#4207#4208#0" expanded="false" />
+            <element signature="e#4235#4236#0" expanded="false" />
+            <element signature="e#4278#4279#0" expanded="false" />
+            <element signature="e#4312#4313#0" expanded="false" />
+            <element signature="e#4347#4348#0" expanded="false" />
+            <element signature="e#4377#4378#0" expanded="false" />
+            <element signature="e#4424#4425#0" expanded="false" />
+            <element signature="e#4462#4463#0" expanded="false" />
+            <element signature="e#4497#4498#0" expanded="false" />
+            <element signature="e#4527#4528#0" expanded="false" />
+            <element signature="e#4574#4575#0" expanded="false" />
+            <element signature="e#4612#4613#0" expanded="false" />
+            <element signature="e#4648#4649#0" expanded="false" />
+            <element signature="e#4679#4680#0" expanded="false" />
+            <element signature="e#4728#4729#0" expanded="false" />
+            <element signature="e#4768#4769#0" expanded="false" />
+            <element signature="e#4802#4803#0" expanded="false" />
+            <element signature="e#4831#4832#0" expanded="false" />
+            <element signature="e#4876#4877#0" expanded="false" />
+            <element signature="e#4912#4913#0" expanded="false" />
+            <element signature="e#4946#4947#0" expanded="false" />
+            <element signature="e#4975#4976#0" expanded="false" />
+            <element signature="e#5020#5021#0" expanded="false" />
+            <element signature="e#5056#5057#0" expanded="false" />
+            <element signature="e#5091#5092#0" expanded="false" />
+            <element signature="e#5121#5122#0" expanded="false" />
+            <element signature="e#5168#5169#0" expanded="false" />
+            <element signature="e#5206#5207#0" expanded="false" />
+            <element signature="e#5240#5241#0" expanded="false" />
+            <element signature="e#5269#5270#0" expanded="false" />
+            <element signature="e#5314#5315#0" expanded="false" />
+            <element signature="e#5350#5351#0" expanded="false" />
+            <element signature="e#7175#7176#0" expanded="false" />
+            <element signature="e#7202#7203#0" expanded="false" />
+            <element signature="e#7813#7814#0" expanded="false" />
+            <element signature="e#7854#7855#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/ExpandableListAdapters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="117" column="154" selection-start-line="117" selection-start-column="154" selection-end-line="117" selection-end-column="154" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1800#1801#0" expanded="false" />
+            <element signature="e#1836#1837#0" expanded="false" />
+            <element signature="e#9762#9763#0" expanded="false" />
+            <element signature="e#9811#9812#0" expanded="false" />
+            <element signature="e#9845#9846#0" expanded="false" />
+            <element signature="e#9882#9883#0" expanded="false" />
+            <element signature="e#9931#9932#0" expanded="false" />
+            <element signature="e#9967#9968#0" expanded="false" />
+            <element signature="e#11438#11439#0" expanded="false" />
+            <element signature="e#11465#11466#0" expanded="false" />
+            <element signature="e#11543#11544#0" expanded="false" />
+            <element signature="e#11570#11571#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="86" column="37" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetAllEntries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="75" selection-start-line="43" selection-start-column="69" selection-end-line="43" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/Statistics/StatisticsWeekFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="80" column="49" selection-start-line="80" selection-start-column="49" selection-end-line="80" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-          <folding />
+          <folding>
+            <element signature="e#1159#1177#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2406,9 +2553,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#15968#16141#0" expanded="true" />
-            <element signature="e#16140#16141#0" expanded="true" />
-            <element signature="e#27270#27305#0" expanded="true" />
+            <element signature="e#29281#29282#0" expanded="true" />
+            <element signature="e#29314#29315#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2438,14 +2584,6 @@
       </provider>
       <provider editor-type-id="android-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSetMissingEntries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/JsonUtils.java">
@@ -2501,30 +2639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSetMissingEntriesApiCallTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="9" selection-start-line="49" selection-start-column="8" selection-end-line="69" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetLastEdition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Bdd_manager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.29411766">
@@ -2537,14 +2651,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.48705882">
           <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="72" selection-start-line="51" selection-start-column="72" selection-end-line="51" selection-end-column="72" />
           <folding />
         </state>
       </provider>
@@ -2563,18 +2669,6 @@
           <caret line="41" column="34" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="34" />
           <folding>
             <element signature="e#1159#1177#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="104" column="96" selection-start-line="104" selection-start-column="96" selection-end-line="104" selection-end-column="96" />
-          <folding>
-            <element signature="e#1369#1370#0" expanded="true" />
-            <element signature="e#1407#1408#0" expanded="true" />
-            <element signature="e#2531#2582#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2613,7 +2707,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.7692308">
+        <state vertical-scroll-proportion="0.0">
           <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
           <folding />
         </state>
@@ -2623,49 +2717,208 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="117" column="154" selection-start-line="117" selection-start-column="154" selection-end-line="117" selection-end-column="154" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1800#1801#0" expanded="false" />
+            <element signature="e#1836#1837#0" expanded="false" />
+            <element signature="e#9762#9763#0" expanded="false" />
+            <element signature="e#9811#9812#0" expanded="false" />
+            <element signature="e#9845#9846#0" expanded="false" />
+            <element signature="e#9882#9883#0" expanded="false" />
+            <element signature="e#9931#9932#0" expanded="false" />
+            <element signature="e#9967#9968#0" expanded="false" />
+            <element signature="e#11438#11439#0" expanded="false" />
+            <element signature="e#11465#11466#0" expanded="false" />
+            <element signature="e#11543#11544#0" expanded="false" />
+            <element signature="e#11570#11571#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryOfCDS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.6666665">
+        <state vertical-scroll-proportion="0.0">
           <caret line="112" column="22" selection-start-line="112" selection-start-column="22" selection-end-line="112" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#456#457#0" expanded="false" />
+            <element signature="e#498#499#0" expanded="false" />
+            <element signature="e#531#532#0" expanded="false" />
+            <element signature="e#567#568#0" expanded="false" />
+            <element signature="e#3075#3076#0" expanded="false" />
+            <element signature="e#3105#3106#0" expanded="false" />
+            <element signature="e#3271#3272#0" expanded="false" />
+            <element signature="e#3309#3310#0" expanded="false" />
+            <element signature="e#3346#3347#0" expanded="false" />
+            <element signature="e#3378#3379#0" expanded="false" />
+            <element signature="e#3429#3430#0" expanded="false" />
+            <element signature="e#3471#3472#0" expanded="false" />
+            <element signature="e#3507#3508#0" expanded="false" />
+            <element signature="e#3536#3537#0" expanded="false" />
+            <element signature="e#3581#3582#0" expanded="false" />
+            <element signature="e#3617#3618#0" expanded="false" />
+            <element signature="e#3649#3650#0" expanded="false" />
+            <element signature="e#3677#3678#0" expanded="false" />
+            <element signature="e#3720#3721#0" expanded="false" />
+            <element signature="e#3754#3755#0" expanded="false" />
+            <element signature="e#3787#3788#0" expanded="false" />
+            <element signature="e#3815#3816#0" expanded="false" />
+            <element signature="e#3858#3859#0" expanded="false" />
+            <element signature="e#3892#3893#0" expanded="false" />
+            <element signature="e#3925#3926#0" expanded="false" />
+            <element signature="e#3953#3954#0" expanded="false" />
+            <element signature="e#3996#3997#0" expanded="false" />
+            <element signature="e#4030#4031#0" expanded="false" />
+            <element signature="e#4064#4065#0" expanded="false" />
+            <element signature="e#4093#4094#0" expanded="false" />
+            <element signature="e#4138#4139#0" expanded="false" />
+            <element signature="e#4174#4175#0" expanded="false" />
+            <element signature="e#4207#4208#0" expanded="false" />
+            <element signature="e#4235#4236#0" expanded="false" />
+            <element signature="e#4278#4279#0" expanded="false" />
+            <element signature="e#4312#4313#0" expanded="false" />
+            <element signature="e#4347#4348#0" expanded="false" />
+            <element signature="e#4377#4378#0" expanded="false" />
+            <element signature="e#4424#4425#0" expanded="false" />
+            <element signature="e#4462#4463#0" expanded="false" />
+            <element signature="e#4497#4498#0" expanded="false" />
+            <element signature="e#4527#4528#0" expanded="false" />
+            <element signature="e#4574#4575#0" expanded="false" />
+            <element signature="e#4612#4613#0" expanded="false" />
+            <element signature="e#4648#4649#0" expanded="false" />
+            <element signature="e#4679#4680#0" expanded="false" />
+            <element signature="e#4728#4729#0" expanded="false" />
+            <element signature="e#4768#4769#0" expanded="false" />
+            <element signature="e#4802#4803#0" expanded="false" />
+            <element signature="e#4831#4832#0" expanded="false" />
+            <element signature="e#4876#4877#0" expanded="false" />
+            <element signature="e#4912#4913#0" expanded="false" />
+            <element signature="e#4946#4947#0" expanded="false" />
+            <element signature="e#4975#4976#0" expanded="false" />
+            <element signature="e#5020#5021#0" expanded="false" />
+            <element signature="e#5056#5057#0" expanded="false" />
+            <element signature="e#5091#5092#0" expanded="false" />
+            <element signature="e#5121#5122#0" expanded="false" />
+            <element signature="e#5168#5169#0" expanded="false" />
+            <element signature="e#5206#5207#0" expanded="false" />
+            <element signature="e#5240#5241#0" expanded="false" />
+            <element signature="e#5269#5270#0" expanded="false" />
+            <element signature="e#5314#5315#0" expanded="false" />
+            <element signature="e#5350#5351#0" expanded="false" />
+            <element signature="e#7175#7176#0" expanded="false" />
+            <element signature="e#7202#7203#0" expanded="false" />
+            <element signature="e#7813#7814#0" expanded="false" />
+            <element signature="e#7854#7855#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/SharedContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4752476">
-          <caret line="671" column="35" selection-start-line="671" selection-start-column="35" selection-end-line="671" selection-end-column="35" />
-          <folding>
-            <element signature="e#10107#10131#0" expanded="true" />
-            <element signature="e#11900#11924#0" expanded="true" />
-            <element signature="e#12373#12399#0" expanded="true" />
-            <element signature="e#13250#13293#0" expanded="true" />
-            <element signature="e#19084#19108#0" expanded="true" />
-            <element signature="e#28806#28821#0" expanded="true" />
-            <element signature="e#35175#35199#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-1.2376238">
+          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSetMissingEntries.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.86111">
-          <caret line="86" column="37" selection-start-line="86" selection-start-column="37" selection-end-line="86" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.18689321">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="42" selection-start-line="51" selection-start-column="42" selection-end-line="51" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetAllEntries.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.527778">
-          <caret line="43" column="75" selection-start-line="43" selection-start-column="69" selection-end-line="43" selection-end-column="75" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetLastEdition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/android/app/Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3313253">
+          <caret line="800" column="18" selection-start-line="800" selection-start-column="18" selection-end-line="800" selection-end-column="18" />
+          <folding>
+            <element signature="e#38135#38136#0" expanded="false" />
+            <element signature="e#38165#38166#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.8333334">
+          <caret line="351" column="33" selection-start-line="351" selection-start-column="33" selection-end-line="351" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.2777777">
+          <caret line="210" column="40" selection-start-line="210" selection-start-column="40" selection-end-line="210" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.694445">
+          <caret line="130" column="41" selection-start-line="130" selection-start-column="41" selection-end-line="130" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSetMissingEntriesApiCallTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -2673,28 +2926,19 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.6666665">
-          <caret line="193" column="71" selection-start-line="193" selection-start-column="71" selection-end-line="193" selection-end-column="71" />
+          <caret line="673" column="113" selection-start-line="673" selection-start-column="113" selection-end-line="673" selection-end-column="113" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#15968#16141#0" expanded="true" />
-            <element signature="e#16140#16141#0" expanded="true" />
-            <element signature="e#27270#27305#0" expanded="true" />
+            <element signature="e#29281#29282#0" expanded="true" />
+            <element signature="e#29314#29315#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5555556">
-          <caret line="474" column="22" selection-start-line="474" selection-start-column="22" selection-end-line="474" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.551495">
-          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
+        <state vertical-scroll-proportion="11.65625">
+          <caret line="30" column="39" selection-start-line="30" selection-start-column="39" selection-end-line="30" selection-end-column="39" />
           <folding />
         </state>
       </provider>
