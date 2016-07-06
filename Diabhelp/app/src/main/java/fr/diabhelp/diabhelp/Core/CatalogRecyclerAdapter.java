@@ -115,7 +115,7 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
     public void onBindViewHolder(CatalogModuleHolder holder, int pos) {
         holder.name.setText(_modulesList.get(pos).getName());
         holder.version.setText(_modulesList.get(pos).getVersion());
-        holder.rating.setRating(Integer.valueOf(_modulesList.get(pos).getRating()));
+        holder.rating.setRating(Float.valueOf(_modulesList.get(pos).getRating()));
         holder.desc.setText(_modulesList.get(pos).getDesc());
         holder.logo.setImageResource(R.drawable.diab_logo);
         holder.URLStore = _modulesList.get(pos).getURLStore();

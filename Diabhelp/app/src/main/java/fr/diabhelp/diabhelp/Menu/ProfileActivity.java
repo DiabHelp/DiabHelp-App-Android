@@ -91,4 +91,25 @@ public class ProfileActivity extends AppCompatActivity
 
         super.onBackPressed();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    public enum  Error
+    {
+        NONE(0),
+        SERVER_ERROR(1);
+
+        private Integer errorCode;
+
+        Error(Integer i) {
+            this.errorCode = i;
+        }
+
+        public Integer getErrorCode() {
+            return this.errorCode;
+        }
+    }
 }
