@@ -7,6 +7,7 @@ package fr.diabhelp.diabhelp.Utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 public class NetworkUtils {
 
@@ -16,6 +17,11 @@ public class NetworkUtils {
 
 
     public static int getConnectivityStatusType(Context context) {
+        if (context == null)
+        {
+            Log.e("getConnectivity", "error");
+            return TYPE_NOT_CONNECTED;
+        }
         ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
 

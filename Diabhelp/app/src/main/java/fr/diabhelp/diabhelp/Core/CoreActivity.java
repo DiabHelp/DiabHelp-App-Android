@@ -168,7 +168,10 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             Intent mainIntent = new Intent(CoreActivity.this, Faq.class);
             CoreActivity.this.startActivity(mainIntent);
         } else if (id == R.id.nav_logout) {
-
+            Intent mainIntent = new Intent(CoreActivity.this, ConnexionActivity.class);
+            mainIntent.putExtra("logout", "true");
+            CoreActivity.this.startActivity(mainIntent);
+            this.finish();
         } else if (id == R.id.nav_facebook) {
             String url = "https://www.facebook.com/diabhelp";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

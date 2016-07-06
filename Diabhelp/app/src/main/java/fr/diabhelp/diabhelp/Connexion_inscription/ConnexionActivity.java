@@ -69,6 +69,10 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         db = dao.open();
 //        inflateLoadingBar();
 //        //recupere les préférences dans le fichier donné en param
+        if (getIntent().hasExtra("logout"))
+            if (getIntent().getExtras().getString("logout").equals("true"))
+                disableAutomaticConnexion();
+
         _settings = getSharedPreferences(PREF_FILE, Context.MODE_WORLD_READABLE);
         if (_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
             Log.i("ConnexionActivity", "connexion automatique");
