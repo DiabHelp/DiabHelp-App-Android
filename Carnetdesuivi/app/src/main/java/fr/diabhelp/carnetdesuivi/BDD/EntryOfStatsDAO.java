@@ -55,6 +55,7 @@ public class EntryOfStatsDAO {
 
         ContentValues value = new ContentValues();
 
+        Log.e("beg date addstat", "date :" + st.getBeg_date());
         value.put(DATE_DEBUT, st.getBeg_date());
         value.put(DATE_FIN, st.getEnd_date());
 

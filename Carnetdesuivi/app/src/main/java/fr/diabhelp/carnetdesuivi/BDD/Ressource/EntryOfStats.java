@@ -1,5 +1,7 @@
 package fr.diabhelp.carnetdesuivi.BDD.Ressource;
 
+import android.util.Log;
+
 /**
  * Created by naqued on 23/03/16.
  */
@@ -23,7 +25,7 @@ public class EntryOfStats {
     private String  end_date;
 
     public String getBeg_date() {
-        return beg_date;
+         return beg_date;
     }
 
     public void setBeg_date(String beg_date) {

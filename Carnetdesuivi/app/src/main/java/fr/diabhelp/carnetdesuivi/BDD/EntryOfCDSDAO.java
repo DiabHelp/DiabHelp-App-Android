@@ -85,6 +85,7 @@ public class EntryOfCDSDAO {
         value.put(period, m.getPeriod());
         value.put(alcohol, m.getAlcohol());
         value.put(idUser, m.getIdUser());
+        Log.e("user id add", "id : " + m.getIdUser());
         value.put(dateEdition, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
         mDb.insert(TABLE_NAME, null, value);
     }
@@ -129,18 +130,23 @@ public class EntryOfCDSDAO {
         mDb.update(TABLE_NAME, value, Date_hour + " = ?" + " and " + Hour + " = ?", new String[]{String.valueOf(m.getDate()), m.getHour() });
     }
 
-    public static ArrayList<EntryOfCDS> selectBetweenDays(String mtDate, String endMtdate, String idUser, SQLiteDatabase mDb ) {
+    public static ArrayList<EntryOfCDS> selectBetweenDays(String mtDate, String endMtdate, String _idUser, SQLiteDatabase mDb ) {
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + tdate + " BETWEEN ? AND ? AND " + idUser + " = ?" , new String[] { mtDate, endMtdate, idUser} );
+        Log.e("user id select", "id : " + idUser);
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + tdate + " BETWEEN ? AND ? AND " + idUser + " = ?" , new String[] { mtDate, endMtdate, _idUser} );
+
         if (c == null)
             Log.e("Status SelectBetweenDay", "False");
+
+
 
         while (c.moveToNext()) {
 
             String rdate = c.getString(c.getColumnIndex("rdate"));
 
             String _title = c.getString(c.getColumnIndex(Titre));
+            Log.e("user id select while", "title : " + _title );
             String _place = c.getString(c.getColumnIndex(Lieux));
             Double _glucide = c.getDouble(c.getColumnIndex(glucide));
             String _activity = c.getString(c.getColumnIndex(activity));

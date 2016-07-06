@@ -360,7 +360,9 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
 
     private void getLastGraph() {
         statEntry = EntryOfStatsDAO.selectStat(db);
+
         if (statEntry == null) {
+            Log.e("getlastgraph size:", "null");
             getAllData();
             statEntry = new EntryOfStats();
             statEntry.setAlcohol(0);
@@ -489,6 +491,16 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
             _endCalendar = stringToCalendar(statEntry.getEnd_date());
         } catch (ParseException e) {
             Log.e("Date Parsing Exception", e.getMessage());
+        }
+        if (_startCalendar == null)
+        {
+            try {
+                _startCalendar = stringToCalendar("00-00-0000");
+                _endCalendar = stringToCalendar("00-00-0000");
+            } catch (ParseException e) {
+                Log.e("Date Parsing Exception", e.getMessage());
+            }
+            return false;
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");

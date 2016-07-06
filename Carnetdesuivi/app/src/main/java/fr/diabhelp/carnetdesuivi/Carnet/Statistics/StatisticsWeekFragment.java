@@ -86,6 +86,7 @@ public class StatisticsWeekFragment extends Fragment {
         String startDate = sdf.format(c.getTime());
 
         mall = EntryOfCDSDAO.selectBetweenDays(startDate, endDate, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""), db);
+        Log.e("size mall", "t:" + String.valueOf(mall.size()));
 
         List<Line> lines = new ArrayList<Line>();
         List<AxisValue> axisValues = new ArrayList<>();
