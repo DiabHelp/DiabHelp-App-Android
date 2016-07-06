@@ -93,13 +93,13 @@ public class MenuManager {
                     name = reader.nextString();
                     break;
                 case ("weight"):
-                    weight = Double.parseDouble(reader.nextString());
+                    weight = Double.parseDouble(String.valueOf(reader.nextDouble()));
                     break;
-                case ("glucids"):
-                    glucids = Double.parseDouble(reader.nextString());
+                case ("glucides"):
+                    glucids = Double.parseDouble(String.valueOf(reader.nextDouble()));
                     break;
-                case ("totalGlucids"):
-                    totalGlucids = Double.parseDouble(reader.nextString());
+                case ("totalGlucides"):
+                    totalGlucids = Double.parseDouble(String.valueOf(reader.nextDouble()));
                     break;
                 default:
                     reader.skipValue();

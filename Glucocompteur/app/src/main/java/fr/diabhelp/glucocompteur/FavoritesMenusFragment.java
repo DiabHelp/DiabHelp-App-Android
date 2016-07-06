@@ -54,8 +54,10 @@ public class FavoritesMenusFragment extends Fragment {
                 for (fr.diabhelp.glucocompteur.Menu menu : _menuList) {
                     ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), 0., menu.getMenuGlucids());
                     ArrayList<Aliment> aliments = menu.alimentsList;
-                    for (Aliment aliment : aliments)
-                        item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getTotalGlucids()));
+                    for (Aliment aliment : aliments) {
+                        Log.d("HELLO", aliment.getName() + " " + aliment.getGlucids());
+                        item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getGlucids()));
+                    }
                     data.add(item);
                 }
                 swipeRefresh.setRefreshing(false);
@@ -69,7 +71,7 @@ public class FavoritesMenusFragment extends Fragment {
             ExpandableListAdapter.Item item = new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, menu.getMenuName(), 0., menu.getMenuGlucids());
             ArrayList<Aliment> aliments = menu.alimentsList;
             for (Aliment aliment : aliments) {
-                item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getTotalGlucids()));
+                item.invisibleChildren.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, aliment.getName(), aliment.getWeight(), aliment.getGlucids()));
             }
             data.add(item);
         }

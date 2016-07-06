@@ -152,7 +152,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     public void onClick(View v) {
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                         alertDialogBuilder.setTitle(item.name);
-                        alertDialogBuilder.setMessage("Quantité : " + item.weight + "g" + System.lineSeparator() + "Glucides par gramme : " + item.weight /item.glucids + "g" + System.lineSeparator() + "Total glucidique : " + item.glucids + "g");
+                        alertDialogBuilder.setMessage("Quantité : " + item.weight + "g" + System.lineSeparator() + "Glucides par gramme : " + item.glucids + "g" + System.lineSeparator() + "Total glucidique : " + item.totalGlucids + "g");
                         final AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
                     }
@@ -179,6 +179,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public String           name;
         public Double           weight;
         public Double           glucids;
+        public Double           totalGlucids;
         public List<Item>       invisibleChildren = new ArrayList<>();
 
         public Item(int type, String name, Double weight, Double glucids) {
@@ -186,6 +187,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             this.name = name;
             this.weight = weight;
             this.glucids = glucids;
+            this.totalGlucids = weight * glucids / 100;
         }
     }
 

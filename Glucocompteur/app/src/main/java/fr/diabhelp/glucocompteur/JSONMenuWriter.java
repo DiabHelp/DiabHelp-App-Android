@@ -33,12 +33,14 @@ public class JSONMenuWriter {
         JSONObject JSONAliment = null;
         try {
             for (Menu menu : menuList) {
+                Log.d("HELLO", "MENU : " + menu.getMenuName() + " GLUCIDES TOTAUX : " + menu.getMenuGlucids());
                 JSONMenu = new JSONArray();
                 JSONObject menuInfo = new JSONObject();
                 menuInfo.put("menuName", menu.getMenuName());
                 menuInfo.put("menuGlucids", menu.getMenuGlucids());
                 JSONMenuList.put(menuInfo);
                 for (Aliment aliment : menu.getAlimentsList()) {
+                    Log.d("HELLO", aliment.toString());
                     JSONAliment = new JSONObject();
                     JSONAliment.put("name", aliment.getName());
                     JSONAliment.put("weight", aliment.getWeight());
