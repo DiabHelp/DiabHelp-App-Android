@@ -127,6 +127,8 @@ public class ServerUdpateService extends IntentService {
             missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, idUser, db);
         else
             missingEntries = EntryOfCDSDAO.selectAll(idUser, db);
+
+        System.out.println("nombre d'entrées à envoyer = " + missingEntries.size());
         ResponseCDSetMissingEntries responseCDS = null;
         call = service.setMissingEntries(missingEntries);
         try {

@@ -115,6 +115,8 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        dao = DAO.getInstance(getContext());
+        db = dao.open();
     }
 
     @Override

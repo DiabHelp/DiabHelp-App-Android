@@ -47,6 +47,8 @@ public class StatisticsMonthFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        dao = DAO.getInstance(getContext());
+        db = dao.open();
 
     }
 
