@@ -43,9 +43,13 @@
     </string-array>
     <!--END -->
     <string name="catalogue_loading">Récupération des modules du catalogue...</string>
+    <string name="profile_loading">Récupération des informations du profile...</string>
+    <string name="profile_save_loading">Sauvegarde du profile...</string>
+    <string name="profile_save_success">Sauvegarde du profile...</string>
+    <string name="profile_password_incorrect">le mot de passe est trop court (min 6 caractères)</string>
     <!--registerActiviy-->
 
-    <!--API-->
+    <!--API-->11
     <!--<string name="URL_API">http://10.0.3.2/DiabHelp-WebSite/web/</string>-->
     <string name="URL_API">https://diabhelp.org/</string>
     <string name="error_server">Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard</string>

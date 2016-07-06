@@ -3,7 +3,6 @@ package fr.diabhelp.diabhelp.Utils;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -18,7 +17,7 @@ public class JsonUtils {
         try {
             return (JSONObject) new JSONTokener(serializable).nextValue();
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Log.e("JsonUtils", "Error json invalid = [" + serializable + "]");
             return (null);
         }
@@ -29,7 +28,7 @@ public class JsonUtils {
         try {
             return (obj.getJSONObject(key));
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "] key = " + key);
             return (null);
         }
@@ -40,7 +39,7 @@ public class JsonUtils {
         try {
             return (JSONArray) new JSONTokener(serializable).nextValue();
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Log.e("JsonUtils", "Error json invalid = [" + serializable + "]");
             return (null);
         }
@@ -51,7 +50,7 @@ public class JsonUtils {
         try {
             return (obj.getJSONArray(key));
 
-        } catch (JSONException e) {
+        } catch (Exception e) {
             Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "] key = " + key);
             return (null);
         }
@@ -62,7 +61,7 @@ public class JsonUtils {
         try {
             return obj.getString(key);
         }
-        catch (JSONException e)
+        catch (Exception e)
         {
             Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "]");
             return (null);
@@ -74,7 +73,7 @@ public class JsonUtils {
         try {
             return obj.getBoolean(key);
         }
-        catch (JSONException e)
+        catch (Exception e)
         {
             Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "]");
             return (null);
@@ -89,7 +88,7 @@ public class JsonUtils {
         try {
             return ar.getJSONObject(id);
         }
-        catch (JSONException e)
+        catch (Exception e)
         {
             Log.e("JsonUtils", "Error json invalid = [" + ar.toString() + "]");
             return (null);
@@ -101,7 +100,7 @@ public class JsonUtils {
         try {
             return ar.getString(id);
         }
-        catch (JSONException e)
+        catch (Exception e)
         {
             Log.e("JsonUtils", "Error json invalid = [" + ar.toString() + "]");
             return (null);

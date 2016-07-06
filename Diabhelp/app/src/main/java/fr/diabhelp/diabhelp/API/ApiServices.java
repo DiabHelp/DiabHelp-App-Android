@@ -8,6 +8,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -30,11 +31,12 @@ public interface ApiServices {
         @POST("/api/user/register")
         Call<ResponseBody> register(@Field("username") String usr,@Field("email") String mail, @Field("password") String pwd, @Field("role") String role, @Field("firstname") String first, @Field("lastname") String last);
 
-        @GET("/api/usr/getInfo")
-        Call<ResponseBody>  getInfo(@Query("id") String id);
+        @GET("/api/user/getInfo/{idUser}")
+        Call<ResponseBody>  getInfo(@Path("idUser") String id);
 
-        @POST("/api/usr/setInfo")
-        Call<ResponseBody>  setInfo(@Query("id") String id);
+        @FormUrlEncoded
+        @POST("/api/user/setInfo")
+        Call<ResponseBody>  setInfo(@Field("id") String id, @Field("email") String email, @Field("firstname") String firstname, @Field("lastname") String lastname, @Field("phone") String phone, @Field("birthdate") String birthdate, @Field("organisme") String organisme, @Field("password") String password);
 
 
         @FormUrlEncoded
