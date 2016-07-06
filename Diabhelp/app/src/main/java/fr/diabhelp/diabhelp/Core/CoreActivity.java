@@ -265,10 +265,11 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        System.out.println("DESTROYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
         SharedPreferences.Editor edit = _settings.edit();
         edit.putString(ConnexionActivity.TOKEN, "");
-        edit.putString(ConnexionActivity.TYPE_USER, "");
-        edit.putString(ConnexionActivity.ID_USER, "");
+//        edit.putString(ConnexionActivity.TYPE_USER, "");
+//        edit.putString(ConnexionActivity.ID_USER, "");
         edit.commit();
     }
 }
