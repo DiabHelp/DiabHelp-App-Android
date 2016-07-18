@@ -639,28 +639,34 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     public void add_sleep(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imgcoucher);
+        ImageView imgcoucher = (ImageView) findViewById(R.id.imgcoucher);
+        ImageView imglevee = (ImageView) findViewById(R.id.imglevee);
 
         if (isActiveicon.get(IconeType.SLEEP.getValue()) == 0) {
-            img.setImageResource(R.drawable.couchergreen);
+            imgcoucher.setImageResource(R.drawable.couchergreen);
             isActiveicon.set(IconeType.SLEEP.getValue(), 1);
+            imglevee.setImageResource(R.drawable.reveil);
+            isActiveicon.set(IconeType.WAKEUP.getValue(), 0);
         }
         else {
-            img.setImageResource(R.drawable.coucher);
+            imgcoucher.setImageResource(R.drawable.coucher);
             isActiveicon.set(IconeType.SLEEP.getValue(), 0);
         }
     }
 
     public void add_wakeup(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imglevee);
+        ImageView imgcoucher = (ImageView) findViewById(R.id.imgcoucher);
+        ImageView imglevee = (ImageView) findViewById(R.id.imglevee);
 
         if (isActiveicon.get(IconeType.WAKEUP.getValue()) == 0) {
-            img.setImageResource(R.drawable.reveilgreen);
+            imglevee.setImageResource(R.drawable.reveilgreen);
             isActiveicon.set(IconeType.WAKEUP.getValue(), 1);
+            imgcoucher.setImageResource(R.drawable.coucher);
+            isActiveicon.set(IconeType.SLEEP.getValue(), 0);
         }
         else {
-            img.setImageResource(R.drawable.reveil);
+            imglevee.setImageResource(R.drawable.reveil);
             isActiveicon.set(IconeType.WAKEUP.getValue(), 0);
         }
     }
