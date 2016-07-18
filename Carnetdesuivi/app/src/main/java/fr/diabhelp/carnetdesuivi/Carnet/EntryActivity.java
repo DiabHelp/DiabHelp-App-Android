@@ -534,56 +534,105 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     // Methode icones
     public void add_breakfeast(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imgptidej);
+        ImageView imgdej = (ImageView) findViewById(R.id.imgptidej);
+        ImageView imglunch = (ImageView) findViewById(R.id.imglaunch);
+        ImageView imgencas = (ImageView) findViewById(R.id.imgencas);
+        ImageView imgdiner = (ImageView) findViewById(R.id.imgdiner);
 
         if (isActiveicon.get(IconeType.BREAKFAST.getValue()) == 0) {
             isActiveicon.set(IconeType.BREAKFAST.getValue(), 1);
-            img.setImageResource(R.drawable.ptidejgreen);
+            imgdej.setImageResource(R.drawable.ptidejgreen);
+
+            imglunch.setImageResource(R.drawable.lunch);
+            isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
+
+            imgdiner.setImageResource(R.drawable.diner);
+            isActiveicon.set(IconeType.DINER.getValue(), 0);
+
+            imgencas.setImageResource(R.drawable.cassecroute);
+            isActiveicon.set(IconeType.ENCAS.getValue(), 0);
         }
         else {
             isActiveicon.set(IconeType.BREAKFAST.getValue(), 0);
-            img.setImageResource(R.drawable.ptidej);
+            imgdej.setImageResource(R.drawable.ptidej);
         }
     }
 
     public void add_launch(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imglaunch);
+        ImageView imgdej = (ImageView) findViewById(R.id.imgptidej);
+        ImageView imglunch = (ImageView) findViewById(R.id.imglaunch);
+        ImageView imgencas = (ImageView) findViewById(R.id.imgencas);
+        ImageView imgdiner = (ImageView) findViewById(R.id.imgdiner);
 
         if (isActiveicon.get(IconeType.LAUNCH.getValue()) == 0) {
-            img.setImageResource(R.drawable.launchgreen);
+            imglunch.setImageResource(R.drawable.launchgreen);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 1);
+
+            isActiveicon.set(IconeType.BREAKFAST.getValue(), 0);
+            imgdej.setImageResource(R.drawable.ptidej);
+
+            imgdiner.setImageResource(R.drawable.diner);
+            isActiveicon.set(IconeType.DINER.getValue(), 0);
+
+            imgencas.setImageResource(R.drawable.cassecroute);
+            isActiveicon.set(IconeType.ENCAS.getValue(), 0);
         }
         else {
-            img.setImageResource(R.drawable.lunch);
+            imglunch.setImageResource(R.drawable.lunch);
             isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
         }
     }
 
     public void add_diner(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imgdiner);
+        ImageView imgdej = (ImageView) findViewById(R.id.imgptidej);
+        ImageView imglunch = (ImageView) findViewById(R.id.imglaunch);
+        ImageView imgencas = (ImageView) findViewById(R.id.imgencas);
+        ImageView imgdiner = (ImageView) findViewById(R.id.imgdiner);
 
         if (isActiveicon.get(IconeType.DINER.getValue()) == 0) {
-            img.setImageResource(R.drawable.dinergreen);
+            imgdiner.setImageResource(R.drawable.dinergreen);
             isActiveicon.set(IconeType.DINER.getValue(), 1);
+
+            isActiveicon.set(IconeType.BREAKFAST.getValue(), 0);
+            imgdej.setImageResource(R.drawable.ptidej);
+
+            imglunch.setImageResource(R.drawable.lunch);
+            isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
+
+            imgencas.setImageResource(R.drawable.cassecroute);
+            isActiveicon.set(IconeType.ENCAS.getValue(), 0);
+
         }
         else {
-            img.setImageResource(R.drawable.diner);
+            imgdiner.setImageResource(R.drawable.diner);
             isActiveicon.set(IconeType.DINER.getValue(), 0);
         }
     }
 
     public void add_encas(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imgencas);
+        ImageView imgdej = (ImageView) findViewById(R.id.imgptidej);
+        ImageView imglunch = (ImageView) findViewById(R.id.imglaunch);
+        ImageView imgencas = (ImageView) findViewById(R.id.imgencas);
+        ImageView imgdiner = (ImageView) findViewById(R.id.imgdiner);
 
         if (isActiveicon.get(IconeType.ENCAS.getValue()) == 0) {
-            img.setImageResource(R.drawable.cassecroutegreen);
+            imgencas.setImageResource(R.drawable.cassecroutegreen);
             isActiveicon.set(IconeType.ENCAS.getValue(), 1);
+
+            isActiveicon.set(IconeType.BREAKFAST.getValue(), 0);
+            imgdej.setImageResource(R.drawable.ptidej);
+
+            imglunch.setImageResource(R.drawable.lunch);
+            isActiveicon.set(IconeType.LAUNCH.getValue(), 0);
+
+            imgdiner.setImageResource(R.drawable.diner);
+            isActiveicon.set(IconeType.DINER.getValue(), 0);
         }
         else {
-            img.setImageResource(R.drawable.cassecroute);
+            imgencas.setImageResource(R.drawable.cassecroute);
             isActiveicon.set(IconeType.ENCAS.getValue(), 0);
         }
     }
@@ -646,28 +695,36 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     public void add_work(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imgwork);
+        ImageView imghome = (ImageView) findViewById(R.id.imghome);
+        ImageView imgwork = (ImageView) findViewById(R.id.imgwork);
 
         if (isActiveicon.get(IconeType.WORK.getValue()) == 0) {
-            img.setImageResource(R.drawable.workgreen);
+            imgwork.setImageResource(R.drawable.workgreen);
             isActiveicon.set(IconeType.WORK.getValue(), 1);
+
+            imghome.setImageResource(R.drawable.home);
+            isActiveicon.set(IconeType.HOME.getValue(), 0);
         }
         else {
-            img.setImageResource(R.drawable.work);
+            imgwork.setImageResource(R.drawable.work);
             isActiveicon.set(IconeType.WORK.getValue(), 0);
         }
     }
 
     public void add_home(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imghome);
+        ImageView imghome = (ImageView) findViewById(R.id.imghome);
+        ImageView imgwork = (ImageView) findViewById(R.id.imgwork);
 
         if (isActiveicon.get(IconeType.HOME.getValue()) == 0) {
-            img.setImageResource(R.drawable.homegreen);
+            imghome.setImageResource(R.drawable.homegreen);
             isActiveicon.set(IconeType.HOME.getValue(), 1);
+
+            imgwork.setImageResource(R.drawable.work);
+            isActiveicon.set(IconeType.WORK.getValue(), 0);
         }
         else {
-            img.setImageResource(R.drawable.home);
+            imghome.setImageResource(R.drawable.home);
             isActiveicon.set(IconeType.HOME.getValue(), 0);
         }
     }
@@ -702,28 +759,36 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     public void add_hypo(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imghypo);
+        ImageView imghypo = (ImageView) findViewById(R.id.imghypo);
+        ImageView imghyper = (ImageView) findViewById(R.id.imghyper);
 
         if (isActiveicon.get(IconeType.HYPO.getValue()) == 0) {
-            img.setImageResource(R.drawable.hypogreen);
+            imghypo.setImageResource(R.drawable.hypogreen);
             isActiveicon.set(IconeType.HYPO.getValue(), 1);
+
+            imghyper.setImageResource(R.drawable.hyper);
+            isActiveicon.set(IconeType.HYPER.getValue(), 0);
         }
         else {
-            img.setImageResource(R.drawable.hypo);
+            imghypo.setImageResource(R.drawable.hypo);
             isActiveicon.set(IconeType.HYPO.getValue(), 0);
         }
     }
 
     public void add_hyper(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.imghyper);
+        ImageView imghypo = (ImageView) findViewById(R.id.imghypo);
+        ImageView imghyper = (ImageView) findViewById(R.id.imghyper);
 
         if (isActiveicon.get(IconeType.HYPER.getValue()) == 0) {
-            img.setImageResource(R.drawable.hypergreen);
+            imghyper.setImageResource(R.drawable.hypergreen);
             isActiveicon.set(IconeType.HYPER.getValue(), 1);
+
+            imghypo.setImageResource(R.drawable.hypo);
+            isActiveicon.set(IconeType.HYPO.getValue(), 0);
         }
         else {
-            img.setImageResource(R.drawable.hyper);
+            imghyper.setImageResource(R.drawable.hyper);
             isActiveicon.set(IconeType.HYPER.getValue(), 0);
         }
     }
