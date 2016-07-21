@@ -42,7 +42,7 @@ public class GoToEntry {
         String day = entry.getDate().toString().substring(3, 5);
         String month = entry.getDate().toString().substring(0, 2);
         String year = entry.getDate().toString().substring(6, 10);
-        String formated_date = day + "-" + month + "-" + year;
+        String formated_date = month + "-" + day + "-" + year;
         DateMagnifier dt = new DateMagnifier();
         dialog.setTitle(entry.getTitle());
         dialog.setIcon(R.drawable.diab_logo);

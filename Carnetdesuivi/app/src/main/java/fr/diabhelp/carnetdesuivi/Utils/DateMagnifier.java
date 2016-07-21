@@ -41,6 +41,7 @@ public class DateMagnifier {
 
     public String getCleanDate(String date)
     {
+        Log.e("datemagnifier",date);
         String finaldate;
         finaldate = date.split("-")[1] + " ";
         finaldate += getMonthstr(date.split("-")[0]) + " ";

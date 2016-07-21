@@ -122,16 +122,17 @@ public class Handler_gps extends Service implements LocationListener {
 
         Geocoder geocoder = null;
         List<Address> addresses;
-        try {
+        geocoder = new Geocoder(_this, Locale.getDefault());
+ /*       try {
             geocoder = new Geocoder(this, Locale.getDefault());
         } catch (Exception e) {
             e.printStackTrace();
             txtplace.setText("Non renseigné");
             Log.e("geocoder", "crash catch");
             return ;
-        }
+        }*/
         if (location == null) {
-            txtplace.setText("N/A");
+            txtplace.setText("Non renseigné");
         }
         else {
             try {
@@ -181,26 +182,18 @@ public class Handler_gps extends Service implements LocationListener {
 
     }
     public void onLocationChanged(Location location) {
-/*
         if ((location != null) && (localisationOn))
         {
             Log.d("Localisation", "Envoi des informations de localisation avec :");
             Log.d("Latitude", String.valueOf(location.getLatitude()));
             Log.d("Longitude", String.valueOf(location.getLongitude()));
         }
-*/
         TextView txtplace = _txtviewplace;
 
         Geocoder geocoder = null;
         List<Address> addresses;
-        try {
-            geocoder = new Geocoder(this, Locale.getDefault());
-        } catch (Exception e) {
-            e.printStackTrace();
-            txtplace.setText("Non renseigné");
-            Log.e("geocoder", "crash catch");
-            return ;
-        }
+        geocoder = new Geocoder(_this, Locale.getDefault());
+
         if (location == null) {
             txtplace.setText("");
         }

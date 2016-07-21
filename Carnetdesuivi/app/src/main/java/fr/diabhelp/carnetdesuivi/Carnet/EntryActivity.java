@@ -297,8 +297,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
         // save
         EntryOfCDS entry = new EntryOfCDS(formattedDate);
-        Toast.makeText(getApplicationContext(), formattedDate,
-                Toast.LENGTH_LONG).show();
 
 
         String _minute;
@@ -468,7 +466,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
     public void save_button(View v)
     {
-        System.out.println("SAVE BUTTON !!!!");
         if (_inputlist.get(InputType.TITLE.getValue()).getText().toString().length() == 0)
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
