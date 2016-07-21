@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import fr.diabhelp.diabhelp.Utils.MyToast;
 import fr.diabhelp.diabhelp.R;
+import fr.diabhelp.diabhelp.R.id;
+import fr.diabhelp.diabhelp.R.layout;
+import fr.diabhelp.diabhelp.Utils.MyToast;
 
 public class RegisterConnexionInfosFragment extends Fragment {
 
@@ -23,7 +27,7 @@ public class RegisterConnexionInfosFragment extends Fragment {
     private Button nextStepButton;
 
     private Activity _context;
-    private FragmentFirstStepListener mListener;
+    private RegisterConnexionInfosFragment.FragmentFirstStepListener mListener;
 
     public RegisterConnexionInfosFragment() {
         // Required empty public constructor
@@ -38,65 +42,62 @@ public class RegisterConnexionInfosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_register_connexion_infos, container, false);
-        mailView = (TextView) view.findViewById(R.id.email_input);
-        loginView = (TextView) view.findViewById(R.id.login_input);
-        pwdView = (TextView) view.findViewById(R.id.pwd_input);
-        pwdConfirmationView = (TextView) view.findViewById(R.id.pwdconfirm_input);
-        nextStepButton = (Button) view.findViewById(R.id.next_step_button);
-        nextStepButton.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(layout.fragment_register_connexion_infos, container, false);
+        this.mailView = (TextView) view.findViewById(id.email_input);
+        this.loginView = (TextView) view.findViewById(id.login_input);
+        this.pwdView = (TextView) view.findViewById(id.pwd_input);
+        this.pwdConfirmationView = (TextView) view.findViewById(id.pwdconfirm_input);
+        this.nextStepButton = (Button) view.findViewById(id.next_step_button);
+        this.nextStepButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String mail, login, pwd, pwdConfirm;
-                FieldError fieldError;
-                mail = mailView.getText().toString();
-                login = loginView.getText().toString();
-                pwd = pwdView.getText().toString();
-                pwdConfirm= pwdConfirmationView.getText().toString();
-                fieldError = checkFields(mail, login, pwd, pwdConfirm);
-                if (fieldError != FieldError.NONE) {
-                    manage_fieldError(fieldError);
+                String mail, login, pwd, pwdConfirm;
+                RegisterConnexionInfosFragment.FieldError fieldError;
+                mail = RegisterConnexionInfosFragment.this.mailView.getText().toString();
+                login = RegisterConnexionInfosFragment.this.loginView.getText().toString();
+                pwd = RegisterConnexionInfosFragment.this.pwdView.getText().toString();
+                pwdConfirm= RegisterConnexionInfosFragment.this.pwdConfirmationView.getText().toString();
+                fieldError = RegisterConnexionInfosFragment.this.checkFields(mail, login, pwd, pwdConfirm);
+                if (fieldError != RegisterConnexionInfosFragment.FieldError.NONE) {
+                    RegisterConnexionInfosFragment.this.manage_fieldError(fieldError);
                 }
                 else{
-                    mListener.saveDatasFirstStep(mail, login, pwd);
+                    RegisterConnexionInfosFragment.this.mListener.saveDatasFirstStep(mail, login, pwd);
                 }
             }
         });
-        return (view);
+        return view;
     }
 
-    private void manage_fieldError(FieldError fieldError) {
+    private void manage_fieldError(RegisterConnexionInfosFragment.FieldError fieldError) {
         switch (fieldError)
         {
-            case FIELD_INCOMPLETE:{
+            case FIELD_INCOMPLETE:
                 MyToast.getInstance().displayWarningMessage(getString(R.string.error_incomplete_fields), Toast.LENGTH_LONG, _context);
                 Log.i("RegisterConnexionInfos", "Les champs sont incomplets");
                 break;
-            }
-            case WRONG_MAIL_FORMAT:{
+            case WRONG_MAIL_FORMAT:
                 MyToast.getInstance().displayWarningMessage(getString(R.string.error_mail_format_incorrect), Toast.LENGTH_LONG, _context);
                 Log.i("RegisterConnexionInfos", "le mail à un format incorrect");
                 break;
-            }
-            case PASSWORDS_DIFFER:{
+            case PASSWORDS_DIFFER:
                 MyToast.getInstance().displayWarningMessage(getString(R.string.error_passwords_differ), Toast.LENGTH_LONG, _context);
                 Log.i("RegisterConnexionInfos", "les mots de passe sont différents");
                 break;
-            }
         }
     }
 
-    private FieldError checkFields(String mail, String login, String pwd, String pwdConfirmation) {
-        FieldError error;
-        if (!isStringValid(mail, 0) || !isStringValid(login, 6) || !isStringValid(pwd, 6) || !isStringValid(pwd, 6) || !isStringValid(pwdConfirmation, 6))
-            error = FieldError.FIELD_INCOMPLETE;
-        else if (!isEmailValid(mail))
-            error = FieldError.WRONG_MAIL_FORMAT;
+    private RegisterConnexionInfosFragment.FieldError checkFields(String mail, String login, String pwd, String pwdConfirmation) {
+        RegisterConnexionInfosFragment.FieldError error;
+        if (!this.isStringValid(mail, 0) || !this.isStringValid(login, 6) || !this.isStringValid(pwd, 6) || !this.isStringValid(pwdConfirmation, 6))
+            error = RegisterConnexionInfosFragment.FieldError.FIELD_INCOMPLETE;
+        else if (!this.isEmailValid(mail))
+            error = RegisterConnexionInfosFragment.FieldError.WRONG_MAIL_FORMAT;
         else if (!pwd.equals(pwdConfirmation))
-            error = FieldError.PASSWORDS_DIFFER;
+            error = RegisterConnexionInfosFragment.FieldError.PASSWORDS_DIFFER;
         else
-            error = FieldError.NONE;
-        return  (error);
+            error = RegisterConnexionInfosFragment.FieldError.NONE;
+        return error;
     }
 
     private Boolean isStringValid(String string, int lenghtMinRequired)
@@ -104,21 +105,21 @@ public class RegisterConnexionInfosFragment extends Fragment {
         Boolean is = false;
         if (!string.isEmpty() && string.length() >= lenghtMinRequired)
             is = true;
-        return (is);
+        return is;
     }
 
     Boolean isEmailValid(String email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     @Override
     public void onAttach(Activity context) {
         super.onAttach(context);
-        if (context instanceof FragmentFirstStepListener) {
-            mListener = (FragmentFirstStepListener) context;
-            _context = context;
+        if (context instanceof RegisterConnexionInfosFragment.FragmentFirstStepListener) {
+            this.mListener = (RegisterConnexionInfosFragment.FragmentFirstStepListener) context;
+            this._context = context;
         } else {
-            throw new RuntimeException(context.toString()
+            throw new RuntimeException(context
                     + " must implement FragmentFirstStepListener");
         }
     }
@@ -126,7 +127,7 @@ public class RegisterConnexionInfosFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        this.mListener = null;
     }
 
 

@@ -20,11 +20,11 @@ public class ParametresModule {
         this._appname = _appname;
         this._size = _size;
         this._version = _version;
-        this._latestVersion = null;
+        _latestVersion = null;
     }
 
     public Drawable getLogo() {
-        return _logo;
+        return this._logo;
     }
 
     public void setLogo(Drawable _logo) {
@@ -32,7 +32,7 @@ public class ParametresModule {
     }
 
     public String getName() {
-        return _name;
+        return this._name;
     }
 
     public void setName(String _name) {
@@ -40,24 +40,23 @@ public class ParametresModule {
     }
 
     public String getAppName() {
-        return _appname;
+        return this._appname;
     }
 
     public void setAppName(String _appname) {
         this._appname = _appname;
     }
 
-    public String getVersion() { return _version; }
+    public String getVersion() { return this._version; }
 
     public void setVersion(String _version) { this._version = _version; }
 
-    public String getSize() { return _size; }
+    public String getSize() { return this._size; }
 
     public void setSize(String _size) { this._size = _size; }
 
-
     public String getLatestVersion() {
-        return _latestVersion;
+        return this._latestVersion;
     }
 
     public void setLatestVersion(String _latestVersion) {

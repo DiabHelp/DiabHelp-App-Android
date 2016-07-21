@@ -2,22 +2,15 @@ package fr.diabhelp.diabhelp.API.ResponseModels;
 
 import android.util.Log;
 
-import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import fr.diabhelp.diabhelp.Core.CatalogueFragment;
 import fr.diabhelp.diabhelp.Menu.ProfileActivity;
 import fr.diabhelp.diabhelp.Models.CatalogModule;
+import fr.diabhelp.diabhelp.Utils.DateUtils;
 import fr.diabhelp.diabhelp.Utils.JsonUtils;
 
 /**
@@ -35,27 +28,27 @@ public class ResponseProfilGet {
     private ProfileActivity.Error error = ProfileActivity.Error.NONE;
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public String getFirstname() {
-        return this.firstname;
+        return firstname;
     }
 
     public String getLastname() {
-        return this.lastname;
+        return lastname;
     }
 
     public String getBirthdate() {
-        return this.birthdate;
+        return birthdate;
     }
 
     public String getMobile() {
-        return this.mobile;
+        return mobile;
     }
 
     public String getOrganism() {
-        return this.organism;
+        return organism;
     }
 
     public void setEmail(String email) {
@@ -98,12 +91,17 @@ public class ResponseProfilGet {
                     if (success == true)
                     {
                         JSONObject user = JsonUtils.getObjFromObj(datas, "user");
-                        email = JsonUtils.getStringFromKey(user, "email");
-                        firstname = JsonUtils.getStringFromKey(user, "firstname");
-                        lastname = JsonUtils.getStringFromKey(user, "lastname");
-                        mobile = JsonUtils.getStringFromKey(user, "phone");
-                        birthdate = JsonUtils.getStringFromKey(user, "birthdate");
-                        organism = JsonUtils.getStringFromKey(user, "organisme");
+                        this.email = JsonUtils.getStringFromKey(user, "email");
+                        this.firstname = JsonUtils.getStringFromKey(user, "firstname");
+                        this.lastname = JsonUtils.getStringFromKey(user, "lastname");
+                        this.mobile = JsonUtils.getStringFromKey(user, "phone");
+                        System.out.println("tout va bien");
+                        Long birth = JsonUtils.getLongFromKey(user, "birthdate");
+                        System.out.println("birth = " + birth);
+                        SimpleDateFormat sf = new SimpleDateFormat(DateUtils.DATE_PATERN);
+                        Date d = new Date(birth * 1000L);
+                        this.birthdate = sf.format(d);
+                        this.organism = JsonUtils.getStringFromKey(user, "organisme");
                     }
                     else
                         throw new Exception();
@@ -113,14 +111,16 @@ public class ResponseProfilGet {
             }
             else
                 throw new Exception();
-            }catch (Exception e) {
-            Log.e(getClass().getSimpleName(), "Error json invalid = [" + datas.toString() + "]");
-            error = ProfileActivity.Error.SERVER_ERROR;
+            }catch (Exception e)
+        {
+            Log.e(this.getClass().getSimpleName(), "Error json invalid = [" + datas + "]");
+            e.printStackTrace();
+            this.error = ProfileActivity.Error.SERVER_ERROR;
         }
 
     }
 
-    public ProfileActivity.Error getError() {return this.error;}
+    public ProfileActivity.Error getError() {return error;}
 
     public void setError(ProfileActivity.Error error) {this.error = error;}
 }
