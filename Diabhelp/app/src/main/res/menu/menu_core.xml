@@ -2,9 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".Core.CoreActivity">
     <item
-        android:id="@+id/settings_mod"
-        android:orderInCategory="300"
-        android:title="Statistiques"
+        android:id="@+id/settings"
+        android:title="Paramètres"
         android:icon="@drawable/ic_settings_white_24dp"
         app:showAsAction="ifRoom"/>
 </menu>

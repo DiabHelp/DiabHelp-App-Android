@@ -29,6 +29,7 @@
                 <category android:name="fr.diabhelp.diabhelp" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".Services.MyGcmListenerService"
             android:exported="false">
@@ -45,29 +46,8 @@
         </service>
         <service
             android:name=".Services.RegistrationIntentService"
-            android:exported="false">
-        </service>
-        <activity
-            android:name="fr.diabhelp.diabhelp.Core.CoreActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-        </activity>
-        <activity
-            android:name="fr.diabhelp.diabhelp.FAQ.Faq"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name="fr.diabhelp.diabhelp.FAQ.FaqSubmenu"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name="fr.diabhelp.diabhelp.FAQ.InfoActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:exported="false"/>
+
         <receiver
             android:name=".Core.Broadcast_Receiver.NetworkChangeReceiver"
             android:label="NetworkChangeReceiver">
@@ -76,6 +56,33 @@
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".Core.CoreActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Menu.ParametersActivity"
+            android:label="@string/title_parametre_activity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".Core.CoreActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Core.CoreActivity"/>
+        </activity>
+        <activity
+            android:name=".FAQ.Faq"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".FAQ.FaqSubmenu"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".FAQ.InfoActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".SplashScreen"
@@ -94,32 +101,25 @@
             android:name=".Connexion_inscription.RegisterActivity"
             android:label="@string/title_register"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="fr.diabhelp.diabhelp.Menu.ProfileActivity"
+            android:name=".Menu.ProfileActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="fr.diabhelp.diabhelp.UtilizationGuide.ManuelSubmenu"
+            android:name=".UtilizationGuide.ManuelSubmenu"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="fr.diabhelp.diabhelp.UtilizationGuide.ArticleAdapter"
+            android:name=".UtilizationGuide.ArticleAdapter"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="fr.diabhelp.diabhelp.UtilizationGuide.GuideActivity"
+            android:name=".UtilizationGuide.GuideActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
+
 </manifest>

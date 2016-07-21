@@ -2,6 +2,7 @@
     <string name="app_name">Diabhelp</string>
     <string name="project_number">426701180871</string>
     <string name="action_settings">Options</string>
+    <string name="title_parametre_activity">Paramètres</string>
     <!--ConnexionActivity-->
     <string name="title_activity_connexion">Connexion</string>
     <string name="connexion_login_input">Login</string>
@@ -12,7 +13,7 @@
     <string name="register_button">S\'inscrire</string>
     <!-- END-->
 
-      <!--registerActiviy-->
+    <!--registerActiviy-->
     <string name="title_register">S\'enregister</string>
     <string name="ou">ou</string>
     <string name="pwdconfirm_input">confirmation de mot de passe</string>

@@ -15,55 +15,58 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
-import fr.diabhelp.diabhelp.R;
+import fr.diabhelp.diabhelp.Models.ModuleList;
+import fr.diabhelp.diabhelp.Models.ModuleList.PInfo;
+import fr.diabhelp.diabhelp.R.id;
+import fr.diabhelp.diabhelp.R.layout;
 
 public class AccueilFragment extends Fragment {
 
     public GridView grid;
     private String[] web;
     private Drawable[] img;
-    private DAO dao = null;
-    private SQLiteDatabase db = null;
+    private DAO dao;
+    private SQLiteDatabase db;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        dao = DAO.getInstance(getActivity().getApplicationContext());
-        db = dao.open();
+        this.setHasOptionsMenu(true);
+        this.dao = DAO.getInstance(this.getActivity().getApplicationContext());
+        this.db = this.dao.open();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.accueil_fragment, container, false);
+        View inflate = inflater.inflate(layout.accueil_fragment, container, false);
         //        bdd = new DAO(getActivity().getBaseContext());
 
+        ModuleList moduleList = new ModuleList(this.getActivity());
+        final ArrayList<PInfo> app = moduleList.getAppList();
+        this.web = moduleList.getAppStringList();
+        this.img = moduleList.getAppDrawableList();
 
-        CoreActivity activity = (CoreActivity) getActivity();
-        final ArrayList<CoreActivity.PInfo> app = activity.getAppList();
-        web = activity.getAppStringList();
-        img = activity.getAppDrawableList();
+        CustomGrid adapter = new CustomGrid(this.getActivity(), this.web, this.img);
+        this.grid =(GridView) inflate.findViewById(id.grid);
 
-        CustomGrid adapter = new CustomGrid(getActivity(), web, img);
-        grid=(GridView) inflate.findViewById(R.id.grid);
-
-        grid.setAdapter(adapter);
-        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        this.grid.setAdapter(adapter);
+        this.grid.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
                 if (app.get(position).pname.contains("diab_website")) {
 //                    if (_session != null) {
-                        String url = "http://www.diabhelp.fr";
+                        String url = "https://www.diabhelp.org";
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                        startActivity(intent);
+                    AccueilFragment.this.startActivity(intent);
 //                    }
                     /*else {
                         MyToast toast = MyToast.getInstance();
@@ -87,7 +90,7 @@ public class AccueilFragment extends Fragment {
                             .unflattenFromString(unflat));
                     intent.addCategory("android.intent.category.LAUNCHER");
                     //intent.putExtra("session", _session);
-                    startActivity(intent);
+                    AccueilFragment.this.startActivity(intent);
                 }
             }
         });

@@ -1,19 +1,22 @@
 <resources>
 
     <!-- Base application theme. -->
-        <!-- Base application theme. -->
-        <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-            <!-- Customize your theme here. -->
-            <item name="colorPrimary">@color/colorPrimary</item>
-            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-            <item name="colorAccent">@color/colorAccent</item>
-        </style>
-        <style name="AppTheme.NoActionBar">
-            <item name="windowActionBar">false</item>
-            <item name="windowNoTitle">true</item>
-        </style>
-        <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-        <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="editText_connexion">
         <item name="android:layout_width">match_parent</item>
@@ -22,7 +25,7 @@
         <item name="android:singleLine">true</item>
         <item name="android:background">@color/primary_text_default_material_dark</item>
     </style>
-    
+
     <style name="main_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -37,16 +40,19 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">18sp</item>
     </style>
+
     <style name="article_title">
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textSize">23sp</item>
     </style>
+
     <style name="article_error">
         <item name="android:textStyle">italic</item>
         <item name="android:background">@color/red</item>
     </style>
+
     <style name="article_image">
 
     </style>

@@ -24,7 +24,7 @@ import retrofit2.Retrofit.Builder;
 /**
  * Created by Sumbers on 24/03/2016.
  */
-public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCatalogue> {
+public class ParametresAPICallTask extends AsyncTask<String, String, ResponseCatalogue> {
 
     private final String URL_API;
 
@@ -32,7 +32,7 @@ public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCata
     private Context _context;
     private ProgressDialog progress;
 
-    public CatalogueAPICallTask(Context context, IApiCallTask listener){
+    public ParametresAPICallTask(Context context, IApiCallTask listener){
         this._listener = listener;
         this._context = context;
         this.URL_API = this._context.getString(string.URL_API);
@@ -41,11 +41,6 @@ public class CatalogueAPICallTask extends AsyncTask<String, String, ResponseCata
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        this.progress = new ProgressDialog(this._context);
-        this.progress.setCancelable(true);
-        this.progress.setMessage(this._context.getString(string.catalogue_loading));
-        this.progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        this.progress.show();
     }
 
     @Override
