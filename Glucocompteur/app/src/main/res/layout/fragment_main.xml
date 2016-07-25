@@ -36,7 +36,7 @@
             android:id="@+id/totalGlucids"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Glucides totaux :"
+            android:text="Glycémie totale :"
             android:textAlignment="center"
             android:layout_below="@+id/totalWeight"
             android:gravity="center"

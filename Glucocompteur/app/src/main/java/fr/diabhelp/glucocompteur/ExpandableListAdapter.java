@@ -126,6 +126,19 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OUI", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                int pos = _data.indexOf(headerHolder.refferalItem);
+                                if (item.invisibleChildren == null) {
+                                    item.invisibleChildren = new ArrayList<>();
+                                    int count = 0;
+                                    while (_data.size() > pos + 1 && _data.get(pos + 1).type == CHILD) {
+                                        item.invisibleChildren.add(_data.remove(pos + 1));
+                                        count++;
+                                    }
+                                    notifyItemRangeRemoved(pos + 1, count);
+                                }
+                                while (_data.size() > pos + 1 && _data.get(pos + 1).type == CHILD) {
+                                    item.invisibleChildren.add(_data.remove(pos + 1));
+                                }
                                 _data.remove(position);
                                 final MenuManager menuManager = new MenuManager(v.getContext().getApplicationInfo().dataDir + "/menus_favoris.json");
                                 JSONMenuWriter writer = new JSONMenuWriter(v.getContext().getApplicationInfo().dataDir + "/menus_favoris.json");

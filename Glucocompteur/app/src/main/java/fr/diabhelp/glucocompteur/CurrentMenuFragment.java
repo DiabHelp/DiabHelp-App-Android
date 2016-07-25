@@ -44,7 +44,7 @@ public class CurrentMenuFragment extends Fragment {
         _recyclerView.setAdapter(_recAdapter);
         v.findViewById(R.id.cleanMenu).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setTitle("Supprimer le menu actuel");
                 alertDialogBuilder.setMessage("Voulez-vous vraiment supprimer le menu actuel ?")
@@ -54,6 +54,10 @@ public class CurrentMenuFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         _alimentsList.clear();
+                        TextView totalWeight = (TextView) container.getRootView().findViewById(R.id.totalWeight);
+                        TextView totalGlucids = (TextView) container.getRootView().findViewById(R.id.totalGlucids);
+                        totalWeight.setText("Poids total : " + String.valueOf(new DecimalFormat("#.##").format(0.00)) + "kg");
+                        totalGlucids.setText("Glycemie totale : " + String.valueOf(new DecimalFormat("#.##").format(0.00)) + "kg");
                         _recAdapter.notifyDataSetChanged();
                     }
                 });
@@ -121,16 +125,16 @@ public class CurrentMenuFragment extends Fragment {
                                 _searchBox.setText("");
                                 TextView totalGlucids = (TextView) container.getRootView().findViewById(R.id.totalGlucids);
                                 TextView totalWeight = (TextView) container.getRootView().findViewById(R.id.totalWeight);
-                                if (getTotalGlucids(_alimentsList) > 999) {
-                                    Double tmp = getTotalGlucids(_alimentsList) * 0.001;
-                                    totalGlucids.setText("Glycemie totale : " + String.valueOf(new DecimalFormat("#.##").format(tmp)) + "kg");
-                                } else
-                                    totalGlucids.setText("Glycemie totale : " + String.valueOf(new DecimalFormat("#.##").format(getTotalGlucids(_alimentsList))) + "g");
                                 if (getTotalWeight(_alimentsList) > 999) {
                                     Double tmp = getTotalWeight(_alimentsList) * 0.001;
                                     totalWeight.setText("Poids total : " + String.valueOf(new DecimalFormat("#.##").format(tmp)) + "kg");
                                 } else
                                     totalWeight.setText("Poids total : " + String.valueOf(new DecimalFormat("#.##").format(getTotalWeight(_alimentsList))) + "g");
+                                if (getTotalGlucids(_alimentsList) > 999) {
+                                    Double tmp = getTotalGlucids(_alimentsList) * 0.001;
+                                    totalGlucids.setText("Glycemie totale : " + String.valueOf(new DecimalFormat("#.##").format(tmp)) + "kg");
+                                } else
+                                    totalGlucids.setText("Glycemie totale : " + String.valueOf(new DecimalFormat("#.##").format(getTotalGlucids(_alimentsList))) + "g");
                                 _recAdapter.notifyDataSetChanged();
                                 dialog.dismiss();
                             }
