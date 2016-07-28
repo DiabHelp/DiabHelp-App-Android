@@ -229,8 +229,9 @@ public class ProfileActivity extends AppCompatActivity implements IApiCallTask
             SimpleDateFormat sf = new SimpleDateFormat(DateUtils.DATE_PICKER_PATERN);
             try {
                 Date date = sf.parse(this.dateNaissance);
-                this.dateNaissance = String.valueOf(date.getTime());
-                new ProfilPostAPICallTask(this, this).execute(ProfileActivity._settings.getString(ConnexionActivity.ID_USER, ""), this.emailView.getText().toString(), this.nomView.getText().toString() , this.prenomView.getText().toString(), this.telephoneView.getText().toString(), this.dateNaissanceView.getText().toString(), this.organismeView.getText().toString(), this.pwdView.getText().toString());
+                this.dateNaissance = String.valueOf(date.getTime() / 1000);
+                System.out.println("date naissance to send = " + this.dateNaissance );
+                new ProfilPostAPICallTask(this, this).execute(ProfileActivity._settings.getString(ConnexionActivity.ID_USER, ""), this.mail, this.nom, this.prenom, this.tel, this.dateNaissance, this.organisme, this.pwd);
             } catch (ParseException e) {
                 e.printStackTrace();
             }

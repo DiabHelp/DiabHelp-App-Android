@@ -134,25 +134,25 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == id.nav_profil) {
+        if (id == R.id.nav_profil) {
             Intent mainIntent = new Intent(this, ProfileActivity.class);
             this.startActivity(mainIntent);
-        } else if (id == id.nav_website) {
+        } else if (id == R.id.nav_website) {
             String url = "http://www.diabhelp.org";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
-        } else if (id == id.nav_help) {
+        } else if (id == R.id.nav_help) {
             Intent mainIntent = new Intent(this, GuideActivity.class);
             this.startActivity(mainIntent);
-        } else if (id == id.nav_faq) {
+        } else if (id == R.id.nav_faq) {
             Intent mainIntent = new Intent(this, Faq.class);
             this.startActivity(mainIntent);
-        } else if (id == id.nav_logout) {
+        } else if (id == R.id.nav_logout) {
             Intent mainIntent = new Intent(this, ConnexionActivity.class);
             mainIntent.putExtra("logout", "true");
             this.startActivity(mainIntent);
             this.finish();
-        } else if (id == id.nav_facebook) {
+        } else if (id == R.id.nav_facebook) {
             String url = "https://www.facebook.com/diabhelp";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
@@ -164,7 +164,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }*/
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -188,7 +188,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(menu.menu_core, menu);
+        inflater.inflate(R.menu.menu_core, menu);
         return true;
     }
 

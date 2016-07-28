@@ -97,7 +97,9 @@ public class ResponseProfilGet {
                         mobile = JsonUtils.getStringFromKey(user, "phone");
                         Long birth = JsonUtils.getLongFromKey(user, "birthdate");
                         SimpleDateFormat sf = new SimpleDateFormat(DateUtils.DATE_PICKER_PATERN);
+                        System.out.println("birthdate before modif = " + birth);
                         Date d = new Date(birth * 1000L);
+                        System.out.println("birthdate get = " + Long.valueOf(birth * 1000L));
                         birthdate = sf.format(d);
                         organism = JsonUtils.getStringFromKey(user, "organisme");
                     }
