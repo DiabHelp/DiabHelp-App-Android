@@ -104,7 +104,8 @@
         <activity
             android:name=".Menu.ProfileActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".UtilizationGuide.ManuelSubmenu"
             android:label="@string/app_name"

@@ -33,7 +33,7 @@
     <string name="register_role_label">Vous utilisez Diabhelp en tant que :</string>
     <string name="register_loading">Création de compte...</string>
     <string name="error_incomplete_fields">Veuillez remplir tous les champs</string>
-    <string name="error_mail_format_incorrect">Le format du mail est incorrect</string>
+    <string name="error_mail_wrong_format">Le format du mail est incorrect</string>
     <string name="error_passwords_differ">Les mots de passes sont different</string>
     <string name="error_login_already_exist">Le login est déja utilisé</string>
     <string name="error_email_already_exist">l\'adresse email est déja utilisé</string>
@@ -44,13 +44,10 @@
     </string-array>
     <!--END -->
     <string name="catalogue_loading">Récupération des modules du catalogue...</string>
-    <string name="profile_loading">Récupération des informations du profile...</string>
-    <string name="profile_save_loading">Sauvegarde du profile...</string>
-    <string name="profile_save_success">Sauvegarde du profile...</string>
-    <string name="profile_password_incorrect">le mot de passe est trop court (min 6 caractères)</string>
+
     <!--registerActiviy-->
 
-    <!--API-->11
+    <!--API-->
     <!--<string name="URL_API">http://10.0.3.2/DiabHelp-WebSite/web/</string>-->
     <string name="URL_API">https://diabhelp.org/</string>
     <string name="error_server">Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard</string>
@@ -68,6 +65,16 @@
     <string name="organism">Organisme</string>
     <string name="password">Mot de passe</string>
     <string name="confirmation">Confirmation</string>
+    <string name="profile_loading">Récupération des informations du profile...</string>
+    <string name="profile_save_loading">Sauvegarde du profile...</string>
+    <string name="profile_save_success">Informations sauvegardées !</string>
+
+    <string name="error_firstname_too_short">Veuillez compléter le prénom (min 3 caractères)</string>
+    <string name="error_lastname_too_short">Veuillez compléter le nom (min 3 caractères)</string>
+    <string name="error_datenaissance_wrong_format">Veuillez corriger la date de naissance</string>
+    <string name="error_mail_empty">Veuillez compléter l\'adresse mail</string>
+    <string name="error_tel_wrong_format">Le format du téléphone est incorrect</string>
+    <string name="error_password_incorrect">le mot de passe est trop court (min 6 caractères)</string>
 
     <!--FAQ-->
     <string name="title_diabete">Types de diabète, causes, traitements</string>
