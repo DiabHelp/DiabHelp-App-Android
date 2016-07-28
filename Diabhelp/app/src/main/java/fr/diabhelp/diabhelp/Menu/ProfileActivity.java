@@ -110,8 +110,6 @@ public class ProfileActivity extends AppCompatActivity implements IApiCallTask
     @Override
     public void onBackPressed()
     {
-        finish();
-
         super.onBackPressed();
     }
 
