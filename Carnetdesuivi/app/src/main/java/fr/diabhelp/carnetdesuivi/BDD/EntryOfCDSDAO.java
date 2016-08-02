@@ -84,6 +84,7 @@ public class EntryOfCDSDAO {
         value.put(athome, m.getAthome());
         value.put(period, m.getPeriod());
         value.put(alcohol, m.getAlcohol());
+        System.out.println("je set l'id suivant =" + m.getIdUser());
         value.put(idUser, m.getIdUser());
         Log.e("user id add", "id : " + m.getIdUser());
         value.put(dateEdition, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
@@ -179,6 +180,7 @@ public class EntryOfCDSDAO {
             Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
 
             EntryOfCDS m = new EntryOfCDS(_date);
+            m.setIdUser(String.valueOf(_idUser));
             m.setDate(_date);
             m.setActivity(_activity);
             m.setActivityType(_activityType);
@@ -224,6 +226,7 @@ public class EntryOfCDSDAO {
             if (c == null || c.getCount() <= 0)
                 return null;
 
+            Integer _idUser = c.getInt(c.getColumnIndex(idUser));
             String _title = c.getString(c.getColumnIndex(Titre));
             String _place = c.getString(c.getColumnIndex(Lieux));
             Double _glucide = c.getDouble(c.getColumnIndex(glucide));
@@ -258,6 +261,7 @@ public class EntryOfCDSDAO {
             String _datesql = c.getString(c.getColumnIndex(sqldate));
 
             EntryOfCDS m = new EntryOfCDS(_date);
+            m.setIdUser(String.valueOf(_idUser));
             m.setDate(_date);
             m.setDatesql(_datesql);
             m.setActivity(_activity);

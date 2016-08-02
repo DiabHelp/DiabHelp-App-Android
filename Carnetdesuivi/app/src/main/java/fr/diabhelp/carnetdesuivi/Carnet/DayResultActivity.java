@@ -3,9 +3,7 @@ package fr.diabhelp.carnetdesuivi.Carnet;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.Image;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -159,6 +157,7 @@ public class DayResultActivity extends AppCompatActivity {
 
         inf = EntryOfCDSDAO.selectDay(_date, _hour, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""), db);
         _txtCell.get(TXTedit.DAYTEXT.getValue()).setText(_mt.getCleanDate(_date) + " " + _hour);
+//        System.out.println("_txtCell.get(TXTedit.TITLE.getValue()).setText(inf.getTitle()) = " + );
         _txtCell.get(TXTedit.TITLE.getValue()).setText(inf.getTitle());
         if (inf.getGlucide() == null || inf.getglycemy() == 0.0) {
             _relativeCell.get(Relative.GLU.getValue()).setVisibility(View.GONE);

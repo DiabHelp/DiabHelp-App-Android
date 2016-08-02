@@ -41,11 +41,13 @@ public class DateMagnifier {
 
     public String getCleanDate(String date)
     {
+        System.out.println("getCleanDate date en entrée =" + date);
         Log.e("datemagnifier",date);
         String finaldate;
         finaldate = date.split("-")[1] + " ";
         finaldate += getMonthstr(date.split("-")[0]) + " ";
         finaldate += date.split("-")[2];
+        System.out.println("getCleanDate FINALE date = " + finaldate);
         return finaldate;
     }
 

@@ -6,9 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
@@ -36,7 +36,7 @@ public class ResponseCDSGetAllEntries {
                 {
                     if (success == true) {
                         entries = new ArrayList<EntryOfCDS>();
-                        JSONArray arr = JsonUtils.getArray(datas, "entries");
+                        JSONArray arr = JsonUtils.getArray(datas, "0");
                         if (arr != null) {
                             for (int i = 0; i < arr.length(); i++) {
                                 JSONObject jsonEntry = JsonUtils.getObjFromArray(arr, i);
@@ -68,9 +68,16 @@ public class ResponseCDSGetAllEntries {
                                 entry.setHypogly(jsonEntry.getInt("hypogly"));
                                 entry.setHypergly(jsonEntry.getInt("hypergly"));
                                 entry.setPeriod(jsonEntry.getInt("period"));
-                                SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                entry.setDate(simpleFormat.format(simpleFormat.parse((jsonEntry.getJSONObject("date")).getString("timestamp"))));
-                                entry.setDateEdition(simpleFormat.format(simpleFormat.parse((jsonEntry.getJSONObject("dateEdition")).getString("timestamp"))));
+                                SimpleDateFormat simpleFormat = new SimpleDateFormat("MM-dd-yyyy");
+                                SimpleDateFormat simpleFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                                Long date = jsonEntry.getLong("date");
+                                System.out.println("timestamp reçu = " + date);
+                                Date d = new Date(date * 1000L);
+                                entry.setDate(simpleFormat.format(d));
+                                Long dateEdition = jsonEntry.getLong("dateEdition");
+                                Date dEdition = new Date(dateEdition * 1000L);
+                                entry.setDateEdition(simpleFormat2.format(dEdition));
                                 entries.add(entry);
                             }
                         }
@@ -90,8 +97,6 @@ public class ResponseCDSGetAllEntries {
         } catch (JSONException e) {
             Log.e(getClass().getSimpleName(), "Error json invalid = [" + datas.toString() + "]");
             error = Carnetdesuivi.Error.SERVER_ERROR;
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
     }
 

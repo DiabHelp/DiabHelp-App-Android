@@ -43,7 +43,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-
 import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetAllEntries;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetLastEdition;
@@ -54,7 +53,6 @@ import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetAllEntriesApiCallTask
 import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetLastEditionApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSetMissingEntriesApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Task.ExportAPICallTask;
-
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
@@ -75,8 +73,9 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     public static final String PREF_FILE = "ConnexionActivityPreferences";
     public static final String TOKEN = "token";
     public static final String ID_USER = "id_user";
-
     public static final String TYPE_USER = "role";
+
+    private String idUser;
     private String token = "";
     public static SharedPreferences _settings = null;
     public GridView grid;
@@ -121,8 +120,13 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         }
         System.out.println("launch = " + SharedContext.getLaunch());
         _settings = SharedContext.getSharedContext().getSharedPreferences(PREF_FILE, MODE_PRIVATE);
-        if ((SharedContext.getLaunch() == 0) && !(_settings.getString(ID_USER, "").equalsIgnoreCase("")))
+        SharedPreferences.Editor edit =  _settings.edit();
+        edit.putString(ID_USER, "26");
+        edit.apply();
+        idUser = _settings.getString(ID_USER, "");
+        if ((SharedContext.getLaunch() == 0) && !(idUser.equalsIgnoreCase("")))
         {
+            System.out.println("on recupere les entrées du serveur !");
             SharedContext.setLaunch(1);
             synchronizeDb(db);
         }
@@ -210,13 +214,12 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     }
 
     private void synchronizeDb(SQLiteDatabase db) {
-
-        String idUser = _settings.getString(ID_USER, "");
         if (!idUser.isEmpty())
         {
             String lastEditionDateEntryOfCDC = EntryOfCDSDAO.getLastEdition(idUser, db);
             System.out.println("LAST EDITION = " + lastEditionDateEntryOfCDC);
             if (lastEditionDateEntryOfCDC.equalsIgnoreCase("")) {
+                System.out.println("oui effectivement on récupere toutes les entrées du serveurs");
                 displayWaitingTime();
                 getRemoteEntriesOfCDS(idUser);
             }
@@ -224,7 +227,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             {
                 initActivity();
                 Intent updateServer = new Intent(this, ServerUdpateService.class);
-                updateServer.putExtra(ServerUdpateService.EXTRA_ID_USER, _settings.getString(ID_USER, ""));
+                updateServer.putExtra(ServerUdpateService.EXTRA_ID_USER, idUser);
                 startService(updateServer);
                // checkIfServerIsUpToDate(idUser);
             }
@@ -263,7 +266,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
 
         String formattedDate = df.format(c.getTime());
 
-        mAll = EntryOfCDSDAO.selectAllOneday(formattedDate, _settings.getString(ID_USER, ""), db);
+        mAll = EntryOfCDSDAO.selectAllOneday(formattedDate, idUser, db);
         int size = 0;
         if (mAll.size() > 0) {
             while (idx < mAll.size()) {
@@ -338,7 +341,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
         String formattedDate = df.format(c.getTime());
 
-        final EntryOfCDS ent = EntryOfCDSDAO.selectDay(formattedDate, Hours, _settings.getString(ID_USER, ""), db);
+        final EntryOfCDS ent = EntryOfCDSDAO.selectDay(formattedDate, Hours, idUser, db);
         if (ent != null)
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -458,16 +461,22 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         Calendar mycal = new GregorianCalendar(iYear, today[1], iDay);
 
         // Get the number of days in that month
-        mall = EntryOfCDSDAO.selectAll(_settings.getString(ID_USER, ""), db);
+        mall = EntryOfCDSDAO.selectAll(idUser, db);
+        System.out.println("toutes les entrées = ");
+        for (EntryOfCDS entry : mall)
+        {
+            System.out.println(entry.toString());
+        }
         if (mall == null)
             return null;
+
 
         DateMagnifier dt = new DateMagnifier();
 
         while (idx < mall.size())
         {
             String Title = mall.get(idx).getTitle();
-            // TODO faire un uppercase sur le titre
+            Title = Title.substring(0, 1).toUpperCase() + Title;
             if (Title.length() > 20)
                 Title = Title.substring(0, 20) + "..";
             String DisplayDate = Title + " - " + dt.getCleanDate(mall.get(idx).getDate()) + " " + mall.get(idx).getHour() ;
@@ -571,7 +580,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                 else if (inputdateus[1].isEmpty())
                     Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
                 else {
-                    ArrayList<EntryOfCDS> entryOfCDSes = EntryOfCDSDAO.selectBetweenDays(inputdateus[0], inputdateus[1], _settings.getString(ID_USER, ""), Carnetdesuivi.this.db);
+                    ArrayList<EntryOfCDS> entryOfCDSes = EntryOfCDSDAO.selectBetweenDays(inputdateus[0], inputdateus[1], idUser, Carnetdesuivi.this.db);
                     if (mail.getText().toString().isEmpty()) {
                         myemail = null;
                     }
@@ -627,7 +636,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                     for (EntryOfCDS entry : entries) {
                         EntryOfCDSDAO.addDay(entry, db);
                     }
-                    //TODO set les entries récupérées dans la base et dans la list
                 }
                 else {
                     Log.i(getLocalClassName(), "pas d'entrées sur le serveur");
@@ -656,7 +664,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     }
 
     private void compareDates(Date lastEditionServer) {
-        String lastEditionLocalStr = EntryOfCDSDAO.getLastEdition(_settings.getString(ID_USER, ""), db);
+        String lastEditionLocalStr = EntryOfCDSDAO.getLastEdition(idUser, db);
         try {
             Date lastEditionLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastEditionLocalStr);
             if (lastEditionServer.before(lastEditionLocal))
@@ -667,7 +675,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     }
 
     private void sendMissingEntries(String from, String to) {
-        ArrayList<EntryOfCDS> missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, _settings.getString(ID_USER, ""), db);
+        ArrayList<EntryOfCDS> missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, idUser, db);
         if (missingEntries.isEmpty())
             _progress.dismiss();
         else

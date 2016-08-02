@@ -2,8 +2,6 @@ package fr.diabhelp.carnetdesuivi.BDD.Ressource;
 
 import android.util.Log;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -353,5 +351,27 @@ public class EntryOfCDS {
         else if (month.contains("Decembre"))
             return (12);
         return (-1);
+    }
+
+    @Override
+    public String toString() {
+        String str = "user = " + user + "\n" +
+                "idUser = " + idUser + "\n" +
+                "title = " + title + "\n" +
+                "place = " + place + "\n" +
+                "glucide = " + glucide + "\n" +
+                "activity = " + activity + "\n" +
+                "activityType = " + activityType + "\n" +
+                "notes = " + notes + "\n" +
+                "date = " + date + "\n" +
+                "fast_insu = " + fast_insu + "\n" +
+                "slow_insu = " + slow_insu + "\n" +
+                "hba1c = " + hba1c + "\n" +
+                "hour = " + hour + "\n" +
+                "glycemy = " + glycemy + "\n" +
+                "dateApi = " + dateApi + "\n" +
+                "dateSql = " + datesql + "\n" +
+                "dateEdition = " + dateEdition + "\n";
+        return (str);
     }
 }

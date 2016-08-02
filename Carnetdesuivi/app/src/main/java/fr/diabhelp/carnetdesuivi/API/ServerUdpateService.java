@@ -1,11 +1,8 @@
 package fr.diabhelp.carnetdesuivi.API;
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
 
 import java.io.IOException;
@@ -74,6 +71,7 @@ public class ServerUdpateService extends IntentService {
 
     public void getLastEditionOnServer()
     {
+        System.out.println("le service c'est lancé et je vais récupérer les entrées du serveur");
         ResponseCDSGetLastEdition responseCDS = null;
         call = service.getLastEdition(idUser);
         try {

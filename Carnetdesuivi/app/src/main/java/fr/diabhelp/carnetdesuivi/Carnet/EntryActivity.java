@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,9 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -337,6 +334,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         entry.setAthome(isActiveicon.get(IconeType.HOME.getValue()));
         entry.setAlcohol(isActiveicon.get(IconeType.ALCOHOL.getValue()));
         entry.setPeriod(isActiveicon.get(IconeType.PERIOD.getValue()));
+        System.out.println("EntryActivity idUser = " + Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
         entry.setIdUser(Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
         if (EntryOfCDSDAO.selectDay(_date, _hour, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""),  db) == null) {
             entry.setHour(Hours);

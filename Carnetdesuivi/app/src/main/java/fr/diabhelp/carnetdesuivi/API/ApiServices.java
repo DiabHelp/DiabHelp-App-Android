@@ -11,7 +11,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by Sumbers on 29/03/2016.
@@ -22,7 +21,7 @@ public interface ApiServices {
     @POST
     Call<ResponseBody> sendEmail(@Field("token") String token, @Field("datas") ArrayList<EntryOfCDS> datas);
 
-    @GET("/api/carnet/entry/getAllByUserId/{idUser}")
+        @GET("/api/carnet/entry/getAllByUserId/{idUser}")
     Call<ResponseBody> getAllEntries(@Path("idUser") String idUser);
 
     @GET("/api/carnet/entry/getLastDate/{idUser}")
