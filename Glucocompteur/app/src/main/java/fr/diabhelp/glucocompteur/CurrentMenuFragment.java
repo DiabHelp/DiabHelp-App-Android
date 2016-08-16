@@ -80,7 +80,7 @@ public class CurrentMenuFragment extends Fragment {
                 _searchBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        MyObject selected = _searchBox.products.get(0);
+                        MyObject selected = _searchBox.getObject(position);
                         String glucidesStr = selected.getObjectGlucides().replace(",", ".");
                         double glucides = 0.;
                         try {

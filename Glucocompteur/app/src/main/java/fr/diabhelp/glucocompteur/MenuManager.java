@@ -57,10 +57,10 @@ public class MenuManager {
                 while (reader.hasNext()) {
                     savedMenu = new Menu();
                     reader.beginObject(); // Begin menuInfo object
-                    if (reader.nextName().equals("menuGlucids"))
-                        savedMenu.setMenuGlucids(reader.nextDouble());
                     if (reader.nextName().equals("menuName"))
                         savedMenu.setMenuName(reader.nextString());
+                    if (reader.nextName().equals("menuGlucids"))
+                        savedMenu.setMenuGlucids(reader.nextDouble());
                     reader.endObject(); // End menuInfo object
                     reader.beginArray(); //Begin Aliment Array
                     //Log.d("HELLO", savedMenu.menuName + " " + savedMenu.menuGlucids);

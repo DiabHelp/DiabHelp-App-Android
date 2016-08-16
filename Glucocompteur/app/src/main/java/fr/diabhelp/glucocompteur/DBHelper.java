@@ -144,7 +144,7 @@ public class DBHelper extends SQLiteOpenHelper
         String sql = "";
         text = text.replace("'", "''").replace("\"", "\"\"");
         sql += "SELECT alimentname, Glucides FROM " + tableName;
-        sql += " WHERE " + fieldObjectName + " MATCH '*" + text + "*'";
+        sql += " WHERE " + fieldObjectName + " LIKE '%" + text + "%'";
         sql += " ORDER BY " + fieldObjectName + "='" + text + "' DESC,";
         sql += fieldObjectName + " LIKE '" + text + "%' DESC,";
         sql += fieldObjectName + " LIKE '%" + text + "%' DESC";
