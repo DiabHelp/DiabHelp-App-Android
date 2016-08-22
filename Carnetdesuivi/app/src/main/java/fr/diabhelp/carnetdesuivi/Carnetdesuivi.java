@@ -31,12 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Time;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -45,13 +43,9 @@ import java.util.Map;
 
 import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetAllEntries;
-import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetLastEdition;
-import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSetMissingEntries;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
 import fr.diabhelp.carnetdesuivi.API.ServerUdpateService;
 import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetAllEntriesApiCallTask;
-import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetLastEditionApiCallTask;
-import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSetMissingEntriesApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Task.ExportAPICallTask;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
@@ -74,36 +68,36 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     public static final String TOKEN = "token";
     public static final String ID_USER = "id_user";
     public static final String TYPE_USER = "role";
-
-    private String idUser;
-    private String token = "";
     public static SharedPreferences _settings = null;
+    private static Carnetdesuivi mInstance;
+    final int sdk = android.os.Build.VERSION.SDK_INT;
     public GridView grid;
     public GridView gridba;
+    public DAO dao = null;
+    //Expandable
+    List<String> groupList;
+    List<String> childList;
+    Map<String, List<String>> laptopCollection;
+    ExpandableListView expListView;
+    private String idUser;
+    private String token = "";
     private ListView mainListView;
     private ArrayAdapter<String> listAdapter;
     private ProgressDialog _progress;
-    public DAO dao = null;
     private SQLiteDatabase db = null;
     private DateMagnifier _dm;
-    final int sdk = android.os.Build.VERSION.SDK_INT;
-
     //export
     private Calendar myCalendar;
     private EditText[] inputdate;
     private String[] inputdateus;
     private int whichInput;
     private String myemail;
-
-    //Expandable
-    List<String> groupList;
-    List<String> childList;
-    Map<String, List<String>> laptopCollection;
-    ExpandableListView expListView;
-
-    private static Carnetdesuivi mInstance;
     private boolean _isConnected;
 
+    // Net BroadCast
+    public static synchronized Carnetdesuivi getInstance() {
+        return mInstance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,13 +114,11 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         }
         System.out.println("launch = " + SharedContext.getLaunch());
         _settings = SharedContext.getSharedContext().getSharedPreferences(PREF_FILE, MODE_PRIVATE);
-        SharedPreferences.Editor edit =  _settings.edit();
-        edit.putString(ID_USER, "26");
-        edit.apply();
         idUser = _settings.getString(ID_USER, "");
-        if ((SharedContext.getLaunch() == 0) && !(idUser.equalsIgnoreCase("")))
+        Integer launch = SharedContext.getLaunch();
+        System.out.println("idUser = " + idUser);
+        if (launch == 0 && !(idUser.equalsIgnoreCase("")))
         {
-            System.out.println("on recupere les entrées du serveur !");
             SharedContext.setLaunch(1);
             synchronizeDb(db);
         }
@@ -214,28 +206,21 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     }
 
     private void synchronizeDb(SQLiteDatabase db) {
-        if (!idUser.isEmpty())
-        {
-            String lastEditionDateEntryOfCDC = EntryOfCDSDAO.getLastEdition(idUser, db);
-            System.out.println("LAST EDITION = " + lastEditionDateEntryOfCDC);
-            if (lastEditionDateEntryOfCDC.equalsIgnoreCase("")) {
-                System.out.println("oui effectivement on récupere toutes les entrées du serveurs");
+        if (!idUser.isEmpty()) {
+            String lastEditionDateEntryOfCDS = EntryOfCDSDAO.getLastEdition(idUser, db);
+            if (lastEditionDateEntryOfCDS.equalsIgnoreCase("")) {
+               Log.i(getLocalClassName(),"Récupération de toutes les entrées du serveur");
                 displayWaitingTime();
                 getRemoteEntriesOfCDS(idUser);
-            }
-            else
-            {
+            } else {
+                Log.i(getLocalClassName(),"vérification de retard du serveur");
                 initActivity();
                 Intent updateServer = new Intent(this, ServerUdpateService.class);
                 updateServer.putExtra(ServerUdpateService.EXTRA_ID_USER, idUser);
+                updateServer.putExtra(ServerUdpateService.EXTRA_ACTION, ServerUdpateService.UPDATE);
                 startService(updateServer);
-               // checkIfServerIsUpToDate(idUser);
             }
         }
-    }
-
-    private void checkIfServerIsUpToDate(String idUser) {
-        new BddSyncrhroCDSGetLastEditionApiCallTask(this, getApplicationContext()).execute(idUser);
     }
 
     private void getRemoteEntriesOfCDS(String idUser) {
@@ -310,6 +295,9 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         Collections.reverse(groupList);
     }
 
+    // This fonction is needed to help user to make a good follow sheet
+    // user will modify his entry if he want 2 entry in the same minute
+
     // Preparing collection
     private void createCollection() {
         laptopCollection = new LinkedHashMap<String, List<String>>();
@@ -320,9 +308,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             }
         }
     }
-
-    // This fonction is needed to help user to make a good follow sheet
-    // user will modify his entry if he want 2 entry in the same minute
 
     private boolean checkTooFast()
     {
@@ -357,12 +342,11 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                     Entryintent.putExtra("activity", ent.getActivity());
                     Entryintent.putExtra("activityType", ent.getActivityType());
                     Entryintent.putExtra("notes", ent.getNotes());
-                    Entryintent.putExtra("date", ent.getDate());
-                    Entryintent.putExtra("fast_insu", ent.getFast_insu());
-                    Entryintent.putExtra("slow_insu", ent.getSlow_insu());
+                    Entryintent.putExtra("date", ent.getDateCreation());
+                    Entryintent.putExtra("fastInsu", ent.getFast_insu());
+                    Entryintent.putExtra("slowInsu", ent.getSlow_insu());
                     Entryintent.putExtra("hba1c", ent.getHba1c());
                     Entryintent.putExtra("hour", ent.getHour());
-                    Entryintent.putExtra("date", ent.getDate());
 
                     Entryintent.putExtra("glycemy", ent.getglycemy());
 
@@ -375,7 +359,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                     Entryintent.putExtra("workout", ent.getWorkout());
                     Entryintent.putExtra("hypogly", ent.getHypogly());
                     Entryintent.putExtra("hypergly", ent.getHypergly());
-                    Entryintent.putExtra("atwork", ent.getAtwork());
+                    Entryintent.putExtra("work", ent.getAtwork());
                     Entryintent.putExtra("athome", ent.getAthome());
                     Entryintent.putExtra("alcohol", ent.getAlcohol());
                     Entryintent.putExtra("period", ent.getPeriod());
@@ -432,7 +416,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             childList.add(model);
     }
 
-
     // Convert pixel to dip
     public int getDipsFromPixel(float pixels) {
         // Get the screen's density scale
@@ -440,7 +423,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         // Convert the dps to pixels, based on density scale
         return (int) (pixels * scale + 0.5f);
     }
-
 
     protected String[] fillValueDay(String dateVal, String hour) {
         String value[] = new String[1];
@@ -454,32 +436,26 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         int today[] = getDate();
         int idx = 0;
 
-        int iYear = 2016; //TODO attention a rendre dynamique
+        int iYear = today[2]; //TODO attention a rendre dynamique
         int iMonth = Calendar.FEBRUARY;
         int iDay = 1;
 
         Calendar mycal = new GregorianCalendar(iYear, today[1], iDay);
 
-        // Get the number of days in that month
         mall = EntryOfCDSDAO.selectAll(idUser, db);
         System.out.println("toutes les entrées = ");
-        for (EntryOfCDS entry : mall)
-        {
-            System.out.println(entry.toString());
-        }
         if (mall == null)
             return null;
-
 
         DateMagnifier dt = new DateMagnifier();
 
         while (idx < mall.size())
         {
             String Title = mall.get(idx).getTitle();
-            Title = Title.substring(0, 1).toUpperCase() + Title;
+            Title = Title.substring(0, 1).toUpperCase() + Title.substring(1);
             if (Title.length() > 20)
                 Title = Title.substring(0, 20) + "..";
-            String DisplayDate = Title + " - " + dt.getCleanDate(mall.get(idx).getDate()) + " " + mall.get(idx).getHour() ;
+            String DisplayDate = Title + " - " + dt.getCleanDate(mall.get(idx).getDateCreation()) + " " + mall.get(idx).getHour() ;
             date.add(DisplayDate);
             idx++;
         }
@@ -488,13 +464,13 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
 
     protected int[] getDate() {
         Calendar c = Calendar.getInstance();
-        int daymonth[] = new int[2];
+        int today[] = new int[3];
 
-        daymonth[0] = c.get(Calendar.DAY_OF_MONTH);
-        daymonth[1]= c.get(Calendar.MONTH);
-        return daymonth;
+        today[0] = c.get(Calendar.DAY_OF_MONTH);
+        today[1]= c.get(Calendar.MONTH);
+        today[2] = c.get(Calendar.YEAR);
+        return today;
     }
-
 
     private void updateLabel() {
         String myFormat = "MM-dd-yyyy"; //In which you need put here
@@ -644,42 +620,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             }
             initActivity();
         }
-        else if (action.equalsIgnoreCase("getLastEdition"))
-        {
-            ResponseCDSGetLastEdition reponse = (ResponseCDSGetLastEdition) response;
-            error = reponse.getError();
-            if (error != Error.NONE) {
-                Log.e("getLastEdition", error.toString());
-            }
-            else
-                compareDates(reponse.getLastEdition());
-        }
-        else if (action.equalsIgnoreCase("setMissingEntries"))
-        {
-            ResponseCDSetMissingEntries reponse = (ResponseCDSetMissingEntries) response;
-            error = reponse.getError();
-            if (error != Error.NONE)
-                Log.e("setMissingEntries", error.toString());
-        }
-    }
-
-    private void compareDates(Date lastEditionServer) {
-        String lastEditionLocalStr = EntryOfCDSDAO.getLastEdition(idUser, db);
-        try {
-            Date lastEditionLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastEditionLocalStr);
-            if (lastEditionServer.before(lastEditionLocal))
-                sendMissingEntries(lastEditionServer.toString(), lastEditionLocal.toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sendMissingEntries(String from, String to) {
-        ArrayList<EntryOfCDS> missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, idUser, db);
-        if (missingEntries.isEmpty())
-            _progress.dismiss();
-        else
-            new BddSyncrhroCDSetMissingEntriesApiCallTask(this, getApplicationContext(), missingEntries).execute();
     }
 
     private void informSuccess() {
@@ -707,18 +647,6 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                 break;
             }
         }
-    }
-
-    public enum Error{
-        NONE,
-        SERVER_ERROR,
-        MAIL_NOT_SENT,
-        INVALID_TOKEN
-    }
-
-    // Net BroadCast
-    public static synchronized Carnetdesuivi getInstance() {
-        return mInstance;
     }
 
     public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
@@ -754,10 +682,10 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         //Carnetdesuivi.getInstance().setConnectivityListener(this);
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SharedContext.setLaunch(0);
     }
 
     /**
@@ -768,5 +696,12 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     public void onNetworkConnectionChanged(boolean isConnected) {
         showSnack(isConnected);
         _isConnected = false;
+    }
+
+    public enum Error{
+        NONE,
+        SERVER_ERROR,
+        MAIL_NOT_SENT,
+        INVALID_TOKEN
     }
 }

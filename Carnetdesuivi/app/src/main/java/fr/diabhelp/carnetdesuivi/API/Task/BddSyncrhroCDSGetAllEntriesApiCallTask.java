@@ -14,6 +14,7 @@ import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.JsonUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Response;
@@ -33,7 +34,7 @@ public class BddSyncrhroCDSGetAllEntriesApiCallTask extends AsyncTask<String, St
     {
         listener = listen;
         context = cont;
-        URL_API = context.getString(R.string.URL_API);
+        URL_API = context.getString(R.string.URL_API_dev);
     }
 
 
@@ -74,7 +75,9 @@ public class BddSyncrhroCDSGetAllEntriesApiCallTask extends AsyncTask<String, St
     }
 
     private ApiServices createService() {
-        OkHttpClient client = new OkHttpClient();
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL_API)
                 .client(client)

@@ -15,12 +15,14 @@ import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetLastEdition;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSetMissingEntries;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
-import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryToSend;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.R;
+import fr.diabhelp.carnetdesuivi.Utils.DateUtils;
 import fr.diabhelp.carnetdesuivi.Utils.JsonUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Response;
@@ -28,35 +30,49 @@ import retrofit2.Retrofit;
 
 public class ServerUdpateService extends IntentService {
 
-    private String URL_API = null;
+    public static final String EXTRA_ACTION ="action";
     public static final String EXTRA_ID_USER = "idUser";
-    private String idUser = null;
+    public static final String EXTRA_ID_ENTRY = "id";
+    public static short ADD = 0;
+    public static short UPDATE = 1;
+    public static short DELETE = 2;
     public DAO dao = null;
-    private SQLiteDatabase db = null;
     Call<ResponseBody> call = null;
     ApiServices service = null;
+    private String URL_API = null;
+    private String URL_API_DEV = null;
+    private short action = 0;
+    private Integer idEntry = null;
+    private String idUser = null;
+    private SQLiteDatabase db = null;
+
 
 
     public ServerUdpateService() {
         super("update server");
     }
 
-
-
     @Override
     protected void onHandleIntent(Intent intent)
     {
-       initVars(intent);
-        if (idUser != null)
-            getLastEditionOnServer();
+        try {
+            initVars(intent);
+            if (action == ADD || action == UPDATE)
+                getLastEditionOnServer();
+            else if (action == DELETE)
+                informDeletion();
+            else
+                throw new NoSuchFieldException("le service n'a pas reçu une action valide à effecuter");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 
-
-
-    private void initVars(Intent intent)
-    {
+    private void initVars(Intent intent) throws NoSuchFieldException {
         dao = DAO.getInstance(getApplicationContext());
         db = dao.open();
+        URL_API = getApplicationContext().getString(R.string.URL_API);
+        URL_API_DEV = getApplicationContext().getString(R.string.URL_API_dev);
         intent.getExtras();
         if (intent.hasExtra(EXTRA_ID_USER))
         {
@@ -64,9 +80,22 @@ public class ServerUdpateService extends IntentService {
             idUser = intent.getStringExtra(EXTRA_ID_USER);
         }
         else
-            System.out.println("Cla merde pas d'id ca va crash omg");
-        URL_API = getApplicationContext().getString(R.string.URL_API);
-        service = createService();
+           throw new NoSuchFieldException("le service n'as pas reçu l'id de l'utilisateur");
+        if (intent.hasExtra(EXTRA_ACTION)) {
+            action = intent.getShortExtra(EXTRA_ACTION, (short) 0);
+            if (action == DELETE)
+            {
+                if (intent.hasExtra(EXTRA_ID_ENTRY))
+                    idEntry = intent.getIntExtra(EXTRA_ID_ENTRY, 0);
+                else
+                    throw new NoSuchFieldException("le service n'as pas reçu l'id de l'entrée pour l'action de suppression");
+            }
+            //TODO CHANGER
+            service = createServiceDev();
+        }
+        else
+            throw new NoSuchFieldException("le service n'as pas reçu l'action a effectuer");
+
     }
 
     public void getLastEditionOnServer()
@@ -82,6 +111,22 @@ public class ServerUdpateService extends IntentService {
                 if (responseCDS.getError() == Carnetdesuivi.Error.NONE) {
                     compareDates(responseCDS.getLastEdition());
                 }
+                else
+                    Log.e("getLastEditionOnServer", "erreur lors de la reception de la dateEdition");
+            } else
+                Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void informDeletion() {
+        call = service.deleteEntry(String.valueOf(idEntry), idUser);
+        try {
+            Response<ResponseBody> reponse = call.execute();
+            if (reponse.isSuccess()) {
+                String body = reponse.body().string();
+                System.out.println("body sendMissingEntries = " + body);
             } else
                 Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
         } catch (IOException e) {
@@ -90,10 +135,25 @@ public class ServerUdpateService extends IntentService {
     }
 
 
-    private ApiServices createService() {
-        OkHttpClient client = new OkHttpClient();
+//    private ApiServices createService() {
+//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl(URL_API)
+//                .client(client)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        return (retrofit.create(ApiServices.class));
+//    }
+
+    private ApiServices createServiceDev() {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL_API)
+                .baseUrl(URL_API_DEV)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -104,11 +164,17 @@ public class ServerUdpateService extends IntentService {
     private void compareDates(Date lastEditionServer) {
         String lastEditionLocalStr = EntryOfCDSDAO.getLastEdition(idUser, db);
         try {
-            Date lastEditionLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(lastEditionLocalStr);
+            SimpleDateFormat sdf = new SimpleDateFormat(DateUtils.DATEEDITION_DB_FORMAT);
+            Date lastEditionLocal = sdf.parse(lastEditionLocalStr);
+            sdf.applyPattern(DateUtils.DATECREATION_DB_FORMAT);
+            lastEditionLocalStr = sdf.format(lastEditionLocal);
             if (lastEditionServer != null)
             {
-                if (lastEditionServer.before(lastEditionLocal))
-                    sendMissingEntries(lastEditionServer.toString(), lastEditionLocal.toString());
+                String lastEdtitionServerStr = sdf.format(lastEditionServer);
+                if (lastEditionServer.before(lastEditionLocal)){
+                    System.out.println("let's go envoyer les entrées manquantes");
+                    sendMissingEntries(lastEdtitionServerStr, lastEditionLocalStr);
+                }
             }
             else{
                 sendMissingEntries(null, lastEditionLocal.toString());
@@ -120,27 +186,33 @@ public class ServerUdpateService extends IntentService {
 
     public void sendMissingEntries(String from, String to)
     {
-        ArrayList<EntryOfCDS> missingEntries;
-        if (from != null)
-            missingEntries = EntryOfCDSDAO.selectBetweenDays(from, to, idUser, db);
-        else
-            missingEntries = EntryOfCDSDAO.selectAll(idUser, db);
+        ArrayList<EntryToSend> missingEntries = new ArrayList<>();
+        if (from != null) {
+            System.out.println("il y a quelques entrées manquantes");
+            missingEntries = EntryOfCDSDAO.selectBetweenDaysToSend(from, to, idUser, db);
+        }
+        else{
+            System.out.println("Toutes les entrées sont manquantes !");
+            missingEntries = EntryOfCDSDAO.selectAllToSend(idUser, db);
+        }
 
         System.out.println("nombre d'entrées à envoyer = " + missingEntries.size());
-        ResponseCDSetMissingEntries responseCDS = null;
-        call = service.setMissingEntries(missingEntries);
-        try {
-            Response<ResponseBody> reponse = call.execute();
-            if (reponse.isSuccess())
-            {
-                String body = reponse.body().string();
-                System.out.println("body sendMissingEntries = " + body);
-                responseCDS = new ResponseCDSetMissingEntries();
+        if (missingEntries.size() > 0)
+        {
+            ResponseCDSetMissingEntries responseCDS = null;
+            service = createServiceDev();
+            call = service.setMissingEntries(idUser, missingEntries);
+            try {
+                Response<ResponseBody> reponse = call.execute();
+                if (reponse.isSuccess()) {
+                    String body = reponse.body().string();
+                    System.out.println("body sendMissingEntries = " + body);
+                    responseCDS = new ResponseCDSetMissingEntries();
+                } else
+                    Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            else
-                Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

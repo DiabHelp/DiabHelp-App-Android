@@ -22,8 +22,8 @@ public class EntryOfStatsDAO {
     public static final String activity = "activity"; //
     public static final String activityType = "activity_type"; //
     public static final String notes = "notes"; //
-    public static final String fast_insu = "fast_insu"; // y
-    public static final String slow_insu = "slow_insu"; // y
+    public static final String fast_insu = "fastInsu"; // y
+    public static final String slow_insu = "slowInsu"; // y
     public static final String hba1c = "hba1c"; // y
     public static final String Hour = "hour"; // y
 

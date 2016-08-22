@@ -2,14 +2,11 @@ package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
@@ -39,9 +36,9 @@ public class GoToEntry {
         TextView txtgly = (TextView) alertDialogView.findViewById(R.id.textboxgly);
         TextView txtcalo = (TextView) alertDialogView.findViewById(R.id.textboxcalo);
 
-        String day = entry.getDate().toString().substring(3, 5);
-        String month = entry.getDate().toString().substring(0, 2);
-        String year = entry.getDate().toString().substring(6, 10);
+        String day = entry.getDateCreation().toString().substring(3, 5);
+        String month = entry.getDateCreation().toString().substring(0, 2);
+        String year = entry.getDateCreation().toString().substring(6, 10);
         String formated_date = month + "-" + day + "-" + year;
         DateMagnifier dt = new DateMagnifier();
         dialog.setTitle(entry.getTitle());
@@ -78,12 +75,12 @@ public class GoToEntry {
         intent.putExtra("activity", entry.getActivity());
         intent.putExtra("activityType", entry.getActivityType());
         intent.putExtra("notes", entry.getNotes());
-        intent.putExtra("date", entry.getDate());
-        intent.putExtra("fast_insu", entry.getFast_insu());
-        intent.putExtra("slow_insu", entry.getSlow_insu());
+        intent.putExtra("date", entry.getDateCreation());
+        intent.putExtra("fastInsu", entry.getFast_insu());
+        intent.putExtra("slowInsu", entry.getSlow_insu());
         intent.putExtra("hba1c", entry.getHba1c());
         intent.putExtra("hour", entry.getHour());
-        intent.putExtra("date", entry.getDate());
+        intent.putExtra("date", entry.getDateCreation());
         intent.putExtra("glycemy", entry.getglycemy());
         intent.putExtra("launch", entry.getLaunch());
         intent.putExtra("diner", entry.getDiner());
@@ -94,7 +91,7 @@ public class GoToEntry {
         intent.putExtra("workout", entry.getWorkout());
         intent.putExtra("hypogly", entry.getHypogly());
         intent.putExtra("hypergly", entry.getHypergly());
-        intent.putExtra("atwork", entry.getAtwork());
+        intent.putExtra("work", entry.getAtwork());
         intent.putExtra("athome", entry.getAthome());
         intent.putExtra("alcohol", entry.getAlcohol());
         intent.putExtra("period", entry.getPeriod());

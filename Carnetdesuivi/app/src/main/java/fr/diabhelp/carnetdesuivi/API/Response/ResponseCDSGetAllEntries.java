@@ -36,7 +36,7 @@ public class ResponseCDSGetAllEntries {
                 {
                     if (success == true) {
                         entries = new ArrayList<EntryOfCDS>();
-                        JSONArray arr = JsonUtils.getArray(datas, "0");
+                        JSONArray arr = JsonUtils.getArray(datas, "entries");
                         if (arr != null) {
                             for (int i = 0; i < arr.length(); i++) {
                                 JSONObject jsonEntry = JsonUtils.getObjFromArray(arr, i);
@@ -48,7 +48,6 @@ public class ResponseCDSGetAllEntries {
                                 entry.setAthome(jsonEntry.getInt("athome"));
                                 entry.setAtwork(jsonEntry.getInt("work"));
                                 entry.setBreakfast(jsonEntry.getInt("breakfast"));
-                                entry.setDate(jsonEntry.getString("date"));
                                 entry.setTitle(jsonEntry.getString("title"));
                                 entry.setPlace(jsonEntry.getString("place"));
                                 entry.setGlucide(jsonEntry.getDouble("glucide"));
@@ -71,10 +70,10 @@ public class ResponseCDSGetAllEntries {
                                 SimpleDateFormat simpleFormat = new SimpleDateFormat("MM-dd-yyyy");
                                 SimpleDateFormat simpleFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-                                Long date = jsonEntry.getLong("date");
+                                Long date = jsonEntry.getLong("dateCreation");
                                 System.out.println("timestamp reçu = " + date);
                                 Date d = new Date(date * 1000L);
-                                entry.setDate(simpleFormat.format(d));
+                                entry.setDateCreation(simpleFormat.format(d));
                                 Long dateEdition = jsonEntry.getLong("dateEdition");
                                 Date dEdition = new Date(dateEdition * 1000L);
                                 entry.setDateEdition(simpleFormat2.format(dEdition));

@@ -5,8 +5,8 @@ package fr.diabhelp.carnetdesuivi.Carnet.Statistics;
  */
 
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +21,7 @@ import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
+import fr.diabhelp.carnetdesuivi.R;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
@@ -30,8 +31,6 @@ import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
-
-import fr.diabhelp.carnetdesuivi.R;
 
 public class StatisticsWeekFragment extends Fragment {
 
@@ -100,8 +99,8 @@ public class StatisticsWeekFragment extends Fragment {
             double val = mall.get(j).getglycemy();
             float f = (float) val;
             values.add(new PointValue(j, f));
-            String day = mall.get(j).getDate().toString().substring(3, 5);
-            String month = mall.get(j).getDate().toString().substring(0, 2);
+            String day = mall.get(j).getDateCreation().toString().substring(3, 5);
+            String month = mall.get(j).getDateCreation().toString().substring(0, 2);
             String formated_date = day + "-" + month;
             axisValues.add(new AxisValue(j).setLabel(formated_date));
         }

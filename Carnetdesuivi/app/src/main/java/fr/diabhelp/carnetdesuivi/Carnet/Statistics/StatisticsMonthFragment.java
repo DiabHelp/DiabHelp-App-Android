@@ -4,7 +4,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,8 +90,8 @@ public class StatisticsMonthFragment extends Fragment {
                 values.add(new SubcolumnValue(f, Color.parseColor("#FF4444")));
             else
                 values.add(new SubcolumnValue(f, Color.parseColor("#99CC00")));
-//            String day = mall.get(j).getDate().toString().substring(3, 5);
-//            String month = mall.get(j).getDate().toString().substring(0, 2);
+//            String day = mall.get(j).getDateCreation().toString().substring(3, 5);
+//            String month = mall.get(j).getDateCreation().toString().substring(0, 2);
 //            String formated_date = day + "-" + month;
 //            axisValues.add(new AxisValue(j).setLabel(formated_date));
         }

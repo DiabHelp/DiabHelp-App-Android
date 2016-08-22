@@ -37,73 +37,22 @@ import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
+import fr.diabhelp.carnetdesuivi.Utils.DateUtils;
 
 /**
  * Created by naqued on 27/11/15.
  */
 public class EntryActivity extends AppCompatActivity implements LocationListener {
 
-    private String formattedDate;
-    private EditText time;
-    private DAO dao = null;
-    private SQLiteDatabase db = null;
-
     protected LocationManager locationManager;
-
-    public enum InputType{
-        TITLE(0),
-        PLACE(1),
-        GLUCIDE(2),
-        ACTIVITY(3),
-        ACTIVITYTYPE(4),
-        NOTES(5),
-        DATE(6),
-        FAST_INSU(7),
-        SLOW_INSU(8),
-        HBA1C(9),
-        GLYCEMY(10);
-
-        private final int value;
-
-        private InputType(int v) {
-            this.value = v;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    };
-
-    public enum IconeType{
-        BREAKFAST(0),
-        LAUNCH(1),
-        DINER(2),
-        ENCAS(3),
-        SLEEP(4),
-        WAKEUP(5),
-        NIGHT(6),
-        WORKOUT(7),
-        HYPO(8),
-        HYPER(9),
-        WORK(10),
-        HOME(11),
-        ALCOHOL(12),
-        PERIOD(13);
-
-        private final int value;
-
-        private IconeType(int v) {
-            this.value = v;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    };
-
     List<EditText> _inputlist;
     EntryActivity _this;
     List<Integer> isActiveicon;
+    String _activitycycle;
+    private String formattedDate;;
+    private EditText time;;
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
     private DateMagnifier _dm;
     private String _title;
     private String _place;
@@ -117,9 +66,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     private Double _hba1c;
     private String _hour;
     private Double _glycemy;
-
-
-
     private Integer _launch;
     private Integer _diner;
     private Integer _encas;
@@ -134,9 +80,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
     private Integer _alcohol;
     private Integer _period;
     private Integer _breakfast;
-
-    String _activitycycle;
-
     private Handler_gps _gps;
 
     @Override
@@ -154,8 +97,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
 
-        String myFormat ="MM-dd-yyyy";
-        SimpleDateFormat df = new SimpleDateFormat(myFormat, Locale.US);
+        SimpleDateFormat df = new SimpleDateFormat(DateUtils.DATECREATION_DB_FORMAT, Locale.US);
         formattedDate = df.format(c.getTime());
 
         fill_date();
@@ -176,10 +118,10 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _activityType = intent.getExtras().getString("activityType");
         if (intent.hasExtra("notes"))
             _notes = intent.getExtras().getString("notes");
-        if (intent.hasExtra("fast_insu"))
-            _fast_insu = intent.getExtras().getDouble("fast_insu");
-        if (intent.hasExtra("slow_insu"))
-            _slow_insu = intent.getExtras().getDouble("slow_insu");
+        if (intent.hasExtra("fastInsu"))
+            _fast_insu = intent.getExtras().getDouble("fastInsu");
+        if (intent.hasExtra("slowInsu"))
+            _slow_insu = intent.getExtras().getDouble("slowInsu");
         if (intent.hasExtra("hba1c"))
             _hba1c = intent.getExtras().getDouble("hba1c");
         if (intent.hasExtra("glycemy"))
@@ -210,8 +152,8 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _hypogly = intent.getExtras().getInt("hypogly");
         if (intent.hasExtra("hypergly"))
             _hypergly = intent.getExtras().getInt("hypergly");
-        if (intent.hasExtra("atwork"))
-            _atwork = intent.getExtras().getInt("atwork");
+        if (intent.hasExtra("work"))
+            _atwork = intent.getExtras().getInt("work");
         if (intent.hasExtra("athome"))
             _athome = intent.getExtras().getInt("athome");
         if (intent.hasExtra("alcohol"))
@@ -245,7 +187,6 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         if (intent.hasExtra("date"))
             fill_fields();
     }
-
 
     @Override
     public void onLocationChanged(Location location) {
@@ -294,7 +235,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
 
         // save
         EntryOfCDS entry = new EntryOfCDS(formattedDate);
-
+        entry.setDateEdition(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
 
         String _minute;
         int hours = new Time(System.currentTimeMillis()).getHours();
@@ -305,15 +246,13 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             _minute = String.valueOf(minutes);
         String Hours = String.valueOf(hours) + ":" + _minute;
 
-
-
         entry.setNotes(_inputlist.get(InputType.NOTES.getValue()).getText().toString());
         entry.setPlace(_inputlist.get(InputType.PLACE.getValue()).getText().toString());
         entry.setTitle(_inputlist.get(InputType.TITLE.getValue()).getText().toString());
         entry.setGlucide(_inputlist.get(InputType.GLUCIDE.getValue()).getText().toString());
         entry.setActivity(_inputlist.get(InputType.ACTIVITY.getValue()).getText().toString());
         entry.setActivityType(_inputlist.get(InputType.ACTIVITYTYPE.getValue()).getText().toString());
-        entry.setDate(formattedDate);
+        entry.setDateCreation(formattedDate);
         entry.setFast_insu(_inputlist.get(InputType.FAST_INSU.getValue()).getText().toString());
         entry.setSlow_insu(_inputlist.get(InputType.SLOW_INSU.getValue()).getText().toString());
         entry.setHba1c(_inputlist.get(InputType.HBA1C.getValue()).getText().toString());
@@ -340,13 +279,19 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
             entry.setHour(Hours);
             EntryOfCDSDAO.addDay(entry, db);
             Intent updateServer = new Intent(this, ServerUdpateService.class);
-            System.out.println("je set l'id lors de l'ajout d'une entrée = " + Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
+            System.out.println("je set l'id lors de l'ajout d'une entrée sur le serveur = " + Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
             updateServer.putExtra(ServerUdpateService.EXTRA_ID_USER, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
+            updateServer.putExtra(ServerUdpateService.EXTRA_ACTION, ServerUdpateService.UPDATE);
             startService(updateServer);
         }
         else {
             entry.setHour(_hour);
             EntryOfCDSDAO.update(entry, db);
+            Intent updateServer = new Intent(this, ServerUdpateService.class);
+            System.out.println("je set l'id lors de l'edition d'une entrée sur le serveur = " + Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
+            updateServer.putExtra(ServerUdpateService.EXTRA_ID_USER, Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, ""));
+            updateServer.putExtra(ServerUdpateService.EXTRA_ACTION, ServerUdpateService.UPDATE);
+            startService(updateServer);
         }
         Toast.makeText(this, "Enregistrement efféctué", Toast.LENGTH_LONG).show();
     }
@@ -468,7 +413,7 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
             alertDialog.setTitle("Aucune titre renseigné");
-            alertDialog.setMessage("Vous n'avez renseigné aucun Titre. êtes vous sur de vouloir continuer ?");
+            alertDialog.setMessage("Vous n'avez renseigné aucun titre. êtes vous sur de vouloir continuer ?");
             alertDialog.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     _inputlist.get(InputType.TITLE.getValue()).setText("Sans nom");
@@ -791,6 +736,57 @@ public class EntryActivity extends AppCompatActivity implements LocationListener
         else {
             imghyper.setImageResource(R.drawable.hyper);
             isActiveicon.set(IconeType.HYPER.getValue(), 0);
+        }
+    }
+
+public enum InputType{
+        TITLE(0),
+        PLACE(1),
+        GLUCIDE(2),
+        ACTIVITY(3),
+        ACTIVITYTYPE(4),
+        NOTES(5),
+        DATE(6),
+        FAST_INSU(7),
+        SLOW_INSU(8),
+        HBA1C(9),
+        GLYCEMY(10);
+
+        private final int value;
+
+        private InputType(int v) {
+            this.value = v;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+public enum IconeType{
+        BREAKFAST(0),
+        LAUNCH(1),
+        DINER(2),
+        ENCAS(3),
+        SLEEP(4),
+        WAKEUP(5),
+        NIGHT(6),
+        WORKOUT(7),
+        HYPO(8),
+        HYPER(9),
+        WORK(10),
+        HOME(11),
+        ALCOHOL(12),
+        PERIOD(13);
+
+        private final int value;
+
+        private IconeType(int v) {
+            this.value = v;
+        }
+
+        public int getValue() {
+            return value;
         }
     }
 }

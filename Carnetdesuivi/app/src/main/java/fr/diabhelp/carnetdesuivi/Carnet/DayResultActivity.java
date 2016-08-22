@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import fr.diabhelp.carnetdesuivi.API.ServerUdpateService;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
@@ -25,101 +26,22 @@ import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
 public class DayResultActivity extends AppCompatActivity {
 
     final int sdk = android.os.Build.VERSION.SDK_INT;
-    private DAO dao = null;
-    private SQLiteDatabase db = null;
-
-    public enum TXTedit {
-        DAYTEXT(0),
-        PLACETEXT(1),
-        SPORTDESC(2),
-        SPORTDETAIL(3),
-        GLYCEMIE(4),
-        GLUCIDE(5),
-        FASTINSU(6),
-        SLOWINSU(7),
-        HBA1C(8),
-        HSPORT2(9),
-        NOTES(10),
-        TITLE(11);
-
-        private final int value;
-
-        private TXTedit(int v) {
-            this.value = v;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-    ;
-
-    public enum Linear {
-        BREAKFAST(0),
-        LAUNCH(1),
-        DINER(2),
-        ENCAS(3),
-        SLEEP(4),
-        WAKEUP(5),
-        NIGHT(6),
-        WORKOUT(7),
-        HYPO(8),
-        HYPER(9),
-        WORK(10),
-        HOME(11),
-        ALCOHOL(12),
-        PERIOD(13),
-        SPORT2(14),
-        NOTES(15),
-        PLACE(16),
-        ACTIVITYW(17),
-        ACTIVITYTY(18);
-
-        private final int value;
-
-        private Linear(int v) {
-            this.value = v;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-    ;
-
-    public enum Relative {
-        GLY(0),
-        GLU(1),
-        FAST(2),
-        SLOW(3),
-        HBA1C(4);
-
-
-        private final int value;
-
-        private Relative(int v) {
-            this.value = v;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-    ;
-
     ArrayList<RelativeLayout> _relativeCell;
     ArrayList<LinearLayout> _linearCell;
     ArrayList<TextView> _txtCell;
-
     String _date;
+
+    ;
     String _hour;
+
+    ;
     EntryOfCDS inf;
+
+    ;
     DateMagnifier _mt;
-
-
+    private DAO dao = null;
+    private SQLiteDatabase db = null;
+    private String idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +49,7 @@ public class DayResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resultday);
         dao = DAO.getInstance(this);
         db = dao.open();
+        this.idUser = Carnetdesuivi._settings.getString(Carnetdesuivi.ID_USER, "");
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Entrée détaillé");
         setSupportActionBar(toolbar);
@@ -151,7 +74,6 @@ public class DayResultActivity extends AppCompatActivity {
         initView();
 
     }
-
 
     protected void initView() {
 
@@ -389,12 +311,12 @@ public class DayResultActivity extends AppCompatActivity {
         intent.putExtra("activity", inf.getActivity());
         intent.putExtra("activityType", inf.getActivityType());
         intent.putExtra("notes", inf.getNotes());
-        intent.putExtra("date", inf.getDate());
-        intent.putExtra("fast_insu", inf.getFast_insu());
-        intent.putExtra("slow_insu", inf.getSlow_insu());
+        intent.putExtra("date", inf.getDateCreation());
+        intent.putExtra("fastInsu", inf.getFast_insu());
+        intent.putExtra("slowInsu", inf.getSlow_insu());
         intent.putExtra("hba1c", inf.getHba1c());
         intent.putExtra("hour", inf.getHour());
-        intent.putExtra("date", inf.getDate());
+        intent.putExtra("date", inf.getDateCreation());
 
         intent.putExtra("glycemy", inf.getglycemy());
 
@@ -407,7 +329,7 @@ public class DayResultActivity extends AppCompatActivity {
         intent.putExtra("workout", inf.getWorkout());
         intent.putExtra("hypogly", inf.getHypogly());
         intent.putExtra("hypergly", inf.getHypergly());
-        intent.putExtra("atwork", inf.getAtwork());
+        intent.putExtra("work", inf.getAtwork());
         intent.putExtra("athome", inf.getAthome());
         intent.putExtra("alcohol", inf.getAlcohol());
         intent.putExtra("period", inf.getPeriod());
@@ -426,9 +348,21 @@ public class DayResultActivity extends AppCompatActivity {
                 .setMessage("Vous êtes sur le point de supprimer cette entrée. Etes vous sur de vouloir continuer ?")
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        EntryOfCDSDAO.deleteDay(inf.getDate(), inf.getHour(), db);
+                            try
+                            {
+                                Integer id = EntryOfCDSDAO.selectId(inf.getDateCreation(), inf.getHour(), idUser,  db);
+                                if (id == null)
+                                    throw new NoSuchFieldException("erreur récupération id User pour la suppréssion d'une entrée");
+                                EntryOfCDSDAO.deleteDay(inf.getDateCreation(), inf.getHour(), db);
+                                Intent updateServer = new Intent(DayResultActivity.this, ServerUdpateService.class);
+                                updateServer.putExtra(ServerUdpateService.EXTRA_ID_USER, idUser);
+                                updateServer.putExtra(ServerUdpateService.EXTRA_ACTION, ServerUdpateService.DELETE);
+                                updateServer.putExtra(ServerUdpateService.EXTRA_ID_ENTRY, id);
+                                startService(updateServer);
+                            } catch (NoSuchFieldException e) {
+                                e.printStackTrace();
+                            }
                         Intent intent = new Intent(DayResultActivity.this, Carnetdesuivi.class);
-
                         DayResultActivity.this.startActivity(intent);
                         DayResultActivity.this.finish();
                     }
@@ -441,5 +375,81 @@ public class DayResultActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
 
+    }
+
+    public enum TXTedit {
+        DAYTEXT(0),
+        PLACETEXT(1),
+        SPORTDESC(2),
+        SPORTDETAIL(3),
+        GLYCEMIE(4),
+        GLUCIDE(5),
+        FASTINSU(6),
+        SLOWINSU(7),
+        HBA1C(8),
+        HSPORT2(9),
+        NOTES(10),
+        TITLE(11);
+
+        private final int value;
+
+        private TXTedit(int v) {
+            this.value = v;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum Linear {
+        BREAKFAST(0),
+        LAUNCH(1),
+        DINER(2),
+        ENCAS(3),
+        SLEEP(4),
+        WAKEUP(5),
+        NIGHT(6),
+        WORKOUT(7),
+        HYPO(8),
+        HYPER(9),
+        WORK(10),
+        HOME(11),
+        ALCOHOL(12),
+        PERIOD(13),
+        SPORT2(14),
+        NOTES(15),
+        PLACE(16),
+        ACTIVITYW(17),
+        ACTIVITYTY(18);
+
+        private final int value;
+
+        private Linear(int v) {
+            this.value = v;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum Relative {
+        GLY(0),
+        GLU(1),
+        FAST(2),
+        SLOW(3),
+        HBA1C(4);
+
+
+        private final int value;
+
+        private Relative(int v) {
+            this.value = v;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }

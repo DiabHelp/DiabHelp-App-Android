@@ -9,7 +9,16 @@ import android.util.Log;
  */
 public class DAO {
 
+    // Version++ pour mettre a jour
+    private final static int VERSION_HEAD = 24;
+    // Le nom du fichier qui représente ma base
+    private final static String NOM = "dh_db.db";
     private static DAO instance = null;
+    private SQLiteDatabase mDb = null;
+    private Bdd_manager mHandler = null;
+    private DAO(Context pContext) {
+        this.mHandler = new Bdd_manager(pContext, NOM, null, VERSION_HEAD);
+    }
 
     public static DAO getInstance(Context context)
     {
@@ -18,19 +27,6 @@ public class DAO {
             instance = new DAO(context);
         }
         return (instance);
-    }
-
-    // Version++ pour mettre a jour
-    // private final static int VERSION_HEAD = 19;
-    private final static int VERSION_HEAD = 22;
-    // Le nom du fichier qui représente ma base
-    private final static String NOM = "dh_db.db";
-
-    private SQLiteDatabase mDb = null;
-    private Bdd_manager mHandler = null;
-
-    private DAO(Context pContext) {
-        this.mHandler = new Bdd_manager(pContext, NOM, null, VERSION_HEAD);
     }
 
     public SQLiteDatabase open() {

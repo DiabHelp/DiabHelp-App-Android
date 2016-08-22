@@ -21,6 +21,7 @@
     
     <!-- API-->
     <string name="URL_API">https://diabhelp.org/</string>
+    <string name="URL_API_dev">http://dev.diabhelp.org/</string>
     <string name="mail_loading">Envoi des données..</string>
     <string name="error_server">Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard</string>
     <string name="sending_success">Mail envoyé !</string>

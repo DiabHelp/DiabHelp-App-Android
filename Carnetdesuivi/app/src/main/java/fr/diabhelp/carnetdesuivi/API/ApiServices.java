@@ -3,9 +3,11 @@ package fr.diabhelp.carnetdesuivi.API;
 import java.util.ArrayList;
 
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryToSend;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -27,6 +29,9 @@ public interface ApiServices {
     @GET("/api/carnet/entry/getLastDate/{idUser}")
     Call<ResponseBody> getLastEdition(@Path("idUser") String idUser);
 
-    @POST("/api/carnet/entry/setFromApp")
-    Call<ResponseBody> setMissingEntries(@Body ArrayList<EntryOfCDS> entries);
+    @POST("/api/carnet/entry/setFromApp/{idUser}")
+    Call<ResponseBody> setMissingEntries(@Path("idUser") String idUser, @Body ArrayList<EntryToSend> entries);
+
+    @DELETE("/carnet/entry/delete/{id}/{idUser}")
+    Call<ResponseBody> deleteEntry(@Path("id") String idEntry, @Path("idUser") String idUser);
 }

@@ -5,31 +5,32 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryToSend;
 
 /**
  * Created by Sumbers on 29/06/2016.
  */
 public class EntryOfCDSDAO {
 
-    public static final String Titre = "title";
-    public static final String Lieux = "place";
-    public static final String Date_hour = "date_hour";
+    public static final String id = "id";
+    public static final String idUser = "user_id";
+    public static final String dateCreation = "date_creation";
+    public static final String dateEdition = "date_edition";
+    public static final String titre = "title";
+    public static final String lieux = "place";
     public static final String glucide = "glucide";
     public static final String activity = "activity";
     public static final String activityType = "activity_type";
     public static final String notes = "notes";
-    public static final String fast_insu = "fast_insu";
-    public static final String slow_insu = "slow_insu";
+    public static final String fastInsu = "fastInsu";
+    public static final String slowInsu = "slowInsu";
     public static final String glycemy = "glycemy";
 
-    public static final String tdate = "date";
     public static final String hba1c = "hba1c";
-    public static final String Hour = "hour";
+    public static final String hour = "hour";
 
     public static final String breakfast = "breakfast";
     public static final String launch = "lunch";
@@ -45,30 +46,26 @@ public class EntryOfCDSDAO {
     public static final String athome = "athome";
     public static final String alcohol = "alcohol";
     public static final String period = "period";
-    public static final String sqldate = "rdate";
-    public static final String dateEdition = "date_edition";
-    public static final String idUser = "user_id";
 
     public static final String TABLE_NAME = "Diabhelp_CDS";
 
-    public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + idUser + " INTEGER," + tdate + " TEXT, " + Titre + " TEXT, " + Lieux + " TEXT, " + Date_hour + " TEXT, " + glucide + " DOUBLE, " + activity + " TEXT, " + activityType + " TEXT, " + notes + " TEXT, " + fast_insu + " DOUBLE, " + slow_insu + " DOUBLE, " + hba1c + " DOUBLE, " + Hour + " TEXT, " + glycemy + " DOUBLE, " + breakfast + " INTEGER, " + launch + " INTEGER, " + diner + " INTEGER, " + encas + " INTEGER, " + sleep + " INTEGER, " + wakeup + " INTEGER, " + night + " INTEGER, " + workout + " INTEGER, " + hypogly + " INTEGER, " + hypergly + " INTEGER, " + work + " INTEGER, " + athome + " INTEGER, " + alcohol + " INTEGER, " + period + " INTEGER, " + "rdate datetime default (datetime(current_timestamp)), " + dateEdition + " default (datetime(current_timestamp)));";
+    public static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + id + " INTEGER PRIMARY KEY AUTOINCREMENT, " + idUser + " INTEGER, " + titre + " TEXT, " + lieux + " TEXT, " + dateCreation + " TEXT, " + glucide + " DOUBLE, " + activity + " TEXT, " + activityType + " TEXT, " + notes + " TEXT, " + fastInsu + " DOUBLE, " + slowInsu + " DOUBLE, " + hba1c + " DOUBLE, " + hour + " TEXT, " + glycemy + " DOUBLE, " + breakfast + " INTEGER, " + launch + " INTEGER, " + diner + " INTEGER, " + encas + " INTEGER, " + sleep + " INTEGER, " + wakeup + " INTEGER, " + night + " INTEGER, " + workout + " INTEGER, " + hypogly + " INTEGER, " + hypergly + " INTEGER, " + work + " INTEGER, " + athome + " INTEGER, " + alcohol + " INTEGER, " + period + " INTEGER, " +  dateEdition + " default (datetime(current_timestamp)));";
     public static final String TABLE_DROP = "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
     public static void addDay(EntryOfCDS m, SQLiteDatabase mDb) {
         ContentValues value = new ContentValues();
-        value.put(Titre, m.getTitle());
-        value.put(Lieux, m.getPlace());
-        value.put(Date_hour, m.getDate());
+        value.put(dateCreation, m.getDateCreation());
+        value.put(titre, m.getTitle());
+        value.put(lieux, m.getPlace());
         value.put(glucide, m.getGlucide());
         value.put(activity, m.getActivity());
         value.put(activityType, m.getActivityType());
         value.put(notes, m.getNotes());
-        value.put(slow_insu, m.getSlow_insu());
-        value.put(fast_insu, m.getFast_insu());
+        value.put(slowInsu, m.getSlow_insu());
+        value.put(fastInsu, m.getFast_insu());
         value.put(hba1c, m.getHba1c());
-        value.put(Hour, m.getHour());
+        value.put(hour, m.getHour());
         value.put(glycemy, m.getglycemy());
-        value.put(tdate, m.getDate());
 
         value.put(breakfast, m.getBreakfast());
         value.put(launch, m.getLaunch());
@@ -84,31 +81,29 @@ public class EntryOfCDSDAO {
         value.put(athome, m.getAthome());
         value.put(period, m.getPeriod());
         value.put(alcohol, m.getAlcohol());
-        System.out.println("je set l'id suivant =" + m.getIdUser());
         value.put(idUser, m.getIdUser());
-        Log.e("user id add", "id : " + m.getIdUser());
-        value.put(dateEdition, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
+        value.put(dateEdition, m.getDateEdition());
         mDb.insert(TABLE_NAME, null, value);
     }
 
     public static void deleteDay(String _date, String _hour, SQLiteDatabase mDb) {
-        mDb.delete(TABLE_NAME, tdate + " = ? and " + Hour + " = ?", new String[] {_date, _hour});
+
+        mDb.delete(TABLE_NAME, dateCreation + " = ? and " + hour + " = ?", new String[] {_date, _hour});
     }
 
     public static void update(EntryOfCDS m, SQLiteDatabase mDb) {
         ContentValues value = new ContentValues();
 
-        value.put(Titre, m.getTitle());
-        value.put(Lieux, m.getPlace());
-        value.put(Date_hour, m.getDate());
-        value.put(Hour, m.getHour());
+        value.put(titre, m.getTitle());
+        value.put(lieux, m.getPlace());
+        value.put(dateCreation, m.getDateCreation());
+        value.put(hour, m.getHour());
         value.put(glucide, m.getGlucide());
         value.put(activity, m.getActivity());
         value.put(activityType, m.getActivityType());
         value.put(notes, m.getNotes());
-        value.put(tdate, m.getDate());
-        value.put(fast_insu, m.getFast_insu());
-        value.put(slow_insu, m.getSlow_insu());
+        value.put(fastInsu, m.getFast_insu());
+        value.put(slowInsu, m.getSlow_insu());
         value.put(hba1c, m.getHba1c());
         value.put(glycemy, m.getglycemy());
 
@@ -126,29 +121,28 @@ public class EntryOfCDSDAO {
         value.put(athome, m.getAthome());
         value.put(period, m.getPeriod());
         value.put(alcohol, m.getAlcohol());
-        value.put(dateEdition, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()));
+        value.put(dateEdition, m.getDateEdition());
 
-        mDb.update(TABLE_NAME, value, Date_hour + " = ?" + " and " + Hour + " = ?", new String[]{String.valueOf(m.getDate()), m.getHour() });
+        mDb.update(TABLE_NAME, value, dateCreation + " = ?" + " and " + hour + " = ?", new String[]{String.valueOf(m.getDateCreation()), m.getHour() });
     }
 
     public static ArrayList<EntryOfCDS> selectBetweenDays(String mtDate, String endMtdate, String _idUser, SQLiteDatabase mDb ) {
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
-        Log.e("user id select", "id : " + idUser);
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + tdate + " BETWEEN ? AND ? AND " + idUser + " = ?" , new String[] { mtDate, endMtdate, _idUser} );
+        Log.e("user id select", "id : " + _idUser);
+        System.out.println("from = " + mtDate);
+        System.out.println("to = " + endMtdate);
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + idUser + " = ? AND " + dateCreation + " BETWEEN ? AND ?", new String[]{_idUser, mtDate, endMtdate});
 
         if (c == null)
             Log.e("Status SelectBetweenDay", "False");
 
 
-
         while (c.moveToNext()) {
+            System.out.println("C move to next !");
 
-            String rdate = c.getString(c.getColumnIndex("rdate"));
-
-            String _title = c.getString(c.getColumnIndex(Titre));
-            Log.e("user id select while", "title : " + _title );
-            String _place = c.getString(c.getColumnIndex(Lieux));
+            String _title = c.getString(c.getColumnIndex(titre));
+            String _place = c.getString(c.getColumnIndex(lieux));
             Double _glucide = c.getDouble(c.getColumnIndex(glucide));
             String _activity = c.getString(c.getColumnIndex(activity));
 
@@ -156,13 +150,14 @@ public class EntryOfCDSDAO {
 
             String _notes = c.getString(c.getColumnIndex(notes));
 
-            String _date = c.getString(c.getColumnIndex(Date_hour));
+            String _dateCreation = c.getString(c.getColumnIndex(dateCreation));
+            String _dateEdition = c.getString(c.getColumnIndex(dateEdition));
 
-            Double _fast_insu = c.getDouble(c.getColumnIndex(fast_insu));
-            Double _slow_insu = c.getDouble(c.getColumnIndex(slow_insu));
+            Double _fast_insu = c.getDouble(c.getColumnIndex(fastInsu));
+            Double _slow_insu = c.getDouble(c.getColumnIndex(slowInsu));
             Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
             Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
-            String _hour = c.getString(c.getColumnIndex(Hour));
+            String _hour = c.getString(c.getColumnIndex(hour));
 
             Integer _launch = c.getInt(c.getColumnIndex(launch));
             Integer _diner = c.getInt(c.getColumnIndex(diner));
@@ -179,9 +174,9 @@ public class EntryOfCDSDAO {
             Integer _period = c.getInt(c.getColumnIndex(period));
             Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
 
-            EntryOfCDS m = new EntryOfCDS(_date);
+            EntryOfCDS m = new EntryOfCDS(_dateCreation);
+            m.setDateEdition(_dateEdition);
             m.setIdUser(String.valueOf(_idUser));
-            m.setDate(_date);
             m.setActivity(_activity);
             m.setActivityType(_activityType);
             m.setFast_insu(_fast_insu);
@@ -216,19 +211,23 @@ public class EntryOfCDSDAO {
         return mAll;
     }
 
-    public static ArrayList<EntryOfCDS> selectAll(String id, SQLiteDatabase mDb)
-    {
-        ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + idUser +" = ?"  , new String[] {id});
+    public static ArrayList<EntryToSend> selectBetweenDaysToSend(String mtDate, String endMtdate, String _idUser, SQLiteDatabase mDb ) {
+        ArrayList<EntryToSend> mAll = new ArrayList<EntryToSend>();
+
+        Log.e("user id select", "id : " + _idUser);
+        System.out.println("from = " + mtDate);
+        System.out.println("to = " + endMtdate);
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + idUser + " = ? AND " + dateCreation + " BETWEEN ? AND ?", new String[]{_idUser, mtDate, endMtdate});
+
+        if (c == null)
+            Log.e("Status SelectBetweenDay", "False");
+
 
         while (c.moveToNext()) {
-
-            if (c == null || c.getCount() <= 0)
-                return null;
-
-            Integer _idUser = c.getInt(c.getColumnIndex(idUser));
-            String _title = c.getString(c.getColumnIndex(Titre));
-            String _place = c.getString(c.getColumnIndex(Lieux));
+            System.out.println("C move to next !");
+            Integer _id = c.getInt(c.getColumnIndex(id));
+            String _title = c.getString(c.getColumnIndex(titre));
+            String _place = c.getString(c.getColumnIndex(lieux));
             Double _glucide = c.getDouble(c.getColumnIndex(glucide));
             String _activity = c.getString(c.getColumnIndex(activity));
 
@@ -236,12 +235,14 @@ public class EntryOfCDSDAO {
 
             String _notes = c.getString(c.getColumnIndex(notes));
 
-            String _date = c.getString(c.getColumnIndex(Date_hour));
-            Double _fast_insu = c.getDouble(c.getColumnIndex(fast_insu));
-            Double _slow_insu = c.getDouble(c.getColumnIndex(slow_insu));
+            String _dateCreation = c.getString(c.getColumnIndex(dateCreation));
+            String _dateEdition = c.getString(c.getColumnIndex(dateEdition));
+
+            Double _fast_insu = c.getDouble(c.getColumnIndex(fastInsu));
+            Double _slow_insu = c.getDouble(c.getColumnIndex(slowInsu));
             Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
             Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
-            String _hour = c.getString(c.getColumnIndex(Hour));
+            String _hour = c.getString(c.getColumnIndex(hour));
 
             Integer _launch = c.getInt(c.getColumnIndex(launch));
             Integer _diner = c.getInt(c.getColumnIndex(diner));
@@ -258,12 +259,87 @@ public class EntryOfCDSDAO {
             Integer _period = c.getInt(c.getColumnIndex(period));
             Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
 
-            String _datesql = c.getString(c.getColumnIndex(sqldate));
+            EntryToSend m = new EntryToSend(_id);
+            m.setDateCreation(_dateCreation);
+            m.setDateEdition(_dateEdition);
+            m.setActivity(_activity);
+            m.setActivityType(_activityType);
+            m.setFast_insu(_fast_insu);
+            m.setGlucide(_glucide);
+            m.setNotes(_notes);
+            m.setSlow_insu(_slow_insu);
+            m.setTitle(_title);
+            m.setPlace(_place);
+            m.setHba1c(_hba1c);
+            m.setHour(_hour);
+            m.setGlycemy(_glycemy);
+
+            m.setBreakfast(_breakfast);
+            m.setLaunch(_launch);
+            m.setDiner(_diner);
+            m.setEncas(_encas);
+            m.setSleep(_sleep);
+            m.setWakeup(_wakeup);
+            m.setNight(_night);
+            m.setWorkout(_workout);
+            m.setHypogly(_hypogly);
+            m.setHypergly(_hypergly);
+            m.setWork(_atwork);
+            m.setAthome(_athome);
+            m.setAlcohol(_alcohol);
+            m.setPeriod(_period);
+            mAll.add(m);
+
+        }
+        c.close();
+        return mAll;
+    }
+
+    public static ArrayList<EntryOfCDS> selectAll(String id, SQLiteDatabase mDb)
+    {
+        ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + idUser +" = ?"  , new String[] {id});
+
+        while (c.moveToNext()) {
+
+            if (c == null || c.getCount() <= 0)
+                return null;
+
+            Integer _idUser = c.getInt(c.getColumnIndex(idUser));
+            String _title = c.getString(c.getColumnIndex(titre));
+            String _place = c.getString(c.getColumnIndex(lieux));
+            Double _glucide = c.getDouble(c.getColumnIndex(glucide));
+            String _activity = c.getString(c.getColumnIndex(activity));
+
+            String _activityType = c.getString(c.getColumnIndex(activityType));
+
+            String _notes = c.getString(c.getColumnIndex(notes));
+
+            String _date = c.getString(c.getColumnIndex(dateCreation));
+            Double _fast_insu = c.getDouble(c.getColumnIndex(fastInsu));
+            Double _slow_insu = c.getDouble(c.getColumnIndex(slowInsu));
+            Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
+            Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
+            String _hour = c.getString(c.getColumnIndex(hour));
+
+            Integer _launch = c.getInt(c.getColumnIndex(launch));
+            Integer _diner = c.getInt(c.getColumnIndex(diner));
+            Integer _encas = c.getInt(c.getColumnIndex(encas));
+            Integer _sleep = c.getInt(c.getColumnIndex(sleep));
+            Integer _wakeup = c.getInt(c.getColumnIndex(wakeup));
+            Integer _night = c.getInt(c.getColumnIndex(night));
+            Integer _workout = c.getInt(c.getColumnIndex(workout));
+            Integer _hypogly = c.getInt(c.getColumnIndex(hypogly));
+            Integer _hypergly = c.getInt(c.getColumnIndex(hypergly));
+            Integer _atwork = c.getInt(c.getColumnIndex(work));
+            Integer _athome = c.getInt(c.getColumnIndex(athome));
+            Integer _alcohol = c.getInt(c.getColumnIndex(alcohol));
+            Integer _period = c.getInt(c.getColumnIndex(period));
+            Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
 
             EntryOfCDS m = new EntryOfCDS(_date);
             m.setIdUser(String.valueOf(_idUser));
-            m.setDate(_date);
-            m.setDatesql(_datesql);
+            m.setDateCreation(_date);
             m.setActivity(_activity);
             m.setActivityType(_activityType);
             m.setFast_insu(_fast_insu);
@@ -297,12 +373,92 @@ public class EntryOfCDSDAO {
         return mAll;
     }
 
+    public static ArrayList<EntryToSend> selectAllToSend(String id, SQLiteDatabase mDb)
+    {
+        ArrayList<EntryToSend> mAll = new ArrayList<EntryToSend>();
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " WHERE " + idUser +" = ?"  , new String[] {id});
+
+        while (c.moveToNext()) {
+
+            if (c == null || c.getCount() <= 0)
+                return null;
+
+                Integer _id = c.getInt(c.getColumnIndex(id));
+                String _title = c.getString(c.getColumnIndex(titre));
+                String _place = c.getString(c.getColumnIndex(lieux));
+                Double _glucide = c.getDouble(c.getColumnIndex(glucide));
+                String _activity = c.getString(c.getColumnIndex(activity));
+
+                String _activityType = c.getString(c.getColumnIndex(activityType));
+
+                String _notes = c.getString(c.getColumnIndex(notes));
+
+                String _dateCreation = c.getString(c.getColumnIndex(dateCreation));
+                String _dateEdition = c.getString(c.getColumnIndex(dateEdition));
+
+                Double _fast_insu = c.getDouble(c.getColumnIndex(fastInsu));
+                Double _slow_insu = c.getDouble(c.getColumnIndex(slowInsu));
+                Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
+                Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
+                String _hour = c.getString(c.getColumnIndex(hour));
+
+                Integer _launch = c.getInt(c.getColumnIndex(launch));
+                Integer _diner = c.getInt(c.getColumnIndex(diner));
+                Integer _encas = c.getInt(c.getColumnIndex(encas));
+                Integer _sleep = c.getInt(c.getColumnIndex(sleep));
+                Integer _wakeup = c.getInt(c.getColumnIndex(wakeup));
+                Integer _night = c.getInt(c.getColumnIndex(night));
+                Integer _workout = c.getInt(c.getColumnIndex(workout));
+                Integer _hypogly = c.getInt(c.getColumnIndex(hypogly));
+                Integer _hypergly = c.getInt(c.getColumnIndex(hypergly));
+                Integer _atwork = c.getInt(c.getColumnIndex(work));
+                Integer _athome = c.getInt(c.getColumnIndex(athome));
+                Integer _alcohol = c.getInt(c.getColumnIndex(alcohol));
+                Integer _period = c.getInt(c.getColumnIndex(period));
+                Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
+
+                EntryToSend m = new EntryToSend(_id);
+                m.setDateCreation(_dateCreation);
+                m.setDateEdition(_dateEdition);
+                m.setActivity(_activity);
+                m.setActivityType(_activityType);
+                m.setFast_insu(_fast_insu);
+                m.setGlucide(_glucide);
+                m.setNotes(_notes);
+                m.setSlow_insu(_slow_insu);
+                m.setTitle(_title);
+                m.setPlace(_place);
+                m.setHba1c(_hba1c);
+                m.setHour(_hour);
+                m.setGlycemy(_glycemy);
+
+                m.setBreakfast(_breakfast);
+                m.setLaunch(_launch);
+                m.setDiner(_diner);
+                m.setEncas(_encas);
+                m.setSleep(_sleep);
+                m.setWakeup(_wakeup);
+                m.setNight(_night);
+                m.setWorkout(_workout);
+                m.setHypogly(_hypogly);
+                m.setHypergly(_hypergly);
+                m.setWork(_atwork);
+                m.setAthome(_athome);
+                m.setAlcohol(_alcohol);
+                m.setPeriod(_period);
+                mAll.add(m);
+
+            }
+            c.close();
+            return mAll;
+    }
+
     public static ArrayList<EntryOfCDS> selectAllOneday(String mtDate, String id, SQLiteDatabase mDb)
     {
         EntryOfCDS m = null;
         ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ? AND " + idUser + " = ?"  , new String[] { mtDate, id});
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + dateCreation + " = ? AND " + idUser + " = ?"  , new String[] { mtDate, id});
 
         String[] i = c.getColumnNames();
 
@@ -310,11 +466,10 @@ public class EntryOfCDSDAO {
 
             if (c == null || c.getCount() <= 0)
                 return null;
-            String _date = c.getString(c.getColumnIndex(Date_hour));
+            String _date = c.getString(c.getColumnIndex(dateCreation));
             Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
 
             m = new EntryOfCDS(_date);
-            m.setDateApi(mtDate);
             m.setglycemy(_glycemy);
             mAll.add(m);
         }
@@ -323,34 +478,31 @@ public class EntryOfCDSDAO {
 
     public static EntryOfCDS selectDay(String mtDate, String _hour, String id, SQLiteDatabase mDb) {
         EntryOfCDS m = null;
-        ArrayList<EntryOfCDS> mAll = new ArrayList<EntryOfCDS>();
 
         if (_hour == null)
             _hour = "00h00";
         if (mtDate == null)
             mtDate = "0-0-0";
-        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + Date_hour + " = ?" + " and " + Hour + " = ? AND " + idUser + " = ?" , new String[] { mtDate, _hour, id});
-
-        String[] i = c.getColumnNames();
+        Cursor c = mDb.rawQuery("SELECT * from " + TABLE_NAME + " where " + dateCreation + " = ?" + " and " + hour + " = ? AND " + idUser + " = ?" , new String[] { mtDate, _hour, id});
 
         c.moveToNext();
 
         if (c == null || c.getCount() <= 0)
             return null;
 
-        String _title = c.getString(c.getColumnIndex(Titre));
-        String _place = c.getString(c.getColumnIndex(Lieux));
+        String _title = c.getString(c.getColumnIndex(titre));
+        String _place = c.getString(c.getColumnIndex(lieux));
         Double _glucide = c.getDouble(c.getColumnIndex(glucide));
         String _activity = c.getString(c.getColumnIndex(activity));
-        String _hours = c.getString(c.getColumnIndex(Hour));
+        String _hours = c.getString(c.getColumnIndex(hour));
         String _activityType = c.getString(c.getColumnIndex(activityType));
 
         String _notes = c.getString(c.getColumnIndex(notes));
 
-        String _date = c.getString(c.getColumnIndex(Date_hour));
+        String _date = c.getString(c.getColumnIndex(dateCreation));
 
-        Double _fast_insu = c.getDouble(c.getColumnIndex(fast_insu));
-        Double _slow_insu = c.getDouble(c.getColumnIndex(slow_insu));
+        Double _fast_insu = c.getDouble(c.getColumnIndex(fastInsu));
+        Double _slow_insu = c.getDouble(c.getColumnIndex(slowInsu));
         Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
         Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
         Integer _launch = c.getInt(c.getColumnIndex(launch));
@@ -369,10 +521,9 @@ public class EntryOfCDSDAO {
         Integer _breakfast = c.getInt(c.getColumnIndex(breakfast));
 
         m = new EntryOfCDS(_date);
-        m.setDateApi(mtDate);
         m.setActivity(_activity);
         m.setActivityType(_activityType);
-        m.setDate(_date);
+        m.setDateCreation(_date);
         m.setHour(_hours);
         m.setFast_insu(_fast_insu);
         m.setGlucide(_glucide);
@@ -397,10 +548,23 @@ public class EntryOfCDSDAO {
         m.setAthome(_athome);
         m.setAlcohol(_alcohol);
         m.setPeriod(_period);
-
-        mAll.add(m);
-
         return m;
+    }
+
+    public static Integer selectId(String mtDate, String _hour, String id, SQLiteDatabase mDb)
+    {
+        if (_hour == null)
+            _hour = "00h00";
+        if (mtDate == null)
+            mtDate = "0-0-0";
+        Cursor c = mDb.rawQuery("SELECT "+ EntryOfCDSDAO.id + " from " + TABLE_NAME + " where " + dateCreation + " = ?" + " and " + hour + " = ? AND " + idUser + " = ?" , new String[] { mtDate, _hour, id});
+
+
+        c.moveToNext();
+
+        if (c == null || c.getCount() <= 0)
+            return null;
+        return(c.getInt(c.getColumnIndex(EntryOfCDSDAO.id)));
     }
 
     public static ArrayList<EntryOfCDS> selectDayDateAndIcone(String startDate, String endDate,
@@ -416,7 +580,7 @@ public class EntryOfCDSDAO {
         String[] args = { startDate, endDate, "", "", "", "", "", "", "", "", "", "", "", "",}; // __breakfast, __launch, __diner, __encas, __sleep, __wakeup, __night, __workout, __hypogly, __hypergly, __work, __athome };
         int idx = 2;
 
-        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + tdate + " BETWEEN ? AND ?";
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + dateCreation + " BETWEEN ? AND ?";
 
         if (__breakfast.equals("1") == true) {
             if (idx == 2)
@@ -553,16 +717,16 @@ public class EntryOfCDSDAO {
         }
         while (c.moveToNext()) {
 
-            String _title = c.getString(c.getColumnIndex(Titre));
-            String _place = c.getString(c.getColumnIndex(Lieux));
+            String _title = c.getString(c.getColumnIndex(titre));
+            String _place = c.getString(c.getColumnIndex(lieux));
             Double _glucide = c.getDouble(c.getColumnIndex(glucide));
             String _activity = c.getString(c.getColumnIndex(activity));
-            String _hours = c.getString(c.getColumnIndex(Hour));
+            String _hours = c.getString(c.getColumnIndex(hour));
             String _activityType = c.getString(c.getColumnIndex(activityType));
             String _notes = c.getString(c.getColumnIndex(notes));
-            String _date = c.getString(c.getColumnIndex(Date_hour));
-            Double _fast_insu = c.getDouble(c.getColumnIndex(fast_insu));
-            Double _slow_insu = c.getDouble(c.getColumnIndex(slow_insu));
+            String _date = c.getString(c.getColumnIndex(dateCreation));
+            Double _fast_insu = c.getDouble(c.getColumnIndex(fastInsu));
+            Double _slow_insu = c.getDouble(c.getColumnIndex(slowInsu));
             Double _hba1c = c.getDouble(c.getColumnIndex(hba1c));
             Double _glycemy = c.getDouble(c.getColumnIndex(glycemy));
             Integer _launch = c.getInt(c.getColumnIndex(launch));
@@ -615,7 +779,6 @@ public class EntryOfCDSDAO {
 
     public static String getLastEdition(String userId, SQLiteDatabase mDb)
     {
-        String[] arr = {dateEdition};
         Cursor c = mDb.rawQuery("SELECT " + dateEdition + " FROM " + TABLE_NAME + " WHERE " + idUser + " = ? ORDER BY " + dateEdition + " DESC limit 1", new String[] {userId});
         if (c.moveToFirst() != false)
         {
