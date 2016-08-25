@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="patient_request_accepted_background">#b446ff28</color>
+    <color name="patient_request_refused_background">#b4ff1714</color>
+    <color name="patient_requestlist_waiting_background">#b4ffd81b</color>
+</resources>

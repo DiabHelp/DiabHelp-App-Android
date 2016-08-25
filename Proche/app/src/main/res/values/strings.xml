@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Proche</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="gps_setting_desc">Autoriser les médecins à acceder à la position GPS</string>
+    <string name="data_setting_desc">Autoriser les médecins à acceder aux données médicales</string>
+    <string name="patient_list_lbl">Mes médecins</string>
+    <string name="patient_request_lbl">Invitations en attente</string>
+    <string name="patient_request_refuse_btn_lbl">Refuser</string>
+    <string name="patient_request_accept_btn_lbl">Accepter</string>
+    <string name="undefined">undefined</string>
+    <string name="patient_list_remove_btn">Remove</string>
+    <string name="patient_request_accepted_lbl">Requête acceptée</string>
+    <string name="patient_request_refused_lbl">Requête refusée</string>
+    <string name="patient_requestlist_waiting_lbl">Traitement en cours...</string>
+    <string name="patient_list_removed_lbl">Médecin supprimé</string>
+</resources>
