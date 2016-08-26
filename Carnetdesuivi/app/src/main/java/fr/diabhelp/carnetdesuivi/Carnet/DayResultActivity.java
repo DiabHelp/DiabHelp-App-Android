@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fr.diabhelp.carnetdesuivi.API.ServerUdpateService;
+import fr.diabhelp.carnetdesuivi.API.Service.ServerUdpateService;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;

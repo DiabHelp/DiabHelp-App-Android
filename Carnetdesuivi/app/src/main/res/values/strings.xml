@@ -30,5 +30,14 @@
     <string name="hyposhort">Hypo</string>
     <string name="hypershort">Hyper</string>
 
+    <!--EXPORT-->
+    <string name="export_period_required">Veuillez remplir la pèriode désirée pour l\'export</string>
+    <string name="export_begin_date_required">La date de début n\'a pas été remplis</string>
+    <string name="export_end_date_required">La date de fin n\'a pas été remplis</string>
+    <string name="export_begin_date_incorrect">La date de début doit être antérieure à la date courante</string>
+    <string name="export_end_date_incorrect">La date de fin doit être antérieure à la date courante</string>
+    <string name="export_end_date_before_begin_date">La date de fin doit être postérieure à la date de début</string>
+    <string name="mail_incorrect">L\'adresse mail est incorrect</string>
+
 
 </resources>

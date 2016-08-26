@@ -29,7 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import fr.diabhelp.carnetdesuivi.API.ServerUdpateService;
+import fr.diabhelp.carnetdesuivi.API.Service.ServerUdpateService;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;

@@ -1,4 +1,4 @@
-package fr.diabhelp.carnetdesuivi.API;
+package fr.diabhelp.carnetdesuivi.API.Service;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import fr.diabhelp.carnetdesuivi.API.ApiServices;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetLastEdition;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSetMissingEntries;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;

@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import fr.diabhelp.carnetdesuivi.API.ApiServices;
-import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
-import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
-import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
+import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryToSend;
+import fr.diabhelp.carnetdesuivi.Carnetdesuivi;
 import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.JsonUtils;
 import okhttp3.OkHttpClient;
@@ -31,11 +31,13 @@ public class ExportAPICallTask extends AsyncTask<String, String, ResponseMail> {
     private ProgressDialog progress;
     private Context _context;
     private IApiCallTask _listener;
-    private ArrayList<EntryOfCDS> _entries;
+    private String _idUser;
+    private ArrayList<EntryToSend> _entries;
 
-    public ExportAPICallTask(Context context, IApiCallTask listener, ArrayList<EntryOfCDS> entries) {
+    public ExportAPICallTask(Context context, IApiCallTask listener, String idUser, ArrayList<EntryToSend> entries) {
         this._context = context;
         this._listener = listener;
+        this._idUser = idUser;
         this._entries = entries;
     }
 
@@ -54,7 +56,7 @@ public class ExportAPICallTask extends AsyncTask<String, String, ResponseMail> {
         Call<ResponseBody> call = null;
         ResponseMail reponseMail = null;
         ApiServices service = createService();
-        call = service.sendEmail(params[0], _entries);
+        call = service.sendEmail(_idUser, params[0], _entries);
         try{
             Response<ResponseBody> reponse = call.execute();
             if (reponse.isSuccess()) {

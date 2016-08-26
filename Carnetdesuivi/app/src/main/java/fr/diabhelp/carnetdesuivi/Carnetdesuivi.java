@@ -14,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,10 +32,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -44,17 +47,19 @@ import java.util.Map;
 import fr.diabhelp.carnetdesuivi.API.IApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseCDSGetAllEntries;
 import fr.diabhelp.carnetdesuivi.API.Response.ResponseMail;
-import fr.diabhelp.carnetdesuivi.API.ServerUdpateService;
+import fr.diabhelp.carnetdesuivi.API.Service.ServerUdpateService;
 import fr.diabhelp.carnetdesuivi.API.Task.BddSyncrhroCDSGetAllEntriesApiCallTask;
 import fr.diabhelp.carnetdesuivi.API.Task.ExportAPICallTask;
 import fr.diabhelp.carnetdesuivi.BDD.DAO;
 import fr.diabhelp.carnetdesuivi.BDD.EntryOfCDSDAO;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
+import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryToSend;
 import fr.diabhelp.carnetdesuivi.Carnet.DayResultActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.EntryActivity;
 import fr.diabhelp.carnetdesuivi.Carnet.ExpandableListAdapters;
 import fr.diabhelp.carnetdesuivi.Carnet.Statistics.StatisticsActivity;
 import fr.diabhelp.carnetdesuivi.Utils.DateMagnifier;
+import fr.diabhelp.carnetdesuivi.Utils.DateUtils;
 import fr.diabhelp.carnetdesuivi.Utils.MyToast;
 import fr.diabhelp.carnetdesuivi.Utils.NetBroadcast.ConnectivityReceiver;
 import fr.diabhelp.carnetdesuivi.Utils.SharedContext;
@@ -436,7 +441,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         int today[] = getDate();
         int idx = 0;
 
-        int iYear = today[2]; //TODO attention a rendre dynamique
+        int iYear = today[2];
         int iMonth = Calendar.FEBRUARY;
         int iDay = 1;
 
@@ -473,8 +478,8 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     }
 
     private void updateLabel() {
-        String myFormat = "MM-dd-yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(DateUtils.DATECREATION_DB_FORMAT, Locale.US);
 
         inputdateus[whichInput] = sdf.format(myCalendar.getTime());
         inputdate[whichInput].setText(_dm.getCleanDate(sdf.format(myCalendar.getTime())));
@@ -490,7 +495,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             return ;
         }
         final View alertDialogView = factory.inflate(R.layout.alert_export, null);
-        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        final AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setView(alertDialogView);
         adb.setTitle("Exporter votre carnet de suivi");
         adb.setIcon(R.drawable.diab_logo);
@@ -499,11 +504,11 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
         inputdate = new EditText[2];
         myCalendar = Calendar.getInstance();
 
-        EditText begin = (EditText)alertDialogView.findViewById(R.id.date_begin);
-        final EditText endin = (EditText)alertDialogView.findViewById(R.id.date_end);
+        final EditText begin = (EditText)alertDialogView.findViewById(R.id.date_begin);
+        final EditText ending = (EditText)alertDialogView.findViewById(R.id.date_end);
 
         begin.setFocusable(false);
-        endin.setFocusable(false);
+        ending.setFocusable(false);
 
         final DatePickerDialog.OnDateSetListener datepicker = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -528,7 +533,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
             }
         });
 
-        endin.setOnClickListener(new View.OnClickListener() {
+        ending.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -541,39 +546,12 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
 
 
         inputdate[0] = begin;
-        inputdate[1] = endin;
+        inputdate[1] = ending;
 
         adb.setPositiveButton("Envoyer par mail", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
-                //Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
-/*                EditText beg = (EditText)alertDialogView.findViewById(R.id.date_begin);
-                EditText end = (EditText)alertDialogView.findViewById(R.id.date_end);*/
-                EditText mail = (EditText)alertDialogView.findViewById(R.id.mail_addr);
-
-                if (inputdateus[0].isEmpty())
-                    Toast.makeText(Carnetdesuivi.this, "La date de début n'a pas été remplis", Toast.LENGTH_SHORT).show();
-                else if (inputdateus[1].isEmpty())
-                    Toast.makeText(Carnetdesuivi.this, "La date de fin n'a pas été remplis", Toast.LENGTH_SHORT).show();
-                else {
-                    ArrayList<EntryOfCDS> entryOfCDSes = EntryOfCDSDAO.selectBetweenDays(inputdateus[0], inputdateus[1], idUser, Carnetdesuivi.this.db);
-                    if (mail.getText().toString().isEmpty()) {
-                        myemail = null;
-                    }
-                    else
-                        myemail = mail.getText().toString();
-                    if (entryOfCDSes != null && !entryOfCDSes.isEmpty()) {
-                        System.out.println("context = [" + Carnetdesuivi.this + "] listener = [" + (IApiCallTask) Carnetdesuivi.this + "] entries = [" + entryOfCDSes + "]");
-                        new ExportAPICallTask(Carnetdesuivi.this, (IApiCallTask) Carnetdesuivi.this, entryOfCDSes).execute(token);
-                    }
-                    else {
-                        MyToast.getInstance().displayWarningMessage("Il n'y a pas d'entrées sur cette periode", Toast.LENGTH_LONG, Carnetdesuivi.this);
-                    }
-                }
-
-                //On affiche dans un Toast le texte contenu dans l'EditText de notre AlertDialog
-
-            } });
+            }
+        });
 
         adb.setNegativeButton("Annuler",
                 new DialogInterface.OnClickListener() {
@@ -582,7 +560,65 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
 
                     }
                 });
-        adb.show();
+        final AlertDialog dialog = adb.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText mail = (EditText) alertDialogView.findViewById(R.id.mail_addr);
+                TextView error = (TextView) alertDialogView.findViewById(R.id.error_message);
+                System.out.println("cacaprout");
+                try {
+                    //Lorsque l'on cliquera sur le bouton "OK", on récupère l'EditText correspondant à notre vue personnalisée (cad à alertDialogView)
+//                EditText beg = (EditText)alertDialogView.findViewById(R.id.date_begin);
+//                EditText end = (EditText)alertDialogView.findViewById(R.id.date_end);
+
+                    SimpleDateFormat sdf = new SimpleDateFormat(DateUtils.DATECREATION_DB_FORMAT);
+                    if (inputdateus[0] == null && inputdateus[1] == null)
+                        throw new NoSuchFieldException(getString(R.string.export_period_required));
+                    else if (inputdateus[0] == null)
+                        throw new NoSuchFieldException(getString(R.string.export_begin_date_required));
+                    else if (inputdateus[1] == null)
+                        throw new NoSuchFieldException(getString(R.string.export_end_date_required));
+                    else {
+                        if (sdf.parse(inputdateus[0]).after(new Date()))
+                            throw new NoSuchFieldException(getString(R.string.export_begin_date_incorrect));
+                        else if (sdf.parse(inputdateus[1]).after(new Date()))
+                            throw new NoSuchFieldException(getString(R.string.export_end_date_incorrect));
+                        else if (sdf.parse(inputdateus[0]).after(sdf.parse(inputdateus[1])))
+                            throw new NoSuchFieldException(getString(R.string.export_end_date_before_begin_date));
+                        else {
+                            ArrayList<EntryToSend> entryOfCDSes = EntryOfCDSDAO.selectBetweenDaysToSend(inputdateus[0], inputdateus[1], idUser, Carnetdesuivi.this.db);
+                            if (mail.getText().toString().isEmpty())
+                                myemail = null;
+                            else {
+                                myemail = mail.getText().toString();
+                                if (myemail.matches(Patterns.EMAIL_ADDRESS.pattern()) == false)
+                                    throw new NoSuchFieldException(getString(R.string.mail_incorrect));
+
+                            }
+                            if (entryOfCDSes != null && !entryOfCDSes.isEmpty()) {
+                                System.out.println("context = [" + Carnetdesuivi.this + "] listener = [" + (IApiCallTask) Carnetdesuivi.this + "] entries = [" + entryOfCDSes + "]");
+                                new ExportAPICallTask(Carnetdesuivi.this, (IApiCallTask) Carnetdesuivi.this, idUser, entryOfCDSes).execute(myemail);
+                                dialog.dismiss();
+                            } else {
+                                throw new NoSuchFieldException("Il n'y a pas d'entrées sur cette periode");
+                            }
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    error.setVisibility(View.VISIBLE);
+                    error.setText("Une erreur est survenue");
+                } catch (NoSuchFieldException e) {
+                    System.out.println("no such field exception");
+                    error.setVisibility(View.VISIBLE);
+                    error.setText(e.getMessage());
+                }
+            }
+        });
+
     }
 
     @Override

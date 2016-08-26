@@ -9,7 +9,19 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ab32748-c3df-4738-81f3-d55263a2bb1f" name="Default" comment="ajout route update et delete des entrées + mise à jour interface d'ajout d'une entrée" />
+    <list default="true" id="5ab32748-c3df-4738-81f3-d55263a2bb1f" name="Default" comment="ajout route update et delete des entrées + mise à jour interface d'ajout d'une entrée">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseMail.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseMail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/ExportAPICallTask.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/ExportAPICallTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/alert_export.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/alert_export.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java" afterPath="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Service/ServerUdpateService.java" />
+    </list>
     <ignored path="Carnetdesuivi.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,346 +36,135 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <PATH>
+              <PATH_ELEMENT>
+                <option name="myItemId" value="" />
+                <option name="myItemType" value="com.intellij.openapi.externalSystem.view.ExternalProjectsStructure$RootNode" />
+              </PATH_ELEMENT>
+              <PATH_ELEMENT>
+                <option name="myItemId" value="Carnetdesuivi" />
+                <option name="myItemType" value="com.intellij.openapi.externalSystem.view.ProjectNode" />
+              </PATH_ELEMENT>
+            </PATH>
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="Carnetdesuivi" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="EntryOfCDSDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java">
+      <file leaf-file-name="Carnetdesuivi.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+            <state vertical-scroll-proportion="-7.6944447">
+              <caret line="628" column="52" selection-start-line="628" selection-start-column="37" selection-end-line="628" selection-end-column="52" />
               <folding>
-                <element signature="imports" expanded="false" />
+                <element signature="e#5096#5126#0" expanded="true" />
+                <element signature="e#20066#20496#0" expanded="true" />
+                <element signature="e#20495#20496#0" expanded="true" />
+                <element signature="e#21635#21830#0" expanded="true" />
+                <element signature="e#21829#21830#0" expanded="true" />
+                <element signature="e#21978#25649#0" expanded="true" />
+                <element signature="e#22884#22926#0" expanded="true" />
+                <element signature="e#23037#23083#0" expanded="true" />
+                <element signature="e#23194#23238#0" expanded="true" />
+                <element signature="e#23400#23447#0" expanded="true" />
+                <element signature="e#23587#23632#0" expanded="true" />
+                <element signature="e#23787#23840#0" expanded="true" />
+                <element signature="e#24426#24460#0" expanded="true" />
+                <element signature="e#25648#25649#0" expanded="true" />
+                <element signature="e#27034#27069#0" expanded="true" />
+                <element signature="e#27313#27345#0" expanded="true" />
+                <element signature="e#27598#27630#0" expanded="true" />
+                <element signature="e#27884#27916#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BddSyncrhroCDSGetAllEntriesApiCallTask.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java">
+      <file leaf-file-name="ExportAPICallTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/ExportAPICallTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.333333">
-              <caret line="79" column="89" selection-start-line="79" selection-start-column="89" selection-end-line="79" selection-end-column="89" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="57" column="12" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EntryToSend.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryToSend.java">
+      <file leaf-file-name="ResponseMail.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseMail.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#4103#4104#0" expanded="false" />
-                <element signature="e#4128#4129#0" expanded="false" />
-                <element signature="e#4165#4166#0" expanded="false" />
-                <element signature="e#4193#4194#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="entry_activity.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9426336">
-              <caret line="824" column="15" selection-start-line="824" selection-start-column="15" selection-end-line="824" selection-end-column="15" />
-              <folding>
-                <element signature="e#1654#1689#0" expanded="true" />
-                <element signature="e#5522#5555#0" expanded="true" />
-                <element signature="e#6823#6856#0" expanded="true" />
-                <element signature="e#8174#8207#0" expanded="true" />
-                <element signature="e#9525#9558#0" expanded="true" />
-                <element signature="e#10869#10902#0" expanded="true" />
-                <element signature="e#12212#12245#0" expanded="true" />
-                <element signature="e#13554#13587#0" expanded="true" />
-                <element signature="e#14885#14918#0" expanded="true" />
-                <element signature="e#16272#16305#0" expanded="true" />
-                <element signature="e#18030#18063#0" expanded="true" />
-                <element signature="e#18447#18476#0" expanded="true" />
-                <element signature="e#18527#18557#0" expanded="true" />
-                <element signature="e#19017#19045#0" expanded="true" />
-                <element signature="e#19087#19105#0" expanded="true" />
-                <element signature="e#19151#19175#0" expanded="true" />
-                <element signature="e#19628#19661#0" expanded="true" />
-                <element signature="e#19712#19743#0" expanded="true" />
-                <element signature="e#20065#20094#0" expanded="true" />
-                <element signature="e#20145#20175#0" expanded="true" />
-                <element signature="e#20634#20662#0" expanded="true" />
-                <element signature="e#20704#20720#0" expanded="true" />
-                <element signature="e#20766#20790#0" expanded="true" />
-                <element signature="e#21240#21273#0" expanded="true" />
-                <element signature="e#21650#21679#0" expanded="true" />
-                <element signature="e#21730#21760#0" expanded="true" />
-                <element signature="e#22266#22281#0" expanded="true" />
-                <element signature="e#22327#22351#0" expanded="true" />
-                <element signature="e#22801#22834#0" expanded="true" />
-                <element signature="e#22885#22916#0" expanded="true" />
-                <element signature="e#23236#23265#0" expanded="true" />
-                <element signature="e#23316#23346#0" expanded="true" />
-                <element signature="e#23810#23838#0" expanded="true" />
-                <element signature="e#23880#23895#0" expanded="true" />
-                <element signature="e#23941#23965#0" expanded="true" />
-                <element signature="e#24417#24450#0" expanded="true" />
-                <element signature="e#24501#24532#0" expanded="true" />
-                <element signature="e#24854#24883#0" expanded="true" />
-                <element signature="e#24934#24964#0" expanded="true" />
-                <element signature="e#25426#25454#0" expanded="true" />
-                <element signature="e#25496#25511#0" expanded="true" />
-                <element signature="e#25557#25581#0" expanded="true" />
-                <element signature="e#26032#26065#0" expanded="true" />
-                <element signature="e#26116#26147#0" expanded="true" />
-                <element signature="e#26468#26497#0" expanded="true" />
-                <element signature="e#26548#26578#0" expanded="true" />
-                <element signature="e#27037#27065#0" expanded="true" />
-                <element signature="e#27107#27123#0" expanded="true" />
-                <element signature="e#27169#27193#0" expanded="true" />
-                <element signature="e#27643#27676#0" expanded="true" />
-                <element signature="e#27727#27758#0" expanded="true" />
-                <element signature="e#28077#28106#0" expanded="true" />
-                <element signature="e#28157#28187#0" expanded="true" />
-                <element signature="e#28644#28672#0" expanded="true" />
-                <element signature="e#28714#28729#0" expanded="true" />
-                <element signature="e#28775#28799#0" expanded="true" />
-                <element signature="e#29250#29283#0" expanded="true" />
-                <element signature="e#29334#29365#0" expanded="true" />
-                <element signature="e#29687#29716#0" expanded="true" />
-                <element signature="e#29767#29797#0" expanded="true" />
-                <element signature="e#30255#30283#0" expanded="true" />
-                <element signature="e#30325#30342#0" expanded="true" />
-                <element signature="e#30388#30412#0" expanded="true" />
-                <element signature="e#30862#30895#0" expanded="true" />
-                <element signature="e#30946#30977#0" expanded="true" />
-                <element signature="e#31295#31324#0" expanded="true" />
-                <element signature="e#31375#31405#0" expanded="true" />
-                <element signature="e#31861#31889#0" expanded="true" />
-                <element signature="e#31931#31952#0" expanded="true" />
-                <element signature="e#31998#32022#0" expanded="true" />
-                <element signature="e#32473#32506#0" expanded="true" />
-                <element signature="e#32557#32588#0" expanded="true" />
-                <element signature="e#32908#32937#0" expanded="true" />
-                <element signature="e#32988#33018#0" expanded="true" />
-                <element signature="e#33476#33504#0" expanded="true" />
-                <element signature="e#33546#33568#0" expanded="true" />
-                <element signature="e#33614#33638#0" expanded="true" />
-                <element signature="e#34091#34124#0" expanded="true" />
-                <element signature="e#34175#34206#0" expanded="true" />
-                <element signature="e#34524#34553#0" expanded="true" />
-                <element signature="e#34604#34634#0" expanded="true" />
-                <element signature="e#35090#35118#0" expanded="true" />
-                <element signature="e#35160#35174#0" expanded="true" />
-                <element signature="e#35220#35244#0" expanded="true" />
-                <element signature="e#35694#35727#0" expanded="true" />
-                <element signature="e#35778#35809#0" expanded="true" />
-                <element signature="e#36127#36156#0" expanded="true" />
-                <element signature="e#36207#36237#0" expanded="true" />
-                <element signature="e#36693#36721#0" expanded="true" />
-                <element signature="e#36763#36777#0" expanded="true" />
-                <element signature="e#36823#36847#0" expanded="true" />
-                <element signature="e#37300#37333#0" expanded="true" />
-                <element signature="e#37384#37415#0" expanded="true" />
-                <element signature="e#37796#37825#0" expanded="true" />
-                <element signature="e#37876#37906#0" expanded="true" />
-                <element signature="e#38366#38394#0" expanded="true" />
-                <element signature="e#38436#38453#0" expanded="true" />
-                <element signature="e#38499#38523#0" expanded="true" />
-                <element signature="e#38975#39008#0" expanded="true" />
-                <element signature="e#39059#39090#0" expanded="true" />
-                <element signature="e#39470#39499#0" expanded="true" />
-                <element signature="e#39550#39580#0" expanded="true" />
-                <element signature="e#40040#40068#0" expanded="true" />
-                <element signature="e#40110#40126#0" expanded="true" />
-                <element signature="e#40172#40196#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="entry_activity_tmp.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity_tmp.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.9076924">
-              <caret line="754" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="824" selection-end-column="15" />
-              <folding>
-                <element signature="e#1654#1689#0" expanded="true" />
-                <element signature="e#5522#5555#0" expanded="true" />
-                <element signature="e#6823#6856#0" expanded="true" />
-                <element signature="e#8174#8207#0" expanded="true" />
-                <element signature="e#9525#9558#0" expanded="true" />
-                <element signature="e#10869#10902#0" expanded="true" />
-                <element signature="e#12212#12245#0" expanded="true" />
-                <element signature="e#13554#13587#0" expanded="true" />
-                <element signature="e#14885#14918#0" expanded="true" />
-                <element signature="e#16272#16305#0" expanded="true" />
-                <element signature="e#18133#18166#0" expanded="true" />
-                <element signature="e#18447#18476#0" expanded="true" />
-                <element signature="e#18527#18557#0" expanded="true" />
-                <element signature="e#18957#18985#0" expanded="true" />
-                <element signature="e#19031#19055#0" expanded="true" />
-                <element signature="e#19097#19115#0" expanded="true" />
-                <element signature="e#19672#19703#0" expanded="true" />
-                <element signature="e#19756#19789#0" expanded="true" />
-                <element signature="e#20065#20094#0" expanded="true" />
-                <element signature="e#20145#20175#0" expanded="true" />
-                <element signature="e#20574#20602#0" expanded="true" />
-                <element signature="e#20648#20672#0" expanded="true" />
-                <element signature="e#20714#20730#0" expanded="true" />
-                <element signature="e#21343#21376#0" expanded="true" />
-                <element signature="e#21650#21679#0" expanded="true" />
-                <element signature="e#21730#21760#0" expanded="true" />
-                <element signature="e#22210#22234#0" expanded="true" />
-                <element signature="e#22276#22291#0" expanded="true" />
-                <element signature="e#22845#22876#0" expanded="true" />
-                <element signature="e#22929#22962#0" expanded="true" />
-                <element signature="e#23236#23265#0" expanded="true" />
-                <element signature="e#23316#23346#0" expanded="true" />
-                <element signature="e#23750#23778#0" expanded="true" />
-                <element signature="e#23824#23848#0" expanded="true" />
-                <element signature="e#23890#23905#0" expanded="true" />
-                <element signature="e#24461#24492#0" expanded="true" />
-                <element signature="e#24545#24578#0" expanded="true" />
-                <element signature="e#24854#24883#0" expanded="true" />
-                <element signature="e#24934#24964#0" expanded="true" />
-                <element signature="e#25366#25394#0" expanded="true" />
-                <element signature="e#25440#25464#0" expanded="true" />
-                <element signature="e#25506#25521#0" expanded="true" />
-                <element signature="e#26076#26107#0" expanded="true" />
-                <element signature="e#26160#26193#0" expanded="true" />
-                <element signature="e#26468#26497#0" expanded="true" />
-                <element signature="e#26548#26578#0" expanded="true" />
-                <element signature="e#26977#27005#0" expanded="true" />
-                <element signature="e#27051#27075#0" expanded="true" />
-                <element signature="e#27117#27133#0" expanded="true" />
-                <element signature="e#27687#27718#0" expanded="true" />
-                <element signature="e#27771#27804#0" expanded="true" />
-                <element signature="e#28077#28106#0" expanded="true" />
-                <element signature="e#28157#28187#0" expanded="true" />
-                <element signature="e#28584#28612#0" expanded="true" />
-                <element signature="e#28658#28682#0" expanded="true" />
-                <element signature="e#28724#28739#0" expanded="true" />
-                <element signature="e#29294#29325#0" expanded="true" />
-                <element signature="e#29378#29411#0" expanded="true" />
-                <element signature="e#29687#29716#0" expanded="true" />
-                <element signature="e#29767#29797#0" expanded="true" />
-                <element signature="e#30195#30223#0" expanded="true" />
-                <element signature="e#30269#30293#0" expanded="true" />
-                <element signature="e#30335#30352#0" expanded="true" />
-                <element signature="e#30906#30937#0" expanded="true" />
-                <element signature="e#30990#31023#0" expanded="true" />
-                <element signature="e#31295#31324#0" expanded="true" />
-                <element signature="e#31375#31405#0" expanded="true" />
-                <element signature="e#31801#31829#0" expanded="true" />
-                <element signature="e#31875#31899#0" expanded="true" />
-                <element signature="e#31941#31962#0" expanded="true" />
-                <element signature="e#32517#32548#0" expanded="true" />
-                <element signature="e#32601#32634#0" expanded="true" />
-                <element signature="e#32908#32937#0" expanded="true" />
-                <element signature="e#32988#33018#0" expanded="true" />
-                <element signature="e#33416#33444#0" expanded="true" />
-                <element signature="e#33490#33514#0" expanded="true" />
-                <element signature="e#33556#33578#0" expanded="true" />
-                <element signature="e#34135#34166#0" expanded="true" />
-                <element signature="e#34219#34252#0" expanded="true" />
-                <element signature="e#34524#34553#0" expanded="true" />
-                <element signature="e#34604#34634#0" expanded="true" />
-                <element signature="e#35030#35058#0" expanded="true" />
-                <element signature="e#35104#35128#0" expanded="true" />
-                <element signature="e#35170#35184#0" expanded="true" />
-                <element signature="e#35738#35769#0" expanded="true" />
-                <element signature="e#35822#35855#0" expanded="true" />
-                <element signature="e#36127#36156#0" expanded="true" />
-                <element signature="e#36207#36237#0" expanded="true" />
-                <element signature="e#36633#36661#0" expanded="true" />
-                <element signature="e#36707#36731#0" expanded="true" />
-                <element signature="e#36773#36787#0" expanded="true" />
-                <element signature="e#37344#37375#0" expanded="true" />
-                <element signature="e#37428#37461#0" expanded="true" />
-                <element signature="e#37796#37825#0" expanded="true" />
-                <element signature="e#37876#37906#0" expanded="true" />
-                <element signature="e#38306#38334#0" expanded="true" />
-                <element signature="e#38380#38404#0" expanded="true" />
-                <element signature="e#38446#38463#0" expanded="true" />
-                <element signature="e#39019#39050#0" expanded="true" />
-                <element signature="e#39103#39136#0" expanded="true" />
-                <element signature="e#39470#39499#0" expanded="true" />
-                <element signature="e#39550#39580#0" expanded="true" />
-                <element signature="e#39980#40008#0" expanded="true" />
-                <element signature="e#40054#40078#0" expanded="true" />
-                <element signature="e#40120#40136#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_resultday.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_resultday.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.7425742">
-              <caret line="921" column="35" selection-start-line="921" selection-start-column="35" selection-end-line="921" selection-end-column="35" />
+              <caret line="41" column="58" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
         </entry>
       </file>
-      <file leaf-file-name="DayResultActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.861111">
-              <caret line="434" column="5" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
-              <folding>
-                <element signature="e#1911#2167#0" expanded="false" />
-                <element signature="e#2166#2167#0" expanded="false" />
-                <element signature="e#17151#18625#0" expanded="false" />
-                <element signature="e#18624#18625#0" expanded="false" />
-                <element signature="e#18669#18863#0" expanded="false" />
-                <element signature="e#18862#18863#0" expanded="false" />
-                <element signature="e#19298#19299#0" expanded="false" />
-                <element signature="e#19336#19337#0" expanded="false" />
-                <element signature="e#19369#19370#0" expanded="false" />
-                <element signature="e#19405#19406#0" expanded="false" />
-                <element signature="e#19873#19874#0" expanded="false" />
-                <element signature="e#19911#19912#0" expanded="false" />
-                <element signature="e#19944#19945#0" expanded="false" />
-                <element signature="e#19980#19981#0" expanded="false" />
-                <element signature="e#20168#20169#0" expanded="false" />
-                <element signature="e#20206#20207#0" expanded="false" />
-                <element signature="e#20239#20240#0" expanded="false" />
-                <element signature="e#20275#20276#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerUdpateService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java">
+      <file leaf-file-name="ResponseCDSGetLastEdition.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetLastEdition.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="153" column="89" selection-start-line="151" selection-start-column="7" selection-end-line="153" selection-end-column="89" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <caret line="48" column="53" selection-start-line="47" selection-start-column="11" selection-end-line="48" selection-end-column="53" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiServices.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BddSyncrhroCDSGetLastEditionApiCallTask.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetLastEditionApiCallTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResponseCDSetMissingEntries.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSetMissingEntries.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApiServices.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java">
           <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.2281106">
+              <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PartMap.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/PartMap.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
+              <caret line="39" column="10" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Part.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Part.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="51" column="18" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -2058,8 +1859,11 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/NetBroadcast/ConnectivityReceiver.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/EntryActivity.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Service/ServerUdpateService.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -2070,6 +1874,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/entry_activity_tmp.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/ExportAPICallTask.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/alert_export.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseMail.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java" />
       </list>
     </option>
   </component>
@@ -2106,6 +1916,8 @@
     <panes>
       <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2138,52 +1950,12 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Carnetdesuivi" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="carnetdesuivi" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Carnetdesuivi" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="carnetdesuivi" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Carnet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2243,11 +2015,35 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="carnetdesuivi" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="API" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Response" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Carnetdesuivi" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2257,7 +2053,7 @@
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="device.picker.selection" value="Nexus_5X_API_22" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../zoneDeTest/Diabhelp" />
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -2546,15 +2342,14 @@
     <frame x="-9" y="-9" width="1932" height="1092" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.70144284" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32096773" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.94783574" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32096773" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2563,18 +2358,19 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295699" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -2604,7 +2400,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="790" column="32" selection-start-line="790" selection-start-column="32" selection-end-line="790" selection-end-column="32" />
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
@@ -2614,34 +2410,54 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#1111#1150#0" expanded="true" />
-          </folding>
+          <caret line="79" column="89" selection-start-line="79" selection-start-column="89" selection-end-line="79" selection-end-column="89" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryToSend.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="228" column="0" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
-          <folding />
+          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/java/util/NoSuchElementException.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43087557">
-          <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="824" column="15" selection-start-line="824" selection-start-column="15" selection-end-line="824" selection-end-column="15" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/android/content/res/Resources.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_resultday.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3329493">
-          <caret line="229" column="15" selection-start-line="229" selection-start-column="15" selection-end-line="229" selection-end-column="15" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="921" column="35" selection-start-line="921" selection-start-column="35" selection-end-line="921" selection-end-column="35" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="434" column="5" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Service/ServerUdpateService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="153" column="89" selection-start-line="151" selection-start-column="7" selection-end-line="153" selection-end-column="89" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1764#1765#0" expanded="false" />
+            <element signature="e#1802#1803#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2653,74 +2469,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_resultday.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.7425742">
-          <caret line="921" column="35" selection-start-line="921" selection-start-column="35" selection-end-line="921" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/DateUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17741935">
-          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.861111">
-          <caret line="434" column="5" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
-          <folding>
-            <element signature="e#1911#2167#0" expanded="false" />
-            <element signature="e#2166#2167#0" expanded="false" />
-            <element signature="e#17151#18625#0" expanded="false" />
-            <element signature="e#18624#18625#0" expanded="false" />
-            <element signature="e#18669#18863#0" expanded="false" />
-            <element signature="e#18862#18863#0" expanded="false" />
-            <element signature="e#19298#19299#0" expanded="false" />
-            <element signature="e#19336#19337#0" expanded="false" />
-            <element signature="e#19369#19370#0" expanded="false" />
-            <element signature="e#19405#19406#0" expanded="false" />
-            <element signature="e#19873#19874#0" expanded="false" />
-            <element signature="e#19911#19912#0" expanded="false" />
-            <element signature="e#19944#19945#0" expanded="false" />
-            <element signature="e#19980#19981#0" expanded="false" />
-            <element signature="e#20168#20169#0" expanded="false" />
-            <element signature="e#20206#20207#0" expanded="false" />
-            <element signature="e#20239#20240#0" expanded="false" />
-            <element signature="e#20275#20276#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryOfCDS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33293268">
-          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ServerUdpateService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="153" column="89" selection-start-line="151" selection-start-column="7" selection-end-line="153" selection-end-column="89" />
+          <caret line="790" column="32" selection-start-line="790" selection-start-column="32" selection-end-line="790" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
@@ -2729,9 +2481,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.333333">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/java/util/NoSuchElementException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.43087557">
+          <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/android/content/res/Resources.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3329493">
+          <caret line="229" column="15" selection-start-line="229" selection-start-column="15" selection-end-line="229" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_resultday.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="921" column="35" selection-start-line="921" selection-start-column="35" selection-end-line="921" selection-end-column="35" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnet/DayResultActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="434" column="5" selection-start-line="434" selection-start-column="5" selection-end-line="434" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryOfCDS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33293268">
+          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetAllEntriesApiCallTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="79" column="89" selection-start-line="79" selection-start-column="89" selection-end-line="79" selection-end-column="89" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2739,6 +2535,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33293268">
           <caret line="750" column="16" selection-start-line="750" selection-start-column="16" selection-end-line="750" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.646153">
+          <caret line="824" column="15" selection-start-line="824" selection-start-column="15" selection-end-line="824" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/android/net/NetworkInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3329493">
+          <caret line="238" column="19" selection-start-line="238" selection-start-column="19" selection-end-line="238" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/NetBroadcast/ConnectivityReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -2746,249 +2567,308 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/Ressource/EntryToSend.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/DateMagnifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/BDD/EntryOfCDSDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="213" column="56" selection-start-line="213" selection-start-column="41" selection-end-line="213" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#4103#4104#0" expanded="false" />
-            <element signature="e#4128#4129#0" expanded="false" />
-            <element signature="e#4165#4166#0" expanded="false" />
-            <element signature="e#4193#4194#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity_tmp.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/DateUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.9076924">
-          <caret line="754" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="824" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Service/ServerUdpateService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="172" column="13" selection-start-line="172" selection-start-column="13" selection-end-line="172" selection-end-column="13" />
           <folding>
-            <element signature="e#1654#1689#0" expanded="true" />
-            <element signature="e#5522#5555#0" expanded="true" />
-            <element signature="e#6823#6856#0" expanded="true" />
-            <element signature="e#8174#8207#0" expanded="true" />
-            <element signature="e#9525#9558#0" expanded="true" />
-            <element signature="e#10869#10902#0" expanded="true" />
-            <element signature="e#12212#12245#0" expanded="true" />
-            <element signature="e#13554#13587#0" expanded="true" />
-            <element signature="e#14885#14918#0" expanded="true" />
-            <element signature="e#16272#16305#0" expanded="true" />
-            <element signature="e#18133#18166#0" expanded="true" />
-            <element signature="e#18447#18476#0" expanded="true" />
-            <element signature="e#18527#18557#0" expanded="true" />
-            <element signature="e#18957#18985#0" expanded="true" />
-            <element signature="e#19031#19055#0" expanded="true" />
-            <element signature="e#19097#19115#0" expanded="true" />
-            <element signature="e#19672#19703#0" expanded="true" />
-            <element signature="e#19756#19789#0" expanded="true" />
-            <element signature="e#20065#20094#0" expanded="true" />
-            <element signature="e#20145#20175#0" expanded="true" />
-            <element signature="e#20574#20602#0" expanded="true" />
-            <element signature="e#20648#20672#0" expanded="true" />
-            <element signature="e#20714#20730#0" expanded="true" />
-            <element signature="e#21343#21376#0" expanded="true" />
-            <element signature="e#21650#21679#0" expanded="true" />
-            <element signature="e#21730#21760#0" expanded="true" />
-            <element signature="e#22210#22234#0" expanded="true" />
-            <element signature="e#22276#22291#0" expanded="true" />
-            <element signature="e#22845#22876#0" expanded="true" />
-            <element signature="e#22929#22962#0" expanded="true" />
-            <element signature="e#23236#23265#0" expanded="true" />
-            <element signature="e#23316#23346#0" expanded="true" />
-            <element signature="e#23750#23778#0" expanded="true" />
-            <element signature="e#23824#23848#0" expanded="true" />
-            <element signature="e#23890#23905#0" expanded="true" />
-            <element signature="e#24461#24492#0" expanded="true" />
-            <element signature="e#24545#24578#0" expanded="true" />
-            <element signature="e#24854#24883#0" expanded="true" />
-            <element signature="e#24934#24964#0" expanded="true" />
-            <element signature="e#25366#25394#0" expanded="true" />
-            <element signature="e#25440#25464#0" expanded="true" />
-            <element signature="e#25506#25521#0" expanded="true" />
-            <element signature="e#26076#26107#0" expanded="true" />
-            <element signature="e#26160#26193#0" expanded="true" />
-            <element signature="e#26468#26497#0" expanded="true" />
-            <element signature="e#26548#26578#0" expanded="true" />
-            <element signature="e#26977#27005#0" expanded="true" />
-            <element signature="e#27051#27075#0" expanded="true" />
-            <element signature="e#27117#27133#0" expanded="true" />
-            <element signature="e#27687#27718#0" expanded="true" />
-            <element signature="e#27771#27804#0" expanded="true" />
-            <element signature="e#28077#28106#0" expanded="true" />
-            <element signature="e#28157#28187#0" expanded="true" />
-            <element signature="e#28584#28612#0" expanded="true" />
-            <element signature="e#28658#28682#0" expanded="true" />
-            <element signature="e#28724#28739#0" expanded="true" />
-            <element signature="e#29294#29325#0" expanded="true" />
-            <element signature="e#29378#29411#0" expanded="true" />
-            <element signature="e#29687#29716#0" expanded="true" />
-            <element signature="e#29767#29797#0" expanded="true" />
-            <element signature="e#30195#30223#0" expanded="true" />
-            <element signature="e#30269#30293#0" expanded="true" />
-            <element signature="e#30335#30352#0" expanded="true" />
-            <element signature="e#30906#30937#0" expanded="true" />
-            <element signature="e#30990#31023#0" expanded="true" />
-            <element signature="e#31295#31324#0" expanded="true" />
-            <element signature="e#31375#31405#0" expanded="true" />
-            <element signature="e#31801#31829#0" expanded="true" />
-            <element signature="e#31875#31899#0" expanded="true" />
-            <element signature="e#31941#31962#0" expanded="true" />
-            <element signature="e#32517#32548#0" expanded="true" />
-            <element signature="e#32601#32634#0" expanded="true" />
-            <element signature="e#32908#32937#0" expanded="true" />
-            <element signature="e#32988#33018#0" expanded="true" />
-            <element signature="e#33416#33444#0" expanded="true" />
-            <element signature="e#33490#33514#0" expanded="true" />
-            <element signature="e#33556#33578#0" expanded="true" />
-            <element signature="e#34135#34166#0" expanded="true" />
-            <element signature="e#34219#34252#0" expanded="true" />
-            <element signature="e#34524#34553#0" expanded="true" />
-            <element signature="e#34604#34634#0" expanded="true" />
-            <element signature="e#35030#35058#0" expanded="true" />
-            <element signature="e#35104#35128#0" expanded="true" />
-            <element signature="e#35170#35184#0" expanded="true" />
-            <element signature="e#35738#35769#0" expanded="true" />
-            <element signature="e#35822#35855#0" expanded="true" />
-            <element signature="e#36127#36156#0" expanded="true" />
-            <element signature="e#36207#36237#0" expanded="true" />
-            <element signature="e#36633#36661#0" expanded="true" />
-            <element signature="e#36707#36731#0" expanded="true" />
-            <element signature="e#36773#36787#0" expanded="true" />
-            <element signature="e#37344#37375#0" expanded="true" />
-            <element signature="e#37428#37461#0" expanded="true" />
-            <element signature="e#37796#37825#0" expanded="true" />
-            <element signature="e#37876#37906#0" expanded="true" />
-            <element signature="e#38306#38334#0" expanded="true" />
-            <element signature="e#38380#38404#0" expanded="true" />
-            <element signature="e#38446#38463#0" expanded="true" />
-            <element signature="e#39019#39050#0" expanded="true" />
-            <element signature="e#39103#39136#0" expanded="true" />
-            <element signature="e#39470#39499#0" expanded="true" />
-            <element signature="e#39550#39580#0" expanded="true" />
-            <element signature="e#39980#40008#0" expanded="true" />
-            <element signature="e#40054#40078#0" expanded="true" />
-            <element signature="e#40120#40136#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1764#1765#0" expanded="false" />
+            <element signature="e#1802#1803#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/java/util/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="172" column="32" selection-start-line="172" selection-start-column="32" selection-end-line="172" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#27768#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2572#2573#0" expanded="false" />
+            <element signature="e#2620#2621#0" expanded="false" />
+            <element signature="e#5328#5329#0" expanded="false" />
+            <element signature="e#5376#5377#0" expanded="false" />
+            <element signature="e#5678#5679#0" expanded="false" />
+            <element signature="e#5722#5723#0" expanded="false" />
+            <element signature="e#6040#6041#0" expanded="false" />
+            <element signature="e#6095#6096#0" expanded="false" />
+            <element signature="e#8404#8405#0" expanded="false" />
+            <element signature="e#8481#8482#0" expanded="false" />
+            <element signature="e#9107#9108#0" expanded="false" />
+            <element signature="e#9191#9192#0" expanded="false" />
+            <element signature="e#9453#9454#0" expanded="false" />
+            <element signature="e#9532#9533#0" expanded="false" />
+            <element signature="e#9776#9777#0" expanded="false" />
+            <element signature="e#9854#9855#0" expanded="false" />
+            <element signature="e#10118#10119#0" expanded="false" />
+            <element signature="e#10197#10198#0" expanded="false" />
+            <element signature="e#10463#10464#0" expanded="false" />
+            <element signature="e#10498#10499#0" expanded="false" />
+            <element signature="e#11289#11290#0" expanded="false" />
+            <element signature="e#11373#11374#0" expanded="false" />
+            <element signature="e#11631#11632#0" expanded="false" />
+            <element signature="e#11702#11703#0" expanded="false" />
+            <element signature="e#22358#22359#0" expanded="false" />
+            <element signature="e#22406#22407#0" expanded="false" />
+            <element signature="e#23672#23673#0" expanded="false" />
+            <element signature="e#23740#23741#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/android/util/Patterns.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3328592">
+          <caret line="157" column="32" selection-start-line="157" selection-start-column="32" selection-end-line="157" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/java/util/regex/Pattern.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3328592">
+          <caret line="341" column="18" selection-start-line="341" selection-start-column="18" selection-end-line="341" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3328592">
+          <caret line="1332" column="19" selection-start-line="1332" selection-start-column="19" selection-end-line="1332" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/android/widget/Toast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3328592">
+          <caret line="70" column="22" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Utils/MyToast.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8748222">
+          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="22" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/java/lang/Throwable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3328592">
+          <caret line="176" column="18" selection-start-line="176" selection-start-column="18" selection-end-line="176" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../Android/sdk/sources/android-23/java/lang/NoSuchFieldException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7496444">
+          <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/FormUrlEncoded.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="35" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#1356#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Body.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="68" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/POST.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27880183">
+          <caret line="31" column="59" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.194445">
+          <caret line="48" column="10" selection-start-line="48" selection-start-column="10" selection-end-line="48" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#2082#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Path.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6451613">
+          <caret line="51" column="18" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/alert_export.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.523077">
+          <caret line="87" column="48" selection-start-line="87" selection-start-column="48" selection-end-line="87" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/entry_activity.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/Carnetdesuivi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9426336">
-          <caret line="824" column="15" selection-start-line="824" selection-start-column="15" selection-end-line="824" selection-end-column="15" />
+        <state vertical-scroll-proportion="-7.6944447">
+          <caret line="628" column="52" selection-start-line="628" selection-start-column="37" selection-end-line="628" selection-end-column="52" />
           <folding>
-            <element signature="e#1654#1689#0" expanded="true" />
-            <element signature="e#5522#5555#0" expanded="true" />
-            <element signature="e#6823#6856#0" expanded="true" />
-            <element signature="e#8174#8207#0" expanded="true" />
-            <element signature="e#9525#9558#0" expanded="true" />
-            <element signature="e#10869#10902#0" expanded="true" />
-            <element signature="e#12212#12245#0" expanded="true" />
-            <element signature="e#13554#13587#0" expanded="true" />
-            <element signature="e#14885#14918#0" expanded="true" />
-            <element signature="e#16272#16305#0" expanded="true" />
-            <element signature="e#18030#18063#0" expanded="true" />
-            <element signature="e#18447#18476#0" expanded="true" />
-            <element signature="e#18527#18557#0" expanded="true" />
-            <element signature="e#19017#19045#0" expanded="true" />
-            <element signature="e#19087#19105#0" expanded="true" />
-            <element signature="e#19151#19175#0" expanded="true" />
-            <element signature="e#19628#19661#0" expanded="true" />
-            <element signature="e#19712#19743#0" expanded="true" />
-            <element signature="e#20065#20094#0" expanded="true" />
-            <element signature="e#20145#20175#0" expanded="true" />
-            <element signature="e#20634#20662#0" expanded="true" />
-            <element signature="e#20704#20720#0" expanded="true" />
-            <element signature="e#20766#20790#0" expanded="true" />
-            <element signature="e#21240#21273#0" expanded="true" />
-            <element signature="e#21650#21679#0" expanded="true" />
-            <element signature="e#21730#21760#0" expanded="true" />
-            <element signature="e#22266#22281#0" expanded="true" />
-            <element signature="e#22327#22351#0" expanded="true" />
-            <element signature="e#22801#22834#0" expanded="true" />
-            <element signature="e#22885#22916#0" expanded="true" />
-            <element signature="e#23236#23265#0" expanded="true" />
-            <element signature="e#23316#23346#0" expanded="true" />
-            <element signature="e#23810#23838#0" expanded="true" />
-            <element signature="e#23880#23895#0" expanded="true" />
-            <element signature="e#23941#23965#0" expanded="true" />
-            <element signature="e#24417#24450#0" expanded="true" />
-            <element signature="e#24501#24532#0" expanded="true" />
-            <element signature="e#24854#24883#0" expanded="true" />
-            <element signature="e#24934#24964#0" expanded="true" />
-            <element signature="e#25426#25454#0" expanded="true" />
-            <element signature="e#25496#25511#0" expanded="true" />
-            <element signature="e#25557#25581#0" expanded="true" />
-            <element signature="e#26032#26065#0" expanded="true" />
-            <element signature="e#26116#26147#0" expanded="true" />
-            <element signature="e#26468#26497#0" expanded="true" />
-            <element signature="e#26548#26578#0" expanded="true" />
-            <element signature="e#27037#27065#0" expanded="true" />
-            <element signature="e#27107#27123#0" expanded="true" />
-            <element signature="e#27169#27193#0" expanded="true" />
-            <element signature="e#27643#27676#0" expanded="true" />
-            <element signature="e#27727#27758#0" expanded="true" />
-            <element signature="e#28077#28106#0" expanded="true" />
-            <element signature="e#28157#28187#0" expanded="true" />
-            <element signature="e#28644#28672#0" expanded="true" />
-            <element signature="e#28714#28729#0" expanded="true" />
-            <element signature="e#28775#28799#0" expanded="true" />
-            <element signature="e#29250#29283#0" expanded="true" />
-            <element signature="e#29334#29365#0" expanded="true" />
-            <element signature="e#29687#29716#0" expanded="true" />
-            <element signature="e#29767#29797#0" expanded="true" />
-            <element signature="e#30255#30283#0" expanded="true" />
-            <element signature="e#30325#30342#0" expanded="true" />
-            <element signature="e#30388#30412#0" expanded="true" />
-            <element signature="e#30862#30895#0" expanded="true" />
-            <element signature="e#30946#30977#0" expanded="true" />
-            <element signature="e#31295#31324#0" expanded="true" />
-            <element signature="e#31375#31405#0" expanded="true" />
-            <element signature="e#31861#31889#0" expanded="true" />
-            <element signature="e#31931#31952#0" expanded="true" />
-            <element signature="e#31998#32022#0" expanded="true" />
-            <element signature="e#32473#32506#0" expanded="true" />
-            <element signature="e#32557#32588#0" expanded="true" />
-            <element signature="e#32908#32937#0" expanded="true" />
-            <element signature="e#32988#33018#0" expanded="true" />
-            <element signature="e#33476#33504#0" expanded="true" />
-            <element signature="e#33546#33568#0" expanded="true" />
-            <element signature="e#33614#33638#0" expanded="true" />
-            <element signature="e#34091#34124#0" expanded="true" />
-            <element signature="e#34175#34206#0" expanded="true" />
-            <element signature="e#34524#34553#0" expanded="true" />
-            <element signature="e#34604#34634#0" expanded="true" />
-            <element signature="e#35090#35118#0" expanded="true" />
-            <element signature="e#35160#35174#0" expanded="true" />
-            <element signature="e#35220#35244#0" expanded="true" />
-            <element signature="e#35694#35727#0" expanded="true" />
-            <element signature="e#35778#35809#0" expanded="true" />
-            <element signature="e#36127#36156#0" expanded="true" />
-            <element signature="e#36207#36237#0" expanded="true" />
-            <element signature="e#36693#36721#0" expanded="true" />
-            <element signature="e#36763#36777#0" expanded="true" />
-            <element signature="e#36823#36847#0" expanded="true" />
-            <element signature="e#37300#37333#0" expanded="true" />
-            <element signature="e#37384#37415#0" expanded="true" />
-            <element signature="e#37796#37825#0" expanded="true" />
-            <element signature="e#37876#37906#0" expanded="true" />
-            <element signature="e#38366#38394#0" expanded="true" />
-            <element signature="e#38436#38453#0" expanded="true" />
-            <element signature="e#38499#38523#0" expanded="true" />
-            <element signature="e#38975#39008#0" expanded="true" />
-            <element signature="e#39059#39090#0" expanded="true" />
-            <element signature="e#39470#39499#0" expanded="true" />
-            <element signature="e#39550#39580#0" expanded="true" />
-            <element signature="e#40040#40068#0" expanded="true" />
-            <element signature="e#40110#40126#0" expanded="true" />
-            <element signature="e#40172#40196#0" expanded="true" />
+            <element signature="e#5096#5126#0" expanded="true" />
+            <element signature="e#20066#20496#0" expanded="true" />
+            <element signature="e#20495#20496#0" expanded="true" />
+            <element signature="e#21635#21830#0" expanded="true" />
+            <element signature="e#21829#21830#0" expanded="true" />
+            <element signature="e#21978#25649#0" expanded="true" />
+            <element signature="e#22884#22926#0" expanded="true" />
+            <element signature="e#23037#23083#0" expanded="true" />
+            <element signature="e#23194#23238#0" expanded="true" />
+            <element signature="e#23400#23447#0" expanded="true" />
+            <element signature="e#23587#23632#0" expanded="true" />
+            <element signature="e#23787#23840#0" expanded="true" />
+            <element signature="e#24426#24460#0" expanded="true" />
+            <element signature="e#25648#25649#0" expanded="true" />
+            <element signature="e#27034#27069#0" expanded="true" />
+            <element signature="e#27313#27345#0" expanded="true" />
+            <element signature="e#27598#27630#0" expanded="true" />
+            <element signature="e#27884#27916#0" expanded="true" />
           </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/BddSyncrhroCDSGetLastEditionApiCallTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSetMissingEntries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Task/ExportAPICallTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="12" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseCDSGetLastEdition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="53" selection-start-line="47" selection-start-column="11" selection-end-line="48" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/Response/ResponseMail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="58" selection-start-line="41" selection-start-column="58" selection-end-line="41" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Query.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1912442">
+          <caret line="66" column="18" selection-start-line="66" selection-start-column="18" selection-end-line="66" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/PartMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="10" selection-start-line="39" selection-start-column="10" selection-end-line="39" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Multipart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30414745">
+          <caret line="31" column="18" selection-start-line="31" selection-start-column="18" selection-end-line="31" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.0.0-beta3/592b83a9554e2cd0bdfaef9e4470b63b17815549/retrofit-2.0.0-beta3-sources.jar!/retrofit2/http/Part.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="51" column="18" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/fr/diabhelp/carnetdesuivi/API/ApiServices.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2281106">
+          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="7" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

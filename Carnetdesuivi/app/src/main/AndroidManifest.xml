@@ -38,7 +38,7 @@
             android:windowSoftInputMode="adjustPan" />
 
         <service
-            android:name=".API.ServerUdpateService"
+            android:name=".API.Service.ServerUdpateService"
             android:enabled="true"
             android:exported="true"></service>
     </application>
