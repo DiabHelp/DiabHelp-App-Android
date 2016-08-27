@@ -17,6 +17,7 @@ import fr.diabhelp.carnetdesuivi.R;
 import fr.diabhelp.carnetdesuivi.Utils.JsonUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Response;
@@ -28,6 +29,7 @@ import retrofit2.Retrofit;
 public class ExportAPICallTask extends AsyncTask<String, String, ResponseMail> {
 
     private String URL_API;
+    private String URL_API_DEV;
     private ProgressDialog progress;
     private Context _context;
     private IApiCallTask _listener;
@@ -39,13 +41,15 @@ public class ExportAPICallTask extends AsyncTask<String, String, ResponseMail> {
         this._listener = listener;
         this._idUser = idUser;
         this._entries = entries;
+        URL_API = _context.getString(R.string.URL_API);
+        URL_API_DEV = _context.getString(R.string.URL_API_dev);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         progress = new ProgressDialog(_context);
-        progress.setCancelable(true);
+        progress.setCancelable(false);
         progress.setMessage(_context.getString(R.string.mail_loading));
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.show();
@@ -79,9 +83,11 @@ public class ExportAPICallTask extends AsyncTask<String, String, ResponseMail> {
     }
 
     private ApiServices createService() {
-        OkHttpClient client = new OkHttpClient();
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(logging).build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL_API)
+                .baseUrl(URL_API_DEV)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -92,6 +98,7 @@ public class ExportAPICallTask extends AsyncTask<String, String, ResponseMail> {
     @Override
     protected void onPostExecute(ResponseMail reponse) {
         super.onPostExecute(reponse);
+        System.out.println("valeur de progress = " + progress);
         this._listener.onBackgroundTaskCompleted(reponse, "informOfsending", progress);
     }
 }

@@ -610,9 +610,7 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
                 } catch (ParseException e) {
                     e.printStackTrace();
                     error.setVisibility(View.VISIBLE);
-                    error.setText("Une erreur est survenue");
                 } catch (NoSuchFieldException e) {
-                    System.out.println("no such field exception");
                     error.setVisibility(View.VISIBLE);
                     error.setText(e.getMessage());
                 }
@@ -624,6 +622,8 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     @Override
     public void onBackgroundTaskCompleted(Object response, String action, ProgressDialog progress)
     {
+        _progress = progress;
+        System.out.println("progress = " + progress);
         Carnetdesuivi.Error error;
         if (action.equalsIgnoreCase("informOfsending"))
         {

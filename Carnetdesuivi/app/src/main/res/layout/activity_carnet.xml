@@ -2,9 +2,10 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
@@ -39,86 +40,86 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">-->
     <TextView
+        android:id="@+id/Noentry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/Noentry"
-        android:gravity="center"
-        android:focusable="false"
         android:layout_below="@id/toolbar"
-        android:visibility="invisible"
         android:layout_marginTop="70dp"
-        android:textColor="@color/black"
-        android:text="Pour Ajouter une entrée appuyez sur le bouton + en bas à droite de l'écran"
         android:enabled="false"
+        android:focusable="false"
+        android:gravity="center"
+        android:text="Pour Ajouter une entrée appuyez sur le bouton + en bas à droite de l'écran"
+        android:textColor="@color/black"
+        android:visibility="invisible"
         />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
+        android:orientation="vertical"
         >
 
         <RelativeLayout
+            android:id="@+id/avday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/avday"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
             >
 
             <TextView
+                android:id="@+id/texttoday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aujourd'hui"
-                android:textStyle="bold"
-
-                android:layout_gravity="center_vertical"
-                android:layout_alignParentTop="true"
                 android:layout_alignLeft="@+id/slowtextView"
+
+                android:layout_alignParentTop="true"
                 android:layout_alignStart="@+id/slowtextView"
-                android:gravity="center"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/texttoday"
+                android:gravity="center"
+                android:text="Aujourd'hui"
                 android:textSize="15dp"
+                android:textStyle="bold"
                 />
 
             <RelativeLayout
+                android:id="@+id/relativeavg"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_below="@+id/texttoday"
-                android:id="@+id/relativeavg"
                 android:layout_marginLeft="15dp"
                 >
             <ImageView
+                android:id="@+id/avglyimg"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_gravity="center"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/avglyimg"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center"
 
                 />
                 <TextView
+                    android:id="@+id/avgglytextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:id="@+id/avgglytextView"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:gravity="center"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="TEST"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
                     />
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Variation glycemie"
                 android:layout_below="@id/relativeavg"
+                android:text="Variation glycemie"
                 android:textStyle="bold"
                 />
 
@@ -126,14 +127,14 @@
 
         <ExpandableListView
             android:id="@+id/expandableListView"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:layout_below="@+id/avday"
-            android:elevation="18dp"
             android:layout_width="match_parent"
-            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/avday"
+            android:clickable="true"
             android:divider="#FFFF"
             android:dividerHeight="0.5dp"
+            android:elevation="18dp"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
             />
 
         <RelativeLayout
@@ -145,10 +146,10 @@
             >
 
             <Button
+                android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button" />
+                android:text="New Button" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -159,10 +160,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:background="#18C1BB"
         android:layout_margin="16dp"
-        android:onClick="launch_entry"
+        android:background="#18C1BB"
         android:clickable="true"
+        android:onClick="launch_entry"
         android:src="@drawable/ic_add_black_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>
