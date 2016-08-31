@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.google.gson.Gson;
-import fr.diabhelp.proche.API.ApiCallTask;
-import fr.diabhelp.proche.API.IApiCallTask;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import fr.diabhelp.proche.API.IApiCallTask;
 
 /**
  * Created by 4kito on 02/08/2016.
@@ -144,7 +146,7 @@ public class PatientListRecyclerAdapter extends RecyclerView.Adapter<PatientList
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d("MedecinList", "Remove YES for medecin: " + holder.info.getName() + " and position : " + position);
                                 holder.info.setState(WAITING);
-                                new ApiCallTask(PatientListRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("1", "removeMedecin", "id", String.valueOf(holder.info.getId()));
+                                //new ApiCallTask(PatientListRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("1", "removeMedecin", "id", String.valueOf(holder.info.getId()));
                                 notifyItemChanged(position);
                                 //_medecinList.remove(holder.info);
                                 //notifyItemRemoved(position);

@@ -7,13 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.google.gson.Gson;
-import fr.diabhelp.proche.API.ApiCallTask;
-import fr.diabhelp.proche.API.IApiCallTask;
+
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import fr.diabhelp.proche.API.IApiCallTask;
 
 /**
  * Created by 4kito on 02/08/2016.
@@ -145,7 +147,7 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
             public void onClick(View v) {
                 Log.d("MedecinRequest", "Accept for request : " + holder.request.getName() + " and position : " + position);
                 holder.request.setState(WAITING);
-                new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "ACCEPT");
+               // new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "ACCEPT");
                 notifyItemChanged(position);
 
                 /*
@@ -162,7 +164,7 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
             public void onClick(View v) {
                 Log.d("MedecinRequest", "Refuse for request : " + holder.request.getName() + " and position : " + position);
                 holder.request.setState(WAITING);
-                new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "REFUSE");
+                //new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "REFUSE");
                 notifyItemChanged(position);
                     /*
                 // A appeller une fois que la requête API renvoie OK

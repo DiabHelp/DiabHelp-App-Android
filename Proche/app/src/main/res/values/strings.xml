@@ -1,4 +1,8 @@
 <resources>
+    <!--API-->
+    <string name="api_url_dev">http://dev.diabhelp.org/api/</string>
+    <string name="api_url_prod">https://diabhelp.org/api/</string>
+
     <string name="app_name">Proche</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Paramètres</string>

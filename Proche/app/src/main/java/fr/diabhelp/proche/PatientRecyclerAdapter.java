@@ -1,19 +1,16 @@
 package fr.diabhelp.proche;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.google.android.gms.maps.MapFragment;
 
 import java.util.ArrayList;
 
@@ -31,7 +28,7 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
 
         public PatientHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.name);
+            name = (TextView) itemView.findViewById(R.id.identity);
             surname = (TextView) itemView.findViewById(R.id.surname);
         }
     }
