@@ -29,6 +29,6 @@ public interface ApiServices {
     @POST("/api/carnet/entry/setFromApp/{idUser}")
     Call<ResponseBody> setMissingEntries(@Path("idUser") String idUser, @Body ArrayList<EntryToSend> entries);
 
-    @DELETE("/carnet/entry/delete/{id}/{idUser}")
+    @DELETE("/api/carnet/entry/delete/{id}/{idUser}")
     Call<ResponseBody> deleteEntry(@Path("id") String idEntry, @Path("idUser") String idUser);
 }
