@@ -1,5 +1,6 @@
 package fr.diabhelp.carnetdesuivi.API.Task;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -28,6 +29,7 @@ public class BddSyncrhroCDSGetAllEntriesApiCallTask extends AsyncTask<String, St
     private IApiCallTask listener;
     private Context context;
     private String URL_API = null;
+    private ProgressDialog progress;
 
 
     public BddSyncrhroCDSGetAllEntriesApiCallTask(IApiCallTask listen, Context cont)
@@ -37,6 +39,16 @@ public class BddSyncrhroCDSGetAllEntriesApiCallTask extends AsyncTask<String, St
         URL_API = context.getString(R.string.URL_API_dev);
     }
 
+
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//        progress = new ProgressDialog(context);
+//        progress.setCancelable(false);
+//        progress.setMessage(context.getString(R.string.synchro_bd));
+//        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progress.show();
+//    }
 
     @Override
     protected ResponseCDSGetAllEntries doInBackground(String... params) {

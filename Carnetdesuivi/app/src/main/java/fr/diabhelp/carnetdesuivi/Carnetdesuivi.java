@@ -622,8 +622,8 @@ public class Carnetdesuivi extends AppCompatActivity implements IApiCallTask, Co
     @Override
     public void onBackgroundTaskCompleted(Object response, String action, ProgressDialog progress)
     {
-        _progress = progress;
-        System.out.println("progress = " + progress);
+        if (progress != null)
+            _progress = progress;
         Carnetdesuivi.Error error;
         if (action.equalsIgnoreCase("informOfsending"))
         {

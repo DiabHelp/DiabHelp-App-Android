@@ -23,8 +23,8 @@ public class DAO {
     public static DAO getInstance(Context context)
     {
         if (instance == null) {
-            Log.i("DAO", "dao initialisation");
-            instance = new DAO(context);
+                Log.i("DAO", "dao initialisation");
+                instance = new DAO(context);
         }
         return (instance);
     }
