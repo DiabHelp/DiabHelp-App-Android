@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfCDS;
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryToSend;
 
-/**
- * Created by Sumbers on 29/06/2016.
- */
+
 public class EntryOfCDSDAO {
 
     public static final String id = "id";
@@ -786,7 +784,7 @@ public class EntryOfCDSDAO {
             return (c.getString(c.getColumnIndex(dateEdition)));
         }
         else{
-            System.out.println("je vais retourner vide c'est la merde");
+            System.out.println("je vais retourner vide");
             return ("");
         }
     }

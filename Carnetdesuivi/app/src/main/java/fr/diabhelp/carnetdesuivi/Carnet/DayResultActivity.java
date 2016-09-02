@@ -334,7 +334,6 @@ public class DayResultActivity extends AppCompatActivity {
         intent.putExtra("alcohol", inf.getAlcohol());
         intent.putExtra("period", inf.getPeriod());
         intent.putExtra("breakfast", inf.getBreakfast());
-        intent.putExtra("activity", "infoday");
 
         DayResultActivity.this.startActivity(intent);
         DayResultActivity.this.finish();

@@ -7,25 +7,13 @@ import android.util.Log;
 
 import fr.diabhelp.carnetdesuivi.BDD.Ressource.EntryOfStats;
 
-/**
- * Created by Sumbers on 29/06/2016.
- */
+
 public class EntryOfStatsDAO {
 
-    public static final String tdate = "date";
-
-    public static final String glycemy = "glycemy"; // y
-    public static final String Titre = "title"; // y
-    public static final String Lieux = "place"; //y
-    public static final String Date_hour = "date_hour"; // y
     public static final String glucide = "glucide"; // y
     public static final String activity = "activity"; //
-    public static final String activityType = "activity_type"; //
     public static final String notes = "notes"; //
-    public static final String fast_insu = "fastInsu"; // y
-    public static final String slow_insu = "slowInsu"; // y
     public static final String hba1c = "hba1c"; // y
-    public static final String Hour = "hour"; // y
 
     public static final String breakfast = "breakfast";
     public static final String launch = "lunch";
@@ -41,7 +29,6 @@ public class EntryOfStatsDAO {
     public static final String athome = "athome";
     public static final String alcohol = "alcohol";
     public static final String period = "period";
-    public static final String sqldate = "rdate";
 
     public static final String DATE_DEBUT = "beg_date";
     public static final String DATE_FIN = "end_date";

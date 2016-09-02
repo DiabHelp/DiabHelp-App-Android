@@ -68,7 +68,7 @@ public class ExportAPICallTask extends AsyncTask<String, String, ResponseMail> {
             }
             else {
                 Log.e(getClass().getSimpleName(), "la requète est un echec. Code d'erreur : " + reponse.code() + "\n message d'erreur = " + reponse.errorBody().string());
-                new ResponseMail();
+                reponseMail= new ResponseMail();
                 reponseMail.setError(Carnetdesuivi.Error.SERVER_ERROR);
             }
         } catch (IOException e) {
