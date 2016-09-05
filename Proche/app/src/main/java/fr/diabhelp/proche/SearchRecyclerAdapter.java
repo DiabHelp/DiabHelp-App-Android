@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import fr.diabhelp.proche.Utils.FieldUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,6 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         @Override
         public void onClick(View v) {
             itemListener.onClickAddPatient(getLayoutPosition());
-
         }
     }
 
@@ -82,5 +80,10 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
 
             this.notifyItemRangeRemoved(0, size);
         }
+    }
+
+    public void setPatientsList(ArrayList<Patient> patientsList) {
+        this.patientsList = patientsList;
+        this.notifyDataSetChanged();
     }
 }
