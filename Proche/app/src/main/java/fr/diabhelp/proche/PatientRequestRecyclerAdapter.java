@@ -1,5 +1,6 @@
 package fr.diabhelp.proche;
 
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,15 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
-
+import fr.diabhelp.proche.API.ApiCallTask;
+import fr.diabhelp.proche.API.IApiCallTask;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
-
-import fr.diabhelp.proche.API.IApiCallTask;
 
 /**
  * Created by 4kito on 02/08/2016.
@@ -30,12 +35,14 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
     private final int                   REFUSED = 2;
     private final int                   WAITING = 3;
 
-    public PatientRequestRecyclerAdapter(String APIToken, DemandesFragment context, RecyclerView view) {
+    public PatientRequestRecyclerAdapter(String APIToken, DemandesFragment context, RecyclerView view, ArrayList<PatientRequest> requestList) {
         _APIToken = APIToken;
         _requestList = getRequests();
         _context = context;
         this._view = view;
+        _requestList = requestList;
     }
+
 
     private ArrayList<PatientRequest> getRequests() {
         ArrayList<PatientRequest> requests = new ArrayList<>();
@@ -86,7 +93,7 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
             _requestList.remove(index);
             notifyItemRemoved(index);
             notifyItemRangeChanged(index, getItemCount());
-            _context.setRecyclerViewHeight(_view);
+            //_context.setRecyclerViewHeight(_view);
         }
     }
 
@@ -147,7 +154,7 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
             public void onClick(View v) {
                 Log.d("MedecinRequest", "Accept for request : " + holder.request.getName() + " and position : " + position);
                 holder.request.setState(WAITING);
-               // new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "ACCEPT");
+                new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "ACCEPT");
                 notifyItemChanged(position);
 
                 /*
@@ -164,7 +171,7 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
             public void onClick(View v) {
                 Log.d("MedecinRequest", "Refuse for request : " + holder.request.getName() + " and position : " + position);
                 holder.request.setState(WAITING);
-                //new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "REFUSE");
+                new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "REFUSE");
                 notifyItemChanged(position);
                     /*
                 // A appeller une fois que la requête API renvoie OK

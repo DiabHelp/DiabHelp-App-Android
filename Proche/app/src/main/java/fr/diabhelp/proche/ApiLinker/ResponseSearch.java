@@ -2,12 +2,12 @@ package fr.diabhelp.proche.ApiLinker;
 
 import android.util.Log;
 
+import fr.diabhelp.proche.Patient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import fr.diabhelp.proche.Models.Patient;
 import fr.diabhelp.proche.Utils.JsonUtils;
 
 /**

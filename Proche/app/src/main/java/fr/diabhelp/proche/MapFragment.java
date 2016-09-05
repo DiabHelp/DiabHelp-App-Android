@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 /**
  * Created by 4kito on 04/08/2016.
  */
-public class MapsFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     private MapView mapView;
 
     @Override

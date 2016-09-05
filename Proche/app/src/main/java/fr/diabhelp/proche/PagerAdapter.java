@@ -4,26 +4,36 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.util.ArrayList;
-
 /**
  * Created by 4kito on 02/08/2016.
  */
 public class PagerAdapter extends FragmentStatePagerAdapter {
-    ArrayList<Fragment> _pages;
+    int _nbTab;
 
-    public PagerAdapter(FragmentManager fm, ArrayList<Fragment> pages) {
+    public PagerAdapter(FragmentManager fm, int nbTab) {
         super(fm);
-        _pages = pages;
+        _nbTab = nbTab;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return (_pages.get(position));
+        switch (position) {
+            case 0:
+                SuivisFragment suivisFragment = new SuivisFragment();
+                return suivisFragment;
+            case 1:
+                DemandesFragment demandesFragment = new DemandesFragment();
+                return demandesFragment;
+            case 2:
+                RechercheFragment rechercheFragment = new RechercheFragment();
+                return rechercheFragment;
+            default:
+                return null;
+        }
     }
 
     @Override
     public int getCount() {
-        return _pages.size();
+        return _nbTab;
     }
 }

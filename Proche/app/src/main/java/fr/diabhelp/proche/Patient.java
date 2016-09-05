@@ -6,10 +6,21 @@ import android.location.Location;
  * Created by 4kito on 03/08/2016.
  */
 public class Patient {
-    private String      _name;
-    private String      _surname;
-    private Location    _gps;
-    private State       _state;
+    private String      id;
+    private String      nom;
+    private String      prenom;
+    private String      mail;
+    private String      tel;
+    private String      photo;
+    private Location    location;
+    private State       state;
+
+    public Patient(String firstname, String lastname, Location location, State ok) {
+        prenom = firstname;
+        nom = lastname;
+        this.location = location;
+        state = ok;
+    }
 
     public enum State {
         OK,
@@ -17,43 +28,70 @@ public class Patient {
         ALERT
     }
 
-    public Patient(final String name, final String surname, final Location gps, final State state) {
-        _name = name;
-        _surname = surname;
-        _gps = gps;
-        _state = state;
+    public Patient() {
     }
 
-    public String getName() {
-        return _name;
+    public String getMail() {
+        return this.mail;
     }
 
-    public void setName(String _name) {
-        this._name = _name;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public String getSurname() {
-        return _surname;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setSurname(String _surname) {
-        this._surname = _surname;
-    }
-
-    public Location getGps() {
-        return _gps;
-    }
-
-    public void setGps(Location _gps) {
-        this._gps = _gps;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public State getState() {
-        return _state;
+        return state;
     }
 
-    public void setState(State _state) {
-        this._state = _state;
+    public void setState(State state) {
+        this.state = state;
     }
 
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPhoto() {
+        return this.photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getPrenom() {
+        return this.prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getTel() {
+        return this.tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

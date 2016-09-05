@@ -9,7 +9,8 @@ public class SharedContext {
 
     private static Context sharedContext;
 
-    public static void setContext(Context context){SharedContext.sharedContext = context;}
+    public static void setContext(Context context){
+        SharedContext.sharedContext = context;}
 
     public static Context getSharedContext() {return SharedContext.sharedContext;}
 }

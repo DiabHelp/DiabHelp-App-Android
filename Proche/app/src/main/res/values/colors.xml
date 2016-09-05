@@ -6,5 +6,4 @@
     <color name="patient_request_accepted_background">#b446ff28</color>
     <color name="patient_request_refused_background">#b4ff1714</color>
     <color name="patient_requestlist_waiting_background">#b4ffd81b</color>
-    <color name="success">#b410c83e</color>
 </resources>

@@ -7,20 +7,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import fr.diabhelp.proche.Utils.FieldUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import fr.diabhelp.proche.Models.Patient;
-import fr.diabhelp.proche.Utils.FieldUtils;
-import fr.diabhelp.proche.Utils.SearchRecyclerListerner;
-
 /**
- * Created by Rémi for Diabhelp
- * Started on 31 Aou 2016 at 15:27
+ * Created by 4kito on 02/09/2016.
  */
 public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAdapter.PatientHolder> {
-    public List<fr.diabhelp.proche.Models.Patient> patientsList;
+    public ArrayList<Patient> patientsList = new ArrayList<>();
     private static SearchRecyclerListerner itemListener;
+
 
     public List<Patient> getPatientsList() {
         return this.patientsList;
@@ -48,10 +46,9 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         }
     }
 
-    public SearchRecyclerAdapter(List<Patient> patientsList, SearchRecyclerListerner listener) {
+    public SearchRecyclerAdapter(ArrayList<Patient> patientsList, SearchRecyclerListerner listener) {
         this.patientsList = patientsList;
         itemListener = listener;
-
     }
 
     @Override
@@ -64,9 +61,12 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
     @Override
     public void onBindViewHolder(PatientHolder holder, int pos) {
         holder.identity.setText(patientsList.get(pos).getPrenom() + " " + patientsList.get(pos).getNom().toUpperCase());
+        /*
         String phone = patientsList.get(pos).getTel();
         if (FieldUtils.isStringValid(phone, 10, FieldUtils.MATCH_REQUIRED))
-            holder.phone.setText(phone.substring(0,2) + "******" + phone.substring(8,2));
+*/
+        holder.phone.setText("06******54");
+            //holder.phone.setText(phone.substring(0,2) + "******" + phone.substring(7,2));
         //TODO set l'image
     }
 

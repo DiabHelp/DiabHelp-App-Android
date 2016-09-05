@@ -2,6 +2,7 @@ package fr.diabhelp.proche;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,12 +25,14 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
     private ArrayList<Patient>  _patientsList = new ArrayList<>();
 
     public static class PatientHolder extends RecyclerView.ViewHolder {
+        ImageView   logo;
         TextView    name;
         TextView    surname;
 
         public PatientHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.identity);
+            logo = (ImageView) itemView.findViewById(R.id.logo);
+            name = (TextView) itemView.findViewById(R.id.name);
             surname = (TextView) itemView.findViewById(R.id.surname);
         }
     }
@@ -77,10 +81,8 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
                 alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OUI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        android.support.v4.app.FragmentTransaction ft = _parentFragment.getFragmentManager().beginTransaction();
-                        ft.replace(R.id.content, new MapsFragment());
-                        ft.addToBackStack(null);
-                        ft.commit();
+                        Intent  intent = new Intent(_activityContext, MapActivity.class);
+                        _activityContext.startActivity(intent);
                     }
                 });
                 alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NON", new DialogInterface.OnClickListener() {
@@ -98,10 +100,8 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
 
     @Override
     public void onBindViewHolder(PatientHolder holder, int position) {
-        holder.name.setText(_patientsList.get(position).getName());
-        Log.d("PatientRecyclerAdapter", _patientsList.get(position).getName());
-        holder.surname.setText(_patientsList.get(position).getSurname());
-        Log.d("PatientRecyclerAdapter", String.valueOf(_patientsList.get(position).getState()));
+        holder.name.setText(_patientsList.get(position).getPrenom());
+        holder.surname.setText(_patientsList.get(position).getNom());
         switch (_patientsList.get(position).getState()) {
             case OK:
                 holder.itemView.findViewById(R.id.bglayout).setBackgroundColor(Color.parseColor("#60E995"));

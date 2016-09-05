@@ -11,23 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import java.io.IOException;
-
 import fr.diabhelp.proche.ApiLinker.ApiErrors;
 import fr.diabhelp.proche.ApiLinker.ApiService;
 import fr.diabhelp.proche.ApiLinker.ResponseSearch;
 import fr.diabhelp.proche.ApiLinker.RetrofitHelper;
 import fr.diabhelp.proche.Utils.JsonUtils;
 import fr.diabhelp.proche.Utils.MyToast;
-import fr.diabhelp.proche.Utils.SearchRecyclerListerner;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
- * Created by Sumbers on 29/08/2016.
+ * Created by 4kito on 02/08/2016.
  */
 public class RechercheFragment extends Fragment {
 
@@ -51,7 +50,12 @@ public class RechercheFragment extends Fragment {
         patientsList = (RecyclerView) v.findViewById(R.id.list_contacts_found_view);
         patientsList.setHasFixedSize(false);
         patientsList.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+        adapter = new SearchRecyclerAdapter(new ArrayList<Patient>(), new SearchRecyclerListerner() {
+            @Override
+            public void onClickAddPatient(int position) {
 
+            }
+        });
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -74,55 +78,60 @@ public class RechercheFragment extends Fragment {
                 return (true);
             }
         });
-        return (v);
+        return v;
     }
 
     private void searchProches(String query) {
-            RetrofitHelper retrofitH = new RetrofitHelper(getActivity());
-            ApiService service = retrofitH.createService(RetrofitHelper.Build.PROD);
-            Call<ResponseBody> call = service.searchPatient(query);
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        if (response.isSuccessful()) {
-                            String body = response.body().string();
-                            ResponseSearch rep = new ResponseSearch(JsonUtils.getObj(body));
-                            String error = rep.getError();
-                            if (error == null || error.isEmpty()) {
-                                progressLayout.setVisibility(View.GONE);
-                                displayEntries(rep);
-                            }
-                            else
-                            {
-                                ApiErrors apiError = ApiErrors.getFromMessage(error);
-                                manageError(apiError);
-                            }
-                        } else {
-                            String error = response.errorBody().string();
-                            System.out.println("erreur message = " + error);
+        RetrofitHelper retrofitH = new RetrofitHelper(getActivity());
+        ApiService service = retrofitH.createService(RetrofitHelper.Build.PROD);
+        Call<ResponseBody> call = service.searchPatient(query);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        String body = response.body().string();
+                        ResponseSearch rep = new ResponseSearch(JsonUtils.getObj(body));
+                        String error = rep.getError();
+                        if (error == null || error.isEmpty()) {
+                            progressLayout.setVisibility(View.GONE);
+                            displayEntries(rep);
+                        }
+                        else
+                        {
                             ApiErrors apiError = ApiErrors.getFromMessage(error);
                             manageError(apiError);
                         }
-                    }catch (IOException e) {
-                        e.printStackTrace();
-                        ApiErrors api = ApiErrors.NETWORK_ERROR;
-                        manageError(api);
+                    } else {
+                        String error = response.errorBody().string();
+                        System.out.println("erreur message = " + error);
+                        ApiErrors apiError = ApiErrors.getFromMessage(error);
+                        manageError(apiError);
                     }
-
+                }catch (IOException e) {
+                    e.printStackTrace();
+                    ApiErrors api = ApiErrors.NETWORK_ERROR;
+                    manageError(api);
                 }
 
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    ResponseSearch response = new ResponseSearch(ApiErrors.NETWORK_ERROR.getServerMessage());
-                    ApiErrors apiError = ApiErrors.getFromMessage(response.getError());
-                    manageError(apiError);
-                }
-            });
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                ResponseSearch response = new ResponseSearch(ApiErrors.NETWORK_ERROR.getServerMessage());
+                ApiErrors apiError = ApiErrors.getFromMessage(response.getError());
+                manageError(apiError);
+            }
+        });
     }
 
     private void displayEntries(ResponseSearch rep) {
-        adapter = new SearchRecyclerAdapter(rep.getPatients(), (SearchRecyclerListerner) getActivity());
+        adapter = new SearchRecyclerAdapter(rep.getPatients(), new SearchRecyclerListerner() {
+            @Override
+            public void onClickAddPatient(int position) {
+
+            }
+        });
         patientsList.setAdapter(adapter);
     }
 

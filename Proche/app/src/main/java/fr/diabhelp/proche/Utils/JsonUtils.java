@@ -1,7 +1,6 @@
 package fr.diabhelp.proche.Utils;
 
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
