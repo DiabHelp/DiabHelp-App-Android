@@ -49,7 +49,7 @@
                     android:src="@drawable/ic_medecin_request_refuse"
                     android:clickable="true"
                     android:contentDescription="@string/patient_request_refuse_btn_lbl"
-                    android:layout_alignTop="@+id/accept_request_btn" android:layout_alignParentEnd="true"/>
+                android:layout_alignTop="@+id/accept_request_btn" android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
 

@@ -4,36 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import fr.diabhelp.proche.ApiLinker.ApiErrors;
-import fr.diabhelp.proche.ApiLinker.ApiService;
-import fr.diabhelp.proche.ApiLinker.ResponseSearch;
-import fr.diabhelp.proche.ApiLinker.RetrofitHelper;
-import fr.diabhelp.proche.Utils.MyToast;
 import fr.diabhelp.proche.Utils.SharedContext;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class Proche extends AppCompatActivity implements SearchRecyclerListerner {
+public class Proche extends AppCompatActivity{
     public static final String PREF_FILE = "ConnexionActivityPreferences";
     public static final String ID_USER = "id_user";
     private ViewPager viewPager;
@@ -55,6 +39,8 @@ public class Proche extends AppCompatActivity implements SearchRecyclerListerner
         }
         settings = SharedContext.getSharedContext().getSharedPreferences(PREF_FILE, MODE_PRIVATE);
         idUser = settings.getString(ID_USER, "");
+        if (idUser.equals(""))
+            idUser = "26";
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Suivi des proches");
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -99,86 +85,7 @@ public class Proche extends AppCompatActivity implements SearchRecyclerListerner
         return super.onOptionsItemSelected(item);
     }
 
-    public void sendDemande(String idPatient)
-    {
-        System.out.println("je vais send une demande");
-        RetrofitHelper retrofitH = new RetrofitHelper(this);
-        ApiService service = retrofitH.createService(RetrofitHelper.Build.PROD);
-        Call<ResponseBody> call = service.sendDemande(idUser, idPatient, Status.EN_COURS.ordinal());
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        displaySuccessSendDemande();
-                    } else {
-                        String error = response.errorBody().string();
-                        System.out.println("erreur message = " + error);
-                        ApiErrors apiError = ApiErrors.getFromMessage(error);
-                        manageError(apiError);
-                    }
-                }catch (IOException e) {
-                    e.printStackTrace();
-                    ApiErrors api = ApiErrors.NETWORK_ERROR;
-                    manageError(api);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                ResponseSearch response = new ResponseSearch(ApiErrors.NETWORK_ERROR.getServerMessage());
-                ApiErrors apiError = ApiErrors.getFromMessage(response.getError());
-                manageError(apiError);
-            }
-        });
-    }
-
-    private void displaySuccessSendDemande()
-    {
-        Snackbar snack = Snackbar.make(findViewById(R.id.search_root), "Demande envoyée !",Snackbar.LENGTH_SHORT);
-        Snackbar.SnackbarLayout snackView =  (Snackbar.SnackbarLayout) snack.getView();
-        snackView.setBackgroundColor(Color.parseColor("#b410c83e"));
-        TextView tv = (TextView) snackView.findViewById(android.support.design.R.id.snackbar_text);
-        tv.setTextColor(Color.WHITE);
-        snack.show();
-        RechercheFragment frag = (RechercheFragment)pagerAdapter.getItem(2);
-        RecyclerView patientsList = frag.getPatientsList();
-        SearchRecyclerAdapter searchAdapter = (SearchRecyclerAdapter) patientsList.getAdapter();
-        searchAdapter.clearData();
-    }
-
-    private void manageError(ApiErrors error) {
-        switch (error)
-        {
-            case NETWORK_ERROR:{
-                MyToast.getInstance().displayWarningMessage("Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard", Toast.LENGTH_LONG, this);
-                Log.e("RechercheFragment", "Problème survenu lors de la connexion au serveur");
-                break;
-            }
-            case SERVER_ERROR:{
-                MyToast.getInstance().displayWarningMessage("Erreur lors du traitement de la demande", Toast.LENGTH_LONG, this);
-                Log.e("RechercheFragment", "Erreur lors du traitement de la demande");
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void onClickAddPatient(int position) {
-        pagerAdapter = (fr.diabhelp.proche.PagerAdapter)viewPager.getAdapter();
-        RechercheFragment frag = (RechercheFragment)pagerAdapter.getItem(2);
-        RecyclerView patientsList = frag.getPatientsList();
-        SearchRecyclerAdapter searchAdapter = (SearchRecyclerAdapter) patientsList.getAdapter();
-        Patient patient = searchAdapter.getPatientsList().get(position);
-        sendDemande(patient.getId());
-
-    }
-
-    public enum Status {
-        EN_COURS,
-        ACCEPTED,
-        REJECTED,
-        DELETED
+    public String getIdUser() {
+        return idUser;
     }
 }

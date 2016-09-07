@@ -1,6 +1,8 @@
 package fr.diabhelp.proche;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +24,9 @@ import fr.diabhelp.proche.ApiLinker.ApiErrors;
 import fr.diabhelp.proche.ApiLinker.ApiService;
 import fr.diabhelp.proche.ApiLinker.ResponseSearch;
 import fr.diabhelp.proche.ApiLinker.RetrofitHelper;
+import fr.diabhelp.proche.Listeners.SearchRecyclerListener;
 import fr.diabhelp.proche.Utils.JsonUtils;
+import fr.diabhelp.proche.Utils.ManageListStatus;
 import fr.diabhelp.proche.Utils.MyToast;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -29,17 +36,21 @@ import retrofit2.Response;
 /**
  * Created by 4kito on 02/08/2016.
  */
-public class RechercheFragment extends Fragment {
+public class RechercheFragment extends Fragment implements SearchRecyclerListener {
 
     private SearchView searchView;
     private LinearLayout progressLayout;
     private LinearLayout errorLayout;
     private RecyclerView patientsList;
     private SearchRecyclerAdapter adapter;
+    private Proche parent;
+    private String idUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        parent = (Proche) getActivity();
+        idUser = parent.getIdUser();
     }
 
     @Override
@@ -51,7 +62,7 @@ public class RechercheFragment extends Fragment {
         patientsList = (RecyclerView) v.findViewById(R.id.list_contacts_found_view);
         patientsList.setHasFixedSize(false);
         patientsList.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        adapter = new SearchRecyclerAdapter(new ArrayList<Patient>(), (SearchRecyclerListerner) getActivity());
+        adapter = new SearchRecyclerAdapter(new ArrayList<Patient>(), this);
         patientsList.setAdapter(adapter);
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -80,7 +91,7 @@ public class RechercheFragment extends Fragment {
 
     private void searchProches(String query) {
         RetrofitHelper retrofitH = new RetrofitHelper(getActivity());
-        ApiService service = retrofitH.createService(RetrofitHelper.Build.PROD);
+        ApiService service = retrofitH.createService(RetrofitHelper.Build.DEV);
         Call<ResponseBody> call = service.searchPatient(query);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -119,22 +130,29 @@ public class RechercheFragment extends Fragment {
                 ApiErrors apiError = ApiErrors.getFromMessage(response.getError());
                 manageError(apiError);
             }
+
+
+            private void displayEntries(ResponseSearch rep) {
+                if (adapter == null)
+                    adapter = new SearchRecyclerAdapter(rep.getPatients(), (SearchRecyclerListener) getActivity());
+                else
+                    adapter.setPatientsList(rep.getPatients());
+            }
         });
     }
 
-    private void displayEntries(ResponseSearch rep) {
-        if (adapter == null)
-            adapter = new SearchRecyclerAdapter(rep.getPatients(), (SearchRecyclerListerner) getActivity());
-        else
-            adapter.setPatientsList(rep.getPatients());
-    }
 
-    private void manageError(ApiErrors error) {
+    protected void manageError(ApiErrors error) {
         progressLayout.setVisibility(View.GONE);
         switch (error)
         {
             case NO_USERS_FOUND:{
                 errorLayout.setVisibility(View.VISIBLE);
+                break;
+            }
+            case NO_PATIENT_FOUND:{
+                MyToast.getInstance().displayWarningMessage("Erreur lors du traitement de la demande", Toast.LENGTH_LONG, getActivity());
+                Log.e("RechercheFragment", "Erreur lors du traitement de la demande");
                 break;
             }
             case NETWORK_ERROR:{
@@ -151,10 +169,62 @@ public class RechercheFragment extends Fragment {
         }
     }
 
+    public void sendDemande(String idPatient)
+    {
+        System.out.println("je vais send une demande");
+        RetrofitHelper retrofitH = new RetrofitHelper(parent);
+        ApiService service = retrofitH.createService(RetrofitHelper.Build.DEV);
+        Call<ResponseBody> call = service.sendDemande(idUser, idPatient, ManageListStatus.WAITING.ordinal());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        String body = response.body().string();
+                        JSONObject obj = JsonUtils.getObj(body);
+                        if (obj != null && JsonUtils.getBoolFromKey(obj, "success") == true)
+                            displaySuccessSendDemande();
+                        else {
+                                ApiErrors apiError = ApiErrors.getFromMessage(response.errorBody().string());
+                                manageError(apiError);
+                            }
+                    } else {
+                        String error = response.errorBody().string();
+                        ApiErrors apiError = ApiErrors.getFromMessage(error);
+                        manageError(apiError);
+                    }
+                }catch (IOException e) {
+                    e.printStackTrace();
+                    ApiErrors api = ApiErrors.NETWORK_ERROR;
+                    manageError(api);
+                }
 
+            }
 
-    public RecyclerView getPatientsList() {
-        System.out.println("patientslist = " + patientsList);
-        return (patientsList);
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                ResponseSearch response = new ResponseSearch(ApiErrors.NETWORK_ERROR.getServerMessage());
+                ApiErrors apiError = ApiErrors.getFromMessage(response.getError());
+                manageError(apiError);
+            }
+        });
+    }
+
+    private void displaySuccessSendDemande()
+    {
+        Snackbar snack = Snackbar.make(parent.findViewById(R.id.search_root), "Demande envoyée !",Snackbar.LENGTH_SHORT);
+        Snackbar.SnackbarLayout snackView =  (Snackbar.SnackbarLayout) snack.getView();
+        snackView.setBackgroundColor(Color.parseColor("#b410c83e"));
+        TextView tv = (TextView) snackView.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(Color.WHITE);
+        snack.show();
+        adapter.clearData();
+    }
+
+    @Override
+    public void onClickAddPatient(int position) {
+        Patient patient = adapter.getPatientsList().get(position);
+        sendDemande(patient.getId());
+
     }
 }

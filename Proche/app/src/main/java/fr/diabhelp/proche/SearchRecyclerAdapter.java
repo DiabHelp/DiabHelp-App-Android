@@ -11,12 +11,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.diabhelp.proche.Listeners.SearchRecyclerListener;
+
 /**
  * Created by 4kito on 02/09/2016.
  */
 public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAdapter.PatientHolder> {
     public ArrayList<Patient> patientsList = new ArrayList<>();
-    private static SearchRecyclerListerner itemListener;
+    private static SearchRecyclerListener itemListener;
 
 
     public List<Patient> getPatientsList() {
@@ -44,7 +46,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         }
     }
 
-    public SearchRecyclerAdapter(ArrayList<Patient> patientsList, SearchRecyclerListerner listener) {
+    public SearchRecyclerAdapter(ArrayList<Patient> patientsList, SearchRecyclerListener listener) {
         this.patientsList = patientsList;
         itemListener = listener;
     }

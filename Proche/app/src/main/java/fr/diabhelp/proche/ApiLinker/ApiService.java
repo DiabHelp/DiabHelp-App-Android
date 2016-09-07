@@ -17,11 +17,25 @@ public interface ApiService {
 //    @POST("/user/add")
 //    Call<ResponseRegister> addUser(@Field("mail") String mail, @Field("phone") String phone, @Field("pwd")String pwd, @Field("firstname") String firstname, @Field("lastname") String lastname, @Field("codePromo") String codePromo, @FieldMap(encoded = true) Map<String, String> bIds);
 
-    @GET("patient/search/{search}")
+
+    @GET("proche/getAllByUserId/{idUser}")
+    Call<ResponseBody> getPendingRequests(@Path("idUser") String userId);
+
+    @GET("proche/search/{search}")
     Call<ResponseBody> searchPatient(@Path("search") String query);
 
 
     @FormUrlEncoded
-    @POST("patient/managePatientList")
+    @POST("proche/manageProcheList")
     Call<ResponseBody> sendDemande(@Field("id_proche") String idProche, @Field("id_patient") String idPatient, @Field("status") int status);
+
+    @FormUrlEncoded
+    @POST("proche/manageProcheList")
+    Call<ResponseBody> acceptRequest(@Field("id_proche") String idProche, @Field("id_patient") String idPatient, @Field("status") int status);
+
+
+    @FormUrlEncoded
+    @POST("proche/manageProcheList")
+    Call<ResponseBody> denyRequest(@Field("id_proche") String idProche, @Field("id_patient") String idPatient, @Field("status") int status);
+
 }

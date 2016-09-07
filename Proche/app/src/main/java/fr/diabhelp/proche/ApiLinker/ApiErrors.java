@@ -7,7 +7,8 @@ public enum ApiErrors {
 
     NETWORK_ERROR("network error"),
     SERVER_ERROR("server error"),
-    NO_USERS_FOUND("Users not found");
+    NO_USERS_FOUND("Users not found"),
+    NO_PATIENT_FOUND("Patient not found");
 
     private String serverMessage;
 

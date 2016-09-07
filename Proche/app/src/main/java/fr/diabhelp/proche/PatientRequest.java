@@ -4,37 +4,55 @@ package fr.diabhelp.proche;
  * Created by 4kito on 02/08/2016.
  */
 public class PatientRequest {
-    private String  _name;
-    private int     _id;
-    private int     _state;
+    private String name;
+    private String id;
+    private State state;
 
-    public PatientRequest(String name, int id, int state) {
-        _name = name;
-        _id = id;
-        _state = state;
+    public PatientRequest(String name, String id, State state) {
+        this.name = name;
+        this.id = id;
+        this.state = state;
+    }
+
+    public PatientRequest() {
     }
 
     public String getName() {
-        return _name;
+        return name;
     }
 
     public void setName(String name) {
-        _name = name;
+        this.name = name;
     }
 
-    public int getId() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        _id = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public int getState() {
-        return _state;
+    public State getState() {
+        return state;
     }
 
-    public void setState(int state) {
-        _state = state;
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public enum State
+    {
+        WAITING,
+        PROCESSING,
+        ACCEPTED,
+        REFUSED;
+
+        public static State getById(int id) {
+            for(State e : values()) {
+                if(e.ordinal() == (id)) return e;
+            }
+            return null;
+        }
     }
 }
