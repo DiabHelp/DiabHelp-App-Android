@@ -1,6 +1,7 @@
 package fr.diabhelp.proche;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -132,9 +133,21 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
                         JSONObject obj = JsonUtils.getObj(body);
                         if (obj != null && JsonUtils.getBoolFromKey(obj, "success") == true) {
                             holder.changeRequestState(PatientRequest.State.ACCEPTED);
-                            requestRecyclerAdapter.getRequestList().remove(request);
-                            requestRecyclerAdapter.notifyItemRemoved(position);
-                            requestRecyclerAdapter.notifyItemRangeChanged(position, requestRecyclerAdapter.getItemCount());
+                            requestRecyclerAdapter.notifyItemChanged(position);
+
+                            // Ce block de code permet d'attendre un petit moment avant de supprimer la demande du patient
+                            // Ca permet d'avoir le temps d'afficher l'animation "Refusé"
+                            // Il faut absolument pas que 2 requetes puissent passer en meme temps, sinon la premiere risque de passer ici et la seconde dans manageApiError
+                            // En gros si y'a du caca c'est surement d'ici que ca vient
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    requestRecyclerAdapter.getRequestList().remove(request);
+                                    requestRecyclerAdapter.notifyItemRemoved(position);
+                                    requestRecyclerAdapter.notifyItemRangeChanged(position, requestRecyclerAdapter.getItemCount());
+                                }
+                            }, 2000);
                         }
                         else {
                             ApiErrors apiError = ApiErrors.getFromMessage(response.errorBody().string());
@@ -162,6 +175,8 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 ApiErrors apiError = ApiErrors.NETWORK_ERROR;
+                holder.request.setState(PatientRequest.State.WAITING);
+                requestRecyclerAdapter.notifyItemChanged(position);
                 manageError(apiError);
             }
         });
@@ -184,9 +199,22 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
                         JSONObject obj = JsonUtils.getObj(body);
                         if (obj != null && JsonUtils.getBoolFromKey(obj, "success") == true) {
                             holder.changeRequestState(PatientRequest.State.REFUSED);
-                            requestRecyclerAdapter.getRequestList().remove(request);
-                            requestRecyclerAdapter.notifyItemRemoved(position);
-                            requestRecyclerAdapter.notifyItemRangeChanged(position, requestRecyclerAdapter.getItemCount());
+                            requestRecyclerAdapter.notifyItemChanged(position);
+
+                            // Ce block de code permet d'attendre un petit moment avant de supprimer la demande du patient
+                            // Ca permet d'avoir le temps d'afficher l'animation "Refusé"
+                            // Il faut absolument pas que 2 requetes puissent passer en meme temps, sinon la premiere risque de passer ici et la seconde dans manageApiError
+                            // En gros si y'a du caca c'est surement d'ici que ca vient
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    requestRecyclerAdapter.getRequestList().remove(request);
+                                    requestRecyclerAdapter.notifyItemRemoved(position);
+                                    requestRecyclerAdapter.notifyItemRangeChanged(position, requestRecyclerAdapter.getItemCount());
+                                }
+                            }, 2000);
+
                         }
                         else {
                             ApiErrors apiError = ApiErrors.getFromMessage(response.errorBody().string());
@@ -215,11 +243,12 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 ApiErrors apiError = ApiErrors.NETWORK_ERROR;
+                holder.request.setState(PatientRequest.State.WAITING);
+                requestRecyclerAdapter.notifyItemChanged(position);
                 manageError(apiError);
             }
         });
     }
-
 
     protected void manageError(ApiErrors error) {
         //progressLayout.setVisibility(View.GONE);

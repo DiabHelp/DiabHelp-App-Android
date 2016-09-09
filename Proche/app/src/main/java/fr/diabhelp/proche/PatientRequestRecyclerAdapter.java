@@ -1,6 +1,7 @@
 package fr.diabhelp.proche;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -151,6 +152,7 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
         holder.request = requestList.get(position);
         if (holder.request.getState() != PatientRequest.State.WAITING) // Si la requête est en train d'être acceptée ou refusée, pas besoin de bind
             return;
+        Log.d("PatientRequest", "Bind ViewHolder, name = " + holder.request.getName());
         holder.name.setText(holder.request.getName());
 //        holder.acceptBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override

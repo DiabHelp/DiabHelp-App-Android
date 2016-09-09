@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.diabhelp.proche.Listeners.SearchRecyclerListener;
+import fr.diabhelp.proche.Utils.FieldUtils;
 
 /**
  * Created by 4kito on 02/09/2016.
@@ -61,12 +62,9 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
     @Override
     public void onBindViewHolder(PatientHolder holder, int pos) {
         holder.identity.setText(patientsList.get(pos).getPrenom() + " " + patientsList.get(pos).getNom().toUpperCase());
-        /*
         String phone = patientsList.get(pos).getTel();
         if (FieldUtils.isStringValid(phone, 10, FieldUtils.MATCH_REQUIRED))
-*/
-        holder.phone.setText("06******54");
-            //holder.phone.setText(phone.substring(0,2) + "******" + phone.substring(7,2));
+            holder.phone.setText(phone.substring(0,2) + "******" + phone.substring(7,2));
         //TODO set l'image
     }
 
@@ -79,7 +77,6 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
             for (int i = 0; i < size; i++) {
                 this.patientsList.remove(0);
             }
-
             this.notifyItemRangeRemoved(0, size);
         }
     }
