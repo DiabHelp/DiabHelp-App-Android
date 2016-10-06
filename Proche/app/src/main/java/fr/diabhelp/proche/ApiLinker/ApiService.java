@@ -24,6 +24,9 @@ public interface ApiService {
     @GET("proche/search/{search}")
     Call<ResponseBody> searchPatient(@Path("search") String query);
 
+    @GET("proche/getAllByUserId/{idUser}")
+    Call<ResponseBody> getAllPatients(@Path("idUser") String userId);
+
 
     @FormUrlEncoded
     @POST("proche/manageProcheList")

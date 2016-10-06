@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +18,8 @@ import java.util.ArrayList;
  * Created by 4kito on 03/08/2016.
  */
 public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecyclerAdapter.PatientHolder> {
-    private Context             _activityContext;
-    private Fragment            _parentFragment;
-    private ArrayList<Patient>  _patientsList = new ArrayList<>();
+    private Context activityContext;
+    private ArrayList<Patient> patientsList = new ArrayList<>();
 
     public static class PatientHolder extends RecyclerView.ViewHolder {
         ImageView   logo;
@@ -37,10 +34,9 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
         }
     }
 
-    public PatientRecyclerAdapter(Context context, Fragment parent, ArrayList<Patient> patientsList) {
-        _activityContext = context;
-        _parentFragment = parent;
-        _patientsList = patientsList;
+    public PatientRecyclerAdapter(ArrayList<Patient> patientsList, Context context) {
+        activityContext = context;
+        this.patientsList = patientsList;
     }
 
     @Override
@@ -58,7 +54,7 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
                 alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OUI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        _patientsList.remove(patientHolder.getAdapterPosition());
+                        patientsList.remove(patientHolder.getAdapterPosition());
                         notifyDataSetChanged();
                     }
                 });
@@ -81,8 +77,8 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
                 alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OUI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent  intent = new Intent(_activityContext, MapActivity.class);
-                        _activityContext.startActivity(intent);
+                        Intent  intent = new Intent(activityContext, MapActivity.class);
+                        activityContext.startActivity(intent);
                     }
                 });
                 alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "NON", new DialogInterface.OnClickListener() {
@@ -100,9 +96,9 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
 
     @Override
     public void onBindViewHolder(PatientHolder holder, int position) {
-        holder.name.setText(_patientsList.get(position).getPrenom());
-        holder.surname.setText(_patientsList.get(position).getNom());
-        switch (_patientsList.get(position).getState()) {
+        holder.name.setText(patientsList.get(position).getPrenom());
+        holder.surname.setText(patientsList.get(position).getNom());
+        switch (patientsList.get(position).getState()) {
             case OK:
                 holder.itemView.findViewById(R.id.bglayout).setBackgroundColor(Color.parseColor("#60E995"));
                 holder.itemView.invalidate();
@@ -123,6 +119,15 @@ public class PatientRecyclerAdapter extends RecyclerView.Adapter<PatientRecycler
 
     @Override
     public int getItemCount() {
-        return _patientsList.size();
+        return patientsList.size();
+    }
+
+    public ArrayList<Patient> getPatientsList() {
+        return patientsList;
+    }
+
+    public void setPatientsList(ArrayList<Patient> patientsList) {
+        this.patientsList = patientsList;
+        this.notifyDataSetChanged();
     }
 }

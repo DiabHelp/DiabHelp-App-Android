@@ -60,7 +60,7 @@ public class JsonUtils {
         }
         catch (Exception e)
         {
-            Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "]");
+            Log.e("JsonUtils", "Error json invalid = [" + obj.toString() + "] key = " + key);
             return (null);
         }
     }

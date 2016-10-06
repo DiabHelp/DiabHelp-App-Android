@@ -65,6 +65,7 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
         String phone = patientsList.get(pos).getTel();
         if (FieldUtils.isStringValid(phone, 10, FieldUtils.MATCH_REQUIRED))
             holder.phone.setText(phone.substring(0,2) + "******" + phone.substring(7,2));
+        System.out.println("text = " + phone);
         //TODO set l'image
     }
 

@@ -211,5 +211,6 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
 
     public void setRequestList(ArrayList<PatientRequest> requestList) {
         this.requestList = requestList;
+        this.notifyDataSetChanged();
     }
 }

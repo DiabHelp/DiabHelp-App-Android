@@ -43,9 +43,9 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
     private LinearLayoutManager requestRecLayoutManager;
     private LinearLayout errorLayout;
 
-    String APIToken;
-    String idUser;
-    Proche parent;
+    private String APIToken;
+    private String idUser;
+    private Proche parent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -148,6 +148,7 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
                                     requestRecyclerAdapter.notifyItemRangeChanged(position, requestRecyclerAdapter.getItemCount());
                                 }
                             }, 2000);
+                            parent.updateSuivis();
                         }
                         else {
                             ApiErrors apiError = ApiErrors.getFromMessage(response.errorBody().string());

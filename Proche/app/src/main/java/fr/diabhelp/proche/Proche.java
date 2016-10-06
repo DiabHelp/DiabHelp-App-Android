@@ -18,7 +18,8 @@ import java.util.ArrayList;
 import fr.diabhelp.proche.Utils.SharedContext;
 
 public class Proche extends AppCompatActivity{
-    public static final String PREF_FILE = "ConnexionActivityPreferences";
+  //public static final String PREF_FILE = "ConnexionActivityPreferences";
+    public static final String PREF_FILE = "ProcheActivityPreferences";
     public static final String ID_USER = "id_user";
     private ViewPager viewPager;
     private SharedPreferences settings;
@@ -29,18 +30,22 @@ public class Proche extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proche);
-        try {
-            SharedContext.setContext(getApplicationContext().createPackageContext(
-                    "fr.diabhelp.diabhelp",
-                    Context.MODE_PRIVATE));
-
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        settings = SharedContext.getSharedContext().getSharedPreferences(PREF_FILE, MODE_PRIVATE);
-        idUser = settings.getString(ID_USER, "");
-        if (idUser.equals(""))
+//        try {
+//            SharedContext.setContext(getApplicationContext().createPackageContext(
+//                    "fr.diabhelp.diabhelp",
+//                    Context.MODE_PRIVATE));
+//
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        settings = SharedContext.getSharedContext().getSharedPreferences(PREF_FILE, MODE_PRIVATE);
+//        idUser = settings.getString(ID_USER, "");
+        settings = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
+        if (idUser == null || idUser.equals(""))
             idUser = "26";
+        SharedPreferences.Editor edit = settings.edit();
+        edit.putString("id_user", idUser);
+        edit.apply();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Suivi des proches");
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -88,4 +93,10 @@ public class Proche extends AppCompatActivity{
     public String getIdUser() {
         return idUser;
     }
+
+    public void updateSuivis()
+    {
+        ((SuivisFragment)pagerAdapter.getItem(0)).update();
+    }
+
 }
