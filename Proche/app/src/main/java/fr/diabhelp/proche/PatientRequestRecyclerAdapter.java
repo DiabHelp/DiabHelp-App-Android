@@ -1,5 +1,6 @@
 package fr.diabhelp.proche;
 
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,60 +27,6 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
         this.requestList = requestList;
     }
 
-
-//    private ArrayList<PatientRequest> getRequests() {
-//        ArrayList<PatientRequest> requests = new ArrayList<>();
-//
-//        /* DEBUG BLOCK */
-//
-//        for (int i = 0; i < 8; i++)
-//            requests.add(new PatientRequest("TestRequestPatient " + i, i, REQUEST));
-//
-//        /* END DEBUG BLOCK */
-//
-//        return requests;
-//    }
-
-//    private int getRequestIndexById(int id)
-//    {
-//        for (int i = 0; i < requestList.size(); i++)
-//            if (requestList.get(i).getId() == id)
-//                return i;
-//        return -1;
-//    }
-
-//    @Override
-//    public void onBackgroundTaskCompleted(String s, int type, String action) throws JSONException {
-//        if (s.startsWith("ERROR :")) {
-//            Log.d("PatientRequest", "Could not connect to API (" + s + ")");
-//            onApiCallFailure();
-//            return;
-//        }
-//        Gson gson = new Gson();
-//        Log.d("PatientRequest", "Api response : "  + s + " for action " + action);
-//        Map<String, String> response = gson.fromJson(s, Map.class);
-//        String status = response.get("status");
-//        if (status.equals("success") == false)
-//            onApiCallFailure();
-//        else {
-//            int id = Integer.parseInt(response.get("id"));
-//            int index = getRequestIndexById(id);
-//            String reqAction = response.get("action");
-//            if (reqAction.equals("ACCEPT"))
-//                requestList.get(index).setState(ACCEPTED);
-//            else if (reqAction.equals("REFUSE"))
-//                requestList.get(index).setState(REFUSED);
-//            else
-//                onApiCallFailure();
-//            Log.d("PatientRequest", "Notify item removed for index : " + index + " (Name : " + requestList.get(index).getName() + ")");
-//            notifyItemChanged(index);
-//            requestList.remove(index);
-//            notifyItemRemoved(index);
-//            notifyItemRangeChanged(index, getItemCount());
-//            //_context.setRecyclerViewHeight(_view);
-//        }
-//    }
-
     public class PatientRequestHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         PatientRequest request;
         TextView name;
@@ -96,20 +43,31 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
                 this.acceptBtn.setOnClickListener(this);
                 this.refuseBtn.setOnClickListener(this);
             }
-
-
         }
 
         @Override
         public void onClick(View v) {
             this.request.setState(PatientRequest.State.PROCESSING);
-            notifyItemChanged(this.getLayoutPosition());
-            if (v == this.acceptBtn)
-                listener.onClickAcceptPatient(request, this.getLayoutPosition(), this);
-            else if (v == this.refuseBtn)
-                listener.onClickDenyPatient(request, this.getLayoutPosition(), this);
-            //TODO verifier que l'on rentre bien dans une condition
+            notifyItemChanged(this.getAdapterPosition());
+            if (v == this.acceptBtn){
+                listener.onClickAcceptPatient(request, this.getAdapterPosition(), this);
+            }
 
+            else if (v == this.refuseBtn)
+                listener.onClickDenyPatient(request, this.getAdapterPosition(), this);
+        }
+
+        public void removeItem(final int position)
+        {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    requestList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position,  requestList.size());
+                }
+            }, 2000);
 
         }
 
@@ -117,10 +75,10 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
             return request;
         }
 
-        public void changeRequestState(PatientRequest.State state)
+        public void changeRequestState(PatientRequest.State state, int position)
         {
             this.request.setState(state);
-            notifyItemChanged(this.getLayoutPosition());
+            notifyItemChanged(position);
         }
     }
 
@@ -154,39 +112,6 @@ public class PatientRequestRecyclerAdapter extends RecyclerView.Adapter<PatientR
             return;
         Log.d("PatientRequest", "Bind ViewHolder, name = " + holder.request.getName());
         holder.name.setText(holder.request.getName());
-//        holder.acceptBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("MedecinRequest", "Accept for request : " + holder.request.getName() + " and position : " + position);
-//                holder.request.setState(WAITING);
-//                new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "ACCEPT");
-//                notifyItemChanged(position);
-//
-//                /*
-//                // A appeller une fois que la requête API renvoie OK
-//              requestList.remove(holder.request);
-//                notifyItemRemoved(position);
-//                notifyItemRangeChanged(position, getItemCount());
-//                */
-//
-//            }
-//        });
-//        holder.refuseBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("MedecinRequest", "Refuse for request : " + holder.request.getName() + " and position : " + position);
-//                holder.request.setState(WAITING);
-//                new ApiCallTask(PatientRequestRecyclerAdapter.this, ApiCallTask.POST, ApiCallTask.OBJECT, "MedecinPatient").execute("2", "requestResponse", "id", String.valueOf(holder.request.getId()), "response", "REFUSE");
-//                notifyItemChanged(position);
-//                    /*
-//                // A appeller une fois que la requête API renvoie OK
-//                requestList.remove(holder.request);
-//                notifyItemRemoved(position);
-//                notifyItemRangeChanged(position, getItemCount());
-//                 */
-//
-//            }
-//        });
     }
 
 

@@ -132,22 +132,13 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
                         String body = response.body().string();
                         JSONObject obj = JsonUtils.getObj(body);
                         if (obj != null && JsonUtils.getBoolFromKey(obj, "success") == true) {
-                            holder.changeRequestState(PatientRequest.State.ACCEPTED);
-                            requestRecyclerAdapter.notifyItemChanged(position);
+                            holder.changeRequestState(PatientRequest.State.ACCEPTED, position);
 
                             // Ce block de code permet d'attendre un petit moment avant de supprimer la demande du patient
                             // Ca permet d'avoir le temps d'afficher l'animation "Refusé"
                             // Il faut absolument pas que 2 requetes puissent passer en meme temps, sinon la premiere risque de passer ici et la seconde dans manageApiError
                             // En gros si y'a du caca c'est surement d'ici que ca vient
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    requestRecyclerAdapter.getRequestList().remove(request);
-                                    requestRecyclerAdapter.notifyItemRemoved(position);
-                                    requestRecyclerAdapter.notifyItemRangeChanged(position, requestRecyclerAdapter.getItemCount());
-                                }
-                            }, 2000);
+                            holder.removeItem(position);
                             parent.updateSuivis();
                         }
                         else {
@@ -199,8 +190,7 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
                         String body = response.body().string();
                         JSONObject obj = JsonUtils.getObj(body);
                         if (obj != null && JsonUtils.getBoolFromKey(obj, "success") == true) {
-                            holder.changeRequestState(PatientRequest.State.REFUSED);
-                            requestRecyclerAdapter.notifyItemChanged(position);
+                            holder.changeRequestState(PatientRequest.State.REFUSED, position);
 
                             // Ce block de code permet d'attendre un petit moment avant de supprimer la demande du patient
                             // Ca permet d'avoir le temps d'afficher l'animation "Refusé"
