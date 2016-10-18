@@ -47,6 +47,7 @@ public class CurrentMenuFragment extends Fragment {
             public void onClick(final View v) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
                 alertDialogBuilder.setTitle("Supprimer le menu actuel");
+                alertDialogBuilder.setIcon(R.drawable.diab_logo);
                 alertDialogBuilder.setMessage("Voulez-vous vraiment supprimer le menu actuel ?")
                         .setCancelable(false);
                 final AlertDialog alertDialog = alertDialogBuilder.create();
@@ -100,8 +101,10 @@ public class CurrentMenuFragment extends Fragment {
                         EditText pEdit = (EditText) dialog.findViewById(R.id.quantite);
                         if (_searchBox.getText().toString().matches("") || pEdit.getText().toString().matches("")) {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            alertDialogBuilder.setIcon(R.drawable.diab_logo);
                             if (_searchBox.getText().toString().matches("")) {
                                 alertDialogBuilder.setTitle("Aliment non renseigné");
+
                                 alertDialogBuilder.setMessage("Veuillez choisir un aliment")
                                         .setCancelable(true);
                             } else {
@@ -142,6 +145,7 @@ public class CurrentMenuFragment extends Fragment {
                     }
                 });
                 dialog.setTitle("Ajouter un aliment");
+
                 dialog.show();
             }
         });
@@ -151,6 +155,7 @@ public class CurrentMenuFragment extends Fragment {
                 if (_alimentsList.isEmpty()) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                     alertDialogBuilder.setTitle("Aucun aliment");
+                    alertDialogBuilder.setIcon(R.drawable.diab_logo);
                     alertDialogBuilder.setMessage("Veuillez ajouter un aliment à votre menu")
                             .setCancelable(true);
                     AlertDialog alertDialog = alertDialogBuilder.create();
@@ -166,6 +171,7 @@ public class CurrentMenuFragment extends Fragment {
                             if (nEdit.getText().toString().matches("")) {
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                                 alertDialogBuilder.setTitle("Nom non renseigné");
+                                alertDialogBuilder.setIcon(R.drawable.diab_logo);
                                 alertDialogBuilder.setMessage("Veuillez donner un nom à votre menu")
                                         .setCancelable(true);
                                 AlertDialog alertDialog = alertDialogBuilder.create();
