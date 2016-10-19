@@ -6,9 +6,9 @@ package fr.diabhelp.medecin_patient;
 public class MedecinRequest {
     private String name;
     private int id;
-    private int state;
+    private State state;
 
-    public MedecinRequest(String name, int id, int state) {
+    public MedecinRequest(String name, int id, State state) {
         this.name = name;
         this.id = id;
         this.state = state;
@@ -30,11 +30,26 @@ public class MedecinRequest {
         this.id = id;
     }
 
-    public int getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(State state) {
         this.state = state;
+    }
+
+    public enum State
+    {
+        WAITING,
+        PROCESSING,
+        ACCEPTED,
+        REFUSED;
+
+        public static State getById(int id) {
+            for(State e : values()) {
+                if(e.ordinal() == (id)) return e;
+            }
+            return null;
+        }
     }
 }

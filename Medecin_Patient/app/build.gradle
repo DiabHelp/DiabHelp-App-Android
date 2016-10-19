@@ -9,13 +9,13 @@ buildscript {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 22
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "fr.diabhelp.medecin_patient"
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -37,6 +37,8 @@ dependencies {
     compile files("libs/prettytime-4.0.1.Final.jar")
     compile files("libs/prettytime-4.0.1.Final-javadoc.jar")
     compile 'com.google.code.gson:gson:2.6.2'
-
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
 
 }

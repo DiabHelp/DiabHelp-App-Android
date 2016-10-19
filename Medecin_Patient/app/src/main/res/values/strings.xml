@@ -14,4 +14,6 @@
     <string name="medecin_request_refused_lbl">Requête refusée</string>
     <string name="medecin_requestlist_waiting_lbl">Traitement en cours...</string>
     <string name="medecin_list_removed_lbl">Médecin supprimé</string>
+    <string name="api_url_prod">https://diabhelp.org/api/</string>
+    <string name="api_url_dev">http://138.68.140.15:8000/</string>
 </resources>

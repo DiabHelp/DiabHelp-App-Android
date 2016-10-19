@@ -9,9 +9,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import fr.diabhelp.medecin_patient.API.ApiService;
+import fr.diabhelp.medecin_patient.API.RetrofitHelper;
+import fr.diabhelp.medecin_patient.Listeners.ChatRecyclerListener;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * Created by sundava on 09/03/16.
@@ -19,12 +27,19 @@ import java.util.Date;
 public class ChatRecyclerAdapter extends RecyclerView.Adapter<ChatRecyclerAdapter.ChatMessageHolder>{
 
     private ArrayList<ChatMessage> _messageList;
+    ChatRecyclerListener listener;
     private String APIToken;
 
-    public ChatRecyclerAdapter(String APIToken)
+    public ChatRecyclerAdapter(String APIToken, ChatRecyclerListener listener, ArrayList<ChatMessage> chatMessages)
     {
         this.APIToken = APIToken;
-        _messageList = getMessageHistory(5);
+        this.listener = listener;
+        _messageList = chatMessages;
+    }
+
+    public void setChatMessages(ArrayList<ChatMessage> chatMessages) {
+        this._messageList = chatMessages;
+        this.notifyDataSetChanged();
     }
 
     public static class ChatMessageHolder extends RecyclerView.ViewHolder {
@@ -118,18 +133,22 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<ChatRecyclerAdapte
         return _messageList.size();
     }
 
-    private ArrayList<ChatMessage> getMessageHistory(int min_messages) {
-        //TODO : Connexion API pour des vraies data
+
+    private ArrayList<ChatMessage> getMessageHistoryDebug(int min_messages) {
+        //Utilise a l'epoque pour generer de la data sans l'API
         ArrayList<ChatMessage> messages = new ArrayList<>();
         /* DEBUG BLOCK*/
-        for (int i = 0; i < min_messages; i++)
-            messages.add(new ChatMessage("TestSender", "TestMsg" + i, new Date().getTime(), true));
-        messages.add(new ChatMessage("TestSender", "TestMsg 2Days", new Date().getTime() - (24 * 60 * 60 * 1000 * 2), false));
-        messages.add(new ChatMessage("TestSender", "TestMsg 3Days", new Date().getTime() - (24 * 60 * 60 * 1000 * 3), false));
-        messages.add(new ChatMessage("TestSender", "TestMsg 10Days", new Date().getTime() - (24 * 60 * 60 * 1000 * 10), true));
-        messages.add(new ChatMessage("TestSender", "TestMsg 2 Hours", new Date().getTime() - (60 * 60 * 1000 * 2), false));
-        messages.add(new ChatMessage("TestSender", "TestMsg 2 Min", new Date().getTime() - (60 * 1000 * 2), true));
-        messages.add(new ChatMessage("TestSender", "TestMsg 50 Sec", new Date().getTime() - (1000 * 50), false));
+        int day_ms = 24 * 60 * 60 * 1000;
+        int hour_ms = 60 * 60 * 1000;
+        int minute_ms = 60 * 1000;
+        messages.add(new ChatMessage("Moi", "Bonjour, j'aurais une question", new Date().getTime() - (hour_ms * 1), true));
+        messages.add(new ChatMessage("Dr Delat", "Je vous écoute", new Date().getTime() - (48 * minute_ms + 22 * 1000), false));
+        messages.add(new ChatMessage("Moi", "J'ai oublié mon injection d'insuline du repas de midi, que devrais-je faire ?", new Date().getTime() - (minute_ms * 44 + 10 * 1000), true));
+        messages.add(new ChatMessage("Dr Delat", "Vous devez reprendre votre glycémie, puis ajuster la dose d'insuline en fonction", new Date().getTime() - (minute_ms* 42  + 35 * 1000), false));
+        messages.add(new ChatMessage("Dr Delat", "Gardez en tête que l'insuline agira donc plus tard, puisque l'injection aura été retardée", new Date().getTime() - (minute_ms* 42  + 2 * 1000), false));
+        messages.add(new ChatMessage("Moi", "Très bien, merci", new Date().getTime() - (minute_ms * 38 + 9 * 1000), true));
+        messages.add(new ChatMessage("Dr Delat", "Pas de problème", new Date().getTime() - (minute_ms * 36 + 47 * 1000), false));
+        messages.add(new ChatMessage("Dr Delat", "Surveillez votre glycémie durant les prochaines 24, et revenez vers moi si vous constatez des valeurs trop faibles ou trop élevées", new Date().getTime() - (minute_ms * 35 + 11 * 1000), false));
 
         /* END DEBUG */
         return messages;
@@ -137,8 +156,7 @@ public class ChatRecyclerAdapter extends RecyclerView.Adapter<ChatRecyclerAdapte
 
     public boolean addMessage(String msg)
     {
-        double debug =  Math.random();
-        return addMessage("Me", msg + " " + debug, Calendar.getInstance().getTimeInMillis(), true) && (debug % 2 == 0) && addMessage("Other", "Answer to " + msg, Calendar.getInstance().getTimeInMillis(), false);
+        return addMessage("Moi", msg, Calendar.getInstance().getTimeInMillis(), true);
     }
 
     public boolean addMessage(String msg, String sender, long timestamp, boolean isMe)

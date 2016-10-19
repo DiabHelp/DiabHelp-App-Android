@@ -15,7 +15,7 @@ import java.util.logging.SimpleFormatter;
  */
 public class ChatMessage {
 
-    public ChatMessage(String sender,String message,long timestamp, boolean isMe)
+    public ChatMessage(String sender, String message, long timestamp, boolean isMe)
     {
         this.sender = sender;
         this.message = message;
@@ -31,7 +31,6 @@ public class ChatMessage {
             this.date = p.format(msgDate);
         }
     }
-
 
     public String getSender() {
         return sender;

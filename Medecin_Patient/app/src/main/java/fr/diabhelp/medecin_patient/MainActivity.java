@@ -1,6 +1,6 @@
 package fr.diabhelp.medecin_patient;
 
-import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.*;
@@ -10,16 +10,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String PREF_FILE = "PatientActivityPreferences";
+    public static final String ID_USER = "id_user";
+    private ViewPager viewPager;
+    private SharedPreferences settings;
+    private String idUser;
+    fr.diabhelp.medecin_patient.PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        settings = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
+        idUser = settings.getString(ID_USER, "");
+        if (idUser == null || idUser.equals(""))
+            idUser = "26";
+        SharedPreferences.Editor edit = settings.edit();
+        edit.putString("id_user", idUser);
+        edit.apply();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Relation Médecin Patient");
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Chat"));
+        tabLayout.addTab(tabLayout.newTab().setText("Conversations"));
         tabLayout.addTab(tabLayout.newTab().setText("Médecins"));
         tabLayout.addTab(tabLayout.newTab().setText("Paramètres"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -45,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -66,5 +78,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public String getIdUser() {
+        return idUser;
     }
 }
