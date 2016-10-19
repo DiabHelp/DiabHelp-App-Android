@@ -14,4 +14,5 @@
     <string name="patient_request_refused_lbl">Requête refusée</string>
     <string name="patient_requestlist_waiting_lbl">Traitement en cours...</string>
     <string name="patient_list_removed_lbl">Médecin supprimé</string>
+    <string name="title_activity_dialog">Alerte</string>
 </resources>
