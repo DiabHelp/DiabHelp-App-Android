@@ -75,6 +75,7 @@ public class CurrentMenuFragment extends Fragment {
             public void onClick(View v) {
                 final Dialog dialog = new Dialog(getActivity());
                 dialog.setContentView(R.layout.add_aliment);
+
                 _searchBox = (DBSearchBox) dialog.findViewById(R.id.search_input);
                 _searchBox.initDBHooks(_dbHelper);
                 _searchBox.setAlimentList(_alimentsList);
