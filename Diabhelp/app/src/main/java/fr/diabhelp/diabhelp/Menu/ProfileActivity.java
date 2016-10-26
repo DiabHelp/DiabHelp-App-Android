@@ -98,8 +98,6 @@ public class ProfileActivity extends AppCompatActivity implements IApiCallTask
         toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Carnetintent = new Intent(ProfileActivity.this, CoreActivity.class);
-                ProfileActivity.this.startActivity(Carnetintent);
                 ProfileActivity.this.finish();
             }
         });
@@ -161,18 +159,18 @@ public class ProfileActivity extends AppCompatActivity implements IApiCallTask
     }
 
     private void setFields(ResponseProfilGet response) {
-        this.nomView.setText(response.getLastname());
-        this.prenomView.setText(response.getFirstname());
-        this.emailView.setText(response.getEmail());
+        this.nomView.setHint(response.getLastname());
+        this.prenomView.setHint(response.getFirstname());
+        this.emailView.setHint(response.getEmail());
         String birthDate = response.getBirthdate();
         if (birthDate != null && !birthDate.isEmpty() && !birthDate.equals("null"))
-            this.dateNaissanceView.setText(response.getBirthdate());
+            this.dateNaissanceView.setHint(response.getBirthdate());
         String phone = response.getMobile();
         if (phone != null && !phone.isEmpty() && !phone.equals("null"))
-            this.telephoneView.setText(response.getMobile());
+            this.telephoneView.setHint(response.getMobile());
         String organism = response.getOrganism();
         if (organism != null && !organism.isEmpty() && !organism.equals("null"))
-            this.organismeView.setText(response.getOrganism());
+            this.organismeView.setHint(response.getOrganism());
     }
 
     private void manageError(Error error) {
