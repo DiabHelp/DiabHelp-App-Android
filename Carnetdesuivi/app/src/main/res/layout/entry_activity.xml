@@ -151,7 +151,9 @@
                         android:layout_height="@dimen/heigh_img_entry_activity"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:src="@drawable/glycemiegood"/>
+
+                        android:src="@drawable/glycemiegood"
+                        />
                     <EditText
                         android:id="@+id/editglycemy"
                         android:layout_width="0dp"
@@ -169,7 +171,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
-                        android:text="Glucides (g))"
+                        android:text="Glucides (g)"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textStyle="bold"/>
                     <ImageView

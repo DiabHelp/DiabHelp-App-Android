@@ -262,10 +262,10 @@ public class EntryOfCDSDAO {
             m.setDateEdition(_dateEdition);
             m.setActivity(_activity);
             m.setActivityType(_activityType);
-            m.setFast_insu(_fast_insu);
+            m.setFastInsu(_fast_insu);
             m.setGlucide(_glucide);
             m.setNotes(_notes);
-            m.setSlow_insu(_slow_insu);
+            m.setSlowInsu(_slow_insu);
             m.setTitle(_title);
             m.setPlace(_place);
             m.setHba1c(_hba1c);
@@ -420,10 +420,10 @@ public class EntryOfCDSDAO {
                 m.setDateEdition(_dateEdition);
                 m.setActivity(_activity);
                 m.setActivityType(_activityType);
-                m.setFast_insu(_fast_insu);
+                m.setFastInsu(_fast_insu);
                 m.setGlucide(_glucide);
                 m.setNotes(_notes);
-                m.setSlow_insu(_slow_insu);
+                m.setSlowInsu(_slow_insu);
                 m.setTitle(_title);
                 m.setPlace(_place);
                 m.setHba1c(_hba1c);

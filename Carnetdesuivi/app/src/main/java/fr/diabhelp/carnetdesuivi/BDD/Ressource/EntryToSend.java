@@ -33,8 +33,8 @@ public class EntryToSend {
     private String activity;
     private String activityType;
     private String notes;
-    private Double fast_insu;
-    private Double slow_insu;
+    private Double fastInsu;
+    private Double slowInsu;
     private Double hba1c;
     private String hour;
     private Double glycemy;
@@ -133,12 +133,12 @@ public class EntryToSend {
         this.encas = encas;
     }
 
-    public Double getFast_insu() {
-        return fast_insu;
+    public Double getFastInsu() {
+        return fastInsu;
     }
 
-    public void setFast_insu(Double fast_insu) {
-        this.fast_insu = fast_insu;
+    public void setFastInsu(Double fastInsu) {
+        this.fastInsu = fastInsu;
     }
 
     public Double getGlucide() {
@@ -245,12 +245,12 @@ public class EntryToSend {
         this.sleep = sleep;
     }
 
-    public Double getSlow_insu() {
-        return slow_insu;
+    public Double getSlowInsu() {
+        return slowInsu;
     }
 
-    public void setSlow_insu(Double slow_insu) {
-        this.slow_insu = slow_insu;
+    public void setSlowInsu(Double slowInsu) {
+        this.slowInsu = slowInsu;
     }
 
     public String getTitle() {
