@@ -2,88 +2,157 @@
 <items version="2" >
 
     <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\exploded-aar\org.solovyev.android.views\linear-layout-manager\0.5\jars\classes.jar"
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
         jumboMode="true"
-        revision="21.1.2"
-        sha1="d9e195d6fd00f4f938e173bfee6c621fb26480f5">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\org.solovyev.android.views-linear-layout-manager-0.5_ccc091436ca8d91d0a50f34bc99f973eec2dbf24\classes.dex" />
-    </item>
-    <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-22.2.0_467028fdf9493de32c55c70741353c363f4e3364\classes.dex" />
-    </item>
-    <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-22.2.1_39f987e22a4a9ed36b16792843a977f61d301a2e\classes.dex" />
-    </item>
-    <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="c0fda9a088240cbe1840c3bfe436d06b5d43609b">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_31e880f013a6a8f5a1e76f522529ce05f07efe23\classes.dex" />
-    </item>
-    <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="680a1feb8ff0865471d89c9239d567ae2719aee7">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_c8c8d26c95d3f0f632a8b382dd19e4fae950765f\classes.dex" />
-    </item>
-    <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-22.2.1_4723d487171b6913396f309c63cd2bc91a5c743d\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\Sumbers\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.6.2\f1bc476cc167b18e66c297df599b2377131a8947\gson-2.6.2.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.6.2_6859f92b2bfe1b48042d430f6c69fc7653f03f31\classes.dex" />
-    </item>
-    <item
-        jar="D:\Users\Sumbers\Documents\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-22.2.1_ba5a8a38fb585555e5e38d12614111fc9836a085\classes.dex" />
-    </item>
-    <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.0\jars\classes.jar"
-        jumboMode="true"
-        revision="21.1.2"
-        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-22.2.0_20d3aba9e2dcbea74e898843122eed4f7c3f1214\classes.dex" />
-    </item>
-    <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
-        jumboMode="true"
+        optimize="true"
         revision="21.1.2"
         sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-22.2.1_9e3d4afe394c5c5f0d8dea97e51ae6769c73de8f\classes.dex" />
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-22.2.1_038569c609fd33c888d611357a7e51e945439f91/classes.dex" />
     </item>
     <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\22.0.0\jars\classes.jar"
+        is-multidex="true"
+        jar="/home/naqued/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.0.0-beta4/de5935a367ba5e343e9df786ac8fc0c7d52b5f0c/converter-gson-2.0.0-beta4.jar"
         jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="de5935a367ba5e343e9df786ac8fc0c7d52b5f0c">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/converter-gson-2.0.0-beta4_e828d24780d2c2841859f7c4e7f0faa562b074c9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/2de7cd8b95b7021b1d597f049bcb422055119f2c/retrofit-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-2.1.0_caa04bd2ab9030ae355b0cd00455599fc85a3e29/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/exploded-aar/org.solovyev.android.views/linear-layout-manager/0.5/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="d9e195d6fd00f4f938e173bfee6c621fb26480f5">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/org.solovyev.android.views-linear-layout-manager-0.5_b654dcdc8f7424593d88a2b63c75301df8caa340/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.8.0/5ea7af56cc7c567ed9856d99efb30740e9b17ff/okio-1.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.8.0_db1b940010cfbc40ea3dd1034d938411f695eb69/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
         revision="21.1.2"
         sha1="11842de6a309c447b3a3d60d73ad637a87c58994">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-22.0.0_1d73f1cd13747a7a8eb6ffd6292ec887d21f8dda\classes.dex" />
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-22.0.0_751fade7e64f0c0cd174a8c2a2fb9c58d09f9b70/classes.dex" />
     </item>
     <item
-        jar="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\libs\prettytime-4.0.1.Final.jar"
+        is-multidex="true"
+        jar="/home/naqued/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.6.2/f1bc476cc167b18e66c297df599b2377131a8947/gson-2.6.2.jar"
         jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="f1bc476cc167b18e66c297df599b2377131a8947">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.6.2_cfb4aaea974d241b26e9e35c634f0a03b7ee2936/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-22.2.1_75e7791f3a8679d78db01e9a0dbcf984d744959a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.3.0/2b802460eea20f8f2ad9c08c74e0f14718e88aa9/okhttp-3.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="2b802460eea20f8f2ad9c08c74e0f14718e88aa9">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.3.0_a61c35973d49e78c5c40436f4a03b53c5fd4d158/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-22.2.1_3a3b99f896276648c8d4c39d0c8b089501ce1d96/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/libs/prettytime-4.0.1.Final.jar"
+        jumboMode="true"
+        optimize="true"
         revision="21.1.2"
         sha1="5537d74e2102a82fd937dd9b8a652e3b26026a7a">
-        <dex dex="D:\Users\Sumbers\Documents\Diabhelp\code\DiabHelp-App-Android\Medecin_Patient\app\build\intermediates\transforms\dex\debug\folders\1000\2\prettytime-4.0.1.Final_47ccdc072c869f085c5300f555f21f9bd91311a7\classes.dex" />
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/2/prettytime-4.0.1.Final_d2b635f8e185e8f9f8fb1cba43c81921bcd6a6e1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="6b9d238c85da86033aa8d662f38d646047e3ce02">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_d849e714f441e413ec3540b20d581a6f4bec695a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-22.2.0_4996bdac34d79a8e1f7bff6a927eb60c67774fc3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-22.2.1_68ef223881cfdb837d6f574d38dbc98e4bb31462/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-22.2.0_49f35dc454102eb648d3512ec0ae765f0fc3c8d4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="eb81d3582d474e1a62d9cd3a71bfaf034c051dc3">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_1dea61adf7b1d0c47fd3f3ef66e765d427b44e7c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/naqued/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/logging-interceptor/3.3.0/ba14d8b7789efde5ee150eacb297b7237abca39/logging-interceptor-3.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="0ba14d8b7789efde5ee150eacb297b7237abca39">
+        <dex dex="/home/naqued/Documents/Diabhelp/Diabhelp_project/git/medecin_patient/DiabHelp-App-Android/Medecin_Patient/app/build/intermediates/transforms/dex/debug/folders/1000/10/logging-interceptor-3.3.0_a085bcb107048ce17a5a79dc3276ca1b19bcc431/classes.dex" />
     </item>
 
 </items>

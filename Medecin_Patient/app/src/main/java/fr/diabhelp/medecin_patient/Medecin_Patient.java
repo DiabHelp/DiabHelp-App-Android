@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class Medecin_Patient extends AppCompatActivity {
     public static final String PREF_FILE = "PatientActivityPreferences";
     public static final String ID_USER = "id_user";
     private ViewPager viewPager;

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,12 +42,12 @@ public class MainActivityFragment extends Fragment implements ChatRecyclerListen
 
     String APIToken;
     String idUser;
-    MainActivity parent;
+    Medecin_Patient parent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parent = (MainActivity) getActivity();
+        parent = (Medecin_Patient) getActivity();
         idUser = parent.getIdUser();
     }
 

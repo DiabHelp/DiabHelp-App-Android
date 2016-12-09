@@ -20,11 +20,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import fr.diabhelp.medecin_patient.API.ApiErrors;
 import fr.diabhelp.medecin_patient.API.ApiService;
-import fr.diabhelp.medecin_patient.API.ResponseChatMessage;
 import fr.diabhelp.medecin_patient.API.ResponseMedecinList;
 import fr.diabhelp.medecin_patient.API.ResponseRequest;
 import fr.diabhelp.medecin_patient.API.RetrofitHelper;
@@ -53,12 +51,12 @@ public class MedecinsFragment extends Fragment implements MedecinRequestListener
     private LinearLayoutManager  listRecLayoutManager;
     String APIToken;
     String idUser;
-    MainActivity parent;
+    Medecin_Patient parent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parent = (MainActivity) getActivity();
+        parent = (Medecin_Patient) getActivity();
         idUser = parent.getIdUser();
     }
 
