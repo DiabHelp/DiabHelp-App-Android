@@ -1,7 +1,9 @@
 package fr.diabhelp.patient;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.TabLayout;
@@ -12,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import fr.diabhelp.patient.Suivi.SuivisFragment;
+import fr.diabhelp.patient.Utils.SharedContext;
 
 import java.util.ArrayList;
 
@@ -30,21 +33,22 @@ public class PatientActivity extends AppCompatActivity{
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        /*
-        try {
-            SharedContext.setContext(getApplicationContext().createPackageContext(
-                    "fr.diabhelp.diabhelp",
-                    Context.MODE_PRIVATE));
 
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        settings = SharedContext.getSharedContext().getSharedPreferences(PREF_FILE, MODE_PRIVATE);
-        idUser = settings.getString(ID_USER, "");
-        */
+//        try {
+//            SharedContext.setContext(getApplicationContext().createPackageContext(
+//                    "fr.diabhelp.diabhelp",
+//                    Context.CONTEXT_IGNORE_SECURITY));
+//
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        settings = SharedContext.getSharedContext().getSharedPreferences(PREF_FILE, MODE_PRIVATE);
+//        idUser = settings.getString(ID_USER, "");
+
 //        if (idUser.equals(""))
             idUser = "26";
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         toolbar.setTitle("Suivi des proches");
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Suivis"));

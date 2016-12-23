@@ -91,7 +91,7 @@ public class RechercheFragment extends Fragment implements SearchRecyclerListene
 
     private void searchProches(String query) {
         RetrofitHelper retrofitH = new RetrofitHelper(getActivity());
-        ApiService service = retrofitH.createService(RetrofitHelper.Build.DEV);
+        ApiService service = retrofitH.createService(RetrofitHelper.Build.PROD);
         Call<ResponseBody> call = service.searchPatient(query);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

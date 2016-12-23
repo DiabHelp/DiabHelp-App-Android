@@ -1,4 +1,4 @@
-package fr.diabhelp.proche.Utils;
+package fr.diabhelp.patient.Utils;
 
 import android.content.Context;
 
