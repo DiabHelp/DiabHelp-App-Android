@@ -23,18 +23,18 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addFood"
-            android:layout_width="79dp"
-            android:layout_height="79dp"
+            android:layout_height="56dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/food_add"
+            android:layout_width="56dp" />
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/cleanMenu"
-            android:layout_width="79dp"
-            android:layout_height="79dp"
+            android:layout_width="56dp"
             android:layout_gravity="bottom|start"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_delete_black_24dp" />
+            android:src="@drawable/ic_delete_black_24dp"
+            android:layout_height="56dp" />
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/main.appbar"
