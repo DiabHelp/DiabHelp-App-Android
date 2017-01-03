@@ -75,18 +75,22 @@
             <EditText
                 style="@style/editText_connexion"
                 android:hint="@string/connexion_pwd_input"
-                android:password="true"
-                android:id="@+id/pwd_input" />
+                android:inputType="textPassword"
+                android:id="@+id/pwd_input"
+                android:layout_marginTop="5dp" />
 
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:scaleX="1.2"
+                android:scaleY="1.2"
                 android:text="@string/checkbox_autoConnect"
                 android:textColor="@color/abc_primary_text_disable_only_material_dark"
                 android:id="@+id/checkbox_connexion_auto"
                 android:textAllCaps="false"
                 android:layout_gravity="center_horizontal"
-                android:checked="false" />
+                android:checked="false"
+                android:layout_marginTop="5dp" />
 
             <Button
                 android:layout_width="match_parent"

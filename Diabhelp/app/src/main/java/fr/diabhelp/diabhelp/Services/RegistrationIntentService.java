@@ -6,11 +6,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.iid.InstanceID;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.IOException;
 
+import fr.diabhelp.diabhelp.API.Asynctasks.TokenPostAPICallTask;
 import fr.diabhelp.diabhelp.Connexion_inscription.ConnexionActivity;
 import fr.diabhelp.diabhelp.R;
 
@@ -23,6 +23,12 @@ import fr.diabhelp.diabhelp.R;
  */
 public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
+    public static final String ID_USER = "fr.diabhelp.diabhelp.Services.ID_USER";
+
+    /**
+     * Actions
+     */
+    public static final String REMOVE_TOKEN = "fr.diabhelp.diabhelp.Services.REMOVE_TOKEN";
 
     public RegistrationIntentService() {
         super(TAG);
@@ -31,18 +37,30 @@ public class RegistrationIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent)
     {
-        SharedPreferences _settings = getSharedPreferences(ConnexionActivity.PREF_FILE, Context.MODE_PRIVATE);
-        try {
-            InstanceID instanceID = InstanceID.getInstance(this);
-            String token = instanceID.getToken(getString(R.string.project_number),
-                    GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-            Log.i(TAG, "GCM Registration Token = " + token);
-            //TODO ENVOYER TOKEN AU SERVEUR
-            //_settings.edit().putBoolean(ConnexionActivity.SENT_TOKEN_TO_SERVER, true).commit();
-        } catch (Exception e) {
-            Log.d(TAG, "Failed to complete token refresh", e);
-            _settings.edit().putBoolean(ConnexionActivity.SENT_TOKEN_TO_SERVER, false).commit();
+        String idUser = null;
+        String action = null;
+
+        action = intent.getAction();
+        if ((idUser = intent.getStringExtra(ID_USER)) != null)
+        {
+            System.out.println("RegistrationIntentService idUser = "  + idUser);
+            try {
+                String token = FirebaseInstanceId.getInstance().getToken();
+                Log.i(TAG, "FCM Registration Token = " + token);
+                if (action != null && (action.compareToIgnoreCase(REMOVE_TOKEN) == 0))
+                    token = "";
+                this.sendRegistrationToServer(idUser, token);
+            } catch (Exception e) {
+                Log.d(TAG, "Failed to complete token refresh", e);
+            }
         }
+
+    }
+
+    private void sendRegistrationToServer(String idUser, String token) {
+        new TokenPostAPICallTask(getApplicationContext()).execute(idUser, token);
+        stopSelf();
+
     }
 
 

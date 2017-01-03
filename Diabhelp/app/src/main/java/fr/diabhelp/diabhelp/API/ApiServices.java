@@ -19,6 +19,24 @@ import retrofit2.http.Query;
  * Interface for retrofit 2.0 which allow to make HTTP requests
  */
 public interface ApiServices {
+
+        @GET("/api/user/getInfo/{idUser}")
+        Call<ResponseBody>  getInfo(@Path("idUser") String id);
+
+        @GET("/api/modules/all")
+        Call<ResponseBody> getModules();
+        //TODO
+//        Call<ResponseBody> getModules(@Query("typeUser") JSONArray typeUser);
+
+        @FormUrlEncoded
+        @POST("/api/user/setInfo")
+        Call<ResponseBody>  setInfo(@Field("id") String id, @Field("email") String email, @Field("firstname") String firstname, @Field("lastname") String lastname, @Field("phone") String phone, @Field("birthdate") String birthdate, @Field("organisme") String organisme, @Field("password") String password);
+
+
+        @FormUrlEncoded
+        @POST("/logout")
+        Call<ResponseBody> logout(@Field("token") String token);
+
         @FormUrlEncoded
         @POST("/login_check")
         Call<ResponseBody> getBasicAuthSession(@Field("username") String usr, @Field("password") String pwd);
@@ -31,20 +49,8 @@ public interface ApiServices {
         @POST("/api/user/register")
         Call<ResponseBody> register(@Field("username") String usr,@Field("email") String mail, @Field("password") String pwd, @Field("role") String role, @Field("firstname") String first, @Field("lastname") String last);
 
-        @GET("/api/user/getInfo/{idUser}")
-        Call<ResponseBody>  getInfo(@Path("idUser") String id);
-
         @FormUrlEncoded
-        @POST("/api/user/setInfo")
-        Call<ResponseBody>  setInfo(@Field("id") String id, @Field("email") String email, @Field("firstname") String firstname, @Field("lastname") String lastname, @Field("phone") String phone, @Field("birthdate") String birthdate, @Field("organisme") String organisme, @Field("password") String password);
+        @POST("/api/user/setFCMToken")
+        Call<ResponseBody> sentTokenBindWithUser(@Field("id_user") String idUser, @Field("token") String token);
 
-
-        @FormUrlEncoded
-        @POST("/logout")
-        Call<ResponseBody> logout(@Field("token") String token);
-
-        @GET("/api/modules/all")
-        Call<ResponseBody> getModules();
-        //TODO
-//        Call<ResponseBody> getModules(@Query("typeUser") JSONArray typeUser);
 }

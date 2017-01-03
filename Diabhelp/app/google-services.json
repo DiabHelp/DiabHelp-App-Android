@@ -1,43 +1,46 @@
 {
   "project_info": {
-    "project_id": "diabhelp-1278",
     "project_number": "426701180871",
-    "name": "Diabhelp"
+    "firebase_url": "https://diabhelp-1278.firebaseio.com",
+    "project_id": "diabhelp-1278",
+    "storage_bucket": "diabhelp-1278.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:426701180871:android:82ca6a70b2a3479e",
-        "client_id": "android:fr.diabhelp.diabhelp",
-        "client_type": 1,
         "android_client_info": {
-          "package_name": "fr.diabhelp.diabhelp",
-          "certificate_hash": []
+          "package_name": "fr.diabhelp.diabhelp"
         }
       },
-      "oauth_client": [],
-      "api_key": [],
+      "oauth_client": [
+        {
+          "client_id": "426701180871-ekungn7cniv9tu4rq1nhtj4phdr5k2o4.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "426701180871-k2d3g76moq839q2vefsi5uvbtjnralab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTiIZsoqSD4go75UjXHeGrb-aABJe4ePE"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
-        },
-        "cloud_messaging_service": {
-          "status": 2,
-          "apns_config": []
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
-        "google_signin_service": {
-          "status": 1
-        },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
   ],
-  "client_info": [],
-  "ARTIFACT_VERSION": "1"
+  "configuration_version": "1"
 }

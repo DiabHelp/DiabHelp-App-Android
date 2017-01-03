@@ -6,7 +6,7 @@ android {
     buildToolsVersion '21.1.2'
     defaultConfig {
         applicationId "fr.diabhelp.diabhelp"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -30,5 +30,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
     compile 'com.android.support:support-v4:22.2.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
-    compile 'com.google.android.gms:play-services-gcm:8.3.0'
+    compile "com.google.firebase:firebase-invites:10.0.1"
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
 }
+apply plugin: 'com.google.gms.google-services'

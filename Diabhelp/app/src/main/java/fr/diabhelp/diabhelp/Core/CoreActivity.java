@@ -28,6 +28,7 @@ import fr.diabhelp.diabhelp.Menu.ParametersActivity;
 import fr.diabhelp.diabhelp.Menu.ProfileActivity;
 import fr.diabhelp.diabhelp.Models.ModuleList;
 import fr.diabhelp.diabhelp.R;
+import fr.diabhelp.diabhelp.Services.RegistrationIntentService;
 import fr.diabhelp.diabhelp.UtilizationGuide.GuideActivity;
 
 
@@ -148,10 +149,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             Intent mainIntent = new Intent(this, Faq.class);
             this.startActivity(mainIntent);
         } else if (id == R.id.nav_logout) {
-            Intent mainIntent = new Intent(this, ConnexionActivity.class);
-            mainIntent.putExtra("logout", "true");
-            this.startActivity(mainIntent);
-            this.finish();
+            preocessLogout();
         } else if (id == R.id.nav_facebook) {
             String url = "https://www.facebook.com/diabhelp";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -167,6 +165,19 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void preocessLogout() {
+        this.unregisterFCMToken();
+        SharedPreferences.Editor edit = _settings.edit();
+        edit.putString(ConnexionActivity.TOKEN, "");
+        edit.putString(ConnexionActivity.TYPE_USER, "");
+        edit.putString(ConnexionActivity.ID_USER, "");
+        edit.apply();
+        Intent mainIntent = new Intent(this, ConnexionActivity.class);
+        mainIntent.putExtra("logout", "true");
+        this.startActivity(mainIntent);
+        this.finish();
     }
 
     @Override
@@ -192,6 +203,14 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    public void unregisterFCMToken()
+    {
+        System.out.println("UNREGISTER TOKEN");
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        intent.putExtra(RegistrationIntentService.ID_USER, _settings.getString(ConnexionActivity.ID_USER, null));
+        intent.setAction(RegistrationIntentService.REMOVE_TOKEN);
+        startService(intent);
+    }
 
 
 
@@ -199,10 +218,5 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPreferences.Editor edit = _settings.edit();
-        edit.putString(ConnexionActivity.TOKEN, "");
-//        edit.putString(ConnexionActivity.TYPE_USER, "");
-//        edit.putString(ConnexionActivity.ID_USER, "");
-        edit.commit();
     }
 }

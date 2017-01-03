@@ -47,6 +47,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
     public static final String TOKEN = "token";
     public static final String TYPE_USER = "role";
     public static final String ID_USER = "id_user";
+    public static final String LOGIN_INPUT = "username";
 
     public static final String SENT_TOKEN_TO_SERVER = "token_is_sent_to_server";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
@@ -77,6 +78,12 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         if (_settings.getBoolean(AUTO_CONNEXION_PREFERENCE, false)) {
             Log.i("ConnexionActivity", "connexion automatique");
             connectAutomaticaly();
+        }
+        else
+        {
+            String savedUsername = _settings.getString(LOGIN_INPUT, null);
+            if (savedUsername != null)
+            ((EditText) findViewById(R.id.login_input)).setText(savedUsername);
         }
 }
 
@@ -283,6 +290,7 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
        // edit.putString(TOKEN,token);
         edit.putString(TYPE_USER, typeUser);
         edit.putString(ID_USER, idUser);
+        edit.putString(LOGIN_INPUT, _login_input);
         edit.apply();
         System.out.println("connexion ID_USER = " + _settings.getString(ConnexionActivity.ID_USER, ""));
         System.out.println("connexion ROLE = " + _settings.getString(ConnexionActivity.TYPE_USER, ""));
@@ -327,15 +335,22 @@ public class ConnexionActivity extends Activity implements IApiCallTask<Response
         coreInt.putExtra(IS_NETWORK, false);
         System.out.println("session = " + _session);
         coreInt.putExtra(SESSION, _session);
-        Boolean tokenGcmSentToServer = _settings.getBoolean(SENT_TOKEN_TO_SERVER, false);
-        if (!tokenGcmSentToServer) {
-            Intent intent = new Intent(this, RegistrationIntentService.class);
-            startService(intent);
-        }
+
+        registerFCMToken();
+
         _progress.dismiss();
 
         startActivity(coreInt);
         finish();
+    }
+
+    public void registerFCMToken()
+    {
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        String idUser = _settings.getString(ID_USER, null);
+        System.out.println("registerFCMToken idUser = " +  idUser);
+        intent.putExtra(RegistrationIntentService.ID_USER, idUser);
+        startService(intent);
     }
 
     /**
