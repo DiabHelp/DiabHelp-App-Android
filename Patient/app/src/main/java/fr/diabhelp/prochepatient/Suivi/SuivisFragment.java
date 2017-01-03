@@ -106,12 +106,10 @@ public class SuivisFragment extends Fragment implements ExpandableListAdapterLis
                             String body = response.body().string();
                             ResponseSuivi rep = new ResponseSuivi(JsonUtils.getObj(body), _role);
                             displayEntries(rep);
-                            //TODO AJOUT CHECK ROLE
-                            displayFloatingButton();
-//                            if (_role.equals(User.Role.PATIENT) && rep.getUserList().size() > 0)
-//                            {
-//                              displayFloatingButton();
-//                            }
+                            //displayFloatingButton();
+                            if (_role.equals(User.Role.PATIENT) && rep.getUserList().size() > 0) {
+                              displayFloatingButton();
+                            }
                         } else {
                             String error = response.errorBody().string();
                             System.out.println("erreur message = " + error);
