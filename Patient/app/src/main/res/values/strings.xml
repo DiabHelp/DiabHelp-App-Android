@@ -1,9 +1,9 @@
 <resources>
     <!--API-->
-    <string name="api_url_dev">http://dev.diabhelp.org/api/</string>
+    <string name="api_url_dev">https://dev.diabhelp.org/api/</string>
     <string name="api_url_prod">https://diabhelp.org/api/</string>
 
-    <string name="app_name">Patient</string>
+    <string name="app_name">Suivi des proches</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Paramètres</string>
     <string name="gps_setting_desc">Autoriser les médecins à acceder à la position GPS</string>

@@ -25,7 +25,7 @@
             android:visibility="gone" >
         <ProgressBar
                 android:id="@+id/progress_view"
-                style="@android:style/Widget.DeviceDefault.Spinner"
+                style="@android:style/Widget.Spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
         </ProgressBar>
