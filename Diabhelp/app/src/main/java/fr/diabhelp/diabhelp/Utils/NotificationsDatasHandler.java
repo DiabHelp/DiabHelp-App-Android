@@ -46,6 +46,7 @@ public class NotificationsDatasHandler {
                 }
             }
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
