@@ -46,7 +46,7 @@ public class ConnexionAPICallTask extends AsyncTask<String, Integer, ResponseCon
     public ConnexionAPICallTask(Context context){
         _listener = (IApiCallTask) context;
         _context = context;
-        URL_API = _context.getString(R.string.URL_API);
+        URL_API = _context.getString(R.string.URL_API_DEV);
     }
 
     @Override

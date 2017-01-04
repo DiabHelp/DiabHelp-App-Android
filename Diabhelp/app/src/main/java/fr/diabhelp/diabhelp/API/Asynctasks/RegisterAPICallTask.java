@@ -44,7 +44,7 @@ public class RegisterAPICallTask extends AsyncTask<String, Integer, ResponseRegi
     public RegisterAPICallTask(Context context){
         _listener = (IApiCallTask) context;
         _context = context;
-        URL_API = _context.getString(R.string.URL_API);
+        URL_API = _context.getString(R.string.URL_API_DEV);
     }
 
     @Override

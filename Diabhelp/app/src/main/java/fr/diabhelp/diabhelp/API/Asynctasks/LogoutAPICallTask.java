@@ -31,7 +31,7 @@ public class LogoutAPICallTask extends AsyncTask<String, Integer, Boolean> {
     public LogoutAPICallTask(IApiCallTask _listener, Context context) {
         this._listener = _listener;
         this._context = context;
-        URL_API = _context.getString(R.string.URL_API);
+        URL_API = _context.getString(R.string.URL_API_DEV);
     }
 
     @Override

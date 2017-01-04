@@ -34,7 +34,7 @@ public class ProfilGetAPICallTask extends AsyncTask<String, String, ResponseProf
     public ProfilGetAPICallTask(Context context, IApiCallTask listener){
         _listener = listener;
         _context = context;
-        URL_API = _context.getString(R.string.URL_API);
+        URL_API = _context.getString(R.string.URL_API_DEV);
     }
 
     @Override

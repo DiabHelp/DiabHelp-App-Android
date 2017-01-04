@@ -35,7 +35,7 @@ public class ParametresAPICallTask extends AsyncTask<String, String, ResponseCat
     public ParametresAPICallTask(Context context, IApiCallTask listener){
         this._listener = listener;
         this._context = context;
-        this.URL_API = this._context.getString(string.URL_API);
+        this.URL_API = this._context.getString(string.URL_API_DEV);
     }
 
     @Override
