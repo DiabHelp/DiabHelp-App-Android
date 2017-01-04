@@ -30,7 +30,7 @@ dependencies {
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar' // Fix LinearLayoutManager scroll wrap_content
     compile group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
-    compile 'com.google.android.gms:play-services:9.6.1'
+    compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'

@@ -47,12 +47,12 @@ public class DemandesFragment extends Fragment implements DemandeRecyclerListene
     String idUser;
     User.Role role;
 
-    ProchePatientActivity parent;
+    Suividesproches parent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parent = (ProchePatientActivity) getActivity();
+        parent = (Suividesproches) getActivity();
         idUser = parent.getIdUser();
         role = parent.getRole();
     }

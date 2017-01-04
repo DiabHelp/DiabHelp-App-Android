@@ -18,7 +18,7 @@ import fr.diabhelp.prochepatient.ApiLinker.ApiErrors;
 import fr.diabhelp.prochepatient.ApiLinker.ApiService;
 import fr.diabhelp.prochepatient.ApiLinker.ResponseSuivi;
 import fr.diabhelp.prochepatient.ApiLinker.RetrofitHelper;
-import fr.diabhelp.prochepatient.ProchePatientActivity;
+import fr.diabhelp.prochepatient.Suividesproches;
 import fr.diabhelp.prochepatient.R;
 import fr.diabhelp.prochepatient.User;
 import fr.diabhelp.prochepatient.Utils.DateUtils;
@@ -38,7 +38,7 @@ import java.util.Date;
  */
 public class SuivisFragment extends Fragment implements ExpandableListAdapterListener {
 
-    private ProchePatientActivity                   _parent;
+    private Suividesproches _parent;
     String                                          _idUser;
     User.Role                                       _role;
     private RecyclerView                            _recyclerView;
@@ -50,7 +50,7 @@ public class SuivisFragment extends Fragment implements ExpandableListAdapterLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _parent = (ProchePatientActivity) getActivity();
+        _parent = (Suividesproches) getActivity();
         _idUser = _parent.getIdUser();
         _role = _parent.getRole();
         System.out.println("onCreate role = " + _role);

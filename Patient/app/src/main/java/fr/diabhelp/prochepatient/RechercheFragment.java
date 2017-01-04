@@ -43,14 +43,14 @@ public class RechercheFragment extends Fragment implements SearchRecyclerListene
     private LinearLayout errorLayout;
     private RecyclerView patientsList;
     private SearchRecyclerAdapter adapter;
-    private ProchePatientActivity parent;
+    private Suividesproches parent;
     private String idUser;
     private User.Role role;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parent = (ProchePatientActivity) getActivity();
+        parent = (Suividesproches) getActivity();
         idUser = parent.getIdUser();
         role = parent.getRole();
     }
