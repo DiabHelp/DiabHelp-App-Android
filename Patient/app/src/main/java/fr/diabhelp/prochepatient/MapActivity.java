@@ -1,6 +1,7 @@
 package fr.diabhelp.prochepatient;
 
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +14,23 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     private MapView     _mapView;
+    private String[] position  = null;
+    private String name = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getIntent().getExtras() != null)
+        {
+            Bundle bundle = getIntent().getExtras();
+            String pos = bundle.getString("position");
+            if (pos != null && !pos.isEmpty())
+            {
+                this.position = pos.split(";");
+                this.name = bundle.getString("name");
+            }
+
+        }
         setContentView(R.layout.fragment_maps);
         _mapView = (MapView) findViewById(R.id.map);
         _mapView.onCreate(savedInstanceState);
@@ -30,9 +44,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             return;
         googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        LatLng beijing = new LatLng(39, 116);
-        googleMap.addMarker(new MarkerOptions().position(beijing).title("Beijing"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(beijing));
+        if (position != null)
+        {
+            LatLng actual = new LatLng(Double.valueOf(position[0]), Double.valueOf(position[1]));
+            if (actual != null)
+            {
+                googleMap.addMarker(new MarkerOptions().position(actual).title(this.name));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(actual));
+            }
+        }
         googleMap.getUiSettings().setAllGesturesEnabled(true);
         googleMap.getUiSettings().setMapToolbarEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);

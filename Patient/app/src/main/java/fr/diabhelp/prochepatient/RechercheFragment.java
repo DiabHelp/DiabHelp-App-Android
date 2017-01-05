@@ -93,7 +93,7 @@ public class RechercheFragment extends Fragment implements SearchRecyclerListene
 
     private void searchUsers(String query) {
         RetrofitHelper retrofitH = new RetrofitHelper(getActivity());
-        ApiService service = retrofitH.createService(RetrofitHelper.Build.PROD);
+        ApiService service = retrofitH.createService(RetrofitHelper.Build.DEV);
         Call<ResponseBody> call = null;
         System.out.println("idUserBeforeRecherche = " + this.idUser);
         System.out.println("roleBeforeRecherche = " + this.role);
@@ -183,7 +183,7 @@ public class RechercheFragment extends Fragment implements SearchRecyclerListene
     {
         System.out.println("je vais send une demande");
         RetrofitHelper retrofitH = new RetrofitHelper(parent);
-        ApiService service = retrofitH.createService(RetrofitHelper.Build.PROD);
+        ApiService service = retrofitH.createService(RetrofitHelper.Build.DEV);
         Call<ResponseBody> call = null;
         if (role.equals(User.Role.PATIENT) == true)
             call = service.sendDemandeToProche(this.idUser, idUser, ManageListStatus.WAITING.ordinal());

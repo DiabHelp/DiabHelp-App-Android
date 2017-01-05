@@ -33,7 +33,7 @@ public class ResponseSuivi {
                     JSONObject item;
                     if (role.equals(User.Role.PATIENT)) {
                         if ((item = array.getJSONObject(i).getJSONObject("proche")) != null) {
-                            ExpandableListAdapter.Item patient = new ExpandableListAdapter.Item(JsonUtils.getStringFromKey(item, "id"), ExpandableListAdapter.HEADER, 2, item.getString("firstname"), item.getString("lastname"), new Location(""), null);
+                            ExpandableListAdapter.Item patient = new ExpandableListAdapter.Item(JsonUtils.getStringFromKey(item, "id"), ExpandableListAdapter.HEADER, 2, item.getString("firstname"), item.getString("lastname"),"", null);
                             patient.getInvisibleChildren().add(new ExpandableListAdapter.Item(null, ExpandableListAdapter.CHILD, ExpandableListAdapter.PHONE, null, null, null, JsonUtils.getStringFromKey(item, "phone")));
                             //                        patient.invisibleChildren.add(new ExpandableListAdapter.Item(null, ExpandableListAdapter.CHILD, ExpandableListAdapter.ALERT, null, null, null, null));
                             userList.add(patient);
@@ -41,7 +41,7 @@ public class ResponseSuivi {
                     }
                     else if (role.equals(User.Role.PROCHE)) {
                         if ((item = array.getJSONObject(i).getJSONObject("patient")) != null) {
-                            ExpandableListAdapter.Item patient = new ExpandableListAdapter.Item(JsonUtils.getStringFromKey(item, "id"), ExpandableListAdapter.HEADER, 2, item.getString("firstname"), item.getString("lastname"), new Location(""), null);
+                            ExpandableListAdapter.Item patient = new ExpandableListAdapter.Item(JsonUtils.getStringFromKey(item, "id"), ExpandableListAdapter.HEADER, 2, item.getString("firstname"), item.getString("lastname"), "", null);
                             patient.getInvisibleChildren().add(new ExpandableListAdapter.Item(null, ExpandableListAdapter.CHILD, ExpandableListAdapter.PHONE, null, null, null, JsonUtils.getStringFromKey(item, "phone")));
                             //                        patient.invisibleChildren.add(new ExpandableListAdapter.Item(null, ExpandableListAdapter.CHILD, ExpandableListAdapter.ALERT, null, null, null, null));
                             userList.add(patient);

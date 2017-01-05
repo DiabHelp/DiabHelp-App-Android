@@ -1,6 +1,7 @@
 package fr.diabhelp.prochepatient;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -10,12 +11,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import fr.diabhelp.prochepatient.ApiLinker.ApiErrors;
@@ -68,11 +72,48 @@ public class Suividesproches extends AppCompatActivity{
             idUser = "26";
 
         getUserInfos(idUser);
+        if (getIntent().getExtras() != null)
+        {
+            System.out.println("Suividesproches getExtra != null");
+            handleBundle(getIntent().getExtras());
+        }
+    }
+
+    private void handleBundle(Bundle bundle) {
+        if (bundle.containsKey("carnet"))
+        {
+            System.out.println("Suividesproches handle alert");
+            handleGetAlert(bundle);
+        }
+    }
+
+    private void handleGetAlert(Bundle bundle) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+// Add the buttons
+        LayoutInflater inflater = getLayoutInflater();
+        View v = inflater.inflate(R.layout.reception_alert_dialog, null);
+        builder.setView(v);
+        builder.setTitle("Alerte d'un proche");
+        builder.setMessage(bundle.get("nom") + " a besoin d'assistance.\n  S'en occuper ?");
+        ((TextView) v.findViewById(R.id.alert_message)).setText("\"" + bundle.get("message") + "\"");
+        builder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+            }
+        });
+        builder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+// Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void getUserInfos(final String idUser) {
         RetrofitHelper retrofitH = new RetrofitHelper(getApplicationContext());
-        ApiService serv = retrofitH.createService(RetrofitHelper.Build.PROD);
+        ApiService serv = retrofitH.createService(RetrofitHelper.Build.DEV);
         Call<ResponseBody> call = serv.getUserInfo(idUser);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

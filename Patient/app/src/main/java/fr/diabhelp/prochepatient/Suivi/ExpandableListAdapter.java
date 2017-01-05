@@ -117,6 +117,8 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent intent = new Intent(_inflater.getContext(), MapActivity.class);
+                                    intent.putExtra("position", item.getGps());
+                                    intent.putExtra("name", item.getName() + " " + item.getSurname());
                                     _inflater.getContext().startActivity(intent);
                                 }
                             });
@@ -268,11 +270,11 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         private int              childType;
         public String           name;
         private String           surname;
-        private Location         gps;
+        private String         gps;
         private String           phone;
         private List<ExpandableListAdapter.Item>       invisibleChildren = new ArrayList<>();
 
-        public Item(String id, int type, int childType, String name, String surname, Location gps, String phone) {
+        public Item(String id, int type, int childType, String name, String surname, String gps, String phone) {
 
             this.id = id;
             this.type = type;
@@ -287,7 +289,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             return this.childType;
         }
 
-        public Location getGps() {
+        public String getGps() {
             return this.gps;
         }
 

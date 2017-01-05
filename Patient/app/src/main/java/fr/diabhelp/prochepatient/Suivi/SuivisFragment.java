@@ -88,7 +88,7 @@ public class SuivisFragment extends Fragment implements ExpandableListAdapterLis
 
     public ArrayList<ExpandableListAdapter.Item> getUserItems() throws Exception {
         RetrofitHelper retrofitHelper = new RetrofitHelper(getActivity());
-        ApiService service = retrofitHelper.createService(RetrofitHelper.Build.PROD);
+        ApiService service = retrofitHelper.createService(RetrofitHelper.Build.DEV);
         Call<ResponseBody> call = null;
         System.out.println("getUserItems role = " + _role);
         if (_role.equals(User.Role.PATIENT) == true)
@@ -231,7 +231,7 @@ public class SuivisFragment extends Fragment implements ExpandableListAdapterLis
     @Override
     public void onClickAlertSpecificProche(String idProche, String alertText, String nowStr) {
         RetrofitHelper retrofitHelper = new RetrofitHelper(getActivity());
-        ApiService service = retrofitHelper.createService(RetrofitHelper.Build.PROD);
+        ApiService service = retrofitHelper.createService(RetrofitHelper.Build.DEV);
         Call<ResponseBody> call = service.sendAlertToSpecificUser(this._idUser, idProche, nowStr, alertText);
         if (call != null)
         {

@@ -69,7 +69,7 @@ public class ProchePatientActivity extends AppCompatActivity{
 
     private void getUserInfos(final String idUser) {
         RetrofitHelper retrofitH = new RetrofitHelper(getApplicationContext());
-        ApiService serv = retrofitH.createService(RetrofitHelper.Build.PROD);
+        ApiService serv = retrofitH.createService(RetrofitHelper.Build.DEV);
         Call<ResponseBody> call = serv.getUserInfo(idUser);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
