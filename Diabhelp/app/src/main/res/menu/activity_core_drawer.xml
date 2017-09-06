@@ -22,8 +22,8 @@
             <menu>
                 <item android:id="@+id/nav_facebook"
                     android:title="Facebook" />
-<!--                <item android:id="@+id/nav_twitter"
-                    android:title="Twitter" />-->
+                <item android:id="@+id/nav_twitter"
+                    android:title="Twitter" />
             </menu>
         </item>
 </menu>

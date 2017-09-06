@@ -557,56 +557,59 @@ public class StatisticsPersoFragment extends Fragment implements View.OnClickLis
     }
 
     private void launchGraph() {
-        if (_startDate.getText().length() == 0) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-            alertDialog.setTitle("Date de début manquante");
-            alertDialog.setMessage("Veuillez renseigner une date de début.");
-            alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
-            alertDialog.show();
-        } else if (_endDate.getText().length() == 0) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-            alertDialog.setTitle("Date de fin manquante");
-            alertDialog.setMessage("Veuillez renseigner une date de fin.");
-            alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                }
-            });
-            alertDialog.show();
-        } else {
-
-            try {
-                _startCalendar = stringToCalendar(_startDate.getText().toString());
-                _endCalendar = stringToCalendar(_endDate.getText().toString());
-            } catch (ParseException e) {
-                Log.e("Date Parsing Exception", e.getMessage());
-            }
-
-            long start = _startCalendar.getTimeInMillis();
-            long end = _endCalendar.getTimeInMillis();
-            if (start > end) {
+        if (!(_startDate.getText().toString().contains("Date de début") || _endDate.getText().toString().contains("Date de fin"))) {
+            if (_startDate.getText().length() == 0) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setTitle("Dates invalides");
-                alertDialog.setMessage("Veuillez renseigner une date de début inférieure à celle de fin.");
+                alertDialog.setTitle("Date de début manquante");
+                alertDialog.setMessage("Veuillez renseigner une date de début.");
+                alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                alertDialog.show();
+            } else if (_endDate.getText().length() == 0) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setTitle("Date de fin manquante");
+                alertDialog.setMessage("Veuillez renseigner une date de fin.");
                 alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
                 alertDialog.show();
             } else {
-                if (getAndSetData())
-                    chart.startDataAnimation();
-                else {
+
+                try {
+                    _startCalendar = stringToCalendar(_startDate.getText().toString());
+                    _endCalendar = stringToCalendar(_endDate.getText().toString());
+                } catch (ParseException e) {
+                    Log.e("Date Parsing Exception", e.getMessage());
+                }
+
+                long start = _startCalendar.getTimeInMillis();
+                long end = _endCalendar.getTimeInMillis();
+                if (start > end) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                    alertDialog.setTitle("Aucun résultat");
-                    alertDialog.setMessage("Auncun résultat n'a été trouvé.");
+                    alertDialog.setTitle("Dates invalides");
+                    alertDialog.setMessage("Veuillez renseigner une date de début inférieure à celle de fin.");
                     alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                         }
                     });
                     alertDialog.show();
+                } else {
+                    if (getAndSetData())
+                        chart.startDataAnimation();
+                    else {
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                        alertDialog.setTitle("Aucun résultat");
+                        alertDialog.setMessage("Auncun résultat n'a été trouvé.");
+                        alertDialog.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        alertDialog.show();
+
+                    }
                 }
             }
         }

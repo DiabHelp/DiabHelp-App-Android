@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import fr.diabhelp.diabhelp.Models.CatalogModule;
 import fr.diabhelp.diabhelp.R;
@@ -34,7 +35,7 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
         TextView    desc;
         ImageView   logo;
         String      URLStore;
-        //String      URLWeb;
+        String      URLWeb;
         //TextView    size;
         TextView    isNew;
 
@@ -48,20 +49,20 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
             desc = (TextView) itemView.findViewById(R.id.desc);
             logo = (ImageView) itemView.findViewById(R.id.logo);
             //size = (TextView) itemView.findViewById(R.id.size);
-            isNew = (TextView) itemView.findViewById(R.id.isnew);
+            //isNew = (TextView) itemView.findViewById(R.id.isnew);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
                     alertDialog.setTitle("Confirmation");
-                    alertDialog.setMessage("Voulez-vous etre redirige vers le Playstore ou vers la page Web du module ?");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CANCEL", new DialogInterface.OnClickListener() {
+                    alertDialog.setMessage("Voulez-vous etre redirige vers le Playstore de Google ?");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Annuler", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
                     });
-                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "STORE", new DialogInterface.OnClickListener() {
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Store", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             try {
@@ -69,22 +70,24 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
                                 System.out.println("URL store: " + urlstore);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(urlstore));
-                                itemView.getContext().startActivity(intent);
+                                if (URLStore.contains("glucocompteur") || URLStore.contains("carnetdesuivi"))
+                                    itemView.getContext().startActivity(intent);
                             } catch (Exception e) {
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(URLStore));
-                                itemView.getContext().startActivity(intent);
+                                if (URLStore.contains("glucocompteur") || URLStore.contains("carnetdesuivi"))
+                                    itemView.getContext().startActivity(intent);
                             }
                         }
                     });
-                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "WEB", new DialogInterface.OnClickListener() {
+/*                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Site web", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             try {
-                                String urlstore = URLStore.replace("https://play.google.com/store/apps/", "market://");
-                                System.out.println("URL store: " + urlstore);
+                                String web = URLStore.replace("https://play.google.com/store/apps/", "market://");
+                                System.out.println("URL web: " + web);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(urlstore));
+                                intent.setData(Uri.parse(web));
                                 itemView.getContext().startActivity(intent);
                             } catch (Exception e) {
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -92,7 +95,7 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
                                 itemView.getContext().startActivity(intent);
                             }
                         }
-                    });
+                    }); */
                     alertDialog.show();
                 }
             });
@@ -114,14 +117,14 @@ public class CatalogRecyclerAdapter extends RecyclerView.Adapter<CatalogRecycler
     @Override
     public void onBindViewHolder(CatalogModuleHolder holder, int pos) {
         holder.name.setText(_modulesList.get(pos).getName());
-        holder.version.setText(_modulesList.get(pos).getVersion());
+        //holder.version.setText(_modulesList.get(pos).getVersion());
         holder.rating.setRating(Float.valueOf(_modulesList.get(pos).getRating()));
         holder.desc.setText(_modulesList.get(pos).getDesc());
         holder.logo.setImageResource(R.drawable.diab_logo);
         holder.URLStore = _modulesList.get(pos).getURLStore();
         //holder.URLWeb = _modulesList.get(pos).getURLWeb();
         //holder.size.setText("Taille : " + _modulesList.get(pos).getSize());
-        holder.isNew.setText("NEW");
+        //holder.isNew.setText("NEW");
     }
 
     @Override

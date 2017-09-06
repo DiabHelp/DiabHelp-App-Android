@@ -156,12 +156,11 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         }
- /*       else if (id == R.id.nav_twitter) {
-            // TODO Twitter account
-            String url = "https://www.facebook.com/diabhelp";
+        else if (id == R.id.nav_twitter) {
+            String url = "https://twitter.com/DiabHelp_";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
-        }*/
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -185,9 +184,9 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.settings:
-                launchParameters();
-                return true;
+            //case R.id.settings:
+                //launchParameters();
+                //return true;
         }
         return super.onOptionsItemSelected(item);
     }
