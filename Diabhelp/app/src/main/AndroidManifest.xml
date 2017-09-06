@@ -8,6 +8,9 @@
     <permission
         android:name="fr.diabhelp.diabhelp.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+    <uses-permission android:name = "android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-permission android:name="fr.diabhelp.diabhelp.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -116,6 +119,32 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+           <activity
+                android:name="fr.diabhelp.diabhelp.Carnet_de_suivi.Carnetdesuivi"
+                android:label="@string/app_name_cds"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme_cds"
+               >
+
+            </activity>
+            <activity
+                android:name="fr.diabhelp.diabhelp.Carnet_de_suivi.Carnet.EntryActivity"
+                android:label="@string/app_name_cds"
+                android:windowSoftInputMode="adjustPan" />
+            <activity
+                android:name="fr.diabhelp.diabhelp.Carnet_de_suivi.Carnet.AccueilStatistics"
+                android:label="@string/app_name_cds"
+                android:windowSoftInputMode="adjustPan" />
+            <activity
+                android:name="fr.diabhelp.diabhelp.Carnet_de_suivi.Carnet.DayResultActivity"
+                android:label="@string/app_name_cds" />
+            <activity
+                android:name="fr.diabhelp.diabhelp.Carnet_de_suivi.Carnet.Statistics.StatisticsActivity"
+                android:label="@string/app_name_cds"
+                android:windowSoftInputMode="adjustPan" />
+
+
     </application>
 
 </manifest>

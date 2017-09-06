@@ -4,6 +4,7 @@ package fr.diabhelp.diabhelp.Core;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.DrawableContainer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -74,7 +75,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
         System.out.println("core ROLE = " + _settings.getString(ConnexionActivity.TYPE_USER, ""));
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        app = moduleList.getPackages();
+        app = moduleList.getModule();
 
         //init menu
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -125,7 +126,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
     public void updateModuleList()
     {
         moduleList.update();
-        this.app = moduleList.getAppList();
+        this.app = moduleList.getModule();
     }
 
 

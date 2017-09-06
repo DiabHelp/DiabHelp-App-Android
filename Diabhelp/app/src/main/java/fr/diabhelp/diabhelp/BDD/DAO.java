@@ -18,7 +18,7 @@ public class DAO{
     }
 
     //version de la BDD
-    private final static int VERSION_HEAD = 20;
+    private final static int VERSION_HEAD = 25;
 
     // Le nom du fichier qui représente ma base
     private final static String NOM = "dh_db.db";

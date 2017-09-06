@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.diabhelp.diabhelp.Core.ParametresModule;
+import fr.diabhelp.diabhelp.R;
 
 /**
  * Created by Sumbers on 21/07/2016.
@@ -38,13 +39,33 @@ public class ModuleList {
 
     public ModuleList(Context context) {
         this.context = context;
-        apps = this.getPackages();
+        apps = this.getModule();
+
+    }
+    public ArrayList<ModuleList.PInfo> getModule()
+    {
+        this.apps = new ArrayList<PInfo>();
+        ModuleList.PInfo cds = new ModuleList.PInfo();
+        ModuleList.PInfo glu = new ModuleList.PInfo();;
+        cds.appname = "Carnet de suivi";
+        cds.pname = "Carnet de suivi";
+        this.web = new String[2];
+        this.img = new Drawable[2];
+        this.web[0] = "Carnet de suivi";
+        this.img[0]  = context.getResources().getDrawable( R.drawable.old_ic_launcher );
+        cds.publicSourceDir = "https://diabhelp.fr/fr/modules/21";
+        glu.appname = "Glucocompteur";
+        glu.pname = "Glucocompteur";
+        glu.publicSourceDir = "https://diabhelp.fr/fr/modules/17";
+        this.apps.add(0,cds);
+        this.apps.add(1, glu);
+        return this.apps;
 
     }
 
     public void update()
     {
-        this.apps = getPackages();
+        this.apps = getModule();
     }
 
     public ArrayList<ModuleList.PInfo> getPackages() {
@@ -117,11 +138,13 @@ public class ModuleList {
 
     private int countApp(List<PackageInfo> packs) {
         int ctr = 0;
-        for(int i=0;i<packs.size();i++) {
+
+        /*for(int i=0;i<packs.size();i++) {
             PackageInfo p = packs.get(i);
             if (p.packageName.contains("diabhelp") && !p.packageName.contains("diabhelp.diabhelp"))
                 ctr++;
-        }
+        }*/
+
         return ctr;
     }
 

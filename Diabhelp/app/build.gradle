@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion '21.1.2'
+    compileSdkVersion 24
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "fr.diabhelp.diabhelp"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -19,18 +19,26 @@ android {
     }
     productFlavors {
     }
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
-    compile 'com.android.support:recyclerview-v7:22.2.1'
-    compile 'com.android.support:cardview-v7:22.2.1'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.android.support:cardview-v7:24.1.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
-    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.android.support:support-v4:24.1.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
     compile "com.google.firebase:firebase-invites:10.0.1"
     compile 'com.google.firebase:firebase-messaging:10.0.1'
+
+
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
 }
 apply plugin: 'com.google.gms.google-services'

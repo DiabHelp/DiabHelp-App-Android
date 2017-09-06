@@ -21,6 +21,7 @@ import android.widget.GridView;
 import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
+import fr.diabhelp.diabhelp.Carnet_de_suivi.Carnetdesuivi;
 import fr.diabhelp.diabhelp.Models.ModuleList;
 import fr.diabhelp.diabhelp.Models.ModuleList.PInfo;
 import fr.diabhelp.diabhelp.R.id;
@@ -62,10 +63,9 @@ public class AccueilFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                if (app.get(position).pname.contains("diab_website")) {
+                if (app.get(position).pname.contains("")) {
 //                    if (_session != null) {
-                        String url = "https://www.diabhelp.org";
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        Intent intent = new Intent(getContext(), Carnetdesuivi.class);
                     AccueilFragment.this.startActivity(intent);
 //                    }
                     /*else {

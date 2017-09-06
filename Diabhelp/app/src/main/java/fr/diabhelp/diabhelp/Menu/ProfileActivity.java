@@ -94,7 +94,7 @@ public class ProfileActivity extends AppCompatActivity implements IApiCallTask
         Toolbar toolbar = (Toolbar) this.findViewById(id.toolbar);
         toolbar.setTitle("Profil");
         this.setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(drawable.abc_ic_ab_back_mtrl_am_alpha);
+//        toolbar.setNavigationIcon(drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -49,8 +49,8 @@
 
     <!--API-->
     <!--<string name="URL_API">http://10.0.3.2/DiabHelp-WebSite/web/</string>-->
-    <string name="URL_API_DEV">https://dev.diabhelp.org/</string>
-    <string name="URL_API">https://diabhelp.org/</string>
+    <string name="URL_API_DEV">https://diabhelp.fr/</string>
+    <string name="URL_API">https://diabhelp.fr/</string>
     <string name="error_server">Impossible de se connecter au serveur, veuillez vérifier votre connexion ou réessayer plus tard</string>
 
     <!--Drawer-->
@@ -720,5 +720,53 @@
     </string-array>
     <!--Fin mode d'emploi-->
 
+    <!-- Carnet de suivi -->
+    <string name="app_name_cds">Carnet de suivi</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="width_input">200dp</string>
+    <string name="petitdej">Petit déjeuner</string>
+    <string name="launch">Déjeuner</string>
+    <string name="diner">Diner</string>
+    <string name="encas">Encas</string>
+    <string name="sleep">Coucher</string>
+    <string name="wakeup">Levée</string>
+    <string name="night">Nuit</string>
+    <string name="workout">Sport</string>
+    <string name="work">Travail</string>
+    <string name="home">Maison</string>
+    <string name="alcohol">Alcool</string>
+    <string name="period">Période</string>
+    <string name="hypoglycemi">Sensation Hypo</string>
+    <string name="hyperglycemi">Sensation Hyper</string>
+
+    <!-- API-->
+    <string name="URL_API_dev">http://dev.diabhelp.org/</string>
+    <string name="mail_loading">Envoi des données..</string>
+    <string name="sending_success">Mail envoyé !</string>
+    <string name="synchro_bd">Chargement…</string>
+
+    <string name="hyposhort">Hypo</string>
+    <string name="hypershort">Hyper</string>
+
+    <!--EXPORT-->
+    <string name="export_period_required">Veuillez remplir la pèriode désirée pour l\'export</string>
+    <string name="export_begin_date_required">La date de début n\'a pas été remplis</string>
+    <string name="export_end_date_required">La date de fin n\'a pas été remplis</string>
+    <string name="export_begin_date_incorrect">La date de début doit être antérieure à la date courante</string>
+    <string name="export_end_date_incorrect">La date de fin doit être antérieure à la date courante</string>
+    <string name="export_end_date_before_begin_date">La date de fin doit être postérieure à la date de début</string>
+    <string name="mail_incorrect">L\'adresse mail est incorrect</string>
+    <!-- Fin carnet de suivi -->
+
+    <!-- Gluco -->
+    <string name="app_name_gluco">Glucocompteur</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="search_label">Rechercher un aliment</string>
+    <!-- end gluco -->
 </resources>
 
