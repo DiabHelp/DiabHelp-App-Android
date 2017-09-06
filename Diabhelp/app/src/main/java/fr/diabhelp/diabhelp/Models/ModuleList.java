@@ -53,6 +53,8 @@ public class ModuleList {
         this.img = new Drawable[2];
         this.web[0] = "Carnet de suivi";
         this.img[0]  = context.getResources().getDrawable( R.drawable.old_ic_launcher );
+        this.web[1] = "Glucocompteur";
+        this.img[1]  = context.getResources().getDrawable( R.drawable.ic_launcher_gl );
         cds.publicSourceDir = "https://diabhelp.fr/fr/modules/21";
         glu.appname = "Glucocompteur";
         glu.pname = "Glucocompteur";

@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import fr.diabhelp.diabhelp.BDD.DAO;
 import fr.diabhelp.diabhelp.Carnet_de_suivi.Carnetdesuivi;
+import fr.diabhelp.diabhelp.Glucocompteur.Glucocompteur;
 import fr.diabhelp.diabhelp.Models.ModuleList;
 import fr.diabhelp.diabhelp.Models.ModuleList.PInfo;
 import fr.diabhelp.diabhelp.R.id;
@@ -63,19 +64,13 @@ public class AccueilFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                if (app.get(position).pname.contains("")) {
-//                    if (_session != null) {
+                if (app.get(position).pname.contains("Carnet de suivi")) {
                         Intent intent = new Intent(getContext(), Carnetdesuivi.class);
                     AccueilFragment.this.startActivity(intent);
-//                    }
-                    /*else {
-                        MyToast toast = MyToast.getInstance();
-                        toast.displayWarningMessage("Vous ne pouvez pas accéder à cette fonctionnalité, car vous n'ètes pas connécté à Internet.", 10, Core.this);
-                    }*/
                 }
-                else if (app.get(position).pname.contains("help_me")) {
-//                    Intent Intmod_manager = new Intent(Core.this, HelpActivity.class);
-//                    startActivity(Intmod_manager);
+                else if (app.get(position).pname.contains("Glucocompteur")) {
+                    Intent intent = new Intent(getContext(), Glucocompteur.class);
+                    AccueilFragment.this.startActivity(intent);
                 }
                 else {
                     Intent intent = new Intent(app.get(position).pname);

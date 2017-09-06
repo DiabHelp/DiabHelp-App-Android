@@ -85,11 +85,11 @@ public class ParametersActivity extends AppCompatActivity implements IApiCallTas
         }
         switch (item.getItemId()) {
             case id.action_uninstall:
-                Log.d("ModuleManager", "Context Menu : Uninstall app : " + holder.pname);
+                Log.d("ModuleManager", "Context MyMenu : Uninstall app : " + holder.pname);
                 holder.uninstallApp();
                 break;
             case id.action_store:
-                Log.d("ModuleManager", "Context Menu : Store : " + holder.pname);
+                Log.d("ModuleManager", "Context MyMenu : Store : " + holder.pname);
                 holder.openStore();
                 break;
         }

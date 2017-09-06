@@ -144,6 +144,10 @@
                 android:label="@string/app_name_cds"
                 android:windowSoftInputMode="adjustPan" />
 
+        <activity
+            android:name="fr.diabhelp.diabhelp.Glucocompteur.Glucocompteur"
+            android:label="@string/app_name_gluco" >
+        </activity>
 
     </application>
 

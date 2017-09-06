@@ -32,12 +32,12 @@ public class SplashScreen extends Activity {
             handleBundle(bundle);
         else
         {
-         /* New Handler to start the Menu-Activity
+         /* New Handler to start the MyMenu-Activity
          * and close this Splash-Screen after some seconds.*/
             new Handler().postDelayed(new Runnable(){
                 @Override
                 public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
+                /* Create an Intent that will start the MyMenu-Activity. */
                     Intent mainIntent = new Intent(SplashScreen.this, ConnexionActivity.class);
                     SplashScreen.this.startActivity(mainIntent);
                     SplashScreen.this.finish();

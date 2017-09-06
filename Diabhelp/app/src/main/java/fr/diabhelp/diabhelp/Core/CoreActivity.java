@@ -140,7 +140,7 @@ public class CoreActivity extends AppCompatActivity implements NavigationView.On
             Intent mainIntent = new Intent(this, ProfileActivity.class);
             this.startActivity(mainIntent);
         } else if (id == R.id.nav_website) {
-            String url = "http://www.diabhelp.org";
+            String url = "http://www.diabhelp.fr";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
         } else if (id == R.id.nav_help) {
